@@ -1,5 +1,4 @@
 import 'package:farmeasy/base/utils/routes.dart';
-import 'package:farmeasy/screens/homeTab/home_tab.dart';
 import 'package:farmeasy/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -73,7 +72,7 @@ class MyApp extends ConsumerWidget {
         ],
         supportedLocales: S.delegate.supportedLocales,
         onGenerateRoute: AppRoute.onGeneratedRoute,
-        initialRoute: HomeTab.route,
+        initialRoute: SplashScreen.route,
       ),
     );
   }

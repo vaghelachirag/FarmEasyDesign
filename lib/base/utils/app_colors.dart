@@ -96,5 +96,12 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
 
   // Bottom bar Selection
   static const bottomBarSelectionColor = Color(0xFFC4E2BF);
+  static const bottomBarSelectionTextColor = Color(0xFF49454F);
+
+// Tab bar Cycle Tab bar
+  static const customCycleTabSelectedColor = Color(0xFF453D55);
+  static const customCycleTabUnSelectedColor = Color(0xFFF0F4EC);
+  static const customCycleTabUnSelectedTextColor = Color(0xFF79767D);
+
 
 }

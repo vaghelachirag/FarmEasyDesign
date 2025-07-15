@@ -5,8 +5,8 @@ import 'package:farmeasy/screens/splash/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../screens/dashboard/dashboard_page.dart';
-import '../../screens/homeTab/home_tab.dart';
+import '../../screens/tab/dashboard/dashboard_page.dart';
+import '../../screens/tab/homeTab/home_tab.dart';
 
 
 class AppRoute {

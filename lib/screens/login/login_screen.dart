@@ -1,8 +1,9 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/components/widget/custom_checkbox.dart';
-import 'package:farmeasy/screens/dashboard/dashboard_page.dart';
 import 'package:farmeasy/screens/login/provider/login_provider.dart';
+import 'package:farmeasy/screens/tab/dashboard/dashboard_page.dart';
+import 'package:farmeasy/screens/tab/homeTab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -103,7 +104,7 @@ class LoginScreen extends HookConsumerWidget {
                   btnName: S.of(context).logIn,
                   onPressed: () {
                     FocusManager.instance.primaryFocus?.unfocus();
-                    context.navigator.pushReplacementNamed(DashboardPage.route);
+                    context.navigator.pushReplacementNamed(HomeTab.route);
                     // Add login validation here
                   },
                 ),

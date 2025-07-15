@@ -117,14 +117,14 @@ ThemeData lightTheme() {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       showUnselectedLabels: true,
       showSelectedLabels: true,
-      selectedItemColor: AppColors.navBarUnselectedColor,
+      selectedItemColor: AppColors.black16,
       selectedIconTheme: IconThemeData(color: AppColors.navBarColor),
       unselectedItemColor: AppColors.navBarUnselectedColor,
       unselectedLabelStyle: TextStyle(
         color: AppColors.navBarUnselectedColor,
         fontSize: 10.sp,
         // letterSpacing: .2,
-        // fontFamily: FontFamily.raleway,
+        fontFamily: FontFamily.roboto,
       ),
       selectedLabelStyle: TextStyle(
         color: AppColors.navBarUnselectedColor,
@@ -136,7 +136,7 @@ ThemeData lightTheme() {
       type: BottomNavigationBarType.fixed,
     ),
     scrollbarTheme: ScrollbarThemeData(
-      thumbColor: WidgetStateProperty.all(AppColors.primary),
+      thumbColor: WidgetStateProperty.all(AppColors.navBarUnselectedColor),
       radius: const Radius.circular(10),
       thumbVisibility: WidgetStateProperty.all(true),
       trackVisibility: WidgetStateProperty.all(true),

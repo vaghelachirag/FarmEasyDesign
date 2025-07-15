@@ -1,20 +1,19 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/base/utils/dashline.dart';
+import 'package:farmeasy/components/widget/custom_start_seeding_btn.dart';
+import 'package:farmeasy/components/widget/cycle_status_card.dart';
+import 'package:farmeasy/components/widget/searchbar_widget.dart';
+import 'package:farmeasy/components/widget/time_range_selection.dart';
+import 'package:farmeasy/components/widget/traystatuscard.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
+import 'package:farmeasy/screens/tab/bottombarNavigator/provider/bottomBar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../base/utils/dashline.dart';
-import '../../components/widget/custom_start_seeding_btn.dart';
-import '../../components/widget/cycle_status_card.dart';
-import '../../components/widget/searchbar_widget.dart';
-import '../../components/widget/time_range_selection.dart';
-import '../../components/widget/traystatuscard.dart';
-import '../../generated/l10n.dart';
-import '../bottombarNavigator/provider/bottomBar_provider.dart';
 
 
 class DashboardPage extends ConsumerWidget {
@@ -101,72 +100,10 @@ class DashboardPage extends ConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) => ref.read(bottomNavIndexProvider.notifier).state = index,
-        items: [
-          BottomNavigationBarItem(
-            icon: bottomBarIcon(
-              Assets.icons.tabHome.path,
-              isSelected: currentIndex == 0,
-            ),
-            label: S.of(context).home,
-          ),
-          BottomNavigationBarItem(
-            icon: bottomBarIcon(
-              Assets.icons.tabCycle.path,
-              isSelected: currentIndex == 1,
-            ),
-            label: S.of(context).cycles,
-          ),
-          BottomNavigationBarItem(
-            icon: bottomBarIcon(
-              Assets.icons.tabHandbook.path,
-              isSelected: currentIndex == 2,
-            ),
-            label: S.of(context).handbook,
-          ),
-        ],
-      )
     ));
   }
 }
 
-Widget bottomBarIcon(String path, {required bool isSelected}) {
-  return Container(
-    decoration: BoxDecoration(
-      color: isSelected ? AppColors.bottomBarSelectionColor : Colors.transparent,
-      borderRadius: BorderRadius.circular(30.r),
-    ),
-    padding: EdgeInsets.all(8.w),
-    child: SvgPicture.asset(
-      path,
-      colorFilter: ColorFilter.mode(
-        isSelected ? AppColors.bottomBarSelectionColor : AppColors.transparent,
-        BlendMode.srcIn,
-      ),
-    ),
-  );
-}
-
-/*
-Widget bottomBarIcon(String path,int currentIndex){
-  return
-    Container(
-      decoration: BoxDecoration(
-        color: currentIndex == 0 ? AppColors.bottomBarSelectionColor : Colors.transparent,
-        borderRadius: BorderRadius.circular(30.r),
-      ),
-      padding: EdgeInsets.all(8.w),
-      child: SvgPicture.asset(
-        path,
-        colorFilter: ColorFilter.mode(
-      AppColors.navBarUnselectedColor,
-          BlendMode.srcIn,
-        ),
-      ),
-    );
-}*/
 class TotalYieldSection extends StatelessWidget {
   final String cropName;
   final String updatedDate;

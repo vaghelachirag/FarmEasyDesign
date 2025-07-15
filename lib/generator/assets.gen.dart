@@ -23,15 +23,33 @@ class $AssetsIconsGen {
   AssetGenImage get closeEyes =>
       const AssetGenImage('assets/icons/closeEyes.png');
 
+  /// File path: assets/icons/flash.svg
+  SvgGenImage get flash => const SvgGenImage('assets/icons/flash.svg');
+
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
+
+  /// File path: assets/icons/icon_edit.svg
+  SvgGenImage get iconEdit => const SvgGenImage('assets/icons/icon_edit.svg');
+
+  /// File path: assets/icons/icon_flash.svg
+  SvgGenImage get iconFlash => const SvgGenImage('assets/icons/icon_flash.svg');
 
   /// File path: assets/icons/icon_info.svg
   SvgGenImage get iconInfo => const SvgGenImage('assets/icons/icon_info.svg');
 
+  /// File path: assets/icons/icon_more.svg
+  SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
+
+  /// File path: assets/icons/icon_qr.png
+  AssetGenImage get iconQr => const AssetGenImage('assets/icons/icon_qr.png');
+
   /// File path: assets/icons/icon_right_arrow.svg
   SvgGenImage get iconRightArrow =>
       const SvgGenImage('assets/icons/icon_right_arrow.svg');
+
+  /// File path: assets/icons/icon_scan.svg
+  SvgGenImage get iconScan => const SvgGenImage('assets/icons/icon_scan.svg');
 
   /// File path: assets/icons/icon_start_seed.svg
   SvgGenImage get iconStartSeed =>
@@ -58,9 +76,15 @@ class $AssetsIconsGen {
   List<dynamic> get values => [
     blockChaiIcon,
     closeEyes,
+    flash,
     google,
+    iconEdit,
+    iconFlash,
     iconInfo,
+    iconMore,
+    iconQr,
     iconRightArrow,
+    iconScan,
     iconStartSeed,
     mesageIcon,
     syncIcon,
