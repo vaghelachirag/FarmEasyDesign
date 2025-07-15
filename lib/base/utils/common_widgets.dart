@@ -1,3 +1,4 @@
+import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,12 +8,12 @@ EdgeInsets authScreenPadding() =>
 EdgeInsets screenPadding() =>
     EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp);
 
-BoxDecoration boxDecoration() =>
+BoxDecoration boxDecoration(Color color, Color border) =>
     BoxDecoration(
-      color: Color(0xFFF0F4EC),
+      color:color,
       borderRadius: BorderRadius.circular(12.r),
       border: Border.all(
-        color: const Color(0xFFEFF3EC), // very light green border
+        color:  border, // very light green border
         width: 1,
       ),
     );

@@ -42,7 +42,11 @@ class $AssetsIconsGen {
   SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
 
   /// File path: assets/icons/icon_qr.png
-  AssetGenImage get iconQr => const AssetGenImage('assets/icons/icon_qr.png');
+  AssetGenImage get iconQrPng =>
+      const AssetGenImage('assets/icons/icon_qr.png');
+
+  /// File path: assets/icons/icon_qr.svg
+  SvgGenImage get iconQrSvg => const SvgGenImage('assets/icons/icon_qr.svg');
 
   /// File path: assets/icons/icon_right_arrow.svg
   SvgGenImage get iconRightArrow =>
@@ -50,6 +54,10 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/icon_scan.svg
   SvgGenImage get iconScan => const SvgGenImage('assets/icons/icon_scan.svg');
+
+  /// File path: assets/icons/icon_seeding_qr.svg
+  SvgGenImage get iconSeedingQr =>
+      const SvgGenImage('assets/icons/icon_seeding_qr.svg');
 
   /// File path: assets/icons/icon_start_seed.svg
   SvgGenImage get iconStartSeed =>
@@ -82,9 +90,11 @@ class $AssetsIconsGen {
     iconFlash,
     iconInfo,
     iconMore,
-    iconQr,
+    iconQrPng,
+    iconQrSvg,
     iconRightArrow,
     iconScan,
+    iconSeedingQr,
     iconStartSeed,
     mesageIcon,
     syncIcon,
@@ -109,6 +119,10 @@ class $AssetsImagesGen {
   SvgGenImage get dataMaintanceIcon =>
       const SvgGenImage('assets/images/data_maintance_icon.svg');
 
+  /// File path: assets/images/left_side_corner_scan.svg
+  SvgGenImage get leftSideCornerScan =>
+      const SvgGenImage('assets/images/left_side_corner_scan.svg');
+
   /// File path: assets/images/online_store.svg
   SvgGenImage get onlineStore =>
       const SvgGenImage('assets/images/online_store.svg');
@@ -125,6 +139,7 @@ class $AssetsImagesGen {
     blockChaiIcon,
     dashboardChart,
     dataMaintanceIcon,
+    leftSideCornerScan,
     onlineStore,
     splashLogo,
     trayIcon,

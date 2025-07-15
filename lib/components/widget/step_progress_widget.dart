@@ -1,95 +1,112 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
-import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/generator/assets.gen.dart';
-import 'package:farmeasy/screens/tab/seeding/provider/seeding_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/generator/assets.gen.dart';
 
-class StepProgressWidget extends HookConsumerWidget {
-  const StepProgressWidget({super.key});
+import '../../base/utils/common_widgets.dart';
+
+class StepProgressIndicator extends StatelessWidget {
+  final int currentStep;
+
+  const StepProgressIndicator({super.key, required this.currentStep});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final currentStep = ref.watch(currentStepProvider);
-
+  Widget build(BuildContext context) {
     final steps = [
-      _StepData('Scan seed Lot', Assets.icons.iconScan.path),
-      _StepData('Add Details', Assets.icons.iconEdit.path),
-      _StepData('Scan Level QR', Assets.icons.iconScan.path),
+      ('Step 1', 'Scan seed Lot', Assets.icons.iconQrSvg.path),
+      ('Step 2', 'Add Details', Assets.icons.iconEdit.path),
+      ('Step 3', 'Scan Level QR', Assets.icons.iconSeedingQr.path),
     ];
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [  cercle(context),  cercle(context),  cercle(context)],
+    return
+      Container(
+        decoration: boxDecoration(AppColors.white,AppColors.basePrimaryColor),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        child: Column(
+          children: [
+            _mainWidget(steps,context),
+          ],
+        )  ,
       )
+     ;
+  }
 
+  Widget _mainWidget(List<(String, String, String)> steps, BuildContext context){
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: List.generate(steps.length * 2 - 1, (index) {
+        if (index.isOdd) {
+          return Expanded(
+            child: Container(
+              margin: EdgeInsets.only(top: 22.h),
+              height: 1.5.h,
+              color: AppColors.primary,
+            ),
+          );
+        } else {
+          final stepIndex = index ~/ 2;
+          final isActive = stepIndex == currentStep;
+          final isCompleted = stepIndex < currentStep;
+          return _buildStepCircle(
+            context,
+            stepTitle: steps[stepIndex].$1,
+            stepLabel: steps[stepIndex].$2,
+            iconPath: steps[stepIndex].$3,
+            isActive: isActive,
+            isCompleted: isCompleted,
+          );
+        }
+      }),
     );
   }
 
-  Widget cercle(BuildContext context){
+  Widget _buildStepCircle(
+      BuildContext context, {
+        required String stepTitle,
+        required String stepLabel,
+        required String iconPath,
+        required bool isActive,
+        required bool isCompleted,
+      }) {
+    final circleColor = isCompleted || isActive ? AppColors.customCycleTabUnSelectedColor : AppColors.customCycleTabUnSelectedColor ;
+    final iconColor = isActive ? AppColors.customCycleTabSelectedColor : AppColors.customCycleTabSelectedColor;
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-       Container(
-    padding: EdgeInsets.all(10.r),
-    decoration: BoxDecoration(
-    shape: BoxShape.circle,
-    border: Border.all(color: AppColors.primary, width: 1.5),
-    ),
-    child: SvgPicture.asset(
-    Assets.icons.iconScan.path,
-    height: 20.r,
-    width: 20.r,
-    colorFilter: ColorFilter.mode(AppColors.black16, BlendMode.srcIn),
-    ),
-    ),
+        Container(
+          padding: EdgeInsets.all(10.r),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.primary, width: 1.5),
+            color: AppColors.customCycleTabUnSelectedColor,
+          ),
+          child: SvgPicture.asset(
+            iconPath,
+            height: 20.r,
+            width: 20.r,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+          ),
+        ),
         SizedBox(height: 8.h),
         Text(
-          'Step 1',
-          style: context.textTheme.labelSmall?.copyWith(
+          stepTitle,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
             fontSize: 10.sp,
             color: Colors.grey,
           ),
         ),
         SizedBox(height: 2.h),
         Text(
-          'Scan seed Lot',
+          stepLabel,
           style: context.textTheme.labelLarge?.copyWith(
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w600,
+            fontSize: 12.sp
           ),
-          textAlign: TextAlign.start, // This is optional now
+          textAlign: TextAlign.center,
         ),
       ],
     );
   }
-  Widget _buildStepCircle(String path, bool isActive, bool isCompleted) {
-    final borderColor = isCompleted || isActive ? Colors.green : Colors.green;
-
-    return Container(
-      padding: EdgeInsets.all(10.r),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: borderColor, width: 1.5),
-      ),
-      child: SvgPicture.asset(
-        path,
-        height: 20.r,
-        width: 20.r,
-        colorFilter: ColorFilter.mode(borderColor, BlendMode.srcIn),
-      ),
-    );
-  }
-}
-
-class _StepData {
-  final String label;
-  final String icon;
-
-  _StepData(this.label, this.icon);
 }
