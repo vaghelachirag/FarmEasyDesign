@@ -1,0 +1,22 @@
+{
+  "login": "Login",
+  "email": "Email",
+  "pleaseenterpassword": "pleaseEnterPassword",
+  "signin": "signIn",
+  "continuetext": "continueText",
+  "forgotpassword": "forgotPassword",
+  "enteryouremail": "enterYourEmail",
+  "pleaseenteremail": "pleaseEnterEmail",
+  "pleaseentercorrectemail": "pleaseEnterCorrectEmail",
+  "password": "password",
+  "enterpassword": "enterPassword",
+  "remembered": "remembered",
+  "continuewithgoogle": "continuewithgoogle",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot Password?",
+  "logIn": "Log In",
+  "continueWithGoogle": "Continue with Google",
+  "home": "Home",
+  "cycles": "Cycles",
+  "handbook": "Handbook"
+}
