@@ -1,4 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/tab/seeding/provider/seeding_provider.dart';
 import 'package:flutter/material.dart';
@@ -22,61 +23,53 @@ class StepProgressWidget extends HookConsumerWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(steps.length, (index) {
-          final isActive = index == currentStep;
-          final isCompleted = index < currentStep;
+        children: [  cercle(context),  cercle(context),  cercle(context)],
+      )
 
-          return Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    if (index > 0)
-                      Expanded(
-                        child: Container(
-                          height: 1.5.h,
-                          color: isCompleted ? Colors.green : Colors.grey.shade300,
-                        ),
-                      ),
-                    _buildStepCircle(steps[index].icon, isActive, isCompleted),
-                    if (index < steps.length - 1)
-                      Expanded(
-                        child: Container(
-                          height: 1.5.h,
-                          color: (index < currentStep) ? Colors.green : Colors.grey.shade300,
-                        ),
-                      ),
-                  ],
-                ),
-                SizedBox(height: 8.h),
-                Text(
-                  'Step ${index + 1}',
-                  style: context.textTheme.labelSmall?.copyWith(
-                    fontSize: 10.sp,
-                    color: Colors.grey,
-                  ),
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  steps[index].label,
-                  style: context.textTheme.labelLarge?.copyWith(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          );
-        }),
-      ),
     );
   }
 
+  Widget cercle(BuildContext context){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+       Container(
+    padding: EdgeInsets.all(10.r),
+    decoration: BoxDecoration(
+    shape: BoxShape.circle,
+    border: Border.all(color: AppColors.primary, width: 1.5),
+    ),
+    child: SvgPicture.asset(
+    Assets.icons.iconScan.path,
+    height: 20.r,
+    width: 20.r,
+    colorFilter: ColorFilter.mode(AppColors.black16, BlendMode.srcIn),
+    ),
+    ),
+        SizedBox(height: 8.h),
+        Text(
+          'Step 1',
+          style: context.textTheme.labelSmall?.copyWith(
+            fontSize: 10.sp,
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(height: 2.h),
+        Text(
+          'Scan seed Lot',
+          style: context.textTheme.labelLarge?.copyWith(
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w600,
+          ),
+          textAlign: TextAlign.start, // This is optional now
+        ),
+      ],
+    );
+  }
   Widget _buildStepCircle(String path, bool isActive, bool isCompleted) {
-    final borderColor = isCompleted || isActive ? Colors.green : Colors.grey;
+    final borderColor = isCompleted || isActive ? Colors.green : Colors.green;
 
     return Container(
       padding: EdgeInsets.all(10.r),
