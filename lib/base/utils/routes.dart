@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/dashboard/dashboard_page.dart';
+import '../../screens/homeTab/home_tab.dart';
 
 
 class AppRoute {
@@ -17,6 +18,8 @@ class AppRoute {
         return navigatePushToScreen(LoginScreen(), settings);
       case DashboardPage.route:
         return navigatePushToScreen(DashboardPage(), settings);
+      case HomeTab.route:
+        return navigatePushToScreen(HomeTab(), settings);
       default:
         return null;
     }

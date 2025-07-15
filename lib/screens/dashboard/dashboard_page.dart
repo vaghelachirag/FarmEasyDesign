@@ -14,6 +14,7 @@ import '../../components/widget/searchbar_widget.dart';
 import '../../components/widget/time_range_selection.dart';
 import '../../components/widget/traystatuscard.dart';
 import '../../generated/l10n.dart';
+import '../bottombarNavigator/provider/bottomBar_provider.dart';
 
 
 class DashboardPage extends ConsumerWidget {
@@ -25,6 +26,7 @@ class DashboardPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
+    final currentIndex = ref.watch(bottomNavIndexProvider);
 
     return SafeArea(child:
     Scaffold(
@@ -100,16 +102,54 @@ class DashboardPage extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items:  [
-          BottomNavigationBarItem(icon:
-          bottomBarIcon(Assets.icons.tabHome.path,0), label: S.of(context).home),
-          BottomNavigationBarItem(icon:  bottomBarIcon(Assets.icons.tabCycle.path,1), label: S.of(context).cycles),
-          BottomNavigationBarItem(icon: bottomBarIcon(Assets.icons.tabHandbook.path,2), label: S.of(context).handbook),
+        currentIndex: currentIndex,
+        onTap: (index) => ref.read(bottomNavIndexProvider.notifier).state = index,
+        items: [
+          BottomNavigationBarItem(
+            icon: bottomBarIcon(
+              Assets.icons.tabHome.path,
+              isSelected: currentIndex == 0,
+            ),
+            label: S.of(context).home,
+          ),
+          BottomNavigationBarItem(
+            icon: bottomBarIcon(
+              Assets.icons.tabCycle.path,
+              isSelected: currentIndex == 1,
+            ),
+            label: S.of(context).cycles,
+          ),
+          BottomNavigationBarItem(
+            icon: bottomBarIcon(
+              Assets.icons.tabHandbook.path,
+              isSelected: currentIndex == 2,
+            ),
+            label: S.of(context).handbook,
+          ),
         ],
-      ),
+      )
     ));
   }
 }
+
+Widget bottomBarIcon(String path, {required bool isSelected}) {
+  return Container(
+    decoration: BoxDecoration(
+      color: isSelected ? AppColors.bottomBarSelectionColor : Colors.transparent,
+      borderRadius: BorderRadius.circular(30.r),
+    ),
+    padding: EdgeInsets.all(8.w),
+    child: SvgPicture.asset(
+      path,
+      colorFilter: ColorFilter.mode(
+        isSelected ? AppColors.bottomBarSelectionColor : AppColors.transparent,
+        BlendMode.srcIn,
+      ),
+    ),
+  );
+}
+
+/*
 Widget bottomBarIcon(String path,int currentIndex){
   return
     Container(
@@ -126,7 +166,7 @@ Widget bottomBarIcon(String path,int currentIndex){
         ),
       ),
     );
-}
+}*/
 class TotalYieldSection extends StatelessWidget {
   final String cropName;
   final String updatedDate;

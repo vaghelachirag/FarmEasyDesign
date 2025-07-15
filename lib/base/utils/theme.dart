@@ -127,7 +127,7 @@ ThemeData lightTheme() {
         // fontFamily: FontFamily.raleway,
       ),
       selectedLabelStyle: TextStyle(
-        color: AppColors.primary,
+        color: AppColors.navBarUnselectedColor,
         fontSize: 11.sp,
         // letterSpacing: .7,
         fontFamily: FontFamily.roboto,
