@@ -8,7 +8,7 @@
   "enteryouremail": "enterYourEmail",
   "pleaseenteremail": "pleaseEnterEmail",
   "pleaseentercorrectemail": "pleaseEnterCorrectEmail",
-  "password": "password",
+  "password": "Password",
   "enterpassword": "enterPassword",
   "remembered": "remembered",
   "continuewithgoogle": "continuewithgoogle",
@@ -20,5 +20,11 @@
   "cycles": "Cycles",
   "handbook": "Handbook",
   "ongoing": "Ongoing",
-  "history": "History"
+  "history": "History",
+  "scanTheSeedLotCodesToStartSeedingOfTrays": "Scan the Seed Lot codes to start Seeding of trays.",
+  "youCanScanMultipleSeedLotCodesAtOnce": "You can scan multiple seed lot codes at once.",
+  "seeHowToDoIt": "See how to do it ?",
+  "tapToScan": "Tap to Scan",
+  "scanMore": "Scan More",
+  "addDetail": "Add Detail"
 }

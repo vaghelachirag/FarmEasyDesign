@@ -22,5 +22,6 @@ extension Ext on BuildContext {
   NavigatorState get navigator => Navigator.of(this);
 
   S get l10n => S.of(this);
-  
+
+
 }

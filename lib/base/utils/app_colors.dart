@@ -103,5 +103,10 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const customCycleTabUnSelectedColor = Color(0xFFF0F4EC);
   static const customCycleTabUnSelectedTextColor = Color(0xFF79767D);
 
+  static const Color scanQrMainBg = Color(0xFFC4E2BF);
+  static const Color tapToScanBg = Color(0xFF92C18A);
+  static const Color infoTextHingBg = Color(0xFF49454F);
 
+  static const Color infoQrScanWindowBg = Color(0xFFF2E58C);
+  static const Color infoQrScanWindowBorderBg = Color(0xFFFFF8CB);
 }

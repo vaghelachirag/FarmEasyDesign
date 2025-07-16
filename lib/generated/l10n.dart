@@ -140,10 +140,10 @@ class S {
     );
   }
 
-  /// `password`
+  /// `Password`
   String get password {
     return Intl.message(
-      'password',
+      'Password',
       name: 'password',
       desc: '',
       args: [],
@@ -265,6 +265,66 @@ class S {
     return Intl.message(
       'History',
       name: 'history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan the Seed Lot codes to start Seeding of trays.`
+  String get scanTheSeedLotCodesToStartSeedingOfTrays {
+    return Intl.message(
+      'Scan the Seed Lot codes to start Seeding of trays.',
+      name: 'scanTheSeedLotCodesToStartSeedingOfTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can scan multiple seed lot codes at once.`
+  String get youCanScanMultipleSeedLotCodesAtOnce {
+    return Intl.message(
+      'You can scan multiple seed lot codes at once.',
+      name: 'youCanScanMultipleSeedLotCodesAtOnce',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See how to do it ?`
+  String get seeHowToDoIt {
+    return Intl.message(
+      'See how to do it ?',
+      name: 'seeHowToDoIt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap to Scan`
+  String get tapToScan {
+    return Intl.message(
+      'Tap to Scan',
+      name: 'tapToScan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan More`
+  String get scanMore {
+    return Intl.message(
+      'Scan More',
+      name: 'scanMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Detail`
+  String get addDetail {
+    return Intl.message(
+      'Add Detail',
+      name: 'addDetail',
       desc: '',
       args: [],
     );

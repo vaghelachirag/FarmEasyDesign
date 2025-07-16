@@ -26,4 +26,28 @@ class AppDecorations {
       ),
     );
   }
+
+  static BoxDecoration scanQrcodeBg(){
+    return  BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+         AppColors.primary,                // Green
+          Color.fromRGBO(0, 0, 0, 0.1),     // Light black
+        ],
+      ),
+    );
+  }
+
+  static BoxDecoration infoWindowBg(){
+    return BoxDecoration(
+      color: AppColors.infoQrScanWindowBg,
+      borderRadius: BorderRadius.circular(12.r),
+      border: Border.all(color: AppColors.infoQrScanWindowBorderBg),
+    );
+  }
+
 }
+

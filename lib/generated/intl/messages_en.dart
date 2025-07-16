@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addDetail": MessageLookupByLibrary.simpleMessage("Add Detail"),
         "continueWithGoogle":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),
         "continuetext": MessageLookupByLibrary.simpleMessage("continueText"),
@@ -41,7 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "ongoing": MessageLookupByLibrary.simpleMessage("Ongoing"),
-        "password": MessageLookupByLibrary.simpleMessage("password"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pleaseentercorrectemail":
             MessageLookupByLibrary.simpleMessage("pleaseEnterCorrectEmail"),
         "pleaseenteremail":
@@ -50,6 +51,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pleaseEnterPassword"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
         "remembered": MessageLookupByLibrary.simpleMessage("remembered"),
-        "signin": MessageLookupByLibrary.simpleMessage("signIn")
+        "scanMore": MessageLookupByLibrary.simpleMessage("Scan More"),
+        "scanTheSeedLotCodesToStartSeedingOfTrays":
+            MessageLookupByLibrary.simpleMessage(
+                "Scan the Seed Lot codes to start Seeding of trays."),
+        "seeHowToDoIt":
+            MessageLookupByLibrary.simpleMessage("See how to do it ?"),
+        "signin": MessageLookupByLibrary.simpleMessage("signIn"),
+        "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
+        "youCanScanMultipleSeedLotCodesAtOnce":
+            MessageLookupByLibrary.simpleMessage(
+                "You can scan multiple seed lot codes at once.")
       };
 }

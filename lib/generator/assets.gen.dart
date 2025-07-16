@@ -35,8 +35,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_flash.svg
   SvgGenImage get iconFlash => const SvgGenImage('assets/icons/icon_flash.svg');
 
+  /// File path: assets/icons/icon_hand.svg
+  SvgGenImage get iconHand => const SvgGenImage('assets/icons/icon_hand.svg');
+
   /// File path: assets/icons/icon_info.svg
   SvgGenImage get iconInfo => const SvgGenImage('assets/icons/icon_info.svg');
+
+  /// File path: assets/icons/icon_info_blub.svg
+  SvgGenImage get iconInfoBlub =>
+      const SvgGenImage('assets/icons/icon_info_blub.svg');
 
   /// File path: assets/icons/icon_more.svg
   SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
@@ -88,7 +95,9 @@ class $AssetsIconsGen {
     google,
     iconEdit,
     iconFlash,
+    iconHand,
     iconInfo,
+    iconInfoBlub,
     iconMore,
     iconQrPng,
     iconQrSvg,
@@ -119,6 +128,18 @@ class $AssetsImagesGen {
   SvgGenImage get dataMaintanceIcon =>
       const SvgGenImage('assets/images/data_maintance_icon.svg');
 
+  /// File path: assets/images/icon_left_bottom_corner.svg
+  SvgGenImage get iconLeftBottomCorner =>
+      const SvgGenImage('assets/images/icon_left_bottom_corner.svg');
+
+  /// File path: assets/images/icon_right_bottom_corner.svg
+  SvgGenImage get iconRightBottomCorner =>
+      const SvgGenImage('assets/images/icon_right_bottom_corner.svg');
+
+  /// File path: assets/images/icon_right_top_corner.svg
+  SvgGenImage get iconRightTopCorner =>
+      const SvgGenImage('assets/images/icon_right_top_corner.svg');
+
   /// File path: assets/images/left_side_corner_scan.svg
   SvgGenImage get leftSideCornerScan =>
       const SvgGenImage('assets/images/left_side_corner_scan.svg');
@@ -127,9 +148,17 @@ class $AssetsImagesGen {
   SvgGenImage get onlineStore =>
       const SvgGenImage('assets/images/online_store.svg');
 
+  /// File path: assets/images/scan_sucess.svg
+  SvgGenImage get scanSucess =>
+      const SvgGenImage('assets/images/scan_sucess.svg');
+
   /// File path: assets/images/splash_logo.png
   AssetGenImage get splashLogo =>
       const AssetGenImage('assets/images/splash_logo.png');
+
+  /// File path: assets/images/tap_to_scan_qr.svg
+  SvgGenImage get tapToScanQr =>
+      const SvgGenImage('assets/images/tap_to_scan_qr.svg');
 
   /// File path: assets/images/tray_icon.svg
   SvgGenImage get trayIcon => const SvgGenImage('assets/images/tray_icon.svg');
@@ -139,9 +168,14 @@ class $AssetsImagesGen {
     blockChaiIcon,
     dashboardChart,
     dataMaintanceIcon,
+    iconLeftBottomCorner,
+    iconRightBottomCorner,
+    iconRightTopCorner,
     leftSideCornerScan,
     onlineStore,
+    scanSucess,
     splashLogo,
+    tapToScanQr,
     trayIcon,
   ];
 }
