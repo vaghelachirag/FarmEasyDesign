@@ -67,8 +67,6 @@ class LoginScreen extends HookConsumerWidget {
             ),
           ),
         ),
-
-        // 🟢 Login Card
         Container(
           padding: EdgeInsets.all(20.sp),
           decoration: BoxDecoration(

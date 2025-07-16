@@ -109,4 +109,6 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
 
   static const Color infoQrScanWindowBg = Color(0xFFF2E58C);
   static const Color infoQrScanWindowBorderBg = Color(0xFFFFF8CB);
+
+  static const Color scanNowTextBg = Color(0xFF668760);
 }

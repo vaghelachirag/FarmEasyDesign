@@ -29,6 +29,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
 
+  /// File path: assets/icons/icon_add_detail.svg
+  SvgGenImage get iconAddDetail =>
+      const SvgGenImage('assets/icons/icon_add_detail.svg');
+
   /// File path: assets/icons/icon_edit.svg
   SvgGenImage get iconEdit => const SvgGenImage('assets/icons/icon_edit.svg');
 
@@ -62,6 +66,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_scan.svg
   SvgGenImage get iconScan => const SvgGenImage('assets/icons/icon_scan.svg');
 
+  /// File path: assets/icons/icon_scan_more.svg
+  SvgGenImage get iconScanMore =>
+      const SvgGenImage('assets/icons/icon_scan_more.svg');
+
+  /// File path: assets/icons/icon_scan_now.svg
+  SvgGenImage get iconScanNow =>
+      const SvgGenImage('assets/icons/icon_scan_now.svg');
+
   /// File path: assets/icons/icon_seeding_qr.svg
   SvgGenImage get iconSeedingQr =>
       const SvgGenImage('assets/icons/icon_seeding_qr.svg');
@@ -93,6 +105,7 @@ class $AssetsIconsGen {
     closeEyes,
     flash,
     google,
+    iconAddDetail,
     iconEdit,
     iconFlash,
     iconHand,
@@ -103,6 +116,8 @@ class $AssetsIconsGen {
     iconQrSvg,
     iconRightArrow,
     iconScan,
+    iconScanMore,
+    iconScanNow,
     iconSeedingQr,
     iconStartSeed,
     mesageIcon,

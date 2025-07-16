@@ -82,7 +82,7 @@ class SeedingScreenPage extends ConsumerWidget {
                      _scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier),
                       SizedBox(height: 40.h),
                       Visibility(
-                         visible: scanState == ScanState.success ,
+                         visible: scanState == ScanState.idle ,
                           child:   addDetailButton(context,scanStateNotifier))
                     ],
                   ),

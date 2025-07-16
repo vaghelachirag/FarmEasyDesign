@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:farmeasy/screens/login/login_screen.dart';
 import 'package:farmeasy/screens/splash/splash_screen.dart';
+import 'package:farmeasy/screens/tab/seeding/addDetail/add_seeding_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,8 @@ class AppRoute {
         return navigatePushToScreen(DashboardPage(), settings);
       case HomeTab.route:
         return navigatePushToScreen(HomeTab(), settings);
+      case AddSeedingScreenPage.route:
+        return navigatePushToScreen(AddSeedingScreenPage(), settings);
       default:
         return null;
     }
