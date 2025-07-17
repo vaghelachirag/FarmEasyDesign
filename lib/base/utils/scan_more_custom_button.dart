@@ -24,7 +24,7 @@ class ScanMoreCustomButton extends StatelessWidget {
       label:
       labelTextRegular(btnName,10.sp, AppColors.buttonBackgroundColor),
       style: OutlinedButton.styleFrom(
-        side: BorderSide(color: AppColors.primary),
+        side: BorderSide(color: AppColors.infoTextHingBg),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),

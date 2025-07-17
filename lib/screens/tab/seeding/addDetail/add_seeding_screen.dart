@@ -13,6 +13,7 @@ import '../../../../base/utils/common_widgets.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../components/widget/custom_input_field.dart';
+import '../../../../components/widget/custom_input_filed_seed_weight.dart';
 import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
@@ -94,7 +95,7 @@ class AddSeedingScreenPage extends HookConsumerWidget {
                         20.verticalSpace,
                         _seedsName(numberOfHalfTrays, context),
                         20.verticalSpace,
-                        CoirWeightInput()
+                        _coreWeight(numberOfHalfTrays, context),
                       ],
                     ),
                   ) ,
@@ -108,115 +109,6 @@ class AddSeedingScreenPage extends HookConsumerWidget {
     );
   }
 }
-
-class CoirWeightInput extends StatefulWidget {
-  @override
-  _CoirWeightInputState createState() => _CoirWeightInputState();
-}
-
-class _CoirWeightInputState extends State<CoirWeightInput> {
-  int weight = 9;
-  String selectedUnit = 'gms';
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Color(0xFFCDE6C4), // light green background
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade400),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Coir Weight",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-          ),
-          SizedBox(height: 6),
-          Row(
-            children: [
-              // Number display
-              Expanded(
-                child: TextFormField(
-                  initialValue: weight.toString(),
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      weight = int.tryParse(value) ?? weight;
-                    });
-                  },
-                ),
-              ),
-              SizedBox(width: 8),
-
-              // Dropdown
-              DropdownButton<String>(
-                value: selectedUnit,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedUnit = newValue!;
-                  });
-                },
-                items: ['gms', 'kgs', 'lbs'].map((String unit) {
-                  return DropdownMenuItem<String>(
-                    value: unit,
-                    child: Text(unit),
-                  );
-                }).toList(),
-                style: TextStyle(color: Colors.white),
-                dropdownColor: Colors.green.shade700,
-                iconEnabledColor: Colors.white,
-                underline: SizedBox(),
-              ),
-              SizedBox(width: 8),
-
-              // + Button
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    weight++;
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green.shade700,
-                  padding: EdgeInsets.all(10),
-                ),
-                child: Text('+'),
-              ),
-              SizedBox(width: 4),
-
-              // - Button
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    if (weight > 0) weight--;
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green.shade700,
-                  padding: EdgeInsets.all(10),
-                ),
-                child: Text('-'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 
 Widget _numberOfFullTrays(
     TextEditingController emailController,
@@ -300,6 +192,77 @@ Widget _seedLotCode(
   );
 }
 
+Widget _coreWeight(
+    TextEditingController emailController,
+    BuildContext context,
+    ) {
+  return CustomTextField(
+    controller: emailController,
+    title: "Seed Lot Code",
+    hintText: "",
+    suffix: suffixCoreWeight(),
+    inputType: TextInputType.number,
+    textInputAction: TextInputAction.next,
+    validator: (val) {
+      if (val!.isEmpty) {
+        return context.l10n.pleaseenteremail;
+      }
+      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
+      return null;
+    },
+  );
+}
+
+Widget suffixCoreWeight(){
+  return  Container(
+    padding: const EdgeInsets.only(right: 6),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Unit Dropdown
+        Container(
+          height: 38,
+          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.green[700],
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              dropdownColor: Colors.green[700],
+              iconEnabledColor: Colors.white,
+              style: const TextStyle(color: Colors.white),
+              items: ['gms', 'kgs'].map((unit) {
+                return DropdownMenuItem<String>(
+                  value: unit,
+                  child: Text(unit),
+                );
+              }).toList(),
+              onChanged: (value) {
+              },
+            ),
+          ),
+        ),
+        const SizedBox(width: 6),
+        // Combined + / - buttons
+        Container(
+          height: 38,
+          decoration: BoxDecoration(
+            color: Colors.green[700],
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Row(
+            children: [
+              _actionButton('+'),
+              _actionButton('–'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 // Scan Now Suffix
 Widget suffixScanNow(BuildContext context){
   return Padding(
@@ -316,6 +279,19 @@ Widget suffixScanNow(BuildContext context){
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget _actionButton(String symbol) {
+  return InkWell(
+    child: Container(
+      width: 30,
+      alignment: Alignment.center,
+      child: Text(
+        symbol,
+        style: const TextStyle(color: Colors.white, fontSize: 18),
+      ),
     ),
   );
 }
