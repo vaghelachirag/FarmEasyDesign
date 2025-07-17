@@ -1,4 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/components/common/custom_unit_dropdown.dart';
+import 'package:farmeasy/components/widget/custom_add_people_suggestion_text_filed.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -15,16 +17,17 @@ import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_input_filed_seed_weight.dart';
 import '../../../../components/widget/step_progress_widget.dart';
+import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../bottombarNavigator/provider/bottomBar_provider.dart';
 import '../provider/seeding_provider.dart';
+import 'add_seeding_provider.dart';
 
 class AddSeedingScreenPage extends HookConsumerWidget {
-  const AddSeedingScreenPage({super.key});
+  AddSeedingScreenPage({super.key});
 
   static const route = "/AddSeedingPage";
-
 
 
   @override
@@ -45,6 +48,8 @@ class AddSeedingScreenPage extends HookConsumerWidget {
     final passwordController = useTextEditingController();
     final isPassHide = useState(true);
     final rememberMe = useState(false);
+
+    final searchText = ref.watch(peopleSearchTextProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -92,10 +97,19 @@ class AddSeedingScreenPage extends HookConsumerWidget {
                         _numberOfHalfTrays(numberOfHalfTrays, context),
                         20.verticalSpace,
                         _seedLotCode(numberOfHalfTrays, context),
-                        20.verticalSpace,
+                        5.verticalSpace,
+                        removeLotCodeWidget(context),
+                        3.verticalSpace,
                         _seedsName(numberOfHalfTrays, context),
                         20.verticalSpace,
-                        _coreWeight(numberOfHalfTrays, context),
+                        _seedWeightTray(numberOfHalfTrays, context),
+                        20.verticalSpace,
+                        _coreWeightTray(numberOfHalfTrays, context),
+                        20.verticalSpace,
+                        _addPeopleSuggestionWidget(searchText),
+                        _seedingDate(numberOfHalfTrays, context),
+                        20.verticalSpace,
+                        CustomProceedButton(onPressed: (){},)
                       ],
                     ),
                   ) ,
@@ -110,13 +124,26 @@ class AddSeedingScreenPage extends HookConsumerWidget {
   }
 }
 
-Widget _numberOfFullTrays(
-    TextEditingController emailController,
-    BuildContext context,
-    ) {
+// Add People Suggestion Widget
+Widget _addPeopleSuggestionWidget(String searchText){
+  return    SizedBox(
+    height: searchText.isEmpty ? 80 : 200,
+    child:   CustomAddPeopleSuggestionTextFiled(),
+  );
+}
+
+// Widget Remove Lot Code
+Widget removeLotCodeWidget(BuildContext context){
+  return Align(
+    alignment: Alignment.topRight,
+    child: labelTextRegular(S.of(context).removeALotCode, 10.sp, AppColors.removeLotCodeBg),
+  );
+}
+
+Widget _numberOfFullTrays(TextEditingController emailController, BuildContext context) {
   return CustomTextField(
     controller: emailController,
-    title: "Number of Full Trays",
+    title: S.of(context).numberOfFullTrays,
     hintText: "",
     inputType: TextInputType.number,
     textInputAction: TextInputAction.next,
@@ -130,13 +157,10 @@ Widget _numberOfFullTrays(
   );
 }
 
-Widget _numberOfHalfTrays(
-    TextEditingController emailController,
-    BuildContext context,
-    ) {
+Widget _numberOfHalfTrays(TextEditingController emailController, BuildContext context,) {
   return CustomTextField(
     controller: emailController,
-    title: "Number of Half Trays",
+    title: S.of(context).numberOfHalfTrays,
     hintText: "",
     inputType: TextInputType.number,
     textInputAction: TextInputAction.next,
@@ -150,14 +174,10 @@ Widget _numberOfHalfTrays(
   );
 }
 
-
-Widget _seedsName(
-    TextEditingController emailController,
-    BuildContext context,
-    ) {
+Widget _seedsName(TextEditingController emailController, BuildContext context,) {
   return CustomTextField(
     controller: emailController,
-    title: "Seeds Name",
+    title: S.of(context).seedsName,
     hintText: "",
     inputType: TextInputType.number,
     textInputAction: TextInputAction.next,
@@ -171,13 +191,10 @@ Widget _seedsName(
   );
 }
 
-Widget _seedLotCode(
-    TextEditingController emailController,
-    BuildContext context,
-    ) {
+Widget _seedLotCode(TextEditingController emailController, BuildContext context,) {
   return CustomTextField(
     controller: emailController,
-    title: "Seed Lot Code",
+    title: S.of(context).seedLotCode,
     hintText: "",
     suffix: suffixScanNow(context),
     inputType: TextInputType.number,
@@ -192,15 +209,12 @@ Widget _seedLotCode(
   );
 }
 
-Widget _coreWeight(
-    TextEditingController emailController,
-    BuildContext context,
-    ) {
+Widget _seedingDate(TextEditingController emailController, BuildContext context,) {
   return CustomTextField(
     controller: emailController,
-    title: "Seed Lot Code",
+    title: S.of(context).seedingDate,
     hintText: "",
-    suffix: suffixCoreWeight(),
+    suffix: suffixDateIcon(context),
     inputType: TextInputType.number,
     textInputAction: TextInputAction.next,
     validator: (val) {
@@ -213,55 +227,93 @@ Widget _coreWeight(
   );
 }
 
-Widget suffixCoreWeight(){
+Widget _seedWeightTray(
+    TextEditingController emailController,
+    BuildContext context,
+    ) {
+  return CustomTextField(
+    controller: emailController,
+    title: S.of(context).seedWeighttray,
+    hintText: "",
+    suffix: suffixCoreWeight(context),
+    inputType: TextInputType.number,
+    textInputAction: TextInputAction.next,
+    validator: (val) {
+      if (val!.isEmpty) {
+        return context.l10n.pleaseenteremail;
+      }
+      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
+      return null;
+    },
+  );
+}
+
+Widget _coreWeightTray(TextEditingController emailController, BuildContext context,) {
+  return CustomTextField(
+    controller: emailController,
+    title: S.of(context).coreWeight,
+    hintText: "",
+    suffix: suffixCoreWeight(context),
+    inputType: TextInputType.number,
+    textInputAction: TextInputAction.next,
+    validator: (val) {
+      if (val!.isEmpty) {
+        return context.l10n.pleaseenteremail;
+      }
+      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
+      return null;
+    },
+  );
+}
+
+
+Widget suffixCoreWeight(BuildContext context){
+  String selectedUnit = S.of(context).gms;
   return  Container(
     padding: const EdgeInsets.only(right: 6),
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         // Unit Dropdown
-        Container(
-          height: 38,
-          padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
-          decoration: BoxDecoration(
-            color: Colors.green[700],
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              dropdownColor: Colors.green[700],
-              iconEnabledColor: Colors.white,
-              style: const TextStyle(color: Colors.white),
-              items: ['gms', 'kgs'].map((unit) {
-                return DropdownMenuItem<String>(
-                  value: unit,
-                  child: Text(unit),
-                );
-              }).toList(),
-              onChanged: (value) {
-              },
-            ),
-          ),
-        ),
-        const SizedBox(width: 6),
+         gmsWeightWidget(selectedUnit,context),
+        6.horizontalSpace,
         // Combined + / - buttons
-        Container(
-          height: 38,
-          decoration: BoxDecoration(
-            color: Colors.green[700],
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Row(
-            children: [
-              _actionButton('+'),
-              _actionButton('–'),
-            ],
-          ),
-        ),
+        addAndMinusButtonWidget()
       ],
     ),
   );
 }
+
+Widget addAndMinusButtonWidget(){
+  return  Container(
+    height: 35,
+    decoration: BoxDecoration(
+      color: AppColors.addWeightTextFieldBg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Row(
+      children: [
+        _actionButton('+'),
+        _actionButton('–'),
+      ],
+    ),
+  );
+}
+
+Widget gmsWeightWidget(String selectedUnit, BuildContext context){
+  return Container(
+    height: 35,
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+    decoration: AppDecorations.addWeightDecoration(),
+    child: CustomUnitDropdown(
+      selectedUnit: selectedUnit,
+      onChanged: (value) {
+
+      },
+    ),
+  );
+}
+
 
 // Scan Now Suffix
 Widget suffixScanNow(BuildContext context){
@@ -273,11 +325,24 @@ Widget suffixScanNow(BuildContext context){
         SvgPicture.asset(Assets.icons.iconScanNow.path),
         const SizedBox(width: 4),
         Text(
-          'Scan now',
+          S.of(context).scanNow,
           style: context.textTheme.labelMedium?.copyWith(
             color: AppColors.scanNowTextBg
           ),
         ),
+      ],
+    ),
+  );
+}
+
+// Scan Now Suffix
+Widget suffixDateIcon(BuildContext context){
+  return Padding(
+    padding: const EdgeInsets.only(right: 8),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SvgPicture.asset(Assets.icons.iconCalendar.path),
       ],
     ),
   );
@@ -288,10 +353,7 @@ Widget _actionButton(String symbol) {
     child: Container(
       width: 30,
       alignment: Alignment.center,
-      child: Text(
-        symbol,
-        style: const TextStyle(color: Colors.white, fontSize: 18),
-      ),
+      child: labelTextRegular(symbol, 18.sp, AppColors.white)
     ),
   );
 }
@@ -359,6 +421,7 @@ Widget infoWindow(BuildContext context) {
     ],
   );
 }
+
 Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNotifier){
   return
     Center(
@@ -413,7 +476,6 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
   );
 }
 
-
 Widget tapScanColumn(BuildContext context){
   return  Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -454,7 +516,6 @@ Widget scanSuccessWidget(BuildContext context){
     ],
   );
 }
-
 
 Widget buildTopBar() {
   return Row(

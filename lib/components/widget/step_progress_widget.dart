@@ -15,7 +15,7 @@ class StepProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final steps = [
-      ('Step 1', 'Scan seed Lot', Assets.icons.iconQrSvg.path),
+      ('Step 1', 'Scan seed Lot', Assets.icons.iconQr.path),
       ('Step 2', 'Add Details', Assets.icons.iconEdit.path),
       ('Step 3', 'Scan Level QR', Assets.icons.iconSeedingQr.path),
     ];

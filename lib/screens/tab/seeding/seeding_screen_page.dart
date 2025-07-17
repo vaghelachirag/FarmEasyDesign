@@ -263,7 +263,6 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
   );
 }
 
-
 Widget tapScanColumn(BuildContext context){
   return  Column(
     mainAxisAlignment: MainAxisAlignment.center,

@@ -33,6 +33,14 @@ class $AssetsIconsGen {
   SvgGenImage get iconAddDetail =>
       const SvgGenImage('assets/icons/icon_add_detail.svg');
 
+  /// File path: assets/icons/icon_calendar.svg
+  SvgGenImage get iconCalendar =>
+      const SvgGenImage('assets/icons/icon_calendar.svg');
+
+  /// File path: assets/icons/icon_dropdown.svg
+  SvgGenImage get iconDropdown =>
+      const SvgGenImage('assets/icons/icon_dropdown.svg');
+
   /// File path: assets/icons/icon_edit.svg
   SvgGenImage get iconEdit => const SvgGenImage('assets/icons/icon_edit.svg');
 
@@ -52,12 +60,12 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_more.svg
   SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
 
-  /// File path: assets/icons/icon_qr.png
-  AssetGenImage get iconQrPng =>
-      const AssetGenImage('assets/icons/icon_qr.png');
-
   /// File path: assets/icons/icon_qr.svg
-  SvgGenImage get iconQrSvg => const SvgGenImage('assets/icons/icon_qr.svg');
+  SvgGenImage get iconQr => const SvgGenImage('assets/icons/icon_qr.svg');
+
+  /// File path: assets/icons/icon_qr_processed.svg
+  SvgGenImage get iconQrProcessed =>
+      const SvgGenImage('assets/icons/icon_qr_processed.svg');
 
   /// File path: assets/icons/icon_right_arrow.svg
   SvgGenImage get iconRightArrow =>
@@ -106,14 +114,16 @@ class $AssetsIconsGen {
     flash,
     google,
     iconAddDetail,
+    iconCalendar,
+    iconDropdown,
     iconEdit,
     iconFlash,
     iconHand,
     iconInfo,
     iconInfoBlub,
     iconMore,
-    iconQrPng,
-    iconQrSvg,
+    iconQr,
+    iconQrProcessed,
     iconRightArrow,
     iconScan,
     iconScanMore,

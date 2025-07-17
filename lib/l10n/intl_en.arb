@@ -26,5 +26,16 @@
   "seeHowToDoIt": "See how to do it ?",
   "tapToScan": "Tap to Scan",
   "scanMore": "Scan More",
-  "addDetail": "Add Detail"
+  "addDetail": "Add Detail",
+  "numberOfFullTrays": "Number of Full Trays",
+  "numberOfHalfTrays": "Number of Half Trays",
+  "seedsName": "Seeds Name",
+  "seedLotCode": "Seed Lot Code",
+  "seedWeighttray": "Seed Weight/Tray",
+  "coreWeight": "Core Weight",
+  "gms": "gms",
+  "scanNow": "Scan now",
+  "removeALotCode": "Remove a Lot Code?",
+  "addPeople": "Add People",
+  "seedingDate": "Seeding Date"
 }

@@ -22,11 +22,13 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addDetail": MessageLookupByLibrary.simpleMessage("Add Detail"),
+        "addPeople": MessageLookupByLibrary.simpleMessage("Add People"),
         "continueWithGoogle":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),
         "continuetext": MessageLookupByLibrary.simpleMessage("continueText"),
         "continuewithgoogle":
             MessageLookupByLibrary.simpleMessage("continuewithgoogle"),
+        "coreWeight": MessageLookupByLibrary.simpleMessage("Core Weight"),
         "cycles": MessageLookupByLibrary.simpleMessage("Cycles"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enterpassword": MessageLookupByLibrary.simpleMessage("enterPassword"),
@@ -36,11 +38,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "forgotpassword":
             MessageLookupByLibrary.simpleMessage("forgotPassword"),
+        "gms": MessageLookupByLibrary.simpleMessage("gms"),
         "handbook": MessageLookupByLibrary.simpleMessage("Handbook"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "numberOfFullTrays":
+            MessageLookupByLibrary.simpleMessage("Number of Full Trays"),
+        "numberOfHalfTrays":
+            MessageLookupByLibrary.simpleMessage("Number of Half Trays"),
         "ongoing": MessageLookupByLibrary.simpleMessage("Ongoing"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pleaseentercorrectemail":
@@ -51,12 +58,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pleaseEnterPassword"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
         "remembered": MessageLookupByLibrary.simpleMessage("remembered"),
+        "removeALotCode":
+            MessageLookupByLibrary.simpleMessage("Remove a Lot Code?"),
         "scanMore": MessageLookupByLibrary.simpleMessage("Scan More"),
+        "scanNow": MessageLookupByLibrary.simpleMessage("Scan now"),
         "scanTheSeedLotCodesToStartSeedingOfTrays":
             MessageLookupByLibrary.simpleMessage(
                 "Scan the Seed Lot codes to start Seeding of trays."),
         "seeHowToDoIt":
             MessageLookupByLibrary.simpleMessage("See how to do it ?"),
+        "seedLotCode": MessageLookupByLibrary.simpleMessage("Seed Lot Code"),
+        "seedWeighttray":
+            MessageLookupByLibrary.simpleMessage("Seed Weight/Tray"),
+        "seedingDate": MessageLookupByLibrary.simpleMessage("Seeding Date"),
+        "seedsName": MessageLookupByLibrary.simpleMessage("Seeds Name"),
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
         "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
         "youCanScanMultipleSeedLotCodesAtOnce":

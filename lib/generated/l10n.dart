@@ -329,6 +329,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Number of Full Trays`
+  String get numberOfFullTrays {
+    return Intl.message(
+      'Number of Full Trays',
+      name: 'numberOfFullTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number of Half Trays`
+  String get numberOfHalfTrays {
+    return Intl.message(
+      'Number of Half Trays',
+      name: 'numberOfHalfTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seeds Name`
+  String get seedsName {
+    return Intl.message(
+      'Seeds Name',
+      name: 'seedsName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seed Lot Code`
+  String get seedLotCode {
+    return Intl.message(
+      'Seed Lot Code',
+      name: 'seedLotCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seed Weight/Tray`
+  String get seedWeighttray {
+    return Intl.message(
+      'Seed Weight/Tray',
+      name: 'seedWeighttray',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Core Weight`
+  String get coreWeight {
+    return Intl.message(
+      'Core Weight',
+      name: 'coreWeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `gms`
+  String get gms {
+    return Intl.message(
+      'gms',
+      name: 'gms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan now`
+  String get scanNow {
+    return Intl.message(
+      'Scan now',
+      name: 'scanNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove a Lot Code?`
+  String get removeALotCode {
+    return Intl.message(
+      'Remove a Lot Code?',
+      name: 'removeALotCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add People`
+  String get addPeople {
+    return Intl.message(
+      'Add People',
+      name: 'addPeople',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seeding Date`
+  String get seedingDate {
+    return Intl.message(
+      'Seeding Date',
+      name: 'seedingDate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
