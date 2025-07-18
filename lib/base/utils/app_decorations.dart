@@ -56,5 +56,29 @@ class AppDecorations {
     );
   }
 
+  static InputDecoration mainInputTextDecoration(String hintText, String title, Widget? suffix){
+    return InputDecoration(
+      hintText: hintText,
+      floatingLabelBehavior:FloatingLabelBehavior.always,
+      labelText: title,
+      alignLabelWithHint: true,
+      labelStyle:  TextStyle(
+        color: AppColors.inputLabelColor,
+      ),
+      enabledBorder: outlineInputBorder(5.r, AppColors.borderColor,1),
+      focusedBorder: outlineInputBorder(5.r, AppColors.borderColor,1),
+      errorBorder: outlineInputBorder(5.r, AppColors.borderColor,1),
+      focusedErrorBorder: outlineInputBorder(5.r, AppColors.borderColor,1),
+      contentPadding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 14),
+      suffixIcon: suffix,
+    );
+  }
+}
+
+OutlineInputBorder outlineInputBorder(double r, Color borderColor, double intWidth){
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(r),
+    borderSide:  BorderSide(color: borderColor, width: intWidth),
+  );
 }
 

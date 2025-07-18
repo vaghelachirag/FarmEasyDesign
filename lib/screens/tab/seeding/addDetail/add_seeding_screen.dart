@@ -16,6 +16,7 @@ import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_input_filed_seed_weight.dart';
+import '../../../../components/widget/custom_leet_code_chipset.dart';
 import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
@@ -50,6 +51,9 @@ class AddSeedingScreenPage extends HookConsumerWidget {
     final rememberMe = useState(false);
 
     final searchText = ref.watch(peopleSearchTextProvider);
+
+
+    final lotCodes = ref.watch(seedLotListProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -106,6 +110,16 @@ class AddSeedingScreenPage extends HookConsumerWidget {
                         20.verticalSpace,
                         _coreWeightTray(numberOfHalfTrays, context),
                         20.verticalSpace,
+                        CustomSeedLotInputField(
+                          title: "Seed Lot Code",
+                          onScanPressed: () {
+                            // Open QR scanner or add manually
+                          },
+                          onRemovePressed: () {
+                            // Logic to remove a lot code
+                            ref.read(seedLotListProvider.notifier).state = [];
+                          },
+                        ),
                         _addPeopleSuggestionWidget(searchText),
                         _seedingDate(numberOfHalfTrays, context),
                         20.verticalSpace,
@@ -539,5 +553,46 @@ Widget buildTopBar() {
         ],
       ),
     ],
+  );
+}
+
+
+Widget listItemContent(Map<String, String> person, WidgetRef ref) {
+  final selectedPeople = ref.watch(selectedPeopleProvider);
+
+  bool isSelected = selectedPeople.any((p) => p['id'] == person['id']);
+
+  return GestureDetector(
+    onTap: () {
+      final notifier = ref.read(selectedPeopleProvider.notifier);
+      if (isSelected) {
+        notifier.state = [...notifier.state]..removeWhere((p) => p['id'] == person['id']);
+      } else {
+        notifier.state = [...notifier.state, person];
+      }
+    },
+    child: Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: isSelected ? Colors.green.shade200 : AppColors.addPeopleSuggestionBg,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(person['image']!),
+            radius: 15.sp,
+          ),
+          8.horizontalSpace,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              labelTextBold(person['name'], 12.sp, AppColors.addPeopleTextBg),
+              labelTextMedium(person['role']!, 10.sp, AppColors.addPeopleTextBg),
+            ],
+          ),
+        ],
+      ),
+    ),
   );
 }

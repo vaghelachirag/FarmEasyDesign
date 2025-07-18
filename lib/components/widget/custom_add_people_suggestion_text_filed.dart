@@ -5,6 +5,7 @@ import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import '../../screens/tab/seeding/addDetail/add_seeding_provider.dart';
+import '../../screens/tab/seeding/addDetail/add_seeding_screen.dart';
 import 'custom_input_field.dart';
 
 class CustomAddPeopleSuggestionTextFiled extends ConsumerStatefulWidget {
@@ -58,7 +59,7 @@ class _CustomAddPeopleSuggestionTextFiledState
                   ),
                   itemBuilder: (context, index) {
                     final person = filteredPeople[index];
-                    return listItemContent(person);
+                    return listItemContent(person, ref);
                   },
                 ),
               )
@@ -67,30 +68,4 @@ class _CustomAddPeopleSuggestionTextFiledState
       ),
     );
   }
-}
-
-Widget listItemContent(Map<String, String> person) {
-  return Container(
-    padding: const EdgeInsets.all(8),
-    decoration: BoxDecoration(
-      color: AppColors.addPeopleSuggestionBg,
-      borderRadius: BorderRadius.circular(6),
-    ),
-    child: Row(
-      children: [
-        CircleAvatar(
-          backgroundImage: NetworkImage(person['image']!),
-          radius: 15.sp,
-        ),
-        8.horizontalSpace,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            labelTextBold(person['name'], 12.sp, AppColors.addPeopleTextBg),
-            labelTextMedium(person['role']!, 10.sp, AppColors.addPeopleTextBg),
-          ],
-        ),
-      ],
-    ),
-  );
 }

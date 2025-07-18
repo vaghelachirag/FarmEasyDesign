@@ -33,9 +33,16 @@ class $AssetsIconsGen {
   SvgGenImage get iconAddDetail =>
       const SvgGenImage('assets/icons/icon_add_detail.svg');
 
+  /// File path: assets/icons/icon_arrow_right.svg
+  SvgGenImage get iconArrowRight =>
+      const SvgGenImage('assets/icons/icon_arrow_right.svg');
+
   /// File path: assets/icons/icon_calendar.svg
   SvgGenImage get iconCalendar =>
       const SvgGenImage('assets/icons/icon_calendar.svg');
+
+  /// File path: assets/icons/icon_drop.svg
+  SvgGenImage get iconDrop => const SvgGenImage('assets/icons/icon_drop.svg');
 
   /// File path: assets/icons/icon_dropdown.svg
   SvgGenImage get iconDropdown =>
@@ -50,6 +57,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_hand.svg
   SvgGenImage get iconHand => const SvgGenImage('assets/icons/icon_hand.svg');
 
+  /// File path: assets/icons/icon_hummer.svg
+  SvgGenImage get iconHummer =>
+      const SvgGenImage('assets/icons/icon_hummer.svg');
+
   /// File path: assets/icons/icon_info.svg
   SvgGenImage get iconInfo => const SvgGenImage('assets/icons/icon_info.svg');
 
@@ -59,6 +70,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/icon_more.svg
   SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
+
+  /// File path: assets/icons/icon_plant.svg
+  SvgGenImage get iconPlant => const SvgGenImage('assets/icons/icon_plant.svg');
 
   /// File path: assets/icons/icon_qr.svg
   SvgGenImage get iconQr => const SvgGenImage('assets/icons/icon_qr.svg');
@@ -85,6 +99,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_seeding_qr.svg
   SvgGenImage get iconSeedingQr =>
       const SvgGenImage('assets/icons/icon_seeding_qr.svg');
+
+  /// File path: assets/icons/icon_seeds.svg
+  SvgGenImage get iconSeeds => const SvgGenImage('assets/icons/icon_seeds.svg');
 
   /// File path: assets/icons/icon_start_seed.svg
   SvgGenImage get iconStartSeed =>
@@ -114,14 +131,18 @@ class $AssetsIconsGen {
     flash,
     google,
     iconAddDetail,
+    iconArrowRight,
     iconCalendar,
+    iconDrop,
     iconDropdown,
     iconEdit,
     iconFlash,
     iconHand,
+    iconHummer,
     iconInfo,
     iconInfoBlub,
     iconMore,
+    iconPlant,
     iconQr,
     iconQrProcessed,
     iconRightArrow,
@@ -129,6 +150,7 @@ class $AssetsIconsGen {
     iconScanMore,
     iconScanNow,
     iconSeedingQr,
+    iconSeeds,
     iconStartSeed,
     mesageIcon,
     syncIcon,

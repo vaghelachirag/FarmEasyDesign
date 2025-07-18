@@ -9,6 +9,12 @@ final allPeopleProvider = Provider<List<Map<String, String>>>((ref) => [
   {'name': 'John D', 'role': 'Manager', 'image': 'https://randomuser.me/api/portraits/men/4.jpg'},
 ]);
 
+
+final seedLotListProvider = StateProvider<List<String>>((ref) => [
+  '#4577', '#4578', '#4579', '#4580', '#4581', '#4582','#4582','#4582'
+]);
+
+
 // Holds search input text
 final peopleSearchTextProvider = StateProvider<String>((ref) => '');
 
@@ -23,3 +29,9 @@ final filteredPeopleProvider = Provider<List<Map<String, String>>>((ref) {
     return person['name']!.toLowerCase().contains(searchText);
   }).toList();
 });
+
+
+final selectedPeopleProvider = StateProvider<List<Map<String, String>>>((ref) => []);
+
+
+

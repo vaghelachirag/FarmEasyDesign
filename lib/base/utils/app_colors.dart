@@ -92,6 +92,9 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const dateUnSelectionBg = Color(0xFFF0F4EC);
   static const dateUnTextBg = Color(0xFF79767D);
 
+  // Main Input Text filed
+  static const inputBorderColor = Color(0xFF79747E);
+  static const inputLabelColor = Color(0xFF49454F);
 
 
   // Bottom bar Selection
