@@ -43,8 +43,8 @@ class StepperWidget extends ConsumerWidget {
             },
             child:
             Container(
-              width: 50,
-              height: 50,
+              width: 40.w,
+              height: 40.w,
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,

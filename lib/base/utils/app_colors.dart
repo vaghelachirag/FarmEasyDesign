@@ -133,4 +133,8 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color seedingTextBg = Color(0xFF1D1B20);
   static const Color seedingTrayBg = Color(0xFF49454F);
 
+  static const Color totalAssignPersonBg = Color(0xFFF6F5FD);
+  static const Color totalAssignPersonTextBg = Color(0xFF49454F);
+  static const Color markAsReadButtonBg = Color(0xFFD6F6D1);
+  static const Color markAsReadButtonBorderBg = Color(0xFFCAC4D0);
 }

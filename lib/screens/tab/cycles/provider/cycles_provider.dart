@@ -29,12 +29,18 @@ final taskListProvider = StateProvider<List<ModelCycleSeeding>>((ref) => [
 
 final assignedUsersProvider = StateProvider<List<ModelAssignUser>>((ref) {
   return [
-    ModelAssignUser('assets/user1.jpg'),
-    ModelAssignUser('assets/user2.jpg'),
-    ModelAssignUser('assets/user3.jpg'),
-    ModelAssignUser('assets/user4.jpg'),
-    ModelAssignUser('assets/user5.jpg'),
-    ModelAssignUser('assets/user6.jpg'),
-    ModelAssignUser('assets/user7.jpg'),
+    ModelAssignUser('assets/images/assign_person_1.png'),
+    ModelAssignUser('assets/images/assign_person_2.png'),
+    ModelAssignUser('assets/images/assign_person_3.png'),
+    ModelAssignUser('assets/images/assign_person_1.png'),
+    ModelAssignUser('assets/images/assign_person_1.png'),
+    ModelAssignUser('assets/images/assign_person_1.png'),
+    ModelAssignUser('assets/images/assign_person_1.png'),
   ];
 });
+
+final seedingStatusProvider = StateProvider<SeedingStatus>((ref) {
+  return SeedingStatus.idle;
+});
+
+enum SeedingStatus { idle, started, issueMarked }

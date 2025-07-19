@@ -21,6 +21,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../components/widget/custom_cycle_step_progress_bar.dart';
+import '../../../components/widget/custom_seeding_action_section.dart';
 import '../../../components/widget/custom_steper_widget.dart';
 
 class CyclesPage extends ConsumerWidget {
@@ -37,7 +38,6 @@ class CyclesPage extends ConsumerWidget {
     return SafeArea(child:
     Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -54,6 +54,10 @@ class CyclesPage extends ConsumerWidget {
             CustomTabCycle(),
             Padding(
               padding: EdgeInsets.all(16.w),
+              child: const CycleStatusCard(),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 16.w,right: 16.w),
               child: const CycleStatusCard(),
             ),
           ],
@@ -74,81 +78,78 @@ class CycleStatusCard extends ConsumerWidget {
     String formatDate(DateTime date) => DateFormat('dd/MM/yyyy').format(date);
 
     return  Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          10.verticalSpace,
-          Row(
-            children: [
-              // Left text
-              labelTextBold("Cycle 8", 16.sp, AppColors.blackColor),
-              SizedBox(width: 8.w),
-              // Middle text with flexible width
-              Expanded(
-                child: labelTextRegular(
-                  "• 38 Arugula Trays",
-                  14.sp,
-                  AppColors.cycleTrayBg,
-                ),
-              ),
-              SvgPicture.asset(
-                Assets.icons.iconArrowRight.path,
-                height: 20.h, // Optional: set size
-              ),
-            ],
-          ),
-          10.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              labelTextMedium('Started Date • ${formatDate(cycle.startDate)}', 10.sp, AppColors.cycleDateTextBg),
-              labelTextMedium('Est End Date • ${formatDate(cycle.startDate)}', 10.sp, AppColors.cycleDateTextBg),
-            ],
-          ),
-          10.verticalSpace,
-          StepperWidget(),
-          10.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              labelTextRegular("Upcoming Seeding in", 12.sp, AppColors.upComingSeedsTextBg),
-              5.horizontalSpace,
-              Container(
-                decoration: AppDecorations.seedingMainBg(),
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                child: Text("${cycle.upcomingSeedingDays} Days",
-                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600)),
-              ),
-            ],
-          ),
-          10.verticalSpace,
-          CustomCycleStepProgressBar(progress: 0.1),
-           Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Container(
+        padding: EdgeInsets.only(left: 16.sp,right: 16.sp),
+        child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child:
-            labelTextBold('${(0 * 100).toInt()}%', 14.sp, AppColors.daysToCompleteBg)),
-            labelTextBold("14 Days", 14.sp, AppColors.blackColor),
-            5.horizontalSpace,
-            labelTextRegular("to Complete", 12.sp, AppColors.daysToCompleteBg)
+            10.verticalSpace,
+            Row(
+              children: [
+                // Left text
+                labelTextBold("Cycle 8", 16.sp, AppColors.blackColor),
+                SizedBox(width: 8.w),
+                // Middle text with flexible width
+                Expanded(
+                  child: labelTextRegular(
+                    "• 38 Arugula Trays",
+                    14.sp,
+                    AppColors.cycleTrayBg,
+                  ),
+                ),
+                SvgPicture.asset(
+                  Assets.icons.iconArrowRight.path// Optional: set size
+                ),
+              ],
+            ),
+            5.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                labelTextMedium('Started Date • ${formatDate(cycle.startDate)}', 10.sp, AppColors.cycleDateTextBg),
+                labelTextMedium('Est End Date • ${formatDate(cycle.startDate)}', 10.sp, AppColors.cycleDateTextBg),
+              ],
+            ),
+            10.verticalSpace,
+            StepperWidget(),
+            10.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                labelTextRegular("Upcoming Seeding in", 10.sp, AppColors.upComingSeedsTextBg),
+                5.horizontalSpace,
+                Container(
+                  decoration: AppDecorations.seedingMainBg(),
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                  child:   labelTextMedium("${cycle.upcomingSeedingDays} Days", 10.sp, AppColors.blackColor)
+                ),
+              ],
+            ),
+            10.verticalSpace,
+            CustomCycleStepProgressBar(progress: 0.1),
+            5.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child:
+                labelTextBold('${(0 * 100).toInt()}%', 12.sp, AppColors.daysToCompleteBg)),
+                labelTextBold("14 Days", 14.sp, AppColors.blackColor),
+                5.horizontalSpace,
+                labelTextRegular("to Complete", 10.sp, AppColors.daysToCompleteBg)
+              ],
+            ),
+            10.verticalSpace,
+            _seedingInfoContainer()
           ],
         ),
-          10.verticalSpace,
-          _seedingInfoContainer(),
-          DashedLine(
-            height: 1,
-            dashWidth: 6,
-            dashSpacing: 4,
-            color: Colors.grey.shade400,
-          ),
-        ],
       ),
     );
   }
 
+
   Widget _seedingInfoContainer(){
     return Container(
-      padding: EdgeInsets.only(left: 15.sp,right: 15.sp),
+      padding: EdgeInsets.only(left: 5.w,right: 5.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -159,12 +160,12 @@ class CycleStatusCard extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  labelTextRegular('14F Trays of Arugula', 12.sp, AppColors.seedingTrayBg),
-                  const SizedBox(width: 4),
+                  labelTextMedium('14F Trays of Arugula', 10.sp, AppColors.seedingTrayBg),
+                  4.horizontalSpace,
                   SvgPicture.asset(Assets.icons.iconInfo.path)
                 ],
               ),
-              labelTextRegular('0/14 Completed', 12.sp, AppColors.seedingTrayBg),
+              labelTextMedium('0/14 Completed', 10.sp, AppColors.seedingTrayBg),
             ],
           ),
           5.verticalSpace,
@@ -173,12 +174,12 @@ class CycleStatusCard extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  labelTextRegular('14F Trays of Arugula', 12.sp, AppColors.seedingTrayBg),
+                  labelTextMedium('14F Trays of Arugula', 10.sp, AppColors.seedingTrayBg),
                   const SizedBox(width: 4),
                   SvgPicture.asset(Assets.icons.iconInfo.path)
                 ],
               ),
-              labelTextRegular('0/14 Completed', 12.sp, AppColors.seedingTrayBg),
+              labelTextMedium('0/14 Completed', 10.sp, AppColors.seedingTrayBg),
             ],
           ),
           5.verticalSpace,
@@ -187,8 +188,67 @@ class CycleStatusCard extends ConsumerWidget {
               // Show modal, navigate, etc.
             },
           ),
+          5.verticalSpace,
+          DashedLine(),
+          5.verticalSpace,
+          CustomSeedingActionSection(),
+          20.verticalSpace,
         ],
       ),
+    );
+  }
+}
+
+
+class SeedingButtonsRow extends StatelessWidget {
+  const SeedingButtonsRow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(width: 100,child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF1C7C45), // Green
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24), // pill shape
+            ),
+            minimumSize: const Size(80, 40), // width, height
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            elevation: 0,
+          ),
+          onPressed: () {},
+          icon: SvgPicture.asset(
+            Assets.icons.iconSeeds.path,
+            width: 16,
+            height: 16,
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
+          label: labelTextMedium("Start Seeding", 12.sp, AppColors.white),
+        ),),
+        const SizedBox(width: 12),
+        SizedBox(width: 50,child: OutlinedButton.icon(
+            style: OutlinedButton.styleFrom(
+              backgroundColor: const Color(0xFFE7F5E9), // light green
+              foregroundColor: const Color(0xFF1C7C45), // dark green icon/text
+              side: BorderSide(color: Colors.green.shade200),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              minimumSize: const Size(140, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+            ),
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              Assets.icons.iconMarkIssue.path,
+              width: 16,
+              height: 16,
+              colorFilter: const ColorFilter.mode(Color(0xFF1C7C45), BlendMode.srcIn),
+            ),
+            label: labelTextMedium("Mark Issue", 12.sp, AppColors.totalAssignPersonTextBg)
+        ),),
+      ],
     );
   }
 }

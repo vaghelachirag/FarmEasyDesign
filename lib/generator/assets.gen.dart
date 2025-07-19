@@ -68,6 +68,10 @@ class $AssetsIconsGen {
   SvgGenImage get iconInfoBlub =>
       const SvgGenImage('assets/icons/icon_info_blub.svg');
 
+  /// File path: assets/icons/icon_mark_issue.svg
+  SvgGenImage get iconMarkIssue =>
+      const SvgGenImage('assets/icons/icon_mark_issue.svg');
+
   /// File path: assets/icons/icon_more.svg
   SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
 
@@ -141,6 +145,7 @@ class $AssetsIconsGen {
     iconHummer,
     iconInfo,
     iconInfoBlub,
+    iconMarkIssue,
     iconMore,
     iconPlant,
     iconQr,
@@ -162,6 +167,18 @@ class $AssetsIconsGen {
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/assign_person_1.png
+  AssetGenImage get assignPerson1 =>
+      const AssetGenImage('assets/images/assign_person_1.png');
+
+  /// File path: assets/images/assign_person_2.png
+  AssetGenImage get assignPerson2 =>
+      const AssetGenImage('assets/images/assign_person_2.png');
+
+  /// File path: assets/images/assign_person_3.png
+  AssetGenImage get assignPerson3 =>
+      const AssetGenImage('assets/images/assign_person_3.png');
 
   /// File path: assets/images/block_chai_icon.svg
   SvgGenImage get blockChaiIcon =>
@@ -212,6 +229,9 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+    assignPerson1,
+    assignPerson2,
+    assignPerson3,
     blockChaiIcon,
     dashboardChart,
     dataMaintanceIcon,

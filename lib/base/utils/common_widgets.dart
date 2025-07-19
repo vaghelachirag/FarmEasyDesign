@@ -29,7 +29,6 @@ Text labelTextBold(hint, double fontSize, Color labelTextColor) {
     hint,
     style: TextStyle(
         color: labelTextColor,
-        fontWeight: FontWeight.w600,
         fontSize: ScreenUtil().setSp(fontSize),
         fontFamily: AppConstant.labelFrontBold),
   );
@@ -41,7 +40,6 @@ Text labelTextMedium(hint, double fontSize, Color labelTextColor) {
     hint,
     style: TextStyle(
         color: labelTextColor,
-        fontWeight: FontWeight.w600,
         fontSize: ScreenUtil().setSp(fontSize),
         fontFamily: AppConstant.labelFrontMedium),
   );
@@ -53,7 +51,6 @@ Text labelTextRegular(hint, double fontSize, Color labelTextColor) {
     hint,
     style: TextStyle(
         color: labelTextColor,
-        fontWeight: FontWeight.w600,
         fontSize: ScreenUtil().setSp(fontSize),
         fontFamily: AppConstant.labelFrontRegular),
   );

@@ -1,4 +1,6 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/generator/fonts.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,12 +25,9 @@ class CustomCycleAssignPerson extends ConsumerWidget {
 
     return Row(
       children: [
-        const Text(
+          Text(
           'Assigned to:',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black87,
-          ),
+          style:  context.textTheme.labelSmall?.copyWith(),
         ),
         const SizedBox(width: 8),
         SizedBox(
@@ -49,10 +48,11 @@ class CustomCycleAssignPerson extends ConsumerWidget {
                   left: visibleUsers.length * 20.0,
                   child: CircleAvatar(
                     radius: 14,
-                    backgroundColor: Colors.grey.shade400,
-                    child: Text(
+                    backgroundColor: AppColors.totalAssignPersonBg,
+                    child:
+                    Text(
                       '+$extraCount',
-                      style: const TextStyle(fontSize: 12, color: Colors.white),
+                      style: context.textTheme.labelSmall?.copyWith(),
                     ),
                   ),
                 ),
@@ -65,8 +65,8 @@ class CustomCycleAssignPerson extends ConsumerWidget {
           child: Text(
             'Assign People',
             style: TextStyle(
-              fontSize: 14.sp,
-
+              fontSize: 11.sp,
+              fontFamily: FontFamily.roboto,
               color: AppColors.buttonBackgroundColor,
               fontWeight: FontWeight.w600,
               decoration: TextDecoration.underline, decorationColor: Colors.blue

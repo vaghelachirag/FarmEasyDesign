@@ -1,5 +1,6 @@
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class CustomCycleStepProgressBar extends StatelessWidget {
@@ -12,7 +13,7 @@ class CustomCycleStepProgressBar extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20), // smooth rounded edges
       child: Container(
-        height: 6, // as per image height
+        height: 3.w, // as per image height
         decoration: BoxDecoration(
           color: AppColors.unProgressBg, // light background
         ),
