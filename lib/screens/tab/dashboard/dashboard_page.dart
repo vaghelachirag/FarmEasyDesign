@@ -263,7 +263,6 @@ class TotalYieldSection extends StatelessWidget {
 
               SizedBox(width: 10.w),
 
-              /// Right: Box Icon
               Stack(
                 alignment: Alignment.topRight,
                 children: [

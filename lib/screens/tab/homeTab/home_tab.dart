@@ -69,7 +69,7 @@ Widget bottomBarIcon(String path, {required bool isSelected}) {
   return Container(
     decoration: BoxDecoration(
       color: isSelected ? AppColors.bottomBarSelectionColor : Colors.transparent,
-      borderRadius: BorderRadius.circular(30.r),
+      borderRadius: BorderRadius.circular(20.r),
     ),
     padding: EdgeInsets.all(8.w),
     child: SvgPicture.asset(

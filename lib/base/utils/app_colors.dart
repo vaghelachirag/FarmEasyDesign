@@ -119,4 +119,18 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color removeLotCodeBg = Color(0xFF49454F);
   static const Color addPeopleTextBg = Color(0xFF49454F);
   static const Color addPeopleSuggestionBg = Color(0xFF92C18A);
+
+
+  static const Color cycleTrayBg = Color(0xFFA9A6AD);
+  static const Color cycleDateTextBg = Color(0xFF49454F);
+  static const Color cycleDividerBg = Color(0xFFF0F4EC);
+  static const Color cycleRoundBorderBg = Color(0xFF23C072);
+  static const Color cycleRoundBackgroundBg = Color(0xFFF0F4EC);
+  static const Color upComingSeedsTextBg = Color(0xFF79767D);
+  static const Color unProgressBg = Color(0xFFF0F4EC);
+  static const Color selectedProgressBg = Color(0xFF196F3A);
+  static const Color daysToCompleteBg = Color(0xFF79767D);
+  static const Color seedingTextBg = Color(0xFF1D1B20);
+  static const Color seedingTrayBg = Color(0xFF49454F);
+
 }
