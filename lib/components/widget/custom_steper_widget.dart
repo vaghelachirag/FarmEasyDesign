@@ -1,65 +1,66 @@
-import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/generator/assets.gen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../base/utils/app_colors.dart';
+import '../../generator/assets.gen.dart';
 
+import '../../model/model_cycle.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
 
 class StepperWidget extends ConsumerWidget {
-  const StepperWidget({super.key});
+  final ModelCycle cycle;
+  const StepperWidget({super.key, required this.cycle});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIndex = ref.watch(selectedStepProvider);
+    final currentStage = cycle.currentStage; // Enum: CycleStage
+    final currentStageIndex = CycleStage.values.indexOf(currentStage);
 
-    final List<String> icons = [
-      Assets.icons.iconSeeds.path,
-      Assets.icons.iconPlant.path,
-      Assets.icons.iconDrop.path,
-      Assets.icons.iconHummer.path,
-    ];
+    final Map<CycleStage, String> stageIcons = {
+      CycleStage.seeding: Assets.icons.iconSeeds.path,
+      CycleStage.movement: Assets.icons.iconPlant.path,
+      CycleStage.germination: Assets.icons.iconDrop.path,
+      CycleStage.fertigation: Assets.icons.iconHummer.path,
+    };
+
+    final doneIcon = Assets.images.iconSeedingDone.path;
+    final currentArrow = Assets.icons.iconArrowRight.path;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(icons.length * 2 - 1, (index) {
+      children: List.generate(stageIcons.length * 2 - 1, (index) {
         if (index.isOdd) {
-          // Line between circles
-          return
-            Expanded(
+          // Divider line
+          return Expanded(
             child: Divider(
-              color:  AppColors.cycleDividerBg,
+              color: AppColors.cycleDividerBg,
               thickness: 4.sp,
             ),
           );
         } else {
-          int iconIndex = index ~/ 2;
-          bool isSelected = iconIndex == selectedIndex;
-
-          return GestureDetector(
-            onTap: () {
-              ref.read(selectedStepProvider.notifier).state = iconIndex;
-            },
-            child:
-            Container(
-              width: 40.w,
-              height: 40.w,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.cycleRoundBackgroundBg,
-                border: Border.all(
-                  color: AppColors.cycleRoundBorderBg,
-                  width: 1.sp,
-                ),
-              ),
-              child:
-              SvgPicture.asset(icons[iconIndex])
-            ),
-          );
+          int stageIndex = index ~/ 2;
+          final stage = CycleStage.values[stageIndex];
+          return  stageIndex < currentStageIndex ?  stepImage(Assets.images.iconSeedingDone.path,stageIndex,currentStageIndex) : stepImage(stageIcons[stage]!,stageIndex,currentStageIndex);
         }
       }),
     );
   }
+}
+Widget stepImage(String path, int stageIndex, int currentStageIndex){
+  return Container(
+      width: 40.w,
+      height: 40.w,
+      padding: stageIndex < currentStageIndex ? EdgeInsets.all(0) : EdgeInsets.all(10),
+  decoration: BoxDecoration(
+  shape: BoxShape.circle,
+  color: AppColors.cycleRoundBackgroundBg,
+  border: Border.all(
+  color: AppColors.cycleRoundBorderBg,
+  width: 1.sp,
+  ),
+  ),
+  child:
+  SvgPicture.asset(path));
 }

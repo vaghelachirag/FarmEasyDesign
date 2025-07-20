@@ -106,7 +106,6 @@ class CycleStatusCard extends StatelessWidget {
           ),
         ],
       )
-
     );
   }
 }

@@ -17,7 +17,9 @@ final seedingStatusProvider = StateProvider<SeedingStatus>((ref) {
 enum SeedingStatus { idle, started, issueMarked }
 
 class CustomSeedingActionSection extends StatelessWidget {
-  const CustomSeedingActionSection({super.key});
+  final String buttonText;
+
+  CustomSeedingActionSection({super.key, required this.buttonText});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class CustomSeedingActionSection extends StatelessWidget {
                   Assets.icons.iconStartSeed.path,
                   colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
-                label: labelTextRegular( "Start Seeding", 12.sp, AppColors.white),
+                label: labelTextRegular( buttonText, 12.sp, AppColors.white),
               ),
             ),
             20.horizontalSpace,

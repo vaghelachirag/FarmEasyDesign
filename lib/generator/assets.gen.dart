@@ -204,6 +204,10 @@ class $AssetsImagesGen {
   SvgGenImage get iconRightTopCorner =>
       const SvgGenImage('assets/images/icon_right_top_corner.svg');
 
+  /// File path: assets/images/icon_seeding_done.svg
+  SvgGenImage get iconSeedingDone =>
+      const SvgGenImage('assets/images/icon_seeding_done.svg');
+
   /// File path: assets/images/left_side_corner_scan.svg
   SvgGenImage get leftSideCornerScan =>
       const SvgGenImage('assets/images/left_side_corner_scan.svg');
@@ -238,6 +242,7 @@ class $AssetsImagesGen {
     iconLeftBottomCorner,
     iconRightBottomCorner,
     iconRightTopCorner,
+    iconSeedingDone,
     leftSideCornerScan,
     onlineStore,
     scanSucess,
