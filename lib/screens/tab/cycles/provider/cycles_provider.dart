@@ -53,6 +53,20 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
       upcomingSeedsDay: 1,
       seedingStatus: 1, currentStage: CycleStage.movement
     ),
+    ModelCycle(
+        cycleName: "Cycle 8",
+        trayInfo: "38 Arugula Trays",
+        startDate: DateTime(2025, 5, 22),
+        endDate: DateTime(2025, 5, 22),
+        status: "Moving to Fertigation Room",
+        assignedUsers: ["A", "B", "C", "D", "E"],
+        arugulaCompleted: 0,
+        arugulaTotal: 14,
+        cabbageCompleted: 0,
+        cabbageTotal: 25,
+        upcomingSeedsDay: 1,
+        seedingStatus: 2, currentStage: CycleStage.germination
+    ),
     // Add more cycles as needed
   ];
 });
