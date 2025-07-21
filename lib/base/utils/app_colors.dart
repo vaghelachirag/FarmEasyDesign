@@ -137,4 +137,8 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color totalAssignPersonTextBg = Color(0xFF49454F);
   static const Color markAsReadButtonBg = Color(0xFFD6F6D1);
   static const Color markAsReadButtonBorderBg = Color(0xFFCAC4D0);
+
+
+  static const Color cycleStepProcessBg = Color(0xFFF0F4EC);
+
 }

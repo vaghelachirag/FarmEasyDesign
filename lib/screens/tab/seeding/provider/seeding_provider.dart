@@ -14,3 +14,5 @@ final scanToggleProvider = StateProvider<bool>((ref) => false);
 final scanStateProvider = StateProvider<ScanState>((ref) => ScanState.idle);
 
 
+
+

@@ -1,31 +1,48 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/base/utils/app_decorations.dart';
-import 'package:farmeasy/base/utils/common_widgets.dart';
-import 'package:farmeasy/generator/assets.gen.dart';
-import 'package:farmeasy/screens/tab/bottombarNavigator/provider/bottomBar_provider.dart';
-import 'package:farmeasy/screens/tab/seeding/provider/seeding_provider.dart';
+import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
+import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+
+import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/scan_more_custom_button.dart';
 import '../../../components/widget/step_progress_widget.dart';
-import '../../../generated/l10n.dart';
-import '../../../base/utils/common_widgets.dart';
+import '../../../generator/assets.gen.dart';
+import '../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
+import '../../tab/seeding/provider/seeding_provider.dart';
 
+class SeedingTraysScreen extends ConsumerStatefulWidget {
+  static const route = "/SeedingTraysScreen";
 
-class SeedingScreenPage extends ConsumerWidget {
-  const SeedingScreenPage({super.key});
+  const SeedingTraysScreen({super.key});
 
-  static const route = "/SeedingScreenPage";
+  @override
+  ConsumerState<SeedingTraysScreen> createState() => _SeedingTraysScreen();
+}
 
+class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
+    with TickerProviderStateMixin {
+
+  late CycleStage cycleStatus;
 
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final cycles = ref.watch(cyclesProvider);
+
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
     final currentIndex = ref.watch(bottomNavIndexProvider);
@@ -36,6 +53,7 @@ class SeedingScreenPage extends ConsumerWidget {
     final scanState = ref.watch(scanStateProvider);
     final scanStateNotifier = ref.read(scanStateProvider.notifier);
 
+    getArgument();
 
     return SafeArea(
       child: Scaffold(
@@ -49,7 +67,7 @@ class SeedingScreenPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20.h),
-              //  StepProgressIndicator(currentStep: 0),
+                StepProgressIndicator(currentStepName: cycleStatus),
                 10.verticalSpace,
                 // Info card
                 Container(
@@ -59,7 +77,7 @@ class SeedingScreenPage extends ConsumerWidget {
                     children: [
                       buildTopBar(),
                       SizedBox(height: 20.h),
-                    /*  Container(
+                      Container(
                         width: double.infinity,
                         decoration: boxDecoration(AppColors.white,AppColors.white),
                         padding: EdgeInsets.all(3.r),
@@ -67,16 +85,16 @@ class SeedingScreenPage extends ConsumerWidget {
                           width: double.infinity,
                           padding: EdgeInsets.all(16.r),
                           decoration: AppDecorations.infoWindowBg(),
-                          child: infoWindow(context,c),
+                          child: infoWindow(context,cycleStatus),
                         ),
-                      ),*/
+                      ),
                       SizedBox(height: 40.h),
                       // QR Scan box
-                     // mobileScanner(),
-                     // scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,c),
+                      // mobileScanner(),
+                      scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
                       SizedBox(height: 40.h),
                       Visibility(
-                         visible: scanState == ScanState.idle ,
+                          visible: scanState == ScanState.idle ,
                           child:   addDetailButton(context,scanStateNotifier))
                     ],
                   ),
@@ -89,6 +107,12 @@ class SeedingScreenPage extends ConsumerWidget {
       ),
     );
   }
+
+
+  void getArgument() {
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    cycleStatus = args[cycleStageArgumentName];
+  }
 }
 
 // Add Detail button
@@ -97,10 +121,10 @@ Widget addDetailButton(BuildContext context, StateController<ScanState> scanStat
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       SizedBox(
-        width: 120.h,
-        child:  ScanMoreCustomButton(btnName: context.l10n.scanMore, onPressed: (){
-          scanStateNotifier.state = ScanState.scanning;
-        })
+          width: 120.h,
+          child:  ScanMoreCustomButton(btnName: context.l10n.scanMore, onPressed: (){
+            scanStateNotifier.state = ScanState.scanning;
+          })
       ),
       10.horizontalSpace,
       SizedBox(
@@ -114,23 +138,23 @@ Widget addDetailButton(BuildContext context, StateController<ScanState> scanStat
 
 Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNotifier){
   return
-   Center(
-     child:  Container(
-         margin: EdgeInsets.all(15),
-         child:  ClipRRect(
-           borderRadius: BorderRadius.circular(20),
-           child: MobileScanner(
-             controller: MobileScannerController(
-               detectionSpeed: DetectionSpeed.normal,
-               facing: CameraFacing.back,
-             ),
-             onDetect: (BarcodeCapture barcode) {
-               scanStateNotifier.state = ScanState.success;
-             },
-           ),
-         )
-     ),
-   )
+    Center(
+      child:  Container(
+          margin: EdgeInsets.all(15),
+          child:  ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: MobileScanner(
+              controller: MobileScannerController(
+                detectionSpeed: DetectionSpeed.normal,
+                facing: CameraFacing.back,
+              ),
+              onDetect: (BarcodeCapture barcode) {
+                scanStateNotifier.state = ScanState.success;
+              },
+            ),
+          )
+      ),
+    )
   ;
 }
 
@@ -141,7 +165,7 @@ Widget tapScanColumn(BuildContext context){
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(
-        S.of(context).tapToScan,
+        context.l10n.tapToScan,
         style: context.textTheme.labelMedium?.copyWith(
           color: AppColors.white,
         ),
@@ -173,9 +197,11 @@ Widget scanSuccessWidget(BuildContext context){
       ),
 
       // Bottom Buttons
-  ],
+    ],
   );
 }
+
+
 Widget buildTopBar() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,

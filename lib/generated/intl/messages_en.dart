@@ -65,6 +65,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "scanTheSeedLotCodesToStartSeedingOfTrays":
             MessageLookupByLibrary.simpleMessage(
                 "Scan the Seed Lot codes to start Seeding of trays."),
+        "scantheseedlotcodestostartseedingoftrays":
+            MessageLookupByLibrary.simpleMessage(
+                "scanTheSeedLotCodesToStartSeedingOfTrays"),
         "seeHowToDoIt":
             MessageLookupByLibrary.simpleMessage("See how to do it ?"),
         "seedLotCode": MessageLookupByLibrary.simpleMessage("Seed Lot Code"),
@@ -72,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Seed Weight/Tray"),
         "seedingDate": MessageLookupByLibrary.simpleMessage("Seeding Date"),
         "seedsName": MessageLookupByLibrary.simpleMessage("Seeds Name"),
+        "seehowtodoit": MessageLookupByLibrary.simpleMessage("seeHowToDoIt"),
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
         "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
         "youCanScanMultipleSeedLotCodesAtOnce":

@@ -1,16 +1,21 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/generator/assets.gen.dart';
+import 'package:flutter_svg/svg.dart';
 
+import '../../base/utils/app_colors.dart';
 import '../../base/utils/common_widgets.dart';
+import '../../generator/assets.gen.dart';
+import '../../screens/tab/cycles/provider/cycles_provider.dart';
 
 class StepProgressIndicator extends StatelessWidget {
-  final int currentStep;
+  final CycleStage currentStepName;
 
-  const StepProgressIndicator({super.key, required this.currentStep});
+  const StepProgressIndicator({
+    super.key,
+    required this.currentStepName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +25,47 @@ class StepProgressIndicator extends StatelessWidget {
       ('Step 3', 'Scan Level QR', Assets.icons.iconSeedingQr.path),
     ];
 
-    return
-      Container(
-        decoration: boxDecoration(AppColors.white,AppColors.basePrimaryColor),
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        child: Column(
-          children: [
-            _mainWidget(steps,context),
-          ],
-        )  ,
-      )
-     ;
+    final currentStep = _getStepIndexFromCycleStage(currentStepName);
+
+    return Container(
+      decoration: boxDecoration(AppColors.white, AppColors.basePrimaryColor),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      child: Column(
+        children: [
+           loadTopProcessWidget(currentStep),
+         // _mainWidget(steps, context, currentStep),
+        ],
+      ),
+    );
   }
 
-  Widget _mainWidget(List<(String, String, String)> steps, BuildContext context){
+  Widget loadTopProcessWidget(int currentStep){
+    return switch (currentStep) {
+      0 =>  loadGerminationWidget(),
+      1 =>  loadGerminationWidget(),
+      2 => loadGerminationWidget(),
+      _ => Text("Unknown"),
+    };
+  }
+
+  /// 🧠 Map each [CycleStage] to an index (0-based)
+  int _getStepIndexFromCycleStage(CycleStage stage) {
+    switch (stage) {
+      case CycleStage.seeding:
+        return 0;
+      case CycleStage.movement:
+        return 1;
+      case CycleStage.germination:
+        return 2;
+      case CycleStage.fertigation:
+      case CycleStage.harvesting:
+      default:
+        return 2; // Final step for unsupported stages
+    }
+  }
+
+  Widget _mainWidget(
+      List<(String, String, String)> steps, BuildContext context, int currentStep) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: List.generate(steps.length * 2 - 1, (index) {
@@ -49,6 +81,7 @@ class StepProgressIndicator extends StatelessWidget {
           final stepIndex = index ~/ 2;
           final isActive = stepIndex == currentStep;
           final isCompleted = stepIndex < currentStep;
+
           return _buildStepCircle(
             context,
             stepTitle: steps[stepIndex].$1,
@@ -70,7 +103,8 @@ class StepProgressIndicator extends StatelessWidget {
         required bool isActive,
         required bool isCompleted,
       }) {
-    final circleColor = isCompleted || isActive ? AppColors.customCycleTabUnSelectedColor : AppColors.customCycleTabUnSelectedColor ;
+    final circleColor =
+    isCompleted || isActive ? AppColors.customCycleTabUnSelectedColor : AppColors.customCycleTabUnSelectedColor;
     final iconColor = isActive ? AppColors.customCycleTabSelectedColor : AppColors.customCycleTabSelectedColor;
 
     return Column(
@@ -81,7 +115,7 @@ class StepProgressIndicator extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.primary, width: 1.5),
-            color: AppColors.customCycleTabUnSelectedColor,
+            color: circleColor,
           ),
           child: SvgPicture.asset(
             iconPath,
@@ -101,12 +135,35 @@ class StepProgressIndicator extends StatelessWidget {
         SizedBox(height: 2.h),
         Text(
           stepLabel,
-          style: context.textTheme.labelLarge?.copyWith(
-            fontSize: 12.sp
-          ),
+          style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp),
           textAlign: TextAlign.center,
         ),
       ],
     );
   }
+
+ Widget loadGerminationWidget() {
+    return Container(
+        padding: EdgeInsets.only(bottom: 30.sp),
+        child: Row(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10.r),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.primary, width: 1.5),
+            color: AppColors.primary,
+          ),
+          child: SvgPicture.asset(
+            Assets.icons.iconSeedingQr.path,
+            height: 20.r,
+            width: 20.r,
+            colorFilter: ColorFilter.mode(AppColors.cycleStepProcessBg, BlendMode.srcIn),
+          ),
+        ),
+        20.horizontalSpace,
+        labelTextRegular("Scan Level QR", 14.sp, AppColors.blackColor),
+      ],
+    ));
+ }
 }

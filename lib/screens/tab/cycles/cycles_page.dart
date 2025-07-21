@@ -144,7 +144,6 @@ class CycleStatusCard extends ConsumerWidget {
     );
   }
 
-
   Widget _seedingInfoContainer(ModelCycle cycle){
     return Container(
       padding: EdgeInsets.only(left: 5.w,right: 5.w),
@@ -189,64 +188,10 @@ class CycleStatusCard extends ConsumerWidget {
           5.verticalSpace,
           DashedLine(),
           5.verticalSpace,
-          CustomSeedingActionSection(buttonText: getActionButtonText(cycle.currentStage),),
+          CustomSeedingActionSection(buttonText: getActionButtonText(cycle.currentStage),currentStage: cycle.currentStage),
           20.verticalSpace,
         ],
       ),
-    );
-  }
-}
-
-
-class SeedingButtonsRow extends StatelessWidget {
-  const SeedingButtonsRow({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(width: 100.w,child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1C7C45), // Green
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24), // pill shape
-            ),
-            minimumSize: const Size(80, 40), // width, height
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            elevation: 0,
-          ),
-          onPressed: () {},
-          icon: SvgPicture.asset(
-            Assets.icons.iconSeeds.path,
-            width: 16,
-            height: 16,
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-          ),
-          label: labelTextMedium("Start Seeding", 12.sp, AppColors.white),
-        ),),
-        const SizedBox(width: 12),
-        SizedBox(width: 50.w,child: OutlinedButton.icon(
-            style: OutlinedButton.styleFrom(
-              backgroundColor: const Color(0xFFE7F5E9), // light green
-              foregroundColor: const Color(0xFF1C7C45), // dark green icon/text
-              side: BorderSide(color: Colors.green.shade200),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
-              ),
-              minimumSize: const Size(140, 40),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-            ),
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              Assets.icons.iconMarkIssue.path,
-              width: 16,
-              height: 16,
-              colorFilter: const ColorFilter.mode(Color(0xFF1C7C45), BlendMode.srcIn),
-            ),
-            label: labelTextMedium("Mark Issue", 12.sp, AppColors.totalAssignPersonTextBg)
-        ),),
-      ],
     );
   }
 }

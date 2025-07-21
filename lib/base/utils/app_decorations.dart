@@ -89,6 +89,14 @@ class AppDecorations {
     );
   }
 
+  static BoxDecoration confirmAndProcessedDecoration(){
+    return BoxDecoration(
+      color: AppColors.primary,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: AppColors.white, width: 2),
+    );
+  }
+
   static OutlinedButton markAsReadButtonStyle(){
     return OutlinedButton.icon(
         style: OutlinedButton.styleFrom(

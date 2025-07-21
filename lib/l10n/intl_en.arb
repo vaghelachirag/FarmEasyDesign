@@ -37,5 +37,7 @@
   "scanNow": "Scan now",
   "removeALotCode": "Remove a Lot Code?",
   "addPeople": "Add People",
-  "seedingDate": "Seeding Date"
+  "seedingDate": "Seeding Date",
+  "scantheseedlotcodestostartseedingoftrays": "scanTheSeedLotCodesToStartSeedingOfTrays",
+  "seehowtodoit": "seeHowToDoIt"
 }

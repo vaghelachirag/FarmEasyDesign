@@ -41,6 +41,10 @@ class $AssetsIconsGen {
   SvgGenImage get iconCalendar =>
       const SvgGenImage('assets/icons/icon_calendar.svg');
 
+  /// File path: assets/icons/icon_confirm_and_processed.svg
+  SvgGenImage get iconConfirmAndProcessed =>
+      const SvgGenImage('assets/icons/icon_confirm_and_processed.svg');
+
   /// File path: assets/icons/icon_drop.svg
   SvgGenImage get iconDrop => const SvgGenImage('assets/icons/icon_drop.svg');
 
@@ -137,6 +141,7 @@ class $AssetsIconsGen {
     iconAddDetail,
     iconArrowRight,
     iconCalendar,
+    iconConfirmAndProcessed,
     iconDrop,
     iconDropdown,
     iconEdit,

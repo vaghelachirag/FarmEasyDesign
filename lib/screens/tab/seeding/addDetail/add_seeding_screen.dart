@@ -66,7 +66,7 @@ class AddSeedingScreenPage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20.h),
-                StepProgressIndicator(currentStep: 0),
+               // StepProgressIndicator(currentStep: 0),
                 10.verticalSpace,
                 // Info card
                 Container(
@@ -386,7 +386,9 @@ Widget addDetailButton(BuildContext context, StateController<ScanState> scanStat
       10.horizontalSpace,
       SizedBox(
         width: 120.h,
-        child: CustomAddDetailButton(btnName: context.l10n.addDetail, onPressed: () {  },),
+        child: CustomAddDetailButton(
+          iconPath: Assets.icons.iconAddDetail.path,
+          btnName: context.l10n.addDetail, onPressed: () {  },),
       ),
     ],);
 }
@@ -530,32 +532,6 @@ Widget scanSuccessWidget(BuildContext context){
     ],
   );
 }
-
-Widget buildTopBar() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      // Left circular scan icon
-      Container(
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        padding: EdgeInsets.all(10.r),
-        child: Icon(Icons.qr_code_scanner, size: 20.r),
-      ),
-      // Right icons
-      Row(
-        children: [
-          SvgPicture.asset(Assets.icons.iconFlash.path),
-          10.horizontalSpace,
-          SvgPicture.asset(Assets.icons.iconMore.path),
-        ],
-      ),
-    ],
-  );
-}
-
 
 Widget listItemContent(Map<String, String> person, WidgetRef ref) {
   final selectedPeople = ref.watch(selectedPeopleProvider);

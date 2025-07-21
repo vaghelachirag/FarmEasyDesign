@@ -439,6 +439,26 @@ class S {
       args: [],
     );
   }
+
+  /// `scanTheSeedLotCodesToStartSeedingOfTrays`
+  String get scantheseedlotcodestostartseedingoftrays {
+    return Intl.message(
+      'scanTheSeedLotCodesToStartSeedingOfTrays',
+      name: 'scantheseedlotcodestostartseedingoftrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `seeHowToDoIt`
+  String get seehowtodoit {
+    return Intl.message(
+      'seeHowToDoIt',
+      name: 'seehowtodoit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

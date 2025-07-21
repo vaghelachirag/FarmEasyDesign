@@ -5,10 +5,13 @@ import 'package:farmeasy/screens/splash/splash_screen.dart';
 import 'package:farmeasy/screens/tab/seeding/addDetail/add_seeding_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import '../../screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
+import '../../screens/seedingProcess/moveToFertigation/move_to_fertigation_screen.dart';
+import '../../screens/seedingProcess/movingToGermination/moving_to_germination.dart';
+import '../../screens/seedingProcess/seedingTrays/seeding_trays_screen.dart';
 import '../../screens/tab/dashboard/dashboard_page.dart';
 import '../../screens/tab/homeTab/home_tab.dart';
-
+import '../../screens/tab/seeding/seeding_screen_page.dart';
 
 class AppRoute {
   static Route? onGeneratedRoute(RouteSettings settings) {
@@ -23,6 +26,16 @@ class AppRoute {
         return navigatePushToScreen(HomeTab(), settings);
       case AddSeedingScreenPage.route:
         return navigatePushToScreen(AddSeedingScreenPage(), settings);
+      case SeedingTraysScreen.route:
+        return navigatePushToScreen(SeedingTraysScreen(), settings);
+      case SeedingScreenPage.route:
+        return navigatePushToScreen(SeedingScreenPage(), settings);
+      case MovingToGerminationScreen.route:
+        return navigatePushToScreen(MovingToGerminationScreen(), settings);
+      case MoveToFertigationScreen.route:
+        return navigatePushToScreen(MoveToFertigationScreen(), settings);
+      case HarvestingTraysScreens.route:
+        return navigatePushToScreen(HarvestingTraysScreens(), settings);
       default:
         return null;
     }

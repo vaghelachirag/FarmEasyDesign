@@ -10,23 +10,22 @@ import 'common_widgets.dart';
 
 class CustomAddDetailButton extends StatelessWidget {
   final String btnName;
+  final String iconPath;
   final VoidCallback onPressed;
 
   const CustomAddDetailButton({
     super.key,
     required this.btnName,
+    required this.iconPath,
     required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {
-        // Your action here
-        context.navigator.pushNamed(AddSeedingScreenPage.route);
-      },
-      icon:  SvgPicture.asset(Assets.icons.iconAddDetail.path), // use appropriate icon
-      label: labelTextRegular(btnName, 10.sp, AppColors.white),
+      onPressed:onPressed,
+      icon:  SvgPicture.asset(iconPath, color: AppColors.white), // use appropriate icon
+      label: labelTextRegular(btnName, 12.sp, AppColors.white),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.buttonBackgroundColor,
         foregroundColor: Colors.white,
