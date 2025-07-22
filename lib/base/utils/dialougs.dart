@@ -42,7 +42,7 @@ void showTraySuccessDialog(BuildContext context) {
                 // Main Info Card
                 Container(
                   width: double.infinity,
-                  decoration: AppDecorations.confirmAndProcessedDecoration(),
+                  decoration: AppDecorations.moveToGerminationDialogueDecoration(),
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,8 +63,8 @@ void showTraySuccessDialog(BuildContext context) {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                             decoration: BoxDecoration(
-                              color: AppColors.slateGray,
-                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.updateTodayBg,
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child: labelTextRegular("Update Today", 12.sp, AppColors.blackColor),
                           )
@@ -75,7 +75,7 @@ void showTraySuccessDialog(BuildContext context) {
                 ),
                 20.verticalSpace,
                 // Confirm Button
-            SizedBox(
+                SizedBox(
               width: double.infinity,
               child:
                 CustomAddDetailButton(

@@ -141,4 +141,8 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
 
   static const Color cycleStepProcessBg = Color(0xFFF0F4EC);
 
+  static const Color updateTodayBg = Color(0xFFF0F4EC);
+  static const Color movingToGerminationPopupBorderBg = Color(0xFF196F3A);
+
+
 }
