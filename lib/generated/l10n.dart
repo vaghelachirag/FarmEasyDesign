@@ -459,6 +459,166 @@ class S {
       args: [],
     );
   }
+
+  /// `Cycle 8`
+  String get cycle8 {
+    return Intl.message(
+      'Cycle 8',
+      name: 'cycle8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Moving to germination`
+  String get movingToGermination {
+    return Intl.message(
+      'Moving to germination',
+      name: 'movingToGermination',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Action Required`
+  String get actionRequired {
+    return Intl.message(
+      'Action Required',
+      name: 'actionRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are trying to add trays beyond the available tray space on the scanned level.`
+  String get youAreTryingToAddTraysBeyondTheAvailableTray {
+    return Intl.message(
+      'You are trying to add trays beyond the available tray space on the scanned level.',
+      name: 'youAreTryingToAddTraysBeyondTheAvailableTray',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm & Scan next Level QR`
+  String get confirmScanNextLevelQr {
+    return Intl.message(
+      'Confirm & Scan next Level QR',
+      name: 'confirmScanNextLevelQr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `scanned Trays and scan a new level QR for remaining`
+  String get scannedTraysAndScanANewLevelQrForRemaining {
+    return Intl.message(
+      'scanned Trays and scan a new level QR for remaining',
+      name: 'scannedTraysAndScanANewLevelQrForRemaining',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `3 Trays.`
+  String get threetrays {
+    return Intl.message(
+      '3 Trays.',
+      name: 'threetrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `5`
+  String get five {
+    return Intl.message(
+      '5',
+      name: 'five',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Level has only`
+  String get thisLevelHasOnly {
+    return Intl.message(
+      'This Level has only',
+      name: 'thisLevelHasOnly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `5 available`
+  String get fiveAvailable {
+    return Intl.message(
+      '5 available',
+      name: 'fiveAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tray space. You can Confirm this position for first`
+  String get traySpaceYouCanConfirmThisPositionForFirst {
+    return Intl.message(
+      'Tray space. You can Confirm this position for first',
+      name: 'traySpaceYouCanConfirmThisPositionForFirst',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seeding Trays`
+  String get seedingTrays {
+    return Intl.message(
+      'Seeding Trays',
+      name: 'seedingTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan Level QR`
+  String get scanLevelQr {
+    return Intl.message(
+      'Scan Level QR',
+      name: 'scanLevelQr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan seed Lot`
+  String get scanSeedLot {
+    return Intl.message(
+      'Scan seed Lot',
+      name: 'scanSeedLot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Details`
+  String get addDetails {
+    return Intl.message(
+      'Add Details',
+      name: 'addDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan the level QR where you want to Place the trays`
+  String get scanTheLevelQrWhereYouWantToPlaceThe {
+    return Intl.message(
+      'Scan the level QR where you want to Place the trays',
+      name: 'scanTheLevelQrWhereYouWantToPlaceThe',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

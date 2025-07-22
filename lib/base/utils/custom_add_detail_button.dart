@@ -1,6 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
-import 'package:farmeasy/screens/tab/seeding/addDetail/add_seeding_screen.dart';
+import 'package:farmeasy/screens/seedingProcess/seedingTrays/addPersonDetail/add_person_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';

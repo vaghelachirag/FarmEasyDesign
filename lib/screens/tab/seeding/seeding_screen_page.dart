@@ -39,7 +39,7 @@ class SeedingScreenPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: getActionbar("Seeding Trays"),
+        appBar: getActionbar(S.of(context).seedingTrays),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
@@ -59,17 +59,6 @@ class SeedingScreenPage extends ConsumerWidget {
                     children: [
                       buildTopBar(),
                       SizedBox(height: 20.h),
-                    /*  Container(
-                        width: double.infinity,
-                        decoration: boxDecoration(AppColors.white,AppColors.white),
-                        padding: EdgeInsets.all(3.r),
-                        child:    Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(16.r),
-                          decoration: AppDecorations.infoWindowBg(),
-                          child: infoWindow(context,c),
-                        ),
-                      ),*/
                       SizedBox(height: 40.h),
                       // QR Scan box
                      // mobileScanner(),

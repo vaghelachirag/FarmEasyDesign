@@ -145,4 +145,7 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color movingToGerminationPopupBorderBg = Color(0xFF196F3A);
 
 
+  static const Color seeHowToDoItTextBg = Color(0xFF196F3A);
+
+
 }

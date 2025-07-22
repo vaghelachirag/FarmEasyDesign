@@ -79,6 +79,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_more.svg
   SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
 
+  /// File path: assets/icons/icon_next.svg
+  SvgGenImage get iconNext => const SvgGenImage('assets/icons/icon_next.svg');
+
   /// File path: assets/icons/icon_plant.svg
   SvgGenImage get iconPlant => const SvgGenImage('assets/icons/icon_plant.svg');
 
@@ -152,6 +155,7 @@ class $AssetsIconsGen {
     iconInfoBlub,
     iconMarkIssue,
     iconMore,
+    iconNext,
     iconPlant,
     iconQr,
     iconQrProcessed,

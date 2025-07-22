@@ -6,6 +6,7 @@ import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
 import 'package:farmeasy/screens/seedingProcess/moveToFertigation/move_to_fertigation_screen.dart';
 import 'package:farmeasy/screens/seedingProcess/movingToGermination/moving_to_germination.dart';
+import 'package:farmeasy/screens/seedingProcess/seedingTrays/seeding_trays_screen.dart';
 import 'package:farmeasy/screens/tab/seeding/seeding_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,7 +71,7 @@ class CustomSeedingActionSection extends StatelessWidget {
 void navigateToStage(BuildContext context, CycleStage stage) {
   switch (stage) {
     case CycleStage.seeding:
-      moveToNextScreen(context,SeedingScreenPage.route,stage);
+      moveToNextScreen(context,SeedingTraysScreen.route,stage);
       break;
     case CycleStage.movement:
       moveToNextScreen(context,SeedingScreenPage.route,stage);

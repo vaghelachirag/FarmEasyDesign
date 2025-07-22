@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../generator/assets.gen.dart';
-import '../../screens/tab/seeding/addDetail/add_seeding_provider.dart';
+import '../../screens/seedingProcess/seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
 
 class CustomSeedLotInputField extends HookConsumerWidget {
   final String title;
@@ -96,15 +96,18 @@ class CustomSeedLotInputField extends HookConsumerWidget {
           ),
         ),
         const SizedBox(height: 4),
-        GestureDetector(
-          onTap: onRemovePressed,
-          child: Text(
-            "Remove a Lot code?",
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Colors.grey.shade700,
-              decoration: TextDecoration.underline,
+        Align(
+          alignment: Alignment.topRight,
+          child:  GestureDetector(
+            onTap: onRemovePressed,
+            child: Text(
+              "Remove a Lot code?",
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Colors.grey.shade700,
+                decoration: TextDecoration.underline,
+              ),
             ),
-          ),
+          ) ,
         ),
       ],
     );

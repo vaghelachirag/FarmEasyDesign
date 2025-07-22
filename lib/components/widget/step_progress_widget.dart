@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../base/utils/app_colors.dart';
 import '../../base/utils/common_widgets.dart';
+import '../../generated/l10n.dart';
 import '../../generator/assets.gen.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
 
@@ -19,11 +20,6 @@ class StepProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final steps = [
-      ('Step 1', 'Scan seed Lot', Assets.icons.iconQr.path),
-      ('Step 2', 'Add Details', Assets.icons.iconEdit.path),
-      ('Step 3', 'Scan Level QR', Assets.icons.iconSeedingQr.path),
-    ];
 
     final currentStep = _getStepIndexFromCycleStage(currentStepName);
 
@@ -32,18 +28,18 @@ class StepProgressIndicator extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: Column(
         children: [
-           loadTopProcessWidget(currentStep),
+           loadTopProcessWidget(currentStep,context),
          // _mainWidget(steps, context, currentStep),
         ],
       ),
     );
   }
 
-  Widget loadTopProcessWidget(int currentStep){
+  Widget loadTopProcessWidget(int currentStep, BuildContext context){
     return switch (currentStep) {
-      0 =>  loadGerminationWidget(),
+      0 =>  loadSeedingWidget(context,currentStep),
       1 =>  loadGerminationWidget(),
-      2 => loadGerminationWidget(),
+      2 =>  loadFertigationWidget(context,currentStep),
       _ => Text("Unknown"),
     };
   }
@@ -162,8 +158,26 @@ class StepProgressIndicator extends StatelessWidget {
           ),
         ),
         20.horizontalSpace,
-        labelTextRegular("Scan Level QR", 14.sp, AppColors.blackColor),
+        labelTextRegular("scanLevelQr", 14.sp, AppColors.blackColor),
       ],
     ));
  }
+
+  Widget loadSeedingWidget(BuildContext context, int currentStep) {
+    final steps = [
+      ('Step 1', S.of(context).scanSeedLot, Assets.icons.iconQr.path),
+      ('Step 2', S.of(context).addDetails, Assets.icons.iconEdit.path),
+      ('Step 3', S.of(context).scanLevelQr, Assets.icons.iconSeedingQr.path),
+    ];
+    return  _mainWidget(steps, context, currentStep);
+  }
+
+  Widget loadFertigationWidget(BuildContext context, int currentStep) {
+    final steps = [
+      ('Step 1', S.of(context).scanSeedLot, Assets.icons.iconQr.path),
+      ('Step 2', S.of(context).addDetails, Assets.icons.iconEdit.path),
+      ('Step 3', S.of(context).scanLevelQr, Assets.icons.iconSeedingQr.path),
+    ];
+    return  _mainWidget(steps, context, currentStep);
+  }
 }

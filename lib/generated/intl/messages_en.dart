@@ -21,19 +21,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "actionRequired":
+            MessageLookupByLibrary.simpleMessage("Action Required"),
         "addDetail": MessageLookupByLibrary.simpleMessage("Add Detail"),
+        "addDetails": MessageLookupByLibrary.simpleMessage("Add Details"),
         "addPeople": MessageLookupByLibrary.simpleMessage("Add People"),
+        "confirmScanNextLevelQr": MessageLookupByLibrary.simpleMessage(
+            "Confirm & Scan next Level QR"),
         "continueWithGoogle":
             MessageLookupByLibrary.simpleMessage("Continue with Google"),
         "continuetext": MessageLookupByLibrary.simpleMessage("continueText"),
         "continuewithgoogle":
             MessageLookupByLibrary.simpleMessage("continuewithgoogle"),
         "coreWeight": MessageLookupByLibrary.simpleMessage("Core Weight"),
+        "cycle8": MessageLookupByLibrary.simpleMessage("Cycle 8"),
         "cycles": MessageLookupByLibrary.simpleMessage("Cycles"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enterpassword": MessageLookupByLibrary.simpleMessage("enterPassword"),
         "enteryouremail":
             MessageLookupByLibrary.simpleMessage("enterYourEmail"),
+        "five": MessageLookupByLibrary.simpleMessage("5"),
+        "fiveAvailable": MessageLookupByLibrary.simpleMessage("5 available"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "forgotpassword":
@@ -44,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "movingToGermination":
+            MessageLookupByLibrary.simpleMessage("Moving to germination"),
         "numberOfFullTrays":
             MessageLookupByLibrary.simpleMessage("Number of Full Trays"),
         "numberOfHalfTrays":
@@ -60,11 +70,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "remembered": MessageLookupByLibrary.simpleMessage("remembered"),
         "removeALotCode":
             MessageLookupByLibrary.simpleMessage("Remove a Lot Code?"),
+        "scanLevelQr": MessageLookupByLibrary.simpleMessage("Scan Level QR"),
         "scanMore": MessageLookupByLibrary.simpleMessage("Scan More"),
         "scanNow": MessageLookupByLibrary.simpleMessage("Scan now"),
+        "scanSeedLot": MessageLookupByLibrary.simpleMessage("Scan seed Lot"),
+        "scanTheLevelQrWhereYouWantToPlaceThe":
+            MessageLookupByLibrary.simpleMessage(
+                "Scan the level QR where you want to Place the trays"),
         "scanTheSeedLotCodesToStartSeedingOfTrays":
             MessageLookupByLibrary.simpleMessage(
                 "Scan the Seed Lot codes to start Seeding of trays."),
+        "scannedTraysAndScanANewLevelQrForRemaining":
+            MessageLookupByLibrary.simpleMessage(
+                "scanned Trays and scan a new level QR for remaining"),
         "scantheseedlotcodestostartseedingoftrays":
             MessageLookupByLibrary.simpleMessage(
                 "scanTheSeedLotCodesToStartSeedingOfTrays"),
@@ -74,10 +92,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "seedWeighttray":
             MessageLookupByLibrary.simpleMessage("Seed Weight/Tray"),
         "seedingDate": MessageLookupByLibrary.simpleMessage("Seeding Date"),
+        "seedingTrays": MessageLookupByLibrary.simpleMessage("Seeding Trays"),
         "seedsName": MessageLookupByLibrary.simpleMessage("Seeds Name"),
         "seehowtodoit": MessageLookupByLibrary.simpleMessage("seeHowToDoIt"),
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
         "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
+        "thisLevelHasOnly":
+            MessageLookupByLibrary.simpleMessage("This Level has only"),
+        "threetrays": MessageLookupByLibrary.simpleMessage("3 Trays."),
+        "traySpaceYouCanConfirmThisPositionForFirst":
+            MessageLookupByLibrary.simpleMessage(
+                "Tray space. You can Confirm this position for first"),
+        "youAreTryingToAddTraysBeyondTheAvailableTray":
+            MessageLookupByLibrary.simpleMessage(
+                "You are trying to add trays beyond the available tray space on the scanned level."),
         "youCanScanMultipleSeedLotCodesAtOnce":
             MessageLookupByLibrary.simpleMessage(
                 "You can scan multiple seed lot codes at once.")

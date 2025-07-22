@@ -12,27 +12,32 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../../base/utils/app_colors.dart';
 import '../../../../base/utils/app_decorations.dart';
 import '../../../../base/utils/common_widgets.dart';
+import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../components/widget/custom_input_field.dart';
-import '../../../../components/widget/custom_input_filed_seed_weight.dart';
 import '../../../../components/widget/custom_leet_code_chipset.dart';
 import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
-import '../../bottombarNavigator/provider/bottomBar_provider.dart';
-import '../provider/seeding_provider.dart';
-import 'add_seeding_provider.dart';
+import '../../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
+import '../../../tab/cycles/provider/cycles_provider.dart';
+import '../../../tab/seeding/provider/seeding_provider.dart';
+import 'provider/add_person_detail_screen.dart';
 
-class AddSeedingScreenPage extends HookConsumerWidget {
-  AddSeedingScreenPage({super.key});
+class AddPersonDetailScreen extends HookConsumerWidget {
+  AddPersonDetailScreen({super.key});
 
-  static const route = "/AddSeedingPage";
-
+  static const route = "/AddPersonDetailScreen";
+  late CycleStage cycleStatus;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    getArgument(context);
+
+
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
     final currentIndex = ref.watch(bottomNavIndexProvider);
@@ -57,6 +62,7 @@ class AddSeedingScreenPage extends HookConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
+        appBar: getActionbar("Seeding Trays"),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
@@ -66,7 +72,7 @@ class AddSeedingScreenPage extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 20.h),
-               // StepProgressIndicator(currentStep: 0),
+                StepProgressIndicator(currentStepName: cycleStatus),
                 10.verticalSpace,
                 // Info card
                 Container(
@@ -75,26 +81,7 @@ class AddSeedingScreenPage extends HookConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Left circular scan icon
-                            Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              padding: EdgeInsets.all(10.r),
-                              child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,),
-                            ),
-                            // Right icons
-                            Row(
-                              children: [
-                                SvgPicture.asset(Assets.icons.iconMore.path),
-                              ],
-                            ),
-                          ],
-                        ),
+                        _addAndMoreButton(),
                         20.verticalSpace,
                         _numberOfFullTrays(numberOfFullTrays, context),
                         20.verticalSpace,
@@ -102,28 +89,18 @@ class AddSeedingScreenPage extends HookConsumerWidget {
                         20.verticalSpace,
                         _seedLotCode(numberOfHalfTrays, context),
                         5.verticalSpace,
-                        removeLotCodeWidget(context),
-                        3.verticalSpace,
                         _seedsName(numberOfHalfTrays, context),
                         20.verticalSpace,
                         _seedWeightTray(numberOfHalfTrays, context),
                         20.verticalSpace,
                         _coreWeightTray(numberOfHalfTrays, context),
                         20.verticalSpace,
-                        CustomSeedLotInputField(
-                          title: "Seed Lot Code",
-                          onScanPressed: () {
-                            // Open QR scanner or add manually
-                          },
-                          onRemovePressed: () {
-                            // Logic to remove a lot code
-                            ref.read(seedLotListProvider.notifier).state = [];
-                          },
-                        ),
+                        _customSeeLotInputFiled(ref),
+                        10.verticalSpace,
                         _addPeopleSuggestionWidget(searchText),
                         _seedingDate(numberOfHalfTrays, context),
                         20.verticalSpace,
-                        CustomProceedButton(onPressed: (){},)
+                        _customProcessButton()
                       ],
                     ),
                   ) ,
@@ -135,6 +112,50 @@ class AddSeedingScreenPage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Widget _addAndMoreButton(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Left circular scan icon
+        Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+          ),
+          padding: EdgeInsets.all(10.r),
+          child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,),
+        ),
+        // Right icons
+        Row(
+          children: [
+            SvgPicture.asset(Assets.icons.iconMore.path),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _customProcessButton(){
+    return  CustomProceedButton(onPressed: (){});
+  }
+
+  Widget _customSeeLotInputFiled(WidgetRef ref){
+    return CustomSeedLotInputField(
+      title: "Seed Lot Code",
+      onScanPressed: () {
+        // Open QR scanner or add manually
+      },
+      onRemovePressed: () {
+        // Logic to remove a lot code
+        ref.read(seedLotListProvider.notifier).state = [];
+      },
+    );
+  }
+  void getArgument(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    cycleStatus = args[cycleStageArgumentName];
   }
 }
 
@@ -165,7 +186,6 @@ Widget _numberOfFullTrays(TextEditingController emailController, BuildContext co
       if (val!.isEmpty) {
         return context.l10n.pleaseenteremail;
       }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
       return null;
     },
   );
@@ -182,7 +202,6 @@ Widget _numberOfHalfTrays(TextEditingController emailController, BuildContext co
       if (val!.isEmpty) {
         return context.l10n.pleaseenteremail;
       }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
       return null;
     },
   );

@@ -39,5 +39,21 @@
   "addPeople": "Add People",
   "seedingDate": "Seeding Date",
   "scantheseedlotcodestostartseedingoftrays": "scanTheSeedLotCodesToStartSeedingOfTrays",
-  "seehowtodoit": "seeHowToDoIt"
+  "seehowtodoit": "seeHowToDoIt",
+  "cycle8": "Cycle 8",
+  "movingToGermination": "Moving to germination",
+  "actionRequired": "Action Required",
+  "youAreTryingToAddTraysBeyondTheAvailableTray": "You are trying to add trays beyond the available tray space on the scanned level.",
+  "confirmScanNextLevelQr": "Confirm & Scan next Level QR",
+  "scannedTraysAndScanANewLevelQrForRemaining": "scanned Trays and scan a new level QR for remaining",
+  "threetrays": "3 Trays.",
+  "five": "5",
+  "thisLevelHasOnly": "This Level has only",
+  "fiveAvailable": "5 available",
+  "traySpaceYouCanConfirmThisPositionForFirst": "Tray space. You can Confirm this position for first",
+  "seedingTrays": "Seeding Trays",
+  "scanLevelQr": "Scan Level QR",
+  "scanSeedLot": "Scan seed Lot",
+  "addDetails": "Add Details",
+  "scanTheLevelQrWhereYouWantToPlaceThe": "Scan the level QR where you want to Place the trays"
 }

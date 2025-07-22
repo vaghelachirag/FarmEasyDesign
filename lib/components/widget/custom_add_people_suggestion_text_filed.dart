@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
-import '../../screens/tab/seeding/addDetail/add_seeding_provider.dart';
-import '../../screens/tab/seeding/addDetail/add_seeding_screen.dart';
+import '../../screens/seedingProcess/seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
+import '../../screens/seedingProcess/seedingTrays/addPersonDetail/add_person_detail_screen.dart';
 import 'custom_input_field.dart';
 
 class CustomAddPeopleSuggestionTextFiled extends ConsumerStatefulWidget {

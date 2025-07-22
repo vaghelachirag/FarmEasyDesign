@@ -1,3 +1,4 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
@@ -85,7 +86,7 @@ class CycleStatusCard extends ConsumerWidget {
             Row(
               children: [
                 // Left text
-                labelTextBold("Cycle 8", 16.sp, AppColors.blackColor),
+                labelTextBold(context.l10n.cycle8, 16.sp, AppColors.blackColor),
                 SizedBox(width: 8.w),
                 // Middle text with flexible width
                 Expanded(
@@ -216,6 +217,7 @@ String getActionButtonText(CycleStage stage) {
     case CycleStage.movement:
       return 'Start movement';
     case CycleStage.germination:
+      return 'Start movement';
     case CycleStage.seeding:
       return 'Start Seeding';
     case CycleStage.fertigation:

@@ -1,9 +1,7 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,11 +11,9 @@ import 'package:farmeasy/base/utils/common_widgets.dart' hide infoWindow;
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/dialougs.dart';
-import '../../../base/utils/scan_more_custom_button.dart';
 import '../../../components/widget/step_progress_widget.dart';
+import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
-import '../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
-import '../../tab/seeding/addDetail/add_seeding_screen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
 
 
@@ -35,7 +31,6 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   late CycleStage cycleStatus;
 
-
   @override
   void initState() {
     super.initState();
@@ -43,12 +38,6 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   @override
   Widget build(BuildContext context) {
-    final cycles = ref.watch(cyclesProvider);
-
-
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
-    final currentIndex = ref.watch(bottomNavIndexProvider);
 
     final showScanner = ref.watch(scanToggleProvider);
     final toggleScanner = ref.read(scanToggleProvider.notifier);
@@ -58,15 +47,10 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
     getArgument();
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-    return SafeArea(child: Scaffold(
-      appBar: getActionbar("Moving to germination"),
+    return
+      SafeArea(child:
+    Scaffold(
+      appBar: getActionbar(context.l10n.movingToGermination),
       body:   SizedBox(
       width: double.infinity,
       height: double.infinity,
@@ -75,38 +59,57 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10.h),
+            10.verticalSpace,
             StepProgressIndicator(currentStepName: cycleStatus),
             10.verticalSpace,
-            Container(
-              decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-              padding: EdgeInsets.all(10.sp),
-              child: Column(
-                children: [
-                  buildTopBar(),
-                  SizedBox(height: 20.h),
-                  Consumer(
-                    builder: (context, ref, _) => infoWidowForScan(context, cycleStatus,ref),
-                  ),
-                  SizedBox(height: 40.h),
-                  scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
-                  SizedBox(height: 40.h),
-                  Visibility(
-                      visible: scanState == ScanState.success ,
-                      child:   showActionRequiredSection()),
-                ],
-              ),
-            ),
+            _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
             20.verticalSpace,
-            Consumer(
-              builder: (context, ref, _) =>  confirmAndSaveButton(context,ref),
-            ),
-
+            _confirmAndSaveButton(context,ref)
           ],
         ),
       ),
     ),
     ));
+  }
+
+  // Load Main Widget
+  Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return  Container(
+      decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
+      padding: EdgeInsets.all(10.sp),
+      child: Column(
+        children: [
+          buildTopBar(),
+          20.verticalSpace,
+          _loadInfoWidow(),
+          40.verticalSpace,
+          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
+          40.verticalSpace,
+          _showActionRequiredSection(scanState),
+        ],
+      ),
+    );
+  }
+
+  // Show Action Required Section
+  Widget _showActionRequiredSection(ScanState scanState){
+    return   Visibility(
+        visible: scanState == ScanState.success ,
+        child:   showActionRequiredSection(context));
+  }
+
+  // Load Info Window
+  Widget _loadInfoWidow(){
+    return  Consumer(
+      builder: (context, ref, _) => infoWidowForScan(context, cycleStatus,ref),
+    );
+  }
+
+  // Show Confirm And Save Button
+  Widget _confirmAndSaveButton (BuildContext context, WidgetRef ref){
+    return Consumer(
+      builder: (context, ref, _) =>  confirmAndSaveButton(context,ref),
+    );
   }
 
   void getArgument() {
@@ -115,29 +118,29 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   }
 }
 
-Widget showActionRequiredSection(){
+Widget showActionRequiredSection(BuildContext context){
   return  Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          labelTextMedium('Action Required', 16.sp, AppColors.blackColor),
+          labelTextMedium(context.l10n.actionRequired, 16.sp, AppColors.blackColor),
           6.verticalSpace,
           Row(
             children: [
               Expanded(
                 child:
-                labelTextRegular( 'You are trying to add trays beyond the available tray space on the scanned level.', 12.sp, AppColors.navBarUnselectedColor)
+                labelTextRegular( context.l10n.youAreTryingToAddTraysBeyondTheAvailableTray, 12.sp, AppColors.navBarUnselectedColor)
               ),
               SvgPicture.asset(Assets.icons.iconInfo.path)
             ],
           ),
-          SizedBox(height: 12),
+          12.verticalSpace,
           Container(
             decoration:  AppDecorations.infoWindowBg(),
             padding:  EdgeInsets.all(12.sp),
@@ -154,19 +157,19 @@ Widget showActionRequiredSection(){
                         fontSize: 14,
                       ),
                       children: [
-                        TextSpan(text: 'This Level has only '),
+                        TextSpan(text: S.of(context).thisLevelHasOnly),
                         TextSpan(
-                          text: '5 available',
+                          text: S.of(context).fiveAvailable,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(text: ' Tray space. You can Confirm this position for first '),
+                        TextSpan(text: S.of(context).traySpaceYouCanConfirmThisPositionForFirst),
                         TextSpan(
-                          text: '5',
+                          text: S.of(context).five,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        TextSpan(text: ' scanned Trays and scan a new level QR for remaining '),
+                        TextSpan(text: S.of(context).scannedTraysAndScanANewLevelQrForRemaining),
                         TextSpan(
-                          text: '3 Trays.',
+                          text: S.of(context).threetrays,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -181,6 +184,7 @@ Widget showActionRequiredSection(){
   );
 }
 
+// Success Widget
 Widget scanSuccessWidget(BuildContext context){
   return  Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -193,8 +197,6 @@ Widget scanSuccessWidget(BuildContext context){
         const CircularProgressIndicator(),
         fit: BoxFit.contain,
       ),
-
-      // Bottom Buttons
     ],
   );
 }
@@ -207,7 +209,7 @@ Widget confirmAndSaveButton(BuildContext context, WidgetRef ref){
     width: double.infinity,
     child: CustomAddDetailButton(
       iconPath: Assets.icons.iconScanNow.path,
-      btnName: "Confirm & Scan next Level QR",
+      btnName: context.l10n.confirmScanNextLevelQr,
       onPressed: () {
         showTraySuccessDialog(context);
       },

@@ -4,13 +4,15 @@ import 'package:farmeasy/base/utils/scan_more_custom_button.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../components/widget/top_header_home_page.dart';
+import '../../generated/l10n.dart';
 import '../../generator/assets.gen.dart';
-import '../../screens/tab/seeding/addDetail/add_seeding_screen.dart';
+import '../../screens/seedingProcess/seedingTrays/addPersonDetail/add_person_detail_screen.dart';
 import '../../screens/tab/seeding/provider/seeding_provider.dart';
 import 'app_constant.dart';
 import 'app_decorations.dart';
@@ -30,6 +32,16 @@ BoxDecoration boxDecoration(Color color, Color border) =>
         width: 1,
       ),
     );
+
+ void  setStatusBarColor(){
+   return  SystemChrome.setSystemUIOverlayStyle(
+     const SystemUiOverlayStyle(
+       statusBarColor: AppColors.transparent,
+       statusBarBrightness: Brightness.light,
+       statusBarIconBrightness: Brightness.dark,
+     ),
+   );
+ }
 
 
 // Label Text Bold
@@ -71,7 +83,7 @@ AppBar getActionbar(String title) {
     backgroundColor: Colors.transparent,
     elevation: 0,
     automaticallyImplyLeading: false,
-    titleSpacing: 0, // ✅ reduces the spacing between leading and title
+    titleSpacing: 0,
     leading: IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.black),
       onPressed: () {},
@@ -84,6 +96,7 @@ AppBar getActionbar(String title) {
     ),
   );
 }
+
 Container totalRunningCycleWidget(BuildContext context){
   final width = MediaQuery.of(context).size.width;
   final isMobile = width < 600;
@@ -169,33 +182,7 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
           builder: (context) {
             switch (cycleStatus) {
               case CycleStage.seeding:
-                return  Expanded(
-            child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            labelTextMedium("Scan the level QR where you want to Place the trays",
-            13.sp,
-            AppColors.blackColor,
-            ),
-            SizedBox(height: 8.h),
-            labelTextMedium(
-            context.l10n.youCanScanMultipleSeedLotCodesAtOnce,
-            11.sp,
-            AppColors.infoTextHingBg,
-            ),
-            SizedBox(height: 4.h),
-            Align(
-            alignment: Alignment.centerRight,
-            child: labelTextBold(
-            context.l10n.seehowtodoit,
-            12.sp,
-            AppColors.primary,
-            ),
-            ),
-            ],
-            ),
-            );
-
+                return  _loadSeedingInfoWindow(context);
               case CycleStage.movement:
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +200,6 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
                     ),
                   ],
                 );
-
               case CycleStage.germination:
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,22 +212,7 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
                   ],
                 );
               case CycleStage.fertigation:
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    labelTextMedium(
-                      "Confirm placement of trays at the scanned level.",
-                      13.sp,
-                      AppColors.blackColor,
-                    ),
-                    SizedBox(height: 10.h),
-                    labelTextMedium(
-                      "Make sure the trays are arranged correctly.",
-                      11.sp,
-                      AppColors.infoTextHingBg,
-                    ),
-                  ],
-                );
+                return  _loadMoveToFertigationWindow(context);
               case CycleStage.harvesting:
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,6 +237,30 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
       ,
     ],
   );
+}
+
+Widget _loadSeedingInfoWindow(BuildContext context){
+   return Expanded(
+     child: Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+         labelTextMedium(S.of(context).scanTheLevelQrWhereYouWantToPlaceThe, 13.sp, AppColors.blackColor),
+         SizedBox(height: 8.h), labelTextMedium(context.l10n.youCanScanMultipleSeedLotCodesAtOnce, 11.sp, AppColors.infoTextHingBg),
+         SizedBox(height: 4.h),
+         Align(alignment: Alignment.centerRight, child: labelTextBold(S.of(context).seeHowToDoIt, 12.sp, AppColors.seeHowToDoItTextBg),),],),);
+}
+
+Widget _loadMoveToFertigationWindow(BuildContext context){
+   return Column(
+     crossAxisAlignment: CrossAxisAlignment.start,
+     children: [
+       labelTextMedium(
+         "Scan the level QR where you want to Place the trays",
+         12.sp,
+         AppColors.blackColor,
+       )
+     ],
+   );
 }
 
 Widget showActionRequiredDialog(BuildContext context) {
