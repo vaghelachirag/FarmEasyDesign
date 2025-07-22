@@ -1,13 +1,16 @@
+import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TimelineStep {
-  final IconData icon;
+  final String path;
   final String label;
   final String statusDate;
   final bool isCompleted;
 
   TimelineStep({
-    required this.icon,
+    required this.path,
     required this.label,
     required this.statusDate,
     required this.isCompleted,
@@ -19,25 +22,25 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
 
   final List<TimelineStep> steps = [
     TimelineStep(
-      icon: Icons.water_drop_outlined,
+      path: Assets.icons.iconNutriationDrop.path,
       label: "Seeding",
       statusDate: "Completed on\n22/05/2025 | 11:00 AM",
       isCompleted: true,
     ),
     TimelineStep(
-      icon: Icons.eco_outlined,
+      path: Assets.icons.iconNutriationLeaf.path,
       label: "Moved to Germination",
       statusDate: "Completed on\n22/05/2025 | 11:00 AM",
       isCompleted: true,
     ),
     TimelineStep(
-      icon: Icons.spa_outlined,
+      path: Assets.icons.iconNutriationPlant.path,
       label: "Germination",
       statusDate: "Completed on\n22/05/2025 | 11:00 AM",
       isCompleted: true,
     ),
     TimelineStep(
-      icon: Icons.local_florist_outlined,
+      path: Assets.icons.iconNutriationUpcoming.path,
       label: "Upcoming",
       statusDate: "Due on\n22/05/2025 | 11:00 AM",
       isCompleted: false,
@@ -57,10 +60,10 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
             // Timeline Icon & Line
             Column(
               children: [
-                _buildCircleIcon(step.icon),
+                _buildCircleIcon(step.path),
                 if (!isLast)
                   Container(
-                    height: 40,
+                    height: 50.w,
                     width: 2,
                     color: const Color(0xFFCAC4D0),
                   ),
@@ -96,9 +99,9 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCircleIcon(IconData icon) {
+  Widget _buildCircleIcon(String path) {
     return Container(
-      padding: const EdgeInsets.all(2),
+      padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
@@ -106,10 +109,11 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
           width: 2,
         ),
       ),
-      child: CircleAvatar(
+      child:
+      CircleAvatar(
         radius: 14,
         backgroundColor: Colors.white,
-        child: Icon(icon, size: 16, color: Color(0xFF4A4459)),
+        child:  SvgPicture.asset(path),
       ),
     );
   }

@@ -90,6 +90,22 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_next.svg
   SvgGenImage get iconNext => const SvgGenImage('assets/icons/icon_next.svg');
 
+  /// File path: assets/icons/icon_nutriation_drop.svg
+  SvgGenImage get iconNutriationDrop =>
+      const SvgGenImage('assets/icons/icon_nutriation_drop.svg');
+
+  /// File path: assets/icons/icon_nutriation_leaf.svg
+  SvgGenImage get iconNutriationLeaf =>
+      const SvgGenImage('assets/icons/icon_nutriation_leaf.svg');
+
+  /// File path: assets/icons/icon_nutriation_plant.svg
+  SvgGenImage get iconNutriationPlant =>
+      const SvgGenImage('assets/icons/icon_nutriation_plant.svg');
+
+  /// File path: assets/icons/icon_nutriation_upcoming.svg
+  SvgGenImage get iconNutriationUpcoming =>
+      const SvgGenImage('assets/icons/icon_nutriation_upcoming.svg');
+
   /// File path: assets/icons/icon_nutrients.svg
   SvgGenImage get iconNutrients =>
       const SvgGenImage('assets/icons/icon_nutrients.svg');
@@ -174,6 +190,10 @@ class $AssetsIconsGen {
     iconMoisture,
     iconMore,
     iconNext,
+    iconNutriationDrop,
+    iconNutriationLeaf,
+    iconNutriationPlant,
+    iconNutriationUpcoming,
     iconNutrients,
     iconPlant,
     iconQr,
