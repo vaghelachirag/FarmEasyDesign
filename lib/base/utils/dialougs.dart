@@ -47,10 +47,7 @@ void showTraySuccessDialog(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Adding 8 Trays :',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
                       8.verticalSpace,
                       trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
                       8.verticalSpace,

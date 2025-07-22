@@ -29,6 +29,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.png
   AssetGenImage get google => const AssetGenImage('assets/icons/google.png');
 
+  /// File path: assets/icons/icon_acidity.svg
+  SvgGenImage get iconAcidity =>
+      const SvgGenImage('assets/icons/icon_acidity.svg');
+
   /// File path: assets/icons/icon_add_detail.svg
   SvgGenImage get iconAddDetail =>
       const SvgGenImage('assets/icons/icon_add_detail.svg');
@@ -76,11 +80,19 @@ class $AssetsIconsGen {
   SvgGenImage get iconMarkIssue =>
       const SvgGenImage('assets/icons/icon_mark_issue.svg');
 
+  /// File path: assets/icons/icon_moisture.svg
+  SvgGenImage get iconMoisture =>
+      const SvgGenImage('assets/icons/icon_moisture.svg');
+
   /// File path: assets/icons/icon_more.svg
   SvgGenImage get iconMore => const SvgGenImage('assets/icons/icon_more.svg');
 
   /// File path: assets/icons/icon_next.svg
   SvgGenImage get iconNext => const SvgGenImage('assets/icons/icon_next.svg');
+
+  /// File path: assets/icons/icon_nutrients.svg
+  SvgGenImage get iconNutrients =>
+      const SvgGenImage('assets/icons/icon_nutrients.svg');
 
   /// File path: assets/icons/icon_plant.svg
   SvgGenImage get iconPlant => const SvgGenImage('assets/icons/icon_plant.svg');
@@ -118,6 +130,10 @@ class $AssetsIconsGen {
   SvgGenImage get iconStartSeed =>
       const SvgGenImage('assets/icons/icon_start_seed.svg');
 
+  /// File path: assets/icons/icon_temperature.svg
+  SvgGenImage get iconTemperature =>
+      const SvgGenImage('assets/icons/icon_temperature.svg');
+
   /// File path: assets/icons/mesage_icon.svg
   SvgGenImage get mesageIcon =>
       const SvgGenImage('assets/icons/mesage_icon.svg');
@@ -141,6 +157,7 @@ class $AssetsIconsGen {
     closeEyes,
     flash,
     google,
+    iconAcidity,
     iconAddDetail,
     iconArrowRight,
     iconCalendar,
@@ -154,8 +171,10 @@ class $AssetsIconsGen {
     iconInfo,
     iconInfoBlub,
     iconMarkIssue,
+    iconMoisture,
     iconMore,
     iconNext,
+    iconNutrients,
     iconPlant,
     iconQr,
     iconQrProcessed,
@@ -166,6 +185,7 @@ class $AssetsIconsGen {
     iconSeedingQr,
     iconSeeds,
     iconStartSeed,
+    iconTemperature,
     mesageIcon,
     syncIcon,
     tabCycle,

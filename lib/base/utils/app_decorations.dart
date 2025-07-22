@@ -19,6 +19,21 @@ class AppDecorations {
     );
   }
 
+  static BoxDecoration nutritionBoxDecoration(){
+    return BoxDecoration(
+      color: const Color(0xFFF2E58C), // Fill color
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(color: const Color(0xFFFFF8CB),width: 4), // Border color
+    );
+  }
+
+  static BoxDecoration trayInfoPopupBg(){
+    return BoxDecoration(
+      color: AppColors.trayInfoPopupBg,
+      borderRadius: BorderRadius.circular(20),
+    );
+  }
+
   // You can add more common decorations here
   static BoxDecoration seedingBg() {
     return  BoxDecoration(

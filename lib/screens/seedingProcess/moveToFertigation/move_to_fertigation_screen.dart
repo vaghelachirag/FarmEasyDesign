@@ -1,18 +1,16 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
+import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/components/widget/custom_nutrient_info_card_widget.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
-
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
-import '../../../base/utils/scan_more_custom_button.dart';
+import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
+import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
@@ -48,7 +46,6 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
 
     getArgument();
 
-
     return SafeArea(child: Scaffold(
       appBar: getActionbar("Move to Fertigation"),
       body:  SizedBox(
@@ -72,7 +69,23 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
 
   // Load Main Widget
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
-    return  Container(
+    return  scanState == ScanState.confirmDetail? Container(
+      width: double.infinity,
+      decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
+      padding: EdgeInsets.all(10.sp),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomTabConfirmDetailMoveToFertigation(),
+          10.verticalSpace,
+          _trayInfoContainer(),
+          10.verticalSpace,
+          CustomNutrientInfoCardWidget(),
+          20.verticalSpace,
+          CustomNutrietionTimeLineWidget()
+        ],
+      ),
+    ) : Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -85,6 +98,64 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           40.verticalSpace,
           //_showActionRequiredSection(scanState),
           _nextActionButton(context,ref,scanStateNotifier)
+        ],
+      ),
+    );
+  }
+  Widget _trayInfoContainer(){
+    return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: AppDecorations.seedingMainBg(),
+        child:  Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+         // Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),),
+          Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+          12.verticalSpace,
+          // Tray Details
+          Text( "Tray Details:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+          Text("8 Arugula Tray | 9 Gms",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+          12.verticalSpace,
+          // Tray Position + Date Badge
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text( "Tray Position:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+                    Text("Zone 5 | Section 4 |",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+                    Text("Level 3",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+                  ],
+                ),
+              ),
+              8.verticalSpace,
+              _buildDateBadge("Moved on 25/05/2025"),
+            ],
+          ),
+          8.verticalSpace,
+          // Current Status + Date Badge
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Current Status:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text("Germination"),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              _buildDateBadge("Since 25/05/2025"),
+            ],
+          ),
         ],
       ),
     );
@@ -106,10 +177,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
       child: SizedBox(
         width: 100.w,
         child: CustomAddDetailButton(btnName: "Next", onPressed: () {
-          context.navigator.pushNamed(
-            AddPersonDetailScreen.route,
-            arguments: {cycleStageArgumentName: cycleStatus},
-          );
+          scanStateNotifier.state = ScanState.confirmDetail;
         },iconPath: Assets.icons.iconNext.path),
       ),
     )  : Container();
@@ -125,5 +193,15 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
   void getArgument() {
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     cycleStatus = args[cycleStageArgumentName];
+  }
+
+
+  Widget _buildDateBadge(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: AppDecorations.trayInfoPopupBg(),
+      child:
+      Text(text,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor)),
+    );
   }
 }

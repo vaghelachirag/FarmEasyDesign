@@ -395,6 +395,7 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
                 ScanState.idle =>  idealScanContainer(context,scanState,scanStateNotifier),
                 ScanState.scanning => mobileScanner(scanState,scanStateNotifier),
                 ScanState.success => idealScanContainer(context,scanState,scanStateNotifier),
+                ScanState.confirmDetail => idealScanContainer(context,scanState,scanStateNotifier),
               },
             ),
             //  idealScanContainer(context)
@@ -428,6 +429,7 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
                 ScanState.idle =>  tapScanColumn(context),
                 ScanState.scanning => null,
                 ScanState.success => scanSuccessWidget(context),
+                ScanState.confirmDetail => scanSuccessWidget(context)
               },
             ),
           ],

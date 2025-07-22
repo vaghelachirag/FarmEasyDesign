@@ -502,6 +502,7 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
                 ScanState.idle =>  tapScanColumn(context),
                 ScanState.scanning => null,
                 ScanState.success => scanSuccessWidget(context),
+                ScanState.confirmDetail => null,
               },
             ),
           ],
