@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomProceedButton extends StatelessWidget {
+  final String title ;
+  final String iconPath;
   final VoidCallback onPressed;
 
-  const CustomProceedButton({super.key, required this.onPressed});
+  const CustomProceedButton({super.key, required this.onPressed, required this.title, required this.iconPath});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,12 @@ class CustomProceedButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: onPressed,
         icon: SvgPicture.asset(
-          Assets.icons.iconQrProcessed.path, // Replace with your actual SVG asset path
+          iconPath, // Replace with your actual SVG asset path
           height: 20.sp,
           width: 20.sp,
           colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
-        label: labelTextRegular( 'Proceed', 16.sp, AppColors.white),
+        label: labelTextRegular( title, 16.sp, AppColors.white),
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF237A4C), // Green color from image
           shape: RoundedRectangleBorder(

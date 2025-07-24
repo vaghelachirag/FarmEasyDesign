@@ -1,3 +1,6 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,14 +56,13 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
       children: List.generate(steps.length, (index) {
         final step = steps[index];
         final isLast = index == steps.length - 1;
-
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Timeline Icon & Line
             Column(
               children: [
-                _buildCircleIcon(step.path),
+                _buildCircleIcon(step.path,context),
                 if (!isLast)
                   Container(
                     height: 50.w,
@@ -69,27 +71,18 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
                   ),
               ],
             ),
-
-            const SizedBox(width: 12),
-
+            4.horizontalSpace,
             // Row content: Status Chip and Text (in horizontal layout)
             Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+               mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildStatusChip(step.label),
-                  const SizedBox(width: 8),
-                  Text(
-                    step.statusDate,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: step.isCompleted
-                          ? const Color(0xFF4A4459)
-                          : const Color(0xFF3A7F0D),
-                    ),
-                  )
+                  _buildStatusChip(step.label, context),
+                  4.horizontalSpace,
+                  Flexible(
+                    child:
+                    Text(step.statusDate,style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),)
+                  ),
                 ],
               ),
             )
@@ -99,40 +92,85 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCircleIcon(String path) {
+
+  Widget buildTimelineStep({
+    required IconData icon,
+    required String label,
+    required String dateText,
+    required bool isCompleted,
+    required bool isLast,
+  }) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            // Timeline Circle with icon
+            Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isCompleted ? Color(0xFF23C072) : Color(0xFFCAC4D0),
+                  width: 2,
+                ),
+              ),
+              child: Icon(
+                icon,
+                size: 16,
+                color: isCompleted ? Color(0xFF23C072) : Color(0xFFCAC4D0),
+              ),
+            ),
+            // Vertical line
+            if (!isLast)
+              Container(
+                width: 2,
+                height: 40,
+                color: Color(0xFFCAC4D0),
+              ),
+          ],
+        ),
+        const SizedBox(width: 12),
+      ],
+    );
+  }
+
+  Widget _buildCircleIcon(String path, BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
           color: const Color(0xFF23C072),
-          width: 2,
+          width: 1,
         ),
       ),
       child:
-      CircleAvatar(
+      Container(
+          padding: EdgeInsets.all(2.sp),
+          child:CircleAvatar(
         radius: 14,
         backgroundColor: Colors.white,
         child:  SvgPicture.asset(path),
       ),
+      )
     );
   }
 
-  Widget _buildStatusChip(String label) {
+  Widget _buildStatusChip(String label, BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF0F4EC),
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-          color: Color(0xFF4A4459),
-        ),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.w),
+      decoration: AppDecorations.nutriationChipDecoration(),
+      child: 
+      Row(
+        children: [
+          SvgPicture.asset(Assets.icons.iconSeeds.path,width: 20.w,height: 20.w),
+          5.horizontalSpace,
+          Text(label,style: context.textTheme.labelMedium?.copyWith(
+            fontSize: 12.sp,color: AppColors.infoTextHingBg
+          ))
+        ],
+      )
     );
   }
 }

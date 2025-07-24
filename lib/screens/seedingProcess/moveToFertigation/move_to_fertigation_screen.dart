@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
@@ -14,7 +15,7 @@ import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
-import '../seedingTrays/addPersonDetail/add_person_detail_screen.dart';
+
 
 class MoveToFertigationScreen extends ConsumerStatefulWidget {
   static const route = "/MoveToFertigationScreen";
@@ -72,7 +73,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     return  scanState == ScanState.confirmDetail? Container(
       width: double.infinity,
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-      padding: EdgeInsets.all(10.sp),
+      padding: EdgeInsets.all(0.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,7 +83,9 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           10.verticalSpace,
           CustomNutrientInfoCardWidget(),
           20.verticalSpace,
-          CustomNutrietionTimeLineWidget()
+          CustomNutrietionTimeLineWidget(),
+          20.verticalSpace,
+          _moveToFertigationWidget(),
         ],
       ),
     ) : Container(
@@ -97,14 +100,62 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
           40.verticalSpace,
           //_showActionRequiredSection(scanState),
-          _nextActionButton(context,ref,scanStateNotifier)
+          _nextActionButton(context,ref,scanStateNotifier),
         ],
       ),
     );
   }
+
+  Widget _moveToFertigationWidget(){
+    return   Container(
+      padding: EdgeInsets.all(10.w),
+      decoration: AppDecorations.manualCheckDecorationBg(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child:
+            CustomAddDetailButton(btnName: "Move to Fertigation", iconPath: Assets.icons.moveToFertigation.path, onPressed: (){
+            }),
+          ),
+          12.verticalSpace,
+          _moveTrayWidget()
+        ],
+      ),
+    );
+  }
+
+  Widget  _moveTrayWidget(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(child:
+        buttonWithIcon(
+          context: context,
+          path: Assets.icons.iconManualCheck.path, // Move Trays
+          label: 'Move Trays',
+          onPressed: () {
+            // Handle move trays action
+          },
+        )),
+        const SizedBox(width: 16),
+        Expanded(child: buttonWithIcon(
+          context: context,
+          path: Assets.icons.iconManualCheck.path, // Manual Check
+          label: 'Manual Check',
+          onPressed: () {
+            // Handle manual check action
+          },
+        )),
+      ],
+    );
+  }
+
   Widget _trayInfoContainer(){
     return Container(
         padding: const EdgeInsets.all(16),
+        margin: EdgeInsets.all(10.w),
         decoration: AppDecorations.seedingMainBg(),
         child:  Column(
         mainAxisSize: MainAxisSize.min,
@@ -195,6 +246,47 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     cycleStatus = args[cycleStageArgumentName];
   }
 
+  Widget _manualCheckWidget(){
+    return Container(
+      padding: EdgeInsets.all(10.w),
+      decoration: AppDecorations.manualCheckDecorationBg(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text( "Complete Harvest before • 22:00 Today",style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
+          10.verticalSpace,
+          SizedBox(
+            width: double.infinity,
+            child:
+            CustomAddDetailButton(btnName: "Add Details", iconPath: Assets.icons.iconAddDetail.path, onPressed: (){
+            }),
+          ),
+          const SizedBox(height: 12),
+          // Manual Check Button (Outlined),
+          SizedBox(
+            width: double.infinity,
+            child:   _manualCheckButton(),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _manualCheckButton(){
+    return SizedBox(width: double.infinity,height:40.w, child: ElevatedButton.icon(
+      onPressed:(){},
+      icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path), // use appropriate icon
+      label: labelTextRegular("Manual Check", 12.sp, AppColors.blackColor),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.manualCheckButtonBg,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.r),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
+      ),
+    ),);
+  }
 
   Widget _buildDateBadge(String text) {
     return Container(

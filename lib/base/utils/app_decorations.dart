@@ -86,6 +86,17 @@ class AppDecorations {
     );
   }
 
+  static BoxDecoration nutriationChipDecoration(){
+    return BoxDecoration(
+    color: AppColors.trayInfoChipBg,
+    borderRadius: BorderRadius.circular(24),
+    border: Border.all(
+    color: AppColors.blackColor, // Your desired color
+    width: 1, // Set your desired width
+    ),
+    );
+  }
+
   static InputDecoration mainInputTextDecoration(String hintText, String title, Widget? suffix){
     return InputDecoration(
       hintText: hintText,
@@ -111,6 +122,18 @@ class AppDecorations {
       border: Border.all(color: AppColors.white, width: 3),
     );
   }
+
+  static BoxDecoration manualCheckDecorationBg(){
+  return BoxDecoration(
+  color: AppColors.white, // Dark green border
+  ); }
+
+  static BoxDecoration manualCheckDecorationButtonBg(){
+    return BoxDecoration(
+      color: AppColors.manualCheckButtonBg, // Light green background
+      borderRadius: BorderRadius.circular(30),
+      border: Border.all(color: AppColors.blackColor, width: 1), // Dark green border
+    ); }
 
   static BoxDecoration moveToGerminationDialogueDecoration(){
     return BoxDecoration(

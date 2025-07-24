@@ -22,13 +22,13 @@ class ScanMoreCustomButton extends StatelessWidget {
       onPressed: onPressed ,
       icon: SvgPicture.asset(Assets.icons.iconScanMore.path),
       label:
-      labelTextRegular(btnName,10.sp, AppColors.buttonBackgroundColor),
+      labelTextRegular(btnName,12.sp, AppColors.buttonBackgroundColor),
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: AppColors.infoTextHingBg),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 12.sp),
+        padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 12.sp),
       ),
     );
   }

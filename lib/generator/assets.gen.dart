@@ -23,6 +23,10 @@ class $AssetsIconsGen {
   AssetGenImage get closeEyes =>
       const AssetGenImage('assets/icons/closeEyes.png');
 
+  /// File path: assets/icons/confirm_harvest.svg
+  SvgGenImage get confirmHarvest =>
+      const SvgGenImage('assets/icons/confirm_harvest.svg');
+
   /// File path: assets/icons/flash.svg
   SvgGenImage get flash => const SvgGenImage('assets/icons/flash.svg');
 
@@ -75,6 +79,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_info_blub.svg
   SvgGenImage get iconInfoBlub =>
       const SvgGenImage('assets/icons/icon_info_blub.svg');
+
+  /// File path: assets/icons/icon_manual_check.svg
+  SvgGenImage get iconManualCheck =>
+      const SvgGenImage('assets/icons/icon_manual_check.svg');
 
   /// File path: assets/icons/icon_mark_issue.svg
   SvgGenImage get iconMarkIssue =>
@@ -154,6 +162,10 @@ class $AssetsIconsGen {
   SvgGenImage get mesageIcon =>
       const SvgGenImage('assets/icons/mesage_icon.svg');
 
+  /// File path: assets/icons/move_to_fertigation.svg
+  SvgGenImage get moveToFertigation =>
+      const SvgGenImage('assets/icons/move_to_fertigation.svg');
+
   /// File path: assets/icons/sync_icon.svg
   SvgGenImage get syncIcon => const SvgGenImage('assets/icons/sync_icon.svg');
 
@@ -171,6 +183,7 @@ class $AssetsIconsGen {
   List<dynamic> get values => [
     blockChaiIcon,
     closeEyes,
+    confirmHarvest,
     flash,
     google,
     iconAcidity,
@@ -186,6 +199,7 @@ class $AssetsIconsGen {
     iconHummer,
     iconInfo,
     iconInfoBlub,
+    iconManualCheck,
     iconMarkIssue,
     iconMoisture,
     iconMore,
@@ -207,6 +221,7 @@ class $AssetsIconsGen {
     iconStartSeed,
     iconTemperature,
     mesageIcon,
+    moveToFertigation,
     syncIcon,
     tabCycle,
     tabHandbook,

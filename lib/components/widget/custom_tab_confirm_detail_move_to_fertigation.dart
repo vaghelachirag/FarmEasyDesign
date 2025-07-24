@@ -16,7 +16,9 @@ class _CustomTabConfirmDetailMoveToFertigationState extends State<CustomTabConfi
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
+      child: Container(
+        padding: EdgeInsets.all(12.sp),
+        child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(tabs.length, (index) {
@@ -36,12 +38,12 @@ class _CustomTabConfirmDetailMoveToFertigationState extends State<CustomTabConfi
                   borderRadius: BorderRadius.circular(8.w),
                 ),
                 child: 
-                labelTextRegular(tabs[index], 8.sp, isSelected ? AppColors.white  : AppColors.blackColor)
+                labelTextRegular(tabs[index], 12.sp, isSelected ? AppColors.white  : AppColors.blackColor)
               ),
             ),
           );
         }),
       ),
-    );
+    ));
   }
 }

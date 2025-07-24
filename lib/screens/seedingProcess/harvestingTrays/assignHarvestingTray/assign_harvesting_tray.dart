@@ -1,162 +1,129 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
-import 'package:farmeasy/components/common/custom_unit_dropdown.dart';
-import 'package:farmeasy/components/widget/custom_add_people_suggestion_text_filed.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/components/widget/custom_harvest_reminder_card.dart';
+import 'package:farmeasy/screens/seedingProcess/harvestingTrays/provider/harvesting_trays_provider.dart';
+import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
+import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import '../../../../base/utils/app_colors.dart';
-import '../../../../base/utils/app_decorations.dart';
-import '../../../../base/utils/common_widgets.dart';
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
+import '../../../../components/common/custom_unit_dropdown.dart';
+import '../../../../components/widget/custom_add_people_suggestion_text_filed.dart';
 import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_leet_code_chipset.dart';
+import '../../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
-import '../../../tab/cycles/provider/cycles_provider.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
-import 'provider/add_person_detail_screen.dart';
+import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
 
-class AddPersonDetailScreen extends HookConsumerWidget {
-  AddPersonDetailScreen({super.key});
 
-  static const route = "/AddPersonDetailScreen";
-  late CycleStage cycleStatus;
+class AssignHarvestingTray extends ConsumerStatefulWidget {
+
+  const AssignHarvestingTray({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AssignHarvestingTray> createState() => _AssignHarvestingTray();
+}
 
-    getArgument(context);
-
-
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
-    final currentIndex = ref.watch(bottomNavIndexProvider);
-
-    final showScanner = ref.watch(scanToggleProvider);
-    final toggleScanner = ref.read(scanToggleProvider.notifier);
-
-    final scanState = ref.watch(scanStateProvider);
-    final scanStateNotifier = ref.read(scanStateProvider.notifier);
-
-    final formKey = useMemoized(() => GlobalKey<FormState>());
-    final numberOfFullTrays = useTextEditingController();
-    final numberOfHalfTrays = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final isPassHide = useState(true);
-    final rememberMe = useState(false);
-
-    final searchText = ref.watch(peopleSearchTextProvider);
+class _AssignHarvestingTray extends ConsumerState<AssignHarvestingTray>
+    with TickerProviderStateMixin {
 
 
-    final lotCodes = ref.watch(seedLotListProvider);
-
-    return SafeArea(
-      child: Scaffold(
-        appBar: getActionbar("Seeding Trays"),
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20.h),
-                StepProgressIndicator(currentStepName: cycleStatus),
-                10.verticalSpace,
-                // Info card
-                Container(
-                  decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-                  padding: EdgeInsets.all(20.sp),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        _addAndMoreButton(),
-                        20.verticalSpace,
-                        _numberOfFullTrays(numberOfFullTrays, context),
-                        20.verticalSpace,
-                        _numberOfHalfTrays(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _seedLotCode(numberOfHalfTrays, context),
-                        5.verticalSpace,
-                        _seedsName(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _seedWeightTray(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _coreWeightTray(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _customSeeLotInputFiled(ref),
-                        10.verticalSpace,
-                        _addPeopleSuggestionWidget(searchText),
-                        _seedingDate(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _customProcessButton()
-                      ],
-                    ),
-                  ) ,
-                ),
-                // Add more widgets if needed (e.g., tray list, start button, etc.)
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
   }
 
-  Widget _addAndMoreButton(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  @override
+  Widget build(BuildContext context) {
+
+    String searchText = "";
+    final TextEditingController numberOfFullTraysController = TextEditingController();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Left circular scan icon
         Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          padding: EdgeInsets.all(10.r),
-          child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,),
+          decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
+          padding: EdgeInsets.all(20.sp),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _addAndMoreButton(),
+                20.verticalSpace,
+                _numberOfFullTrays(numberOfFullTraysController, context),
+                20.verticalSpace,
+                _numberOfHalfTrays(numberOfFullTraysController, context),
+                20.verticalSpace,
+                5.verticalSpace,
+                _seedsName(numberOfFullTraysController, context),
+                20.verticalSpace,
+                _addPeopleSuggestionWidget(searchText),
+                _harvestedQty(numberOfFullTraysController, context),
+                20.verticalSpace,
+                _manualCheckWidget(context)
+              ],
+            ),
+          ) ,
         ),
-        // Right icons
-        Row(
-          children: [
-            SvgPicture.asset(Assets.icons.iconMore.path),
-          ],
-        ),
+        // Add more widgets if needed (e.g., tray list, start button, etc.)
       ],
     );
   }
+}
 
-  Widget _customProcessButton(){
-    return  CustomProceedButton(onPressed: (){},title: "Processed",iconPath:   Assets.icons.iconQrProcessed.path);
-  }
+Widget _addAndMoreButton(){
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      // Left circular scan icon
+      Container(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.all(10.r),
+        child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,),
+      ),
+      // Right icons
+      Row(
+        children: [
+          SvgPicture.asset(Assets.icons.iconMore.path),
+        ],
+      ),
+    ],
+  );
+}
 
-  Widget _customSeeLotInputFiled(WidgetRef ref){
-    return CustomSeedLotInputField(
-      title: "Seed Lot Code",
-      onScanPressed: () {
-        // Open QR scanner or add manually
-      },
-      onRemovePressed: () {
-        // Logic to remove a lot code
-        ref.read(seedLotListProvider.notifier).state = [];
-      },
-    );
-  }
-  void getArgument(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    cycleStatus = args[cycleStageArgumentName];
-  }
+Widget _customProcessButton(){
+  return  CustomProceedButton(onPressed: (){},title: "Confirm Harvest",iconPath:   Assets.icons.confirmHarvest.path);
+}
+
+Widget _customSeeLotInputFiled(WidgetRef ref){
+  return CustomSeedLotInputField(
+    title: "Seed Lot Code",
+    onScanPressed: () {
+      // Open QR scanner or add manually
+    },
+    onRemovePressed: () {
+      // Logic to remove a lot code
+      ref.read(seedLotListProvider.notifier).state = [];
+    },
+  );
 }
 
 // Add People Suggestion Widget
@@ -224,49 +191,13 @@ Widget _seedsName(TextEditingController emailController, BuildContext context,) 
   );
 }
 
-Widget _seedLotCode(TextEditingController emailController, BuildContext context,) {
-  return CustomTextField(
-    controller: emailController,
-    title: S.of(context).seedLotCode,
-    hintText: "",
-    suffix: suffixScanNow(context),
-    inputType: TextInputType.number,
-    textInputAction: TextInputAction.next,
-    validator: (val) {
-      if (val!.isEmpty) {
-        return context.l10n.pleaseenteremail;
-      }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
-      return null;
-    },
-  );
-}
-
-Widget _seedingDate(TextEditingController emailController, BuildContext context,) {
-  return CustomTextField(
-    controller: emailController,
-    title: S.of(context).seedingDate,
-    hintText: "",
-    suffix: suffixDateIcon(context),
-    inputType: TextInputType.number,
-    textInputAction: TextInputAction.next,
-    validator: (val) {
-      if (val!.isEmpty) {
-        return context.l10n.pleaseenteremail;
-      }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
-      return null;
-    },
-  );
-}
-
-Widget _seedWeightTray(
+Widget _harvestedQty(
     TextEditingController emailController,
     BuildContext context,
     ) {
   return CustomTextField(
     controller: emailController,
-    title: S.of(context).seedWeighttray,
+    title: "Harvested Qty",
     hintText: "",
     suffix: suffixCoreWeight(context),
     inputType: TextInputType.number,
@@ -280,25 +211,6 @@ Widget _seedWeightTray(
     },
   );
 }
-
-Widget _coreWeightTray(TextEditingController emailController, BuildContext context,) {
-  return CustomTextField(
-    controller: emailController,
-    title: S.of(context).coreWeight,
-    hintText: "",
-    suffix: suffixCoreWeight(context),
-    inputType: TextInputType.number,
-    textInputAction: TextInputAction.next,
-    validator: (val) {
-      if (val!.isEmpty) {
-        return context.l10n.pleaseenteremail;
-      }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
-      return null;
-    },
-  );
-}
-
 
 Widget suffixCoreWeight(BuildContext context){
   String selectedUnit = S.of(context).gms;
@@ -308,7 +220,7 @@ Widget suffixCoreWeight(BuildContext context){
       mainAxisSize: MainAxisSize.min,
       children: [
         // Unit Dropdown
-         gmsWeightWidget(selectedUnit,context),
+        gmsWeightWidget(selectedUnit,context),
         6.horizontalSpace,
         // Combined + / - buttons
         addAndMinusButtonWidget()
@@ -360,7 +272,7 @@ Widget suffixScanNow(BuildContext context){
         Text(
           S.of(context).scanNow,
           style: context.textTheme.labelMedium?.copyWith(
-            color: AppColors.scanNowTextBg
+              color: AppColors.scanNowTextBg
           ),
         ),
       ],
@@ -384,9 +296,9 @@ Widget suffixDateIcon(BuildContext context){
 Widget _actionButton(String symbol) {
   return InkWell(
     child: Container(
-      width: 30,
-      alignment: Alignment.center,
-      child: labelTextRegular(symbol, 18.sp, AppColors.white)
+        width: 30,
+        alignment: Alignment.center,
+        child: labelTextRegular(symbol, 18.sp, AppColors.white)
     ),
   );
 }
@@ -477,6 +389,46 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
       ),
     )
   ;
+}
+
+
+
+Widget _manualCheckWidget(BuildContext context){
+  return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text( "Complete Harvest before • 22:00 Today",style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
+        10.verticalSpace,
+        SizedBox(
+          width: double.infinity,
+          child:
+          CustomAddDetailButton(btnName: "Confirm Harvest", iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
+          }),
+        ),
+        const SizedBox(height: 12),
+        // Manual Check Button (Outlined),
+        SizedBox(
+          width: double.infinity,
+          child:   _badTrayButton(),
+        )
+      ],
+  );
+}
+
+Widget _badTrayButton(){
+  return SizedBox(width: double.infinity,height:40.w, child: ElevatedButton.icon(
+    onPressed:(){},
+    icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path,color: AppColors.white,), // use appropriate icon
+    label: labelTextRegular("Bad Trays", 12.sp, AppColors.white),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.errorBorderColor,
+      foregroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.r),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
+    ),
+  ),);
 }
 
 Widget idealScanContainer(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier){

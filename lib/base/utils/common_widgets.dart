@@ -1,6 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/base/utils/scan_more_custom_button.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +51,44 @@ Text labelTextBold(hint, double fontSize, Color labelTextColor) {
         color: labelTextColor,
         fontSize: ScreenUtil().setSp(fontSize),
         fontFamily: AppConstant.labelFrontBold),
+  );
+}
+
+Row imageWithTextInRow(BuildContext context,String path,String text,double fontSize){
+   return  Row(
+     mainAxisSize: MainAxisSize.min,
+     children: [
+       SvgPicture.asset(path),
+       4.verticalSpace,
+       Text(path,style: context.textTheme.labelSmall?.copyWith(fontSize: fontSize),)
+     ],
+   );
+}
+
+Widget buttonWithIcon({
+  required BuildContext context,
+  required String path,
+  required String label,
+  required VoidCallback onPressed,
+}) {
+  return GestureDetector(
+    onTap: onPressed,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFFD6F6D1), // Light green background
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(color: AppColors.blackColor, width: 1), // Dark green border
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(path),
+          8.horizontalSpace,
+          labelTextMedium(label, 12.sp, AppColors.infoTextHingBg)
+        ],
+      ),
+    ),
   );
 }
 
@@ -212,24 +249,9 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
                   ],
                 );
               case CycleStage.fertigation:
-                return  _loadMoveToFertigationWindow(context);
+                return  _loadMoveToFertigationWindow(context, "Scan the level QR where you want to Place the trays");
               case CycleStage.harvesting:
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    labelTextMedium(
-                      "Confirm placement of trays at the scanned level.",
-                      13.sp,
-                      AppColors.blackColor,
-                    ),
-                    SizedBox(height: 10.h),
-                    labelTextMedium(
-                      "Make sure the trays are arranged correctly.",
-                      11.sp,
-                      AppColors.infoTextHingBg,
-                    ),
-                  ],
-                );
+                return _loadMoveToFertigationWindow(context, "Scan the level QR from where you want to Harvest the trays");
             }
           },
         ),
@@ -250,12 +272,12 @@ Widget _loadSeedingInfoWindow(BuildContext context){
          Align(alignment: Alignment.centerRight, child: labelTextBold(S.of(context).seeHowToDoIt, 12.sp, AppColors.seeHowToDoItTextBg),),],),);
 }
 
-Widget _loadMoveToFertigationWindow(BuildContext context){
+Widget _loadMoveToFertigationWindow(BuildContext context,String title){
    return Column(
      crossAxisAlignment: CrossAxisAlignment.start,
      children: [
        labelTextMedium(
-         "Scan the level QR where you want to Place the trays",
+         title,
          12.sp,
          AppColors.blackColor,
        )
