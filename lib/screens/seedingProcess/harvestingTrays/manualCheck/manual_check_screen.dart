@@ -1,3 +1,4 @@
+import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/provider/manual_check_screen_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -36,6 +37,20 @@ class ManualCheckScreen extends HookConsumerWidget {
     final searchText = ref.watch(peopleSearchTextProvider);
 
 
+  // Note Controller
+    final isBadTray = ref.watch(badTrayProvider);
+    final selectedIssue = ref.watch(selectedIssueProvider);
+    final notesController = useTextEditingController(
+      text: ref.read(notesProvider),
+    );
+
+    final issues = [
+      "The nutrients were not enough",
+      "Overwatered",
+      "Fungus growth",
+      "Poor seed quality",
+    ];
+
     return SafeArea(child: Scaffold(
       appBar: getActionbar("Manual Check"),
       body: SizedBox(
@@ -65,7 +80,10 @@ class ManualCheckScreen extends HookConsumerWidget {
                       10.verticalSpace,
                       CustomUploadPhotoGrid(),
                       10.verticalSpace,
-                      CustomCheckboxWithText(title: "Mark this as Bad Trays", isChecked: true,)
+                      CustomCheckboxWithText(title: "Mark this as Bad Trays", isChecked: true, onCheckedChangeListener: (value) {
+                        ref.read(badTrayProvider.notifier).state = value ?? false;
+                      }, isBadTray: isBadTray),
+                      noteRemarkWidget(numberOfHalfTrays,context,selectedIssue,notesController,issues,ref)
                     ],
                   ),
                 ),
@@ -75,6 +93,41 @@ class ManualCheckScreen extends HookConsumerWidget {
         ),
       ),
     ));
+  }
+
+  Widget noteRemarkWidget(TextEditingController numberOfHalfTrays, BuildContext context, String? selectedIssue, TextEditingController notesController, List<String> issues, WidgetRef ref){
+    final issueController = useTextEditingController();
+    final notesController = useTextEditingController();
+    return Column(
+      children: [
+        SizedBox(height: 8),
+        DropdownButtonFormField<String>(
+          value: selectedIssue,
+          items: issues
+              .map((issue) => DropdownMenuItem(
+            value: issue,
+            child: Text(issue),
+          ))
+              .toList(),
+          onChanged: (value) {
+            ref.read(selectedIssueProvider.notifier).state = value!;
+          },
+          decoration: InputDecoration(
+            labelText: "Issue",
+            border: OutlineInputBorder(),
+          ),
+        ),
+        SizedBox(height: 12),
+        TextField(
+          controller: notesController,
+          maxLines: 4,
+          decoration: InputDecoration(
+            labelText: 'Notes/Remarks',
+            border: OutlineInputBorder(),
+          ),
+        ),
+      ],
+    );
   }
 
   // Add People Suggestion Widget

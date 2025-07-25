@@ -223,12 +223,10 @@ Widget addAndMoreButton(){
   );
 }
 
-Widget customCheckbox(bool isChecked){
+Widget customCheckbox(bool isChecked, ValueChanged onCheckedChangeListener, bool isBadTray){
    return  Checkbox(
-     value: isChecked,
-     onChanged: (value) {
-
-     },
+     value: isBadTray,
+     onChanged: onCheckedChangeListener,
      shape: RoundedRectangleBorder(
        borderRadius: BorderRadius.circular(4),
      ),
