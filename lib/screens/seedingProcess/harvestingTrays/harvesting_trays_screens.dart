@@ -3,7 +3,6 @@ import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/components/widget/custom_harvest_reminder_card.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/assignHarvestingTray/assign_harvesting_tray.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/provider/harvesting_trays_provider.dart';
-import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +19,7 @@ import '../../../components/widget/custom_nutrient_info_card_widget.dart';
 import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
 import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import '../../../components/widget/step_progress_widget.dart';
+import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
 
@@ -37,8 +37,6 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
 
 
   late CycleStage cycleStatus;
-
-
 
   @override
   void initState() {
@@ -71,7 +69,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
               10.verticalSpace,
               StepProgressIndicator(currentStepName: cycleStatus),
               10.verticalSpace,
-              isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier) : AssignHarvestingTray(),
+              isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier) : AssignHarvestingTray(cycleStatus: cycleStatus,),
             ],
           ),
         ),
@@ -134,11 +132,11 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),),
-          Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+          Text(S.of(context).trayInformation,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
           12.verticalSpace,
           // Tray Details
-          Text( "Tray Details:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-          Text("8 Arugula Tray | 9 Gms",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+          Text( S.of(context).trayDetails,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+          Text(S.of(context).ArugulaTrayGms,style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
           12.verticalSpace,
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,9 +145,9 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text( "Tray Position:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-                    Text("Zone 5 | Section 4 |",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
-                    Text("Level 3",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+                    Text( S.of(context).trayPosition,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+                    Text(S.of(context).zone5Section4,style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+                    Text(S.of(context).level3,style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
                   ],
                 ),
               ),
@@ -162,20 +160,20 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Current Status:",
+                      S.of(context).currentStatus,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("Germination"),
+                    Text(S.of(context).germination),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              _buildDateBadge("Since 25/05/2025"),
+              8.verticalSpace,
+              _buildDateBadge(S.of(context).since25052025),
             ],
           ),
           20.verticalSpace,
@@ -211,7 +209,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
           10.horizontalSpace,
           SizedBox(
             width: 120.w,
-            child: CustomAddDetailButton(btnName: "Next", onPressed: () {
+            child: CustomAddDetailButton(btnName: S.of(context).next, onPressed: () {
               scanStateNotifier.state = ScanState.confirmDetail;
             },iconPath: Assets.icons.iconNext.path),
           ),
@@ -240,17 +238,16 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           20.verticalSpace,
-          Text( "Complete Harvest before • 22:00 Today",style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
+          Text( S.of(context).completeHarvestBefore2200Today,style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
           10.verticalSpace,
           SizedBox(
             width: double.infinity,
             child:
-            CustomAddDetailButton(btnName: "Add Details", iconPath: Assets.icons.iconAddDetail.path, onPressed: (){
+            CustomAddDetailButton(btnName: S.of(context).addDetails, iconPath: Assets.icons.iconAddDetail.path, onPressed: (){
               addDetailStateNotifier.state = true;
             }),
           ),
-          const SizedBox(height: 12),
-          // Manual Check Button (Outlined),
+          12.verticalSpace,
           SizedBox(
             width: double.infinity,
             child:   _manualCheckButton(),
@@ -264,7 +261,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
     return SizedBox(width: double.infinity,height:40.w, child: ElevatedButton.icon(
       onPressed:(){},
       icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path), // use appropriate icon
-      label: labelTextRegular("Manual Check", 12.sp, AppColors.blackColor),
+      label: labelTextRegular(S.of(context).manualCheck, 12.sp, AppColors.blackColor),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.manualCheckButtonBg,
         foregroundColor: Colors.white,

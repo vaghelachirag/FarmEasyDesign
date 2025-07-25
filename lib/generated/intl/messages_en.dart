@@ -21,11 +21,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ArugulaTrayGms":
+            MessageLookupByLibrary.simpleMessage("8 Arugula Tray | 9 Gms"),
         "actionRequired":
             MessageLookupByLibrary.simpleMessage("Action Required"),
         "addDetail": MessageLookupByLibrary.simpleMessage("Add Detail"),
         "addDetails": MessageLookupByLibrary.simpleMessage("Add Details"),
         "addPeople": MessageLookupByLibrary.simpleMessage("Add People"),
+        "completeHarvestBefore2200Today": MessageLookupByLibrary.simpleMessage(
+            "Complete Harvest before • 22:00 Today"),
         "confirmScanNextLevelQr": MessageLookupByLibrary.simpleMessage(
             "Confirm & Scan next Level QR"),
         "continueWithGoogle":
@@ -34,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "continuewithgoogle":
             MessageLookupByLibrary.simpleMessage("continuewithgoogle"),
         "coreWeight": MessageLookupByLibrary.simpleMessage("Core Weight"),
+        "currentStatus":
+            MessageLookupByLibrary.simpleMessage("Current Status:"),
         "cycle8": MessageLookupByLibrary.simpleMessage("Cycle 8"),
         "cycles": MessageLookupByLibrary.simpleMessage("Cycles"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -46,14 +52,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "forgotpassword":
             MessageLookupByLibrary.simpleMessage("forgotPassword"),
+        "germination": MessageLookupByLibrary.simpleMessage("Germination"),
         "gms": MessageLookupByLibrary.simpleMessage("gms"),
         "handbook": MessageLookupByLibrary.simpleMessage("Handbook"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "level3": MessageLookupByLibrary.simpleMessage("Level 3"),
         "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "manualCheck": MessageLookupByLibrary.simpleMessage("Manual Check"),
         "movingToGermination":
             MessageLookupByLibrary.simpleMessage("Moving to germination"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "numberOfFullTrays":
             MessageLookupByLibrary.simpleMessage("Number of Full Trays"),
         "numberOfHalfTrays":
@@ -96,10 +106,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "seedsName": MessageLookupByLibrary.simpleMessage("Seeds Name"),
         "seehowtodoit": MessageLookupByLibrary.simpleMessage("seeHowToDoIt"),
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
+        "since25052025":
+            MessageLookupByLibrary.simpleMessage("Since 25/05/2025"),
         "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
         "thisLevelHasOnly":
             MessageLookupByLibrary.simpleMessage("This Level has only"),
         "threetrays": MessageLookupByLibrary.simpleMessage("3 Trays."),
+        "trayDetails": MessageLookupByLibrary.simpleMessage("Tray Details:"),
+        "trayInformation":
+            MessageLookupByLibrary.simpleMessage("Tray Information"),
+        "trayPosition": MessageLookupByLibrary.simpleMessage("Tray Position:"),
         "traySpaceYouCanConfirmThisPositionForFirst":
             MessageLookupByLibrary.simpleMessage(
                 "Tray space. You can Confirm this position for first"),
@@ -108,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "You are trying to add trays beyond the available tray space on the scanned level."),
         "youCanScanMultipleSeedLotCodesAtOnce":
             MessageLookupByLibrary.simpleMessage(
-                "You can scan multiple seed lot codes at once.")
+                "You can scan multiple seed lot codes at once."),
+        "zone5Section4":
+            MessageLookupByLibrary.simpleMessage("Zone 5 | Section 4 |")
       };
 }

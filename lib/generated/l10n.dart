@@ -619,6 +619,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manual Check`
+  String get manualCheck {
+    return Intl.message(
+      'Manual Check',
+      name: 'manualCheck',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tray Position:`
+  String get trayPosition {
+    return Intl.message(
+      'Tray Position:',
+      name: 'trayPosition',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zone 5 | Section 4 |`
+  String get zone5Section4 {
+    return Intl.message(
+      'Zone 5 | Section 4 |',
+      name: 'zone5Section4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Level 3`
+  String get level3 {
+    return Intl.message(
+      'Level 3',
+      name: 'level3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Status:`
+  String get currentStatus {
+    return Intl.message(
+      'Current Status:',
+      name: 'currentStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Germination`
+  String get germination {
+    return Intl.message(
+      'Germination',
+      name: 'germination',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Since 25/05/2025`
+  String get since25052025 {
+    return Intl.message(
+      'Since 25/05/2025',
+      name: 'since25052025',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete Harvest before • 22:00 Today`
+  String get completeHarvestBefore2200Today {
+    return Intl.message(
+      'Complete Harvest before • 22:00 Today',
+      name: 'completeHarvestBefore2200Today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tray Information`
+  String get trayInformation {
+    return Intl.message(
+      'Tray Information',
+      name: 'trayInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tray Details:`
+  String get trayDetails {
+    return Intl.message(
+      'Tray Details:',
+      name: 'trayDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `8 Arugula Tray | 9 Gms`
+  String get ArugulaTrayGms {
+    return Intl.message(
+      '8 Arugula Tray | 9 Gms',
+      name: 'ArugulaTrayGms',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

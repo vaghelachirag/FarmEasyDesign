@@ -173,8 +173,6 @@ Container totalRunningCycleWidget(BuildContext context){
                       ],
                     ),
                     const SizedBox(height: 16),
-
-                    /// Total number
                     Text(
                       '8',
                       style: TextStyle(
@@ -198,6 +196,46 @@ Container totalRunningCycleWidget(BuildContext context){
         ],
       )
   );
+}
+
+
+// Add More button for Scan
+Widget addAndMoreButton(){
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      // Left circular scan icon
+      Container(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.all(10.r),
+        child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,),
+      ),
+      // Right icons
+      Row(
+        children: [
+          SvgPicture.asset(Assets.icons.iconMore.path),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget customCheckbox(bool isChecked){
+   return  Checkbox(
+     value: isChecked,
+     onChanged: (value) {
+
+     },
+     shape: RoundedRectangleBorder(
+       borderRadius: BorderRadius.circular(4),
+     ),
+     side:  BorderSide(color: AppColors.checkboxBorderSideBg), // custom border color
+     checkColor: AppColors.white,
+     activeColor: AppColors.checkboxBorderSideBg, // when checked
+   );
 }
 
 
@@ -425,6 +463,17 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
         ),
       ),
     ),
+  );
+}
+
+Widget updateTodayButton(BuildContext context, title,Color color){
+  return  Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Text(title,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: color))
   );
 }
 

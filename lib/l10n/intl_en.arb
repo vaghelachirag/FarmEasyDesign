@@ -55,5 +55,17 @@
   "scanLevelQr": "Scan Level QR",
   "scanSeedLot": "Scan seed Lot",
   "addDetails": "Add Details",
-  "scanTheLevelQrWhereYouWantToPlaceThe": "Scan the level QR where you want to Place the trays"
+  "scanTheLevelQrWhereYouWantToPlaceThe": "Scan the level QR where you want to Place the trays",
+  "next": "Next",
+  "manualCheck": "Manual Check",
+  "trayPosition": "Tray Position:",
+  "zone5Section4": "Zone 5 | Section 4 |",
+  "level3": "Level 3",
+  "currentStatus": "Current Status:",
+  "germination": "Germination",
+  "since25052025": "Since 25/05/2025",
+  "completeHarvestBefore2200Today": "Complete Harvest before • 22:00 Today",
+  "trayInformation": "Tray Information",
+  "trayDetails": "Tray Details:",
+  "ArugulaTrayGms": "8 Arugula Tray | 9 Gms"
 }

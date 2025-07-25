@@ -152,5 +152,11 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color manualCheckBg = Color(0xFFF5F5F5);
   static const Color manualCheckButtonBg = Color(0xFFD6F6D1);
 
+
+  // Checkbox
+  static const Color checkboxBorderSideBg = Color(0xFF49454F);
+  static const Color checkboxBorderActiveBg = Color(0xFF49454F);
+
+
 }
 

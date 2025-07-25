@@ -81,7 +81,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        _addAndMoreButton(),
+                        addAndMoreButton(),
                         20.verticalSpace,
                         _numberOfFullTrays(numberOfFullTrays, context),
                         20.verticalSpace,
@@ -114,28 +114,6 @@ class AddPersonDetailScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _addAndMoreButton(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // Left circular scan icon
-        Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          padding: EdgeInsets.all(10.r),
-          child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,),
-        ),
-        // Right icons
-        Row(
-          children: [
-            SvgPicture.asset(Assets.icons.iconMore.path),
-          ],
-        ),
-      ],
-    );
-  }
 
   Widget _customProcessButton(){
     return  CustomProceedButton(onPressed: (){},title: "Processed",iconPath:   Assets.icons.iconQrProcessed.path);

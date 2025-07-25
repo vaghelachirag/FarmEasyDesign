@@ -2,6 +2,7 @@ import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/components/widget/custom_nutrient_info_card_widget.dart';
+import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/manual_check_screen.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -85,7 +86,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           20.verticalSpace,
           CustomNutrietionTimeLineWidget(),
           20.verticalSpace,
-          _moveToFertigationWidget(),
+          _moveToFertigationWidget(context),
         ],
       ),
     ) : Container(
@@ -106,7 +107,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     );
   }
 
-  Widget _moveToFertigationWidget(){
+  Widget _moveToFertigationWidget(BuildContext context){
     return   Container(
       padding: EdgeInsets.all(10.w),
       decoration: AppDecorations.manualCheckDecorationBg(),
@@ -117,6 +118,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
             width: double.infinity,
             child:
             CustomAddDetailButton(btnName: "Move to Fertigation", iconPath: Assets.icons.moveToFertigation.path, onPressed: (){
+              context.navigator.pushNamed(ManualCheckScreen.route);
             }),
           ),
           12.verticalSpace,

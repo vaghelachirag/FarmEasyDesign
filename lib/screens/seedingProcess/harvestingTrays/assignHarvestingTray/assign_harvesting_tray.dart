@@ -1,40 +1,33 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/components/widget/custom_harvest_reminder_card.dart';
-import 'package:farmeasy/screens/seedingProcess/harvestingTrays/provider/harvesting_trays_provider.dart';
-import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
+import 'package:farmeasy/screens/seedingProcess/harvestingTrays/confirmHarvestingTrayDetail/confirm_harvesting_tray_detail.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
-import '../../../../base/utils/dialougs.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../components/common/custom_unit_dropdown.dart';
 import '../../../../components/widget/custom_add_people_suggestion_text_filed.dart';
 import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_leet_code_chipset.dart';
-import '../../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
-import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
-import '../../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
 import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
 
 
 class AssignHarvestingTray extends ConsumerStatefulWidget {
+  CycleStage cycleStatus ;
 
-  const AssignHarvestingTray({super.key});
+   AssignHarvestingTray({super.key, required this.cycleStatus});
 
   @override
   ConsumerState<AssignHarvestingTray> createState() => _AssignHarvestingTray();
@@ -51,6 +44,8 @@ class _AssignHarvestingTray extends ConsumerState<AssignHarvestingTray>
 
   @override
   Widget build(BuildContext context) {
+
+
 
     String searchText = "";
     final TextEditingController numberOfFullTraysController = TextEditingController();
@@ -76,7 +71,7 @@ class _AssignHarvestingTray extends ConsumerState<AssignHarvestingTray>
                 _addPeopleSuggestionWidget(searchText),
                 _harvestedQty(numberOfFullTraysController, context),
                 20.verticalSpace,
-                _manualCheckWidget(context)
+                _manualCheckWidget(context,widget.cycleStatus)
               ],
             ),
           ) ,
@@ -337,7 +332,6 @@ Widget infoWindow(BuildContext context) {
         height: 20.w,
       ),
       SizedBox(width: 8.w),
-
       // Text Column
       Expanded(
         child: Column(
@@ -392,9 +386,7 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
   ;
 }
 
-
-
-Widget _manualCheckWidget(BuildContext context){
+Widget _manualCheckWidget(BuildContext context, cycleStatus){
   return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -404,8 +396,12 @@ Widget _manualCheckWidget(BuildContext context){
           width: double.infinity,
           child:
           CustomAddDetailButton(btnName: "Confirm Harvest", iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
-            // Add Detail button
-            showHarvestingSuccessDialog(context);
+
+            context.navigator.pushNamed(
+              ConfirmHarvestingTrayDetail.route,
+              arguments: {cycleStageArgumentName: cycleStatus},
+            );
+
           }),
         ),
         const SizedBox(height: 12),
@@ -421,7 +417,7 @@ Widget _manualCheckWidget(BuildContext context){
 Widget _badTrayButton(){
   return SizedBox(width: double.infinity,height:40.w, child: ElevatedButton.icon(
     onPressed:(){},
-    icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path,color: AppColors.white,), // use appropriate icon
+    icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path,color: AppColors.white), // use appropriate icon
     label: labelTextRegular("Bad Trays", 12.sp, AppColors.white),
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.errorBorderColor,

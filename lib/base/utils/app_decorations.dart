@@ -27,6 +27,7 @@ class AppDecorations {
     );
   }
 
+
   static BoxDecoration trayInfoPopupBg(){
     return BoxDecoration(
       color: AppColors.trayInfoPopupBg,

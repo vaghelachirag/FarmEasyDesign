@@ -53,6 +53,10 @@ class $AssetsIconsGen {
   SvgGenImage get iconConfirmAndProcessed =>
       const SvgGenImage('assets/icons/icon_confirm_and_processed.svg');
 
+  /// File path: assets/icons/icon_confirm_save.svg
+  SvgGenImage get iconConfirmSave =>
+      const SvgGenImage('assets/icons/icon_confirm_save.svg');
+
   /// File path: assets/icons/icon_drop.svg
   SvgGenImage get iconDrop => const SvgGenImage('assets/icons/icon_drop.svg');
 
@@ -191,6 +195,7 @@ class $AssetsIconsGen {
     iconArrowRight,
     iconCalendar,
     iconConfirmAndProcessed,
+    iconConfirmSave,
     iconDrop,
     iconDropdown,
     iconEdit,
@@ -299,6 +304,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/tray_icon.svg
   SvgGenImage get trayIcon => const SvgGenImage('assets/images/tray_icon.svg');
 
+  /// File path: assets/images/upload_image.svg
+  SvgGenImage get uploadImage =>
+      const SvgGenImage('assets/images/upload_image.svg');
+
+  /// File path: assets/images/upload_image_box.svg
+  SvgGenImage get uploadImageBox =>
+      const SvgGenImage('assets/images/upload_image_box.svg');
+
   /// List of all assets
   List<dynamic> get values => [
     assignPerson1,
@@ -318,6 +331,8 @@ class $AssetsImagesGen {
     splashLogo,
     tapToScanQr,
     trayIcon,
+    uploadImage,
+    uploadImageBox,
   ];
 }
 
