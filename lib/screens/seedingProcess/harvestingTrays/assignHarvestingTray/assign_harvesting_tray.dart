@@ -16,6 +16,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
+import '../../../../base/utils/dialougs.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../components/common/custom_unit_dropdown.dart';
 import '../../../../components/widget/custom_add_people_suggestion_text_filed.dart';
@@ -403,6 +404,8 @@ Widget _manualCheckWidget(BuildContext context){
           width: double.infinity,
           child:
           CustomAddDetailButton(btnName: "Confirm Harvest", iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
+            // Add Detail button
+            showHarvestingSuccessDialog(context);
           }),
         ),
         const SizedBox(height: 12),

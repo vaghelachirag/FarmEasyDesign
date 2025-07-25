@@ -256,6 +256,10 @@ class $AssetsImagesGen {
   SvgGenImage get dataMaintanceIcon =>
       const SvgGenImage('assets/images/data_maintance_icon.svg');
 
+  /// File path: assets/images/harvesting_sucess.svg
+  SvgGenImage get harvestingSucess =>
+      const SvgGenImage('assets/images/harvesting_sucess.svg');
+
   /// File path: assets/images/icon_left_bottom_corner.svg
   SvgGenImage get iconLeftBottomCorner =>
       const SvgGenImage('assets/images/icon_left_bottom_corner.svg');
@@ -303,6 +307,7 @@ class $AssetsImagesGen {
     blockChaiIcon,
     dashboardChart,
     dataMaintanceIcon,
+    harvestingSucess,
     iconLeftBottomCorner,
     iconRightBottomCorner,
     iconRightTopCorner,
