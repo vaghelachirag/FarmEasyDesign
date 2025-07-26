@@ -1,3 +1,5 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/confirmationManualCheck/confirmation_manual_check_screen.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/provider/manual_check_screen_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +10,19 @@ import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../base/utils/app_colors.dart';
+import '../../../../base/utils/constants.dart';
+import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../components/widget/custom_add_people_suggestion_text_filed.dart';
 import '../../../../components/widget/custom_checkbox_with_text.dart';
+import '../../../../components/widget/custom_input_drop_down.dart';
 import '../../../../components/widget/custom_input_field.dart';
+import '../../../../components/widget/custom_notes_input_field.dart';
 import '../../../../components/widget/custom_step_progress_manual_check.dart';
 import '../../../../components/widget/custom_upload_photo_grid.dart';
 import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../generator/assets.gen.dart';
+import '../../../tab/seeding/provider/seeding_provider.dart';
 import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
 
 
@@ -22,6 +30,8 @@ import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen.dar
 
 class ManualCheckScreen extends HookConsumerWidget {
   static const route = "/ManualCheckScreen";
+
+  const ManualCheckScreen({super.key});
 
 
   @override
@@ -50,6 +60,7 @@ class ManualCheckScreen extends HookConsumerWidget {
       "Fungus growth",
       "Poor seed quality",
     ];
+
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar("Manual Check"),
@@ -83,7 +94,10 @@ class ManualCheckScreen extends HookConsumerWidget {
                       CustomCheckboxWithText(title: "Mark this as Bad Trays", isChecked: true, onCheckedChangeListener: (value) {
                         ref.read(badTrayProvider.notifier).state = value ?? false;
                       }, isBadTray: isBadTray),
-                      noteRemarkWidget(numberOfHalfTrays,context,selectedIssue,notesController,issues,ref)
+                      if(ref.read(badTrayProvider.notifier).state)
+                      noteRemarkWidget(numberOfHalfTrays,context,selectedIssue,notesController,issues,ref),
+                      50.verticalSpace,
+                      confirmSaveButton(context,ref,isBadTray)
                     ],
                   ),
                 ),
@@ -95,37 +109,36 @@ class ManualCheckScreen extends HookConsumerWidget {
     ));
   }
 
+  // Add Detail button
+  Widget confirmSaveButton(BuildContext context, WidgetRef ref, bool isBadTrayChecked){
+    return SizedBox(
+      width: double.infinity,
+      child: CustomAddDetailButton(btnName: "Proceed", onPressed: () {
+        context.navigator.pushNamed(
+          ConfirmationManualCheckScreen.route,
+          arguments: {isBadTray: isBadTrayChecked},
+        );
+      },iconPath: Assets.icons.iconConfirmAndProcessed.path),
+    );
+  }
+
   Widget noteRemarkWidget(TextEditingController numberOfHalfTrays, BuildContext context, String? selectedIssue, TextEditingController notesController, List<String> issues, WidgetRef ref){
     final issueController = useTextEditingController();
     final notesController = useTextEditingController();
     return Column(
       children: [
         SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: selectedIssue,
-          items: issues
-              .map((issue) => DropdownMenuItem(
-            value: issue,
-            child: Text(issue),
-          ))
-              .toList(),
-          onChanged: (value) {
-            ref.read(selectedIssueProvider.notifier).state = value!;
-          },
-          decoration: InputDecoration(
-            labelText: "Issue",
-            border: OutlineInputBorder(),
-          ),
-        ),
-        SizedBox(height: 12),
-        TextField(
-          controller: notesController,
-          maxLines: 4,
-          decoration: InputDecoration(
-            labelText: 'Notes/Remarks',
-            border: OutlineInputBorder(),
-          ),
-        ),
+    CustomDropdownField(
+    title: "Issue",
+    hintText: "Select an issue",
+    items: issues,
+    selectedValue: selectedIssue,
+    onChanged: (value) {
+    ref.read(selectedIssueProvider.notifier).state = value;
+    },
+    ),
+     10.verticalSpace,
+        _issueNotes(numberOfHalfTrays,context)
       ],
     );
   }
@@ -158,6 +171,23 @@ class ManualCheckScreen extends HookConsumerWidget {
     return CustomTextField(
       controller: emailController,
       title: S.of(context).seedsName,
+      hintText: "",
+      inputType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      validator: (val) {
+        if (val!.isEmpty) {
+          return "pleaseenteremail";
+        }
+        // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
+        return null;
+      },
+    );
+  }
+
+  Widget _issueNotes(TextEditingController emailController, BuildContext context,) {
+    return CustomNotesInputField(
+      controller: emailController,
+      title: "Notes/Remarks",
       hintText: "",
       inputType: TextInputType.number,
       textInputAction: TextInputAction.next,

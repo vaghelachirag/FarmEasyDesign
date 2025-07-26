@@ -244,7 +244,7 @@ Widget _seedWeightTray(
     ) {
   return CustomTextField(
     controller: emailController,
-    title: S.of(context).seedWeighttray,
+    title: S.of(context).seedWeightTray,
     hintText: "",
     suffix: suffixCoreWeight(context),
     inputType: TextInputType.number,

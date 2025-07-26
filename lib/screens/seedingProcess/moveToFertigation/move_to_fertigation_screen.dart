@@ -118,6 +118,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
             width: double.infinity,
             child:
             CustomAddDetailButton(btnName: "Move to Fertigation", iconPath: Assets.icons.moveToFertigation.path, onPressed: (){
+              print("Manual"+"Manual");
               context.navigator.pushNamed(ManualCheckScreen.route);
             }),
           ),

@@ -39,7 +39,7 @@ void showTraySuccessDialog(BuildContext context) {
                     child: const Icon(Icons.close, size: 24),
                   ),
                 ),
-                const SizedBox(height: 8),
+                8.verticalSpace,
                 // Main Info Card
                 Container(
                   width: double.infinity,

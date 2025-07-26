@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../screens/seedingProcess/harvestingTrays/confirmHarvestingTrayDetail/confirm_harvesting_tray_detail.dart';
 import '../../screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
+import '../../screens/seedingProcess/harvestingTrays/manualCheck/confirmationManualCheck/confirmation_manual_check_screen.dart';
 import '../../screens/seedingProcess/harvestingTrays/manualCheck/manual_check_screen.dart';
 import '../../screens/seedingProcess/moveToFertigation/move_to_fertigation_screen.dart';
 import '../../screens/seedingProcess/movingToGermination/moving_to_germination.dart';
@@ -40,10 +41,10 @@ class AppRoute {
         return navigatePushToScreen(HarvestingTraysScreens(), settings);
       case ConfirmHarvestingTrayDetail.route:
         return navigatePushToScreen(ConfirmHarvestingTrayDetail(), settings);
-      case ConfirmHarvestingTrayDetail.route:
-        return navigatePushToScreen(ConfirmHarvestingTrayDetail(), settings);
       case ManualCheckScreen.route:
         return navigatePushToScreen(ManualCheckScreen(), settings);
+      case ConfirmationManualCheckScreen.route:
+        return navigatePushToScreen(ConfirmationManualCheckScreen(), settings);
       default:
         return null;
     }

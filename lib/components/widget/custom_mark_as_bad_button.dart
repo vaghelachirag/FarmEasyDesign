@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'app_colors.dart';
-import 'common_widgets.dart';
+import '../../base/utils/app_colors.dart';
+import '../../base/utils/common_widgets.dart';
 
-class CustomAddDetailButton extends StatelessWidget {
+
+class CustomMarkAsBadButton extends StatelessWidget {
   final String btnName;
   final String iconPath;
   final VoidCallback onPressed;
 
 
-  const CustomAddDetailButton({
+  const CustomMarkAsBadButton({
     super.key,
     required this.btnName,
     required this.iconPath,
@@ -28,7 +29,7 @@ class CustomAddDetailButton extends StatelessWidget {
       icon:  SvgPicture.asset(iconPath, color: AppColors.white), // use appropriate icon
       label: labelTextRegular(btnName, 12.sp, AppColors.white),
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.buttonBackgroundColor,
+        backgroundColor: AppColors.errorBorderColor,
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),

@@ -371,7 +371,7 @@ class S {
   }
 
   /// `Seed Weight/Tray`
-  String get seedWeighttray {
+  String get seedWeightTray {
     return Intl.message(
       'Seed Weight/Tray',
       name: 'seedWeighttray',

@@ -101,7 +101,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
   // Add Detail button
   Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){
     final scanState = ref.watch(scanStateProvider);
-    return scanState == ScanState.idle?  Row(
+    return scanState == ScanState.success?  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(

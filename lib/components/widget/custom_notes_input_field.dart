@@ -2,7 +2,7 @@ import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomNotesInputField extends StatelessWidget {
   final TextEditingController controller;
   final String title;
   final String hintText;
@@ -12,7 +12,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffix;
   final FormFieldValidator<String>? validator;
 
-  const CustomTextField({
+  const CustomNotesInputField({
     super.key,
     required this.controller,
     required this.title,
@@ -30,11 +30,12 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        8.verticalSpace,
+       8.verticalSpace,
         TextFormField(
             controller: controller,
             keyboardType: inputType,
             autofocus: true,
+            maxLines: 4,
             textInputAction: textInputAction,
             obscureText: obscureText,
             validator: validator,

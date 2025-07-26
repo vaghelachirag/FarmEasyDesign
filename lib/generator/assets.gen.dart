@@ -281,6 +281,10 @@ class $AssetsImagesGen {
   SvgGenImage get iconSeedingDone =>
       const SvgGenImage('assets/images/icon_seeding_done.svg');
 
+  /// File path: assets/images/image_mark_as_bad_tray.svg
+  SvgGenImage get imageMarkAsBadTray =>
+      const SvgGenImage('assets/images/image_mark_as_bad_tray.svg');
+
   /// File path: assets/images/left_side_corner_scan.svg
   SvgGenImage get leftSideCornerScan =>
       const SvgGenImage('assets/images/left_side_corner_scan.svg');
@@ -304,10 +308,6 @@ class $AssetsImagesGen {
   /// File path: assets/images/tray_icon.svg
   SvgGenImage get trayIcon => const SvgGenImage('assets/images/tray_icon.svg');
 
-  /// File path: assets/images/upload_image.svg
-  SvgGenImage get uploadImage =>
-      const SvgGenImage('assets/images/upload_image.svg');
-
   /// File path: assets/images/upload_image_box.svg
   SvgGenImage get uploadImageBox =>
       const SvgGenImage('assets/images/upload_image_box.svg');
@@ -325,13 +325,13 @@ class $AssetsImagesGen {
     iconRightBottomCorner,
     iconRightTopCorner,
     iconSeedingDone,
+    imageMarkAsBadTray,
     leftSideCornerScan,
     onlineStore,
     scanSucess,
     splashLogo,
     tapToScanQr,
     trayIcon,
-    uploadImage,
     uploadImageBox,
   ];
 }
