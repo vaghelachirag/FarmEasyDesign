@@ -49,14 +49,13 @@ class StepProgressIndicator extends StatelessWidget {
     switch (stage) {
       case CycleStage.seeding:
         return 0;
-      case CycleStage.movement:
-        return 1;
       case CycleStage.germination:
-        return 2;
+        return 1;
       case CycleStage.fertigation:
+        return 2;
       case CycleStage.harvesting:
-      default:
-        return 2; // Final step for unsupported stages
+      return 3;
+      // Final step for unsupported stages
     }
   }
 

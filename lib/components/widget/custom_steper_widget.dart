@@ -20,13 +20,10 @@ class StepperWidget extends ConsumerWidget {
 
     final Map<CycleStage, String> stageIcons = {
       CycleStage.seeding: Assets.icons.iconSeeds.path,
-      CycleStage.movement: Assets.icons.iconPlant.path,
-      CycleStage.germination: Assets.icons.iconDrop.path,
-      CycleStage.fertigation: Assets.icons.iconHummer.path,
+      CycleStage.germination: Assets.icons.iconSeeds.path,
+      CycleStage.fertigation: Assets.icons.iconDrop.path,
+      CycleStage.harvesting: Assets.icons.iconHummer.path,
     };
-
-    final doneIcon = Assets.images.iconSeedingDone.path;
-    final currentArrow = Assets.icons.iconArrowRight.path;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

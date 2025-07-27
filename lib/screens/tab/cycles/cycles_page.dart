@@ -87,8 +87,7 @@ class CycleStatusCard extends ConsumerWidget {
               children: [
                 // Left text
                 labelTextBold(context.l10n.cycle8, 16.sp, AppColors.blackColor),
-                SizedBox(width: 8.w),
-                // Middle text with flexible width
+                8.verticalSpace,
                 Expanded(
                   child: labelTextRegular(
                     "• 38 Arugula Trays",
@@ -173,7 +172,7 @@ class CycleStatusCard extends ConsumerWidget {
               Row(
                 children: [
                   labelTextMedium('14F Trays of Arugula', 10.sp, AppColors.seedingTrayBg),
-                  const SizedBox(width: 4),
+                  4.verticalSpace,
                   SvgPicture.asset(Assets.icons.iconInfo.path)
                 ],
               ),
@@ -199,27 +198,23 @@ class CycleStatusCard extends ConsumerWidget {
 
 String getStageText(CycleStage stage) {
   switch (stage) {
-    case CycleStage.movement:
-      return 'Moving to germination';
-    case CycleStage.germination:
-      return 'Germination in progress';
     case CycleStage.seeding:
       return 'Seeding';
+    case CycleStage.germination:
+      return 'Moving to germination';
     case CycleStage.fertigation:
-      return 'Fertigation';
+      return 'Moving to Fertigation Room';
     case CycleStage.harvesting:
-      return 'Harvesting';
+      return 'Moving to Harvesting';
   }
 }
 
 String getActionButtonText(CycleStage stage) {
   switch (stage) {
-    case CycleStage.movement:
-      return 'Start movement';
-    case CycleStage.germination:
-      return 'Start movement';
     case CycleStage.seeding:
       return 'Start Seeding';
+    case CycleStage.germination:
+      return 'Start Moment';
     case CycleStage.fertigation:
       return 'Start Fertigation';
     case CycleStage.harvesting:

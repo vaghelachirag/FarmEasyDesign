@@ -17,7 +17,6 @@ final taskListProvider = StateProvider<List<ModelCycleSeeding>>((ref) => [
 
 enum CycleStage {
   seeding,
-  movement,
   germination,
   fertigation,
   harvesting,
@@ -40,32 +39,18 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
       seedingStatus: 0, currentStage: CycleStage.seeding,
     ),
     ModelCycle(
-      cycleName: "Cycle 8",
-      trayInfo: "38 Arugula Trays",
-      startDate: DateTime(2025, 5, 22),
-      endDate: DateTime(2025, 5, 22),
-      status: "Moving to Fertigation Room",
-      assignedUsers: ["A", "B", "C", "D", "E"],
-      arugulaCompleted: 0,
-      arugulaTotal: 14,
-      cabbageCompleted: 0,
-      cabbageTotal: 25,
-      upcomingSeedsDay: 1,
-      seedingStatus: 1, currentStage: CycleStage.movement
-    ),
-    ModelCycle(
         cycleName: "Cycle 8",
         trayInfo: "38 Arugula Trays",
         startDate: DateTime(2025, 5, 22),
         endDate: DateTime(2025, 5, 22),
-        status: "Moving to Fertigation Room",
+        status: "Moving to germination",
         assignedUsers: ["A", "B", "C", "D", "E"],
         arugulaCompleted: 0,
         arugulaTotal: 14,
         cabbageCompleted: 0,
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
-        seedingStatus: 2, currentStage: CycleStage.germination
+        seedingStatus: 1, currentStage: CycleStage.germination
     ),
     ModelCycle(
         cycleName: "Cycle 8",
@@ -86,14 +71,14 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         trayInfo: "38 Arugula Trays",
         startDate: DateTime(2025, 5, 22),
         endDate: DateTime(2025, 5, 22),
-        status: "Moving to Fertigation Room",
+        status: "Moving to Harvesting",
         assignedUsers: ["A", "B", "C", "D", "E"],
         arugulaCompleted: 0,
         arugulaTotal: 14,
         cabbageCompleted: 0,
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
-        seedingStatus: 2, currentStage: CycleStage.harvesting
+        seedingStatus: 3, currentStage: CycleStage.harvesting
     ),
     // Add more cycles as needed
   ];
@@ -119,7 +104,6 @@ final seedingStatusProvider = StateProvider<SeedingStatus>((ref) {
 
 enum SeedingStatus { idle, started, issueMarked }
 
-
 final selectedStageProvider = StateProvider<CycleStage>((ref) {
-  return CycleStage.movement;
+  return CycleStage.seeding;
 });

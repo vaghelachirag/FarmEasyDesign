@@ -256,23 +256,6 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
             switch (cycleStatus) {
               case CycleStage.seeding:
                 return  _loadSeedingInfoWindow(context);
-              case CycleStage.movement:
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    labelTextMedium(
-                      "Confirm placement of trays at the scanned level.",
-                      13.sp,
-                      AppColors.blackColor,
-                    ),
-                    SizedBox(height: 10.h),
-                    labelTextMedium(
-                      "Make sure the trays are arranged correctly.",
-                      11.sp,
-                      AppColors.infoTextHingBg,
-                    ),
-                  ],
-                );
               case CycleStage.germination:
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -73,9 +73,6 @@ void navigateToStage(BuildContext context, CycleStage stage) {
     case CycleStage.seeding:
       moveToNextScreen(context,SeedingTraysScreen.route,stage);
       break;
-    case CycleStage.movement:
-      moveToNextScreen(context,SeedingScreenPage.route,stage);
-      break;
     case CycleStage.germination:
       moveToNextScreen(context,MovingToGerminationScreen.route,stage);
       break;
