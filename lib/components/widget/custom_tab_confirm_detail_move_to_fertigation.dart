@@ -16,34 +16,31 @@ class _CustomTabConfirmDetailMoveToFertigationState extends State<CustomTabConfi
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Container(
-        padding: EdgeInsets.all(12.sp),
-        child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(tabs.length, (index) {
-          final isSelected = selectedIndex == index;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.w),
-                decoration: BoxDecoration(
-                  color: isSelected ? Color(0xFF3B364E) : Color(0xFFF4F4ED),
-                  borderRadius: BorderRadius.circular(8.w),
-                ),
-                child: 
-                labelTextRegular(tabs[index], 12.sp, isSelected ? AppColors.white  : AppColors.blackColor)
+      child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: List.generate(tabs.length, (index) {
+        final isSelected = selectedIndex == index;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.w),
+              decoration: BoxDecoration(
+                color: isSelected ? Color(0xFF3B364E) : Color(0xFFF4F4ED),
+                borderRadius: BorderRadius.circular(8.w),
               ),
+              child:
+              labelTextRegular(tabs[index], 12.sp, isSelected ? AppColors.white  : AppColors.blackColor)
             ),
-          );
-        }),
-      ),
-    ));
+          ),
+        );
+      }),
+            ));
   }
 }

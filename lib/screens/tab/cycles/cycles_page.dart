@@ -78,19 +78,18 @@ class CycleStatusCard extends ConsumerWidget {
     final progress = calculateProgress(cycle);
     return  Card(
       child: Container(
-        padding: EdgeInsets.only(left: 16.sp,right: 16.sp),
+        padding: EdgeInsets.only(left: 10.sp,right: 10.sp),
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             10.verticalSpace,
             Row(
               children: [
-                // Left text
-                labelTextBold(context.l10n.cycle8, 16.sp, AppColors.blackColor),
-                8.verticalSpace,
+                labelTextBold(cycle.cycleName, 16.sp, AppColors.blackColor),
+                8.horizontalSpace,
                 Expanded(
                   child: labelTextRegular(
-                    "• 38 Arugula Trays",
+                    cycle.trayInfo,
                     14.sp,
                     AppColors.cycleTrayBg,
                   ),
@@ -117,7 +116,7 @@ class CycleStatusCard extends ConsumerWidget {
                 labelTextRegular("Upcoming Seeding in", 10.sp, AppColors.upComingSeedsTextBg),
                 5.horizontalSpace,
                 Container(
-                  decoration: AppDecorations.seedingMainBg(),
+                  decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
                   padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                   child:   labelTextMedium("${cycle.arugulaTotal.toString()} Days", 10.sp, AppColors.blackColor)
                 ),
@@ -188,12 +187,16 @@ class CycleStatusCard extends ConsumerWidget {
           5.verticalSpace,
           DashedLine(),
           5.verticalSpace,
-          CustomSeedingActionSection(buttonText: getActionButtonText(cycle.currentStage),currentStage: cycle.currentStage),
+          currentStageCycleWidget(cycle),
           20.verticalSpace,
         ],
       ),
     );
   }
+}
+
+Widget currentStageCycleWidget (ModelCycle cycle){
+  return  CustomSeedingActionSection(buttonText: getActionButtonText(cycle.currentStage),currentStage: cycle.currentStage);
 }
 
 String getStageText(CycleStage stage) {
@@ -202,10 +205,12 @@ String getStageText(CycleStage stage) {
       return 'Seeding';
     case CycleStage.germination:
       return 'Moving to germination';
-    case CycleStage.fertigation:
+    case CycleStage.moveToFertigation:
       return 'Moving to Fertigation Room';
     case CycleStage.harvesting:
       return 'Moving to Harvesting';
+    case CycleStage.fertigation:
+      return 'Fertigation';
   }
 }
 
@@ -215,10 +220,12 @@ String getActionButtonText(CycleStage stage) {
       return 'Start Seeding';
     case CycleStage.germination:
       return 'Start Moment';
-    case CycleStage.fertigation:
+    case CycleStage.moveToFertigation:
       return 'Start Fertigation';
     case CycleStage.harvesting:
       return 'Start Harvesting';
+    case CycleStage.fertigation:
+      return 'Fertigation';
   }
 }
 

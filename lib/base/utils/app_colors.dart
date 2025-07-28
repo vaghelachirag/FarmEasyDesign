@@ -157,6 +157,12 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color checkboxBorderSideBg = Color(0xFF49454F);
   static const Color checkboxBorderActiveBg = Color(0xFF49454F);
 
+  // Tray Info Cycle Page
+  static const Color trayInfoCycleBg = Color(0xFFF0F4EC);
+  static const Color trayInfoCycleBorderBg = Color(0xFFF2E58C);
+
+
+
 
 }
 

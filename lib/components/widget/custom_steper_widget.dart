@@ -21,7 +21,7 @@ class StepperWidget extends ConsumerWidget {
     final Map<CycleStage, String> stageIcons = {
       CycleStage.seeding: Assets.icons.iconSeeds.path,
       CycleStage.germination: Assets.icons.iconSeeds.path,
-      CycleStage.fertigation: Assets.icons.iconDrop.path,
+      CycleStage.moveToFertigation: Assets.icons.iconDrop.path,
       CycleStage.harvesting: Assets.icons.iconHummer.path,
     };
 

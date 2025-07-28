@@ -267,9 +267,12 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
                     )
                   ],
                 );
-              case CycleStage.fertigation:
+              case CycleStage.moveToFertigation:
                 return  _loadMoveToFertigationWindow(context, "Scan the level QR where you want to Place the trays");
               case CycleStage.harvesting:
+                return _loadMoveToFertigationWindow(context, "Scan the level QR from where you want to Harvest the trays");
+              case CycleStage.fertigation:
+                // TODO: Handle this case.
                 return _loadMoveToFertigationWindow(context, "Scan the level QR from where you want to Harvest the trays");
             }
           },
@@ -289,6 +292,74 @@ Widget _loadSeedingInfoWindow(BuildContext context){
          SizedBox(height: 8.h), labelTextMedium(context.l10n.youCanScanMultipleSeedLotCodesAtOnce, 11.sp, AppColors.infoTextHingBg),
          SizedBox(height: 4.h),
          Align(alignment: Alignment.centerRight, child: labelTextBold(S.of(context).seeHowToDoIt, 12.sp, AppColors.seeHowToDoItTextBg),),],),);
+}
+
+Widget trayInfoContainer(BuildContext context,Color trayInfoBg,Color trayInfoBorder){
+  return Container(
+    padding: EdgeInsets.all(10.sp),
+    decoration: AppDecorations.seedingMainBg(trayInfoBg,trayInfoBorder),
+    child:  Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),),
+        Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+        12.verticalSpace,
+        // Tray Details
+        Text( "Tray Details:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+        Text("8 Arugula Tray | 9 Gms",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+        12.verticalSpace,
+        // Tray Position + Date Badge
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text( "Tray Position:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+                  Text("Zone 5 | Section 4 |",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+                  Text("Level 3",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+                ],
+              ),
+            ),
+            8.verticalSpace,
+            buildDateBadge("Moved on 25/05/2025",context),
+          ],
+        ),
+        8.verticalSpace,
+        // Current Status + Date Badge
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Current Status:",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text("Germination"),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            buildDateBadge("Since 25/05/2025",context),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildDateBadge(String text,BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+    decoration: AppDecorations.trayInfoPopupBg(),
+    child:
+    Text(text,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor)),
+  );
 }
 
 Widget _loadMoveToFertigationWindow(BuildContext context,String title){

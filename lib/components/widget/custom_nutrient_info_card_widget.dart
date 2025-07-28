@@ -21,7 +21,6 @@ class _CustomNutrientInfoCardWidgetState extends State<CustomNutrientInfoCardWid
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
-      margin: EdgeInsets.all(10.w),
       decoration: AppDecorations.nutritionBoxDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

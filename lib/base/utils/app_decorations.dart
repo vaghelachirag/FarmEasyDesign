@@ -8,12 +8,12 @@ import '../../generator/assets.gen.dart';
 import 'common_widgets.dart';
 
 class AppDecorations {
-  static BoxDecoration seedingMainBg() {
+  static BoxDecoration seedingMainBg(Color startSeedsMainBg, Color startSeedsBorderBg) {
     return  BoxDecoration(
-      color: AppColors.startSeedsMainBg,
+      color: startSeedsMainBg,
       borderRadius: BorderRadius.circular(12.r),
       border: Border.all(
-        color:  AppColors.startSeedsBorderBg, // very light green border
+        color:  startSeedsBorderBg, // very light green border
         width: 1,
       ),
     );

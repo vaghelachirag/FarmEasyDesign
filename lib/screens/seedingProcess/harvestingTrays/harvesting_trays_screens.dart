@@ -91,7 +91,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
         children: [
           CustomTabConfirmDetailMoveToFertigation(),
           10.verticalSpace,
-          _trayInfoContainer(),
+          trayInfoContainer(),
           10.verticalSpace,
           CustomNutrientInfoCardWidget(),
           20.verticalSpace,
@@ -122,11 +122,11 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
     );
   }
 
-  Widget _trayInfoContainer(){
+  Widget trayInfoContainer(){
     return Container(
       padding: const EdgeInsets.all(16),
       margin: EdgeInsets.all(10.w),
-      decoration: AppDecorations.seedingMainBg(),
+      decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
       child:  Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -18,14 +18,15 @@ final taskListProvider = StateProvider<List<ModelCycleSeeding>>((ref) => [
 enum CycleStage {
   seeding,
   germination,
-  fertigation,
+  moveToFertigation,
   harvesting,
+  fertigation,
 }
 
 final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
   return [
     ModelCycle(
-      cycleName: "Cycle 8",
+      cycleName: "Cycle 9",
       trayInfo: "38 Arugula Trays",
       startDate: DateTime(2025, 5, 22),
       endDate: DateTime(2025, 5, 22),
@@ -40,7 +41,7 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
     ),
     ModelCycle(
         cycleName: "Cycle 8",
-        trayInfo: "38 Arugula Trays",
+        trayInfo: "• 38 Arugula Trays",
         startDate: DateTime(2025, 5, 22),
         endDate: DateTime(2025, 5, 22),
         status: "Moving to germination",
@@ -54,7 +55,7 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
     ),
     ModelCycle(
         cycleName: "Cycle 8",
-        trayInfo: "38 Arugula Trays",
+        trayInfo: "• 38 Arugula Trays",
         startDate: DateTime(2025, 5, 22),
         endDate: DateTime(2025, 5, 22),
         status: "Moving to Fertigation Room",
@@ -64,11 +65,11 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         cabbageCompleted: 0,
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
-        seedingStatus: 2, currentStage: CycleStage.fertigation
+        seedingStatus: 2, currentStage: CycleStage.moveToFertigation
     ),
     ModelCycle(
         cycleName: "Cycle 8",
-        trayInfo: "38 Arugula Trays",
+        trayInfo: "• 38 Arugula Trays",
         startDate: DateTime(2025, 5, 22),
         endDate: DateTime(2025, 5, 22),
         status: "Moving to Harvesting",
@@ -79,6 +80,20 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
         seedingStatus: 3, currentStage: CycleStage.harvesting
+    ),
+    ModelCycle(
+        cycleName: "Cycle 8",
+        trayInfo: "• 38 Arugula Trays",
+        startDate: DateTime(2025, 5, 22),
+        endDate: DateTime(2025, 5, 22),
+        status: "Fertigation",
+        assignedUsers: ["A", "B", "C", "D", "E"],
+        arugulaCompleted: 0,
+        arugulaTotal: 14,
+        cabbageCompleted: 0,
+        cabbageTotal: 25,
+        upcomingSeedsDay: 1,
+        seedingStatus: 4, currentStage: CycleStage.fertigation
     ),
     // Add more cycles as needed
   ];

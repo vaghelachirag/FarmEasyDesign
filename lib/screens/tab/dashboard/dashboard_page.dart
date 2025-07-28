@@ -372,7 +372,7 @@ class ActionRequiredSection extends StatelessWidget {
 
   Widget _buildSeedingCard(SeedingRequirement req, BuildContext context) {
     return Container(
-        decoration: AppDecorations.seedingMainBg(),
+        decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
       margin: EdgeInsets.only(bottom: 12.h),
       child:
       Container(
