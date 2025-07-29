@@ -15,6 +15,7 @@ import '../../../../base/utils/common_widgets.dart';
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
+import '../../../../base/utils/utils.dart';
 import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_leet_code_chipset.dart';
 import '../../../../components/widget/step_progress_widget.dart';
@@ -34,7 +35,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
+    Utils.hideKeyboard(context);
     getArgument(context);
 
 

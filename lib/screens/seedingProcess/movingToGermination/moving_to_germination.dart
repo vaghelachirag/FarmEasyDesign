@@ -11,6 +11,7 @@ import 'package:farmeasy/base/utils/common_widgets.dart' hide infoWindow;
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/dialougs.dart';
+import '../../../base/utils/utils.dart';
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
@@ -38,6 +39,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   @override
   Widget build(BuildContext context) {
+    Utils.hideKeyboard(context);
 
     final showScanner = ref.watch(scanToggleProvider);
     final toggleScanner = ref.read(scanToggleProvider.notifier);

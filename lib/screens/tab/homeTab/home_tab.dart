@@ -11,6 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../base/utils/utils.dart';
+
 
 class HomeTab extends ConsumerWidget {
   const HomeTab({super.key});
@@ -20,6 +22,7 @@ class HomeTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Utils.hideKeyboard(context);
 
     final screenWidth = MediaQuery.of(context).size.width;
     final selectedIndex = ref.watch(bottomNavIndexProvider);

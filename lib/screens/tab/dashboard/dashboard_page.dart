@@ -47,63 +47,70 @@ class DashboardPage extends ConsumerWidget {
 
             ),
             5.verticalSpace,
-            Wrap(
-              spacing: 16,
-              runSpacing: 16,
-              children:  [
-                TrayStatusCard(
-                  available: 18,
-                  total: 134,
-                  date: '12/07/2025',
-                    context: context
-                ),
-                CycleStatusCard(
-                  totalCycles: 12,
-                  date: '12/07/2025',
-                  stageData: {
-                    "Seeding": 3,
-                    "Germination": 2,
-                    "Fertigation": 4,
-                    "Harvesting": 3,
-                  },
-                ),
-                TotalYieldSection(
-                  cropName: "Arugula",
-                  updatedDate: "12/07/2025",
-                  yieldInGms: 1280,
-                  yieldChange: -7.33,
-                  onDropdownTap: () => print("Change crop tapped"),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
-            ActionRequiredSection(
-              requirements: [
-                SeedingRequirement(
-                  item: 'Arugula',
-                  quantity: '50 gms',
-                  dueDate: '22/09/2025',
-                  onStartSeeding: () => print('Seeding started for Arugula'),
-                ),
-                SeedingRequirement(
-                  item: 'Arugula',
-                  quantity: '50 gms',
-                  dueDate: '22/09/2025',
-                  onStartSeeding: () => print('Seeding started'),
-                ),
-                SeedingRequirement(
-                  item: 'Arugula',
-                  quantity: '50 gms',
-                  dueDate: '22/09/2025',
-                  onStartSeeding: () => print('Seeding started'),
-                ),
-              ],
-            ),
+            _trayStatusWidget(context) ,
+            16.verticalSpace,
+            _actionRequiredSection(context)
           ],
         ),
       ),
     ));
   }
+}
+Widget _actionRequiredSection(BuildContext context){
+  return     ActionRequiredSection(
+    requirements: [
+      SeedingRequirement(
+        item: 'Arugula',
+        quantity: '50 gms',
+        dueDate: '22/09/2025',
+        onStartSeeding: () => print('Seeding started for Arugula'),
+      ),
+      SeedingRequirement(
+        item: 'Arugula',
+        quantity: '50 gms',
+        dueDate: '22/09/2025',
+        onStartSeeding: () => print('Seeding started'),
+      ),
+      SeedingRequirement(
+        item: 'Arugula',
+        quantity: '50 gms',
+        dueDate: '22/09/2025',
+        onStartSeeding: () => print('Seeding started'),
+      ),
+    ],
+  );
+}
+
+Widget _trayStatusWidget(BuildContext context){
+  return  Wrap(
+    spacing: 16,
+    runSpacing: 16,
+    children:  [
+      TrayStatusCard(
+          available: 18,
+          total: 134,
+          date: '12/07/2025',
+          context: context
+      ),
+      CycleStatusCard(
+        totalCycles: 12,
+        date: '12/07/2025',
+        stageData: {
+          "Seeding": 3,
+          "Germination": 2,
+          "Fertigation": 4,
+          "Harvesting": 3,
+        },
+      ),
+      TotalYieldSection(
+        cropName: "Arugula",
+        updatedDate: "12/07/2025",
+        yieldInGms: 1280,
+        yieldChange: -7.33,
+        onDropdownTap: () => print("Change crop tapped"),
+      )
+    ],
+  );
 }
 
 class TotalYieldSection extends StatelessWidget {
@@ -145,7 +152,6 @@ class TotalYieldSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// Left: Icon + Label + Date + Yield
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,7 +212,7 @@ class TotalYieldSection extends StatelessWidget {
                         )
                       ],
                     ),
-                    SizedBox(height: 12.h),
+                    12.verticalSpace,
                     Row(
                       children: [
                         Text(

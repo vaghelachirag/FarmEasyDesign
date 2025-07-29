@@ -11,6 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../base/utils/app_colors.dart';
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
+import '../../../../base/utils/utils.dart';
 import '../../../../components/widget/custom_add_people_suggestion_text_filed.dart';
 import '../../../../components/widget/custom_checkbox_with_text.dart';
 import '../../../../components/widget/custom_input_drop_down.dart';
@@ -33,6 +34,7 @@ class ManualCheckScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Utils.hideKeyboard(context);
 
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final numberOfFullTrays = useTextEditingController();

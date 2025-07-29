@@ -15,6 +15,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import '../../../base/utils/utils.dart';
 import '../../../components/widget/custom_cycle_step_progress_bar.dart';
 import '../../../components/widget/custom_seeding_action_section.dart';
 import '../../../components/widget/custom_steper_widget.dart';
@@ -27,6 +28,7 @@ class CyclesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Utils.hideKeyboard(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
     final currentIndex = ref.watch(bottomNavIndexProvider);

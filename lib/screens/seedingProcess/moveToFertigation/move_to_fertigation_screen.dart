@@ -11,6 +11,7 @@ import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
+import '../../../base/utils/utils.dart';
 import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
 import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import '../../../components/widget/step_progress_widget.dart';
@@ -37,6 +38,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
   @override
   void initState() {
     super.initState();
+    Utils.hideKeyboard(context);
     Future(() {
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });

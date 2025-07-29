@@ -15,6 +15,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/scan_more_custom_button.dart';
+import '../../../base/utils/utils.dart';
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
@@ -40,6 +41,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
   void initState() {
     super.initState();
     Future(() {
+      Utils.hideKeyboard(context);
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });
   }

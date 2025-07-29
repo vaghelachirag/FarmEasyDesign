@@ -13,6 +13,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
+import '../../../../base/utils/utils.dart';
 import '../../../../components/common/custom_unit_dropdown.dart';
 import '../../../../components/widget/custom_add_people_suggestion_text_filed.dart';
 import '../../../../components/widget/custom_input_field.dart';
@@ -38,6 +39,7 @@ class _AssignHarvestingTray extends ConsumerState<AssignHarvestingTray>
   @override
   void initState() {
     super.initState();
+    Utils.hideKeyboard(context);
   }
 
   @override

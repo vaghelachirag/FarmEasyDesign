@@ -8,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../base/utils/common_widgets.dart';
+import '../../base/utils/utils.dart';
 import '../../components/widget/custom_elevated_button.dart';
 import '../../components/widget/custom_input_field.dart';
 import '../../components/widget/custom_login_with_google.dart';
@@ -19,8 +20,11 @@ class LoginScreen extends HookConsumerWidget {
 
   const LoginScreen({super.key});
 
+
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Utils.hideKeyboard(context);
 
     final email = ref.watch(emailProvider);
     final password = ref.watch(passwordProvider);

@@ -15,6 +15,7 @@ import 'package:farmeasy/base/utils/common_widgets.dart';
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/scan_more_custom_button.dart';
+import '../../../base/utils/utils.dart';
 import '../../../components/widget/custom_nutrient_info_card_widget.dart';
 import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
 import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
@@ -41,8 +42,10 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
   @override
   void initState() {
     super.initState();
+    Utils.hideKeyboard(context);
     Future(() {
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
+      ref.read(isHarvestDueProvider.notifier).state = false;
     });
   }
 
@@ -72,7 +75,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
               StepProgressIndicator(currentStepName: cycleStatus),
               10.verticalSpace,
               isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier) : AssignHarvestingTray(cycleStatus: cycleStatus,),
-              _manualCheckWidget(addDetailStateNotifier)
+              isVisibleAddDetail == false &&  scanState == ScanState.confirmDetail ? Container() :_manualCheckWidget(addDetailStateNotifier)
             ],
           ),
         ),

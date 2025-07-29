@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/scan_more_custom_button.dart';
+import '../../../base/utils/utils.dart';
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generated/l10n.dart';
 import '../../../base/utils/common_widgets.dart';
@@ -26,6 +27,8 @@ class SeedingScreenPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Utils.hideKeyboard(context);
+
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
     final currentIndex = ref.watch(bottomNavIndexProvider);
