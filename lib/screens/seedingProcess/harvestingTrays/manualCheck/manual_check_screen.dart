@@ -1,7 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/confirmationManualCheck/confirmation_manual_check_screen.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/provider/manual_check_screen_provider.dart';
-import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,10 +18,8 @@ import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_notes_input_field.dart';
 import '../../../../components/widget/custom_step_progress_manual_check.dart';
 import '../../../../components/widget/custom_upload_photo_grid.dart';
-import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
-import '../../../tab/seeding/provider/seeding_provider.dart';
 import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
 
 
@@ -63,7 +60,7 @@ class ManualCheckScreen extends HookConsumerWidget {
 
 
     return SafeArea(child: Scaffold(
-      appBar: getActionbar("Manual Check"),
+      appBar: getActionbar(context,"Manual Check"),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -72,7 +69,6 @@ class ManualCheckScreen extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              10.verticalSpace,
               CustomStepProgressManualCheck(),
               10.verticalSpace,
               Container(
@@ -91,7 +87,7 @@ class ManualCheckScreen extends HookConsumerWidget {
                       10.verticalSpace,
                       CustomUploadPhotoGrid(),
                       10.verticalSpace,
-                      CustomCheckboxWithText(title: "Mark this as Bad Trays", isChecked: true, onCheckedChangeListener: (value) {
+                      CustomCheckboxWithText(title: S.of(context).markThisAsBadTrays, isChecked: true, onCheckedChangeListener: (value) {
                         ref.read(badTrayProvider.notifier).state = value ?? false;
                       }, isBadTray: isBadTray),
                       if(ref.read(badTrayProvider.notifier).state)
@@ -113,7 +109,7 @@ class ManualCheckScreen extends HookConsumerWidget {
   Widget confirmSaveButton(BuildContext context, WidgetRef ref, bool isBadTrayChecked){
     return SizedBox(
       width: double.infinity,
-      child: CustomAddDetailButton(btnName: "Proceed", onPressed: () {
+      child: CustomAddDetailButton(btnName: S.of(context).proceed, onPressed: () {
         context.navigator.pushNamed(
           ConfirmationManualCheckScreen.route,
           arguments: {isBadTray: isBadTrayChecked},
@@ -129,8 +125,8 @@ class ManualCheckScreen extends HookConsumerWidget {
       children: [
         SizedBox(height: 8),
     CustomDropdownField(
-    title: "Issue",
-    hintText: "Select an issue",
+    title: S.of(context).issue,
+    hintText: S.of(context).selectAnIssue,
     items: issues,
     selectedValue: selectedIssue,
     onChanged: (value) {
@@ -187,7 +183,7 @@ class ManualCheckScreen extends HookConsumerWidget {
   Widget _issueNotes(TextEditingController emailController, BuildContext context,) {
     return CustomNotesInputField(
       controller: emailController,
-      title: "Notes/Remarks",
+      title: S.of(context).notesremarks,
       hintText: "",
       inputType: TextInputType.number,
       textInputAction: TextInputAction.next,

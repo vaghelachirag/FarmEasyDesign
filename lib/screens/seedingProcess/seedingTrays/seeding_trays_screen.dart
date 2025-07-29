@@ -39,10 +39,14 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
   @override
   void initState() {
     super.initState();
+    Future(() {
+      ref.read(scanStateProvider.notifier).state = ScanState.idle;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+
     final showScanner = ref.watch(scanToggleProvider);
     final toggleScanner = ref.read(scanToggleProvider.notifier);
 
@@ -52,7 +56,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
     getArgument();
 
     return SafeArea(child: Scaffold(
-      appBar: getActionbar("Seeding Trays"),
+      appBar: getActionbar(context,S.of(context).seedingTrays),
       body:   SizedBox(
         width: double.infinity,
         height: double.infinity,

@@ -23,6 +23,7 @@ enum CycleStage {
   fertigation,
 }
 
+
 final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
   return [
     ModelCycle(
@@ -122,3 +123,6 @@ enum SeedingStatus { idle, started, issueMarked }
 final selectedStageProvider = StateProvider<CycleStage>((ref) {
   return CycleStage.seeding;
 });
+
+// Stage for expand
+final stageExpandProvider = StateProvider<bool>((ref) => false);

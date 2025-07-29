@@ -18,6 +18,7 @@ import '../../base/utils/constants.dart';
 import '../../base/utils/custom_add_detail_button.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
 import 'custom_harvest_reminder_card.dart';
+import 'custom_lifecycle_fertigation_current_stage.dart';
 import 'custom_nutrient_info_card_widget.dart';
 import 'custom_nutrietion_time_line_widget.dart';
 
@@ -112,7 +113,7 @@ Widget loadFertigationWidget(BuildContext context){
       20.verticalSpace,
       CustomNutrientInfoCardWidget(),
       20.verticalSpace,
-      currentNutritionTimeLineWidget(context),
+      CustomLifecycleFertigationCurrentStage(),
       20.verticalSpace,
       bottomButtonWidget(context)
     ],
@@ -131,30 +132,35 @@ Widget bottomButtonWidget(BuildContext context){
    ],
   );
 }
-
-Widget  _moveTrayWidget(BuildContext context){
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Expanded(child:
-      buttonWithIcon(
-        context: context,
-        path: Assets.icons.iconManualCheck.path, // Move Trays
-        label: 'Move Trays',
-        onPressed: () {
-          // Handle move trays action
-        },
-      )),
-      16.horizontalSpace,
-      Expanded(child: buttonWithIcon(
-        context: context,
-        path: Assets.icons.iconManualCheck.path, // Manual Check
-        label: 'Manual Check',
-        onPressed: () {
-          // Handle manual check action
-        },
-      )),
-    ],
+Widget _moveTrayWidget(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: buttonWithIcon(
+            context: context,
+            path: Assets.icons.iconManualCheck.path,
+            label: 'Move Trays',
+            onPressed: () {
+              // Handle move trays action
+            },
+          ),
+        ),
+        16.horizontalSpace,
+        Expanded(
+          child: buttonWithIcon(
+            context: context,
+            path: Assets.icons.iconManualCheck.path,
+            label: 'Manual Check',
+            onPressed: () {
+              // Handle manual check action
+            },
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -165,8 +171,6 @@ Widget currentNutritionTimeLineWidget(BuildContext context){
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        10.verticalSpace,
-        Text("Current Stage",style: context.textTheme.labelSmall?.copyWith(fontSize: 14.sp,color: AppColors.infoTextHingBg)),
         20.verticalSpace,
         CustomNutrietionTimeLineWidget()
       ],

@@ -40,11 +40,12 @@ class StepProgressIndicator extends StatelessWidget {
       0 =>  loadSeedingWidget(context,currentStep),
       1 =>  loadGerminationWidget(),
       2 =>  loadFertigationWidget(context,currentStep),
+      3 =>  loadFertigationWidget(context,currentStep),
       _ => Text("Unknown"),
     };
   }
 
-  /// 🧠 Map each [CycleStage] to an index (0-based)
+
   int _getStepIndexFromCycleStage(CycleStage stage) {
     switch (stage) {
       case CycleStage.seeding:

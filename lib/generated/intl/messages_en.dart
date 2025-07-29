@@ -28,8 +28,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDetail": MessageLookupByLibrary.simpleMessage("Add Detail"),
         "addDetails": MessageLookupByLibrary.simpleMessage("Add Details"),
         "addPeople": MessageLookupByLibrary.simpleMessage("Add People"),
+        "availableTrays":
+            MessageLookupByLibrary.simpleMessage("Available Trays"),
         "completeHarvestBefore2200Today": MessageLookupByLibrary.simpleMessage(
             "Complete Harvest before • 22:00 Today"),
+        "confirmHarvest":
+            MessageLookupByLibrary.simpleMessage("Confirm Harvest"),
         "confirmScanNextLevelQr": MessageLookupByLibrary.simpleMessage(
             "Confirm & Scan next Level QR"),
         "continueWithGoogle":
@@ -42,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Current Status:"),
         "cycle8": MessageLookupByLibrary.simpleMessage("Cycle 8"),
         "cycles": MessageLookupByLibrary.simpleMessage("Cycles"),
+        "day": MessageLookupByLibrary.simpleMessage("Day"),
+        "days": MessageLookupByLibrary.simpleMessage("Days"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enterpassword": MessageLookupByLibrary.simpleMessage("enterPassword"),
         "enteryouremail":
@@ -55,20 +61,37 @@ class MessageLookup extends MessageLookupByLibrary {
         "germination": MessageLookupByLibrary.simpleMessage("Germination"),
         "gms": MessageLookupByLibrary.simpleMessage("gms"),
         "handbook": MessageLookupByLibrary.simpleMessage("Handbook"),
+        "harvest": MessageLookupByLibrary.simpleMessage("Harvest"),
+        "harvestedQty": MessageLookupByLibrary.simpleMessage("Harvested Qty:"),
+        "harvestingTrays":
+            MessageLookupByLibrary.simpleMessage("Harvesting Trays"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "issue": MessageLookupByLibrary.simpleMessage("Issue"),
+        "lastUpdatedOn":
+            MessageLookupByLibrary.simpleMessage("Last updated on"),
         "level3": MessageLookupByLibrary.simpleMessage("Level 3"),
         "logIn": MessageLookupByLibrary.simpleMessage("Log In"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "manualCheck": MessageLookupByLibrary.simpleMessage("Manual Check"),
+        "markAsABadTray":
+            MessageLookupByLibrary.simpleMessage("Mark as a Bad Tray !"),
+        "markAsBadTray":
+            MessageLookupByLibrary.simpleMessage("Mark as Bad Tray"),
+        "markThisAsBadTrays":
+            MessageLookupByLibrary.simpleMessage("Mark this as Bad Trays"),
+        "moveToFertigation":
+            MessageLookupByLibrary.simpleMessage("Move to Fertigation"),
         "movingToGermination":
             MessageLookupByLibrary.simpleMessage("Moving to germination"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "notesremarks": MessageLookupByLibrary.simpleMessage("Notes/Remarks"),
         "numberOfFullTrays":
             MessageLookupByLibrary.simpleMessage("Number of Full Trays"),
         "numberOfHalfTrays":
             MessageLookupByLibrary.simpleMessage("Number of Half Trays"),
         "ongoing": MessageLookupByLibrary.simpleMessage("Ongoing"),
+        "or": MessageLookupByLibrary.simpleMessage("Or"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pleaseentercorrectemail":
             MessageLookupByLibrary.simpleMessage("pleaseEnterCorrectEmail"),
@@ -76,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pleaseEnterEmail"),
         "pleaseenterpassword":
             MessageLookupByLibrary.simpleMessage("pleaseEnterPassword"),
+        "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
         "remembered": MessageLookupByLibrary.simpleMessage("remembered"),
         "removeALotCode":
@@ -104,7 +128,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "seedingDate": MessageLookupByLibrary.simpleMessage("Seeding Date"),
         "seedingTrays": MessageLookupByLibrary.simpleMessage("Seeding Trays"),
         "seedsName": MessageLookupByLibrary.simpleMessage("Seeds Name"),
+        "seedweighttray":
+            MessageLookupByLibrary.simpleMessage("seedWeightTray"),
         "seehowtodoit": MessageLookupByLibrary.simpleMessage("seeHowToDoIt"),
+        "selectAnIssue":
+            MessageLookupByLibrary.simpleMessage("Select an issue"),
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
         "since25052025":
             MessageLookupByLibrary.simpleMessage("Since 25/05/2025"),
@@ -112,6 +140,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "thisLevelHasOnly":
             MessageLookupByLibrary.simpleMessage("This Level has only"),
         "threetrays": MessageLookupByLibrary.simpleMessage("3 Trays."),
+        "totalYield": MessageLookupByLibrary.simpleMessage("Total Yield"),
+        "trayBroken": MessageLookupByLibrary.simpleMessage("Tray Broken"),
         "trayDetails": MessageLookupByLibrary.simpleMessage("Tray Details:"),
         "trayInformation":
             MessageLookupByLibrary.simpleMessage("Tray Information"),
@@ -119,12 +149,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "traySpaceYouCanConfirmThisPositionForFirst":
             MessageLookupByLibrary.simpleMessage(
                 "Tray space. You can Confirm this position for first"),
+        "upcomingSeedingIn":
+            MessageLookupByLibrary.simpleMessage("Upcoming Seeding in"),
+        "updateToday": MessageLookupByLibrary.simpleMessage("Update Today"),
+        "updatedOn": MessageLookupByLibrary.simpleMessage("Updated on"),
         "youAreTryingToAddTraysBeyondTheAvailableTray":
             MessageLookupByLibrary.simpleMessage(
                 "You are trying to add trays beyond the available tray space on the scanned level."),
         "youCanScanMultipleSeedLotCodesAtOnce":
             MessageLookupByLibrary.simpleMessage(
                 "You can scan multiple seed lot codes at once."),
+        "youNeedToTakeActionOnPendingSeedingTasks":
+            MessageLookupByLibrary.simpleMessage(
+                "You need to take action on pending seeding tasks."),
         "zone5Section4":
             MessageLookupByLibrary.simpleMessage("Zone 5 | Section 4 |")
       };

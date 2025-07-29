@@ -19,6 +19,16 @@ class AppDecorations {
     );
   }
 
+
+  static BoxDecoration manualCheckButtonDecoration(){
+    return BoxDecoration(
+      color: const Color(0xFFD6F6D1), // Light green background
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: AppColors.blackColor, width: 1), // Dark green border
+    );
+  }
+
+
   static BoxDecoration nutritionBoxDecoration(){
     return BoxDecoration(
       color: const Color(0xFFF2E58C), // Fill color

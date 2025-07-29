@@ -14,6 +14,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../generated/l10n.dart';
+
 
 
 class DashboardPage extends ConsumerWidget {
@@ -160,14 +162,14 @@ class TotalYieldSection extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Total Yield",
+                              S.of(context).totalYield,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Text(
-                              "Updated on $updatedDate",
+                             S.of(context).updatedOn +updatedDate,
                               style: TextStyle(
                                 fontSize: 10.sp,
                                 color: Colors.grey,
@@ -176,8 +178,6 @@ class TotalYieldSection extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
-
-                        /// Dropdown
                         GestureDetector(
                           onTap: onDropdownTap,
                           child: Container(
@@ -207,8 +207,6 @@ class TotalYieldSection extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 12.h),
-
-                    /// Yield Row
                     Row(
                       children: [
                         Text(
@@ -221,15 +219,13 @@ class TotalYieldSection extends StatelessWidget {
                         ),
                         SizedBox(width: 6.w),
                         Text(
-                          "gms",
+                          S.of(context).gms,
                           style: TextStyle(
                             fontSize: 12.sp,
                             color: Colors.black54,
                           ),
                         ),
                         SizedBox(width: 12.w),
-
-                        /// Yield Change %
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                           decoration: BoxDecoration(
@@ -255,14 +251,10 @@ class TotalYieldSection extends StatelessWidget {
                         )
                       ],
                     ),
-                    /// Dashed Line
-
                   ],
                 ),
               ),
-
-              SizedBox(width: 10.w),
-
+            10.horizontalSpace,
               Stack(
                 alignment: Alignment.topRight,
                 children: [
@@ -299,7 +291,7 @@ class TotalYieldSection extends StatelessWidget {
           ),
           10.verticalSpace,
           TimeRangeSelector(
-            selected: 'Day',
+            selected: S.of(context).day,
             onSelect: (value) {
             },
           ),
@@ -319,8 +311,8 @@ class AvailableTraysCard extends StatelessWidget {
       width: 280,
       child: Card(
         child: ListTile(
-          title: const Text('Available Trays'),
-          subtitle: const Text('Last updated on 12/07/2025'),
+          title:  Text(S.of(context).availableTrays),
+          subtitle:  Text('${S.of(context).lastUpdatedOn}12/07/2025'),
           trailing: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: const [
@@ -413,7 +405,6 @@ class ActionRequiredSection extends StatelessWidget {
               width: double.infinity,
               child:StartSeedingButton(
                 onPressed: () {
-                  print("Seeding started");
                 },
               ),
             )
@@ -430,12 +421,12 @@ Widget actionRequiredHeader(BuildContext context){
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
-        'Action Required',
+        S.of(context).actionRequired,
         style: context.textTheme.labelLarge,
       ),
       SizedBox(width: 10.w),
       Tooltip(
-        message: 'You need to take action on pending seeding tasks.',
+        message: S.of(context).youNeedToTakeActionOnPendingSeedingTasks,
         child: Icon(
           Icons.arrow_forward,
           size: 16.sp,
@@ -457,7 +448,7 @@ Widget seedRequirementHeader(BuildContext context, List<SeedingRequirement> requ
       )),
       SizedBox(width: 8.w),
       Tooltip(
-        message: 'You need to take action on pending seeding tasks.',
+        message: S.of(context).youNeedToTakeActionOnPendingSeedingTasks,
         child:  SvgPicture.asset(
   Assets.icons.iconInfo.path,
   color: Colors.grey,

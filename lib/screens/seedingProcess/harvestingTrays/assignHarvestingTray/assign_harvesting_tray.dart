@@ -16,8 +16,6 @@ import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../components/common/custom_unit_dropdown.dart';
 import '../../../../components/widget/custom_add_people_suggestion_text_filed.dart';
 import '../../../../components/widget/custom_input_field.dart';
-import '../../../../components/widget/custom_leet_code_chipset.dart';
-import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
@@ -105,23 +103,6 @@ Widget _addAndMoreButton(){
   );
 }
 
-Widget _customProcessButton(){
-  return  CustomProceedButton(onPressed: (){},title: "Confirm Harvest",iconPath:   Assets.icons.confirmHarvest.path);
-}
-
-Widget _customSeeLotInputFiled(WidgetRef ref){
-  return CustomSeedLotInputField(
-    title: "Seed Lot Code",
-    onScanPressed: () {
-      // Open QR scanner or add manually
-    },
-    onRemovePressed: () {
-      // Logic to remove a lot code
-      ref.read(seedLotListProvider.notifier).state = [];
-    },
-  );
-}
-
 // Add People Suggestion Widget
 Widget _addPeopleSuggestionWidget(String searchText){
   return    SizedBox(
@@ -193,7 +174,7 @@ Widget _harvestedQty(
     ) {
   return CustomTextField(
     controller: emailController,
-    title: "Harvested Qty",
+    title: S.of(context).harvestedQty,
     hintText: "",
     suffix: suffixCoreWeight(context),
     inputType: TextInputType.number,

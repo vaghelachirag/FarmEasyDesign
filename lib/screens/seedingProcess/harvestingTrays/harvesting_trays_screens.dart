@@ -41,6 +41,9 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
   @override
   void initState() {
     super.initState();
+    Future(() {
+      ref.read(scanStateProvider.notifier).state = ScanState.idle;
+    });
   }
 
   @override
@@ -57,7 +60,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
     getArgument();
 
     return SafeArea(child: Scaffold(
-      appBar: getActionbar("Harvesting Trays"),
+      appBar: getActionbar(context,"Harvesting Trays"),
       body:  SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -66,10 +69,10 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              10.verticalSpace,
               StepProgressIndicator(currentStepName: cycleStatus),
               10.verticalSpace,
               isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier) : AssignHarvestingTray(cycleStatus: cycleStatus,),
+              _manualCheckWidget(addDetailStateNotifier)
             ],
           ),
         ),
@@ -85,7 +88,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
     return Container(
       width: double.infinity,
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-      padding: EdgeInsets.all(0.sp),
+      padding: EdgeInsets.all(10.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -97,7 +100,6 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
           20.verticalSpace,
           CustomNutrietionTimeLineWidget(),
           20.verticalSpace,
-          _manualCheckWidget(addDetailStateNotifier)
         ],
       ),
     );

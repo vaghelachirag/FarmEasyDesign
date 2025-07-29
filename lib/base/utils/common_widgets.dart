@@ -71,23 +71,32 @@ Widget buttonWithIcon({
   required String label,
   required VoidCallback onPressed,
 }) {
-  return GestureDetector(
-    onTap: onPressed,
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: const Color(0xFFD6F6D1), // Light green background
+  return ElevatedButton(
+    onPressed: onPressed,
+    style: ElevatedButton.styleFrom(
+      padding:  EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.w),
+      backgroundColor: AppColors.manualCheckButtonBg,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: AppColors.blackColor, width: 1), // Dark green border
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SvgPicture.asset(path),
-          8.horizontalSpace,
-          labelTextMedium(label, 12.sp, AppColors.infoTextHingBg)
-        ],
-      ),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 30.w,
+          height: 20.w,
+          child: SvgPicture.asset(path),
+        ),
+        2.horizontalSpace,
+        Flexible(
+          child: Text(
+            label,
+              style:
+              context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg)
+          ),
+        ),
+      ],
     ),
   );
 }
@@ -115,7 +124,7 @@ Text labelTextRegular(hint, double fontSize, Color labelTextColor) {
 }
 
 // Get Actionbar
-AppBar getActionbar(String title) {
+AppBar getActionbar(BuildContext context, String title) {
   return AppBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
@@ -123,15 +132,83 @@ AppBar getActionbar(String title) {
     titleSpacing: 0,
     leading: IconButton(
       icon: const Icon(Icons.arrow_back, color: Colors.black),
-      onPressed: () {},
+      onPressed: () {
+        context.navigator.pop();
+      },
     ),
     title: Row(
       children: [
-        SizedBox(width: 0), // or adjust with `SizedBox(width: -4)` if needed
-        labelTextRegular(title, 18.sp, AppColors.blackColor),
+        SizedBox(width: 0),
+        Text(title,style: context.textTheme.labelMedium?.copyWith(fontSize: 18.sp,color: AppColors.blackColor),)
       ],
     ),
   );
+}
+
+// Circle Seeding circle Time Line Image
+Widget circularSeedingProcessTimeLine(bool isCompleted,IconData icon){
+   return    Container(
+     padding: const EdgeInsets.all(4),
+     decoration: BoxDecoration(
+       shape: BoxShape.circle,
+       border: Border.all(
+         color: isCompleted ? AppColors.seedingImageBorderActiveColor : AppColors.seedingImageBorderDisableColor,
+         width: 2,
+       ),
+     ),
+     child: Icon(
+       icon,
+       size: 16,
+       color: isCompleted ? AppColors.seedingImageBorderActiveColor :  AppColors.seedingImageBorderDisableColor,
+     ),
+   );
+}
+
+
+Widget buildCircleIcon(String path, BuildContext context) {
+  return Container(
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: AppColors.seedingImageBorderActiveColor,
+          width: 1,
+        ),
+      ),
+      child:
+      Container(
+        padding: EdgeInsets.all(2.sp),
+        child:CircleAvatar(
+          radius: 14,
+          backgroundColor: AppColors.white,
+          child:  SvgPicture.asset(path),
+        ),
+      )
+  );
+}
+
+Widget buildStatusChip(String label, BuildContext context) {
+  return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.w),
+      decoration: AppDecorations.nutriationChipDecoration(),
+      child:
+      Row(
+        children: [
+          SvgPicture.asset(Assets.icons.iconSeeds.path,width: 20.w,height: 20.w),
+          5.horizontalSpace,
+          Text(label,style: context.textTheme.labelMedium?.copyWith(
+              fontSize: 12.sp,color: AppColors.infoTextHingBg
+          ))
+        ],
+      )
+  );
+}
+
+Widget buildCompletedDate(String date,BuildContext context){
+   return  Flexible(
+       child:
+       Text(date,style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),)
+   );
 }
 
 Container totalRunningCycleWidget(BuildContext context){

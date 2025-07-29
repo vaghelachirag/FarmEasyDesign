@@ -13,6 +13,7 @@ import '../../../../../base/utils/common_widgets.dart';
 import '../../../../../base/utils/dialougs.dart';
 import '../../../../../components/widget/common_widget_manual_check_card.dart';
 import '../../../../../components/widget/custom_step_progress_manual_check.dart';
+import '../../../../../generated/l10n.dart';
 
 class ConfirmationManualCheckScreen extends HookConsumerWidget {
   static const route = "/ConfirmationManualCheckScreen";
@@ -27,7 +28,7 @@ class ConfirmationManualCheckScreen extends HookConsumerWidget {
     getArgument(context);
 
     return SafeArea(child: Scaffold(
-      appBar: getActionbar("Manual Check"),
+      appBar: getActionbar(context,S.of(context).manualCheck),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -36,7 +37,6 @@ class ConfirmationManualCheckScreen extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              10.verticalSpace,
               CustomStepProgressManualCheck(),
               10.verticalSpace,
               Container(
@@ -46,11 +46,11 @@ class ConfirmationManualCheckScreen extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CommonWidgetManualCheckCard(title: isBadTrayCheck ?  "Mark as a Bad Tray !" : "Manual Check"),
+                    CommonWidgetManualCheckCard(title: isBadTrayCheck ?  S.of(context).markAsABadTray : S.of(context).manualCheck),
                     10.verticalSpace,
-                    trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
+                    trayTextWidget(S.of(context).trayDetails,"8 Arugula Tray | 9 Gms ",context),
                     8.verticalSpace,
-                    trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
+                    trayTextWidget(S.of(context).trayPosition,"Zone 3 | Section 4 | Level 3 ",context),
                     _isBadTrayText(context)
                   ],
                 ),
@@ -59,17 +59,17 @@ class ConfirmationManualCheckScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: setBottomButton()
+      bottomNavigationBar: setBottomButton(context)
     ));
   }
 
   Widget _isBadTrayText(BuildContext context){
-    return Visibility(visible: isBadTrayCheck, child:  trayTextWidget("Issue: ","Tray Broken ",context));
+    return Visibility(visible: isBadTrayCheck, child:  trayTextWidget(S.of(context).issue,S.of(context).trayBroken,context));
   }
 
-  Widget setBottomButton(){
+  Widget setBottomButton(BuildContext context){
   return Padding(
-      padding: const EdgeInsets.all(16.0) ,child: isBadTrayCheck ?  CustomMarkAsBadButton(btnName: "Mark as Bad Tray", iconPath: Assets.icons.iconMarkIssue.path, onPressed: (){}) : CustomAddDetailButton(btnName: "Confirm & Save", iconPath: Assets.icons.iconConfirmSave.path, onPressed: (){})
+      padding: const EdgeInsets.all(16.0) ,child: isBadTrayCheck ?  CustomMarkAsBadButton(btnName: S.of(context).markAsBadTray, iconPath: Assets.icons.iconMarkIssue.path, onPressed: (){}) : CustomAddDetailButton(btnName: "Confirm & Save", iconPath: Assets.icons.iconConfirmSave.path, onPressed: (){})
 
   );
   }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTabConfirmDetailMoveToFertigation extends StatefulWidget {
+  const CustomTabConfirmDetailMoveToFertigation({super.key});
+
   @override
   _CustomTabConfirmDetailMoveToFertigationState createState() => _CustomTabConfirmDetailMoveToFertigationState();
 }

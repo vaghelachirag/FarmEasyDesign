@@ -2,7 +2,6 @@ import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/components/widget/custom_checkbox.dart';
 import 'package:farmeasy/screens/login/provider/login_provider.dart';
-import 'package:farmeasy/screens/tab/dashboard/dashboard_page.dart';
 import 'package:farmeasy/screens/tab/homeTab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -57,7 +56,6 @@ class LoginScreen extends HookConsumerWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // 🟢 Logo Image on top
         Align(
           alignment: Alignment.topCenter,
           child: Padding(
@@ -107,7 +105,7 @@ class LoginScreen extends HookConsumerWidget {
                   },
                 ),
                 16.verticalSpace,
-                _dividerWithOr(),
+                _dividerWithOr(context),
                 16.verticalSpace,
                 CustomGoogleButton(
                   onTap: () {
@@ -208,13 +206,13 @@ class LoginScreen extends HookConsumerWidget {
       );
   }
 
-  Widget _dividerWithOr() {
+  Widget _dividerWithOr(BuildContext context) {
     return Row(
       children: [
         const Expanded(child: Divider(thickness: 1)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.w),
-          child: Text("Or", style: TextStyle(fontSize: 14.sp)),
+          child: Text(S.of(context).or, style: TextStyle(fontSize: 14.sp)),
         ),
         const Expanded(child: Divider(thickness: 1)),
       ],

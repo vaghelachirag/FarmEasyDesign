@@ -39,7 +39,7 @@ class SeedingScreenPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: getActionbar(S.of(context).seedingTrays),
+        appBar: getActionbar(context,S.of(context).seedingTrays),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,

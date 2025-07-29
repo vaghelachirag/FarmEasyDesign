@@ -50,7 +50,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
     return
       SafeArea(child:
     Scaffold(
-      appBar: getActionbar(context.l10n.movingToGermination),
+      appBar: getActionbar(context,context.l10n.movingToGermination),
       body:   SizedBox(
       width: double.infinity,
       height: double.infinity,

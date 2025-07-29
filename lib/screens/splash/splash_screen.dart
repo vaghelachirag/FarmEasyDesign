@@ -29,10 +29,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     final splashService = ref.read(splashProvider);
     await Future.delayed(const Duration(seconds: 2));
     if (await splashService.isLoggedIn()) {
-      print("Login" + "Login");
-      // Navigator.pushReplacementNamed(context, BottomNavBar.route);
     } else {
-      print("Login" + "Not Login");
       context.navigator.pushReplacementNamed(LoginScreen.route);
     }
   }

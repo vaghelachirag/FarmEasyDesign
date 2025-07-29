@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 import '../../../components/widget/custom_cycle_step_progress_bar.dart';
 import '../../../components/widget/custom_seeding_action_section.dart';
 import '../../../components/widget/custom_steper_widget.dart';
+import '../../../generated/l10n.dart';
 
 class CyclesPage extends ConsumerWidget {
   const CyclesPage({super.key});
@@ -113,12 +114,12 @@ class CycleStatusCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                labelTextRegular("Upcoming Seeding in", 10.sp, AppColors.upComingSeedsTextBg),
+                labelTextRegular(S.of(context).upcomingSeedingIn, 10.sp, AppColors.upComingSeedsTextBg),
                 5.horizontalSpace,
                 Container(
                   decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
                   padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                  child:   labelTextMedium("${cycle.arugulaTotal.toString()} Days", 10.sp, AppColors.blackColor)
+                  child:   labelTextMedium('${cycle.arugulaTotal.toString()}${S.of(context).days}', 10.sp, AppColors.blackColor)
                 ),
               ],
             ),
@@ -181,7 +182,7 @@ class CycleStatusCard extends ConsumerWidget {
           5.verticalSpace,
           CustomCycleAssignPerson(
             onAssignTap: () {
-              // Show modal, navigate, etc.
+
             },
           ),
           5.verticalSpace,

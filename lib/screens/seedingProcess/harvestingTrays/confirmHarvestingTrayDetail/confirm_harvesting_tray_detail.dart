@@ -12,6 +12,7 @@ import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/dialougs.dart';
 import '../../../../components/widget/step_progress_widget.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../../tab/cycles/provider/cycles_provider.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
@@ -54,7 +55,7 @@ class _ConfirmHarvestingTrayDetail extends ConsumerState<ConfirmHarvestingTrayDe
     getArgument();
 
     return SafeArea(child: Scaffold(
-      appBar: getActionbar("Harvesting Trays"),
+      appBar: getActionbar(context,S.of(context).harvestingTrays),
       body:  SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -85,18 +86,18 @@ class _ConfirmHarvestingTrayDetail extends ConsumerState<ConfirmHarvestingTrayDe
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        trayTextWidget("Current Status: ","Harvest",context),
+                        trayTextWidget(S.of(context).currentStatus,S.of(context).harvest,context),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                           decoration: BoxDecoration(
                             color: AppColors.trayInfoPopupBg,
                             borderRadius: BorderRadius.circular(24),
                           ),
-                          child: Text("Update Today",style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor))
+                          child: Text(S.of(context).updateToday,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor))
                         )
                       ],
                     ),
-                    trayTextWidget("Harvested Qty: ","90 Gms",context),
+                    trayTextWidget(S.of(context).harvestedQty,"90 Gms",context),
                   ],
                 ),
               ),

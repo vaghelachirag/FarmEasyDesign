@@ -62,7 +62,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: getActionbar("Seeding Trays"),
+        appBar: getActionbar(context,S.of(context).seedingTrays),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
@@ -244,7 +244,7 @@ Widget _seedWeightTray(
     ) {
   return CustomTextField(
     controller: emailController,
-    title: S.of(context).seedWeightTray,
+    title: S.of(context).seedweighttray,
     hintText: "",
     suffix: suffixCoreWeight(context),
     inputType: TextInputType.number,

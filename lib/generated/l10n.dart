@@ -371,7 +371,7 @@ class S {
   }
 
   /// `Seed Weight/Tray`
-  String get seedWeightTray {
+  String get seedWeighttray {
     return Intl.message(
       'Seed Weight/Tray',
       name: 'seedWeighttray',
@@ -735,6 +735,246 @@ class S {
     return Intl.message(
       '8 Arugula Tray | 9 Gms',
       name: 'ArugulaTrayGms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `seedWeightTray`
+  String get seedweighttray {
+    return Intl.message(
+      'seedWeightTray',
+      name: 'seedweighttray',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move to Fertigation`
+  String get moveToFertigation {
+    return Intl.message(
+      'Move to Fertigation',
+      name: 'moveToFertigation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark this as Bad Trays`
+  String get markThisAsBadTrays {
+    return Intl.message(
+      'Mark this as Bad Trays',
+      name: 'markThisAsBadTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proceed`
+  String get proceed {
+    return Intl.message(
+      'Proceed',
+      name: 'proceed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Issue`
+  String get issue {
+    return Intl.message(
+      'Issue',
+      name: 'issue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select an issue`
+  String get selectAnIssue {
+    return Intl.message(
+      'Select an issue',
+      name: 'selectAnIssue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark as a Bad Tray !`
+  String get markAsABadTray {
+    return Intl.message(
+      'Mark as a Bad Tray !',
+      name: 'markAsABadTray',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tray Broken`
+  String get trayBroken {
+    return Intl.message(
+      'Tray Broken',
+      name: 'trayBroken',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark as Bad Tray`
+  String get markAsBadTray {
+    return Intl.message(
+      'Mark as Bad Tray',
+      name: 'markAsBadTray',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Harvesting Trays`
+  String get harvestingTrays {
+    return Intl.message(
+      'Harvesting Trays',
+      name: 'harvestingTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Harvest`
+  String get harvest {
+    return Intl.message(
+      'Harvest',
+      name: 'harvest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Today`
+  String get updateToday {
+    return Intl.message(
+      'Update Today',
+      name: 'updateToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Harvested Qty:`
+  String get harvestedQty {
+    return Intl.message(
+      'Harvested Qty:',
+      name: 'harvestedQty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Harvest`
+  String get confirmHarvest {
+    return Intl.message(
+      'Confirm Harvest',
+      name: 'confirmHarvest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Or`
+  String get or {
+    return Intl.message(
+      'Or',
+      name: 'or',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upcoming Seeding in`
+  String get upcomingSeedingIn {
+    return Intl.message(
+      'Upcoming Seeding in',
+      name: 'upcomingSeedingIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Days`
+  String get days {
+    return Intl.message(
+      'Days',
+      name: 'days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Yield`
+  String get totalYield {
+    return Intl.message(
+      'Total Yield',
+      name: 'totalYield',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updated on`
+  String get updatedOn {
+    return Intl.message(
+      'Updated on',
+      name: 'updatedOn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available Trays`
+  String get availableTrays {
+    return Intl.message(
+      'Available Trays',
+      name: 'availableTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last updated on`
+  String get lastUpdatedOn {
+    return Intl.message(
+      'Last updated on',
+      name: 'lastUpdatedOn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You need to take action on pending seeding tasks.`
+  String get youNeedToTakeActionOnPendingSeedingTasks {
+    return Intl.message(
+      'You need to take action on pending seeding tasks.',
+      name: 'youNeedToTakeActionOnPendingSeedingTasks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Day`
+  String get day {
+    return Intl.message(
+      'Day',
+      name: 'day',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes/Remarks`
+  String get notesremarks {
+    return Intl.message(
+      'Notes/Remarks',
+      name: 'notesremarks',
       desc: '',
       args: [],
     );

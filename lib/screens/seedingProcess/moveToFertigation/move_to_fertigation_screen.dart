@@ -14,6 +14,7 @@ import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
 import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import '../../../components/widget/step_progress_widget.dart';
+import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
 
@@ -36,6 +37,9 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
   @override
   void initState() {
     super.initState();
+    Future(() {
+      ref.read(scanStateProvider.notifier).state = ScanState.idle;
+    });
   }
 
   @override
@@ -49,7 +53,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     getArgument();
 
     return SafeArea(child: Scaffold(
-      appBar: getActionbar("Move to Fertigation"),
+      appBar: getActionbar(context,S.of(context).moveToFertigation),
       body:  SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -58,10 +62,11 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              10.verticalSpace,
               StepProgressIndicator(currentStepName: cycleStatus),
               10.verticalSpace,
               _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
+               10.verticalSpace,
+              _moveToFertigationWidget(context),
             ],
           ),
         ),
@@ -74,7 +79,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     return  scanState == ScanState.confirmDetail? Container(
       width: double.infinity,
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-      padding: EdgeInsets.all(0.sp),
+      padding: EdgeInsets.all(10.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -85,8 +90,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           CustomNutrientInfoCardWidget(),
           20.verticalSpace,
           CustomNutrietionTimeLineWidget(),
-          20.verticalSpace,
-          _moveToFertigationWidget(context),
+          20.verticalSpace
         ],
       ),
     ) : Container(
@@ -117,8 +121,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           SizedBox(
             width: double.infinity,
             child:
-            CustomAddDetailButton(btnName: "Move to Fertigation", iconPath: Assets.icons.moveToFertigation.path, onPressed: (){
-              print("Manual"+"Manual");
+            CustomAddDetailButton(btnName: S.of(context).moveToFertigation, iconPath: Assets.icons.moveToFertigation.path, onPressed: (){
               context.navigator.pushNamed(ManualCheckScreen.route);
             }),
           ),
@@ -165,10 +168,10 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
          // Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),),
-          Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+          Text(S.of(context).trayInformation,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
           12.verticalSpace,
           // Tray Details
-          Text( "Tray Details:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+          Text( S.of(context).trayDetails,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
           Text("8 Arugula Tray | 9 Gms",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
           12.verticalSpace,
           // Tray Position + Date Badge
@@ -179,7 +182,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text( "Tray Position:",style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+                    Text( S.of(context).trayPosition,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
                     Text("Zone 5 | Section 4 |",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
                     Text("Level 3",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
                   ],
@@ -194,19 +197,19 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Current Status:",
+                      S.of(context).currentStatus,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text("Germination"),
+                    Text(S.of(context).germination),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
+              8.verticalSpace,
               _buildDateBadge("Since 25/05/2025"),
             ],
           ),
@@ -230,7 +233,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
       alignment: Alignment.topRight,
       child: SizedBox(
         width: 100.w,
-        child: CustomAddDetailButton(btnName: "Next", onPressed: () {
+        child: CustomAddDetailButton(btnName: S.of(context).next, onPressed: () {
           scanStateNotifier.state = ScanState.confirmDetail;
         },iconPath: Assets.icons.iconNext.path),
       ),
@@ -256,16 +259,15 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text( "Complete Harvest before • 22:00 Today",style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
+          Text( S.of(context).completeHarvestBefore2200Today,style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
           10.verticalSpace,
           SizedBox(
             width: double.infinity,
             child:
-            CustomAddDetailButton(btnName: "Add Details", iconPath: Assets.icons.iconAddDetail.path, onPressed: (){
+            CustomAddDetailButton(btnName: S.of(context).addDetails, iconPath: Assets.icons.iconAddDetail.path, onPressed: (){
             }),
           ),
-          const SizedBox(height: 12),
-          // Manual Check Button (Outlined),
+          12.verticalSpace,
           SizedBox(
             width: double.infinity,
             child:   _manualCheckButton(),
