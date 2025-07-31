@@ -680,3 +680,54 @@ Widget infoWidowForScan(BuildContext context, CycleStage cycleStatus, WidgetRef 
     ),
   ));
 }
+
+
+Widget commonInfoWidgetWithText(BuildContext context, String title, String hint){
+   return   Container(
+     width: double.infinity,
+     padding: EdgeInsets.all(16.r),
+     decoration: AppDecorations.infoWindowBg(),
+     child: infoWindowWithText(context,title,hint),
+   );
+}
+
+Widget customProgressBar(Color background, Color active,double progress){
+   return   SizedBox(
+     width: 300, // Adjust width as needed
+     height: 4,  // Thin progress bar
+     child: ClipRRect(
+       borderRadius: BorderRadius.circular(4), // Rounded corners
+       child: LinearProgressIndicator(
+         value: progress, // 75% filled
+         backgroundColor: background,
+         valueColor: AlwaysStoppedAnimation<Color>(active), // Yellowish color
+       ),
+     ),
+   );
+}
+// Info window Design
+Widget infoWindowWithText(BuildContext context, String title,String hint) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // Info Icon
+      SvgPicture.asset(
+        Assets.icons.iconInfoBlub.path,
+        width: 20.w,
+        height: 20.w,
+      ),
+      SizedBox(width: 8.w),
+      // Text Column
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            labelTextMedium(title, 13.sp, AppColors.blackColor),
+            SizedBox(height: 8.h), labelTextMedium(hint, 11.sp, AppColors.infoTextHingBg),
+            SizedBox(height: 4.h),
+          ],
+        )
+      ),
+    ],
+  );
+}

@@ -166,6 +166,12 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color seedingImageBorderActiveColor = Color(0xFF23C072);
   static const Color seedingImageBorderDisableColor = Color(0xFFCAC4D0);
 
+
+
+  // Seeding Image Border Color
+  static const Color multipleHarvestingInfoBackgroundBg = Color(0xFFF0F4EC);
+  static const Color multipleHarvestingInfoBorderBg = Color(0xFF4A4459);
+
   //static const Color manualCheckButtonBg = Color(0xFFD6F6D1);
 }
 

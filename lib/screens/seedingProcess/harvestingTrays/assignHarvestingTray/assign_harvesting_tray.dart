@@ -39,7 +39,7 @@ class _AssignHarvestingTray extends ConsumerState<AssignHarvestingTray>
   @override
   void initState() {
     super.initState();
-    Utils.hideKeyboard(context);
+  //  Utils.hideKeyboard(context);
   }
 
   @override

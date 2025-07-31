@@ -19,6 +19,14 @@ class AppDecorations {
     );
   }
 
+  static BoxDecoration multipleHarvestingInfoDecoration(){
+    return BoxDecoration(
+      color: AppColors.multipleHarvestingInfoBackgroundBg, // Light green background
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: AppColors.infoQrScanWindowBg, width: 1), // Dark green border
+    );
+  }
+
 
   static BoxDecoration manualCheckButtonDecoration(){
     return BoxDecoration(

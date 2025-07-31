@@ -14,6 +14,26 @@ final currentStepProvider = StateProvider<int>((ref) => 0);
 final scanToggleProvider = StateProvider<bool>((ref) => false);
 final scanStateProvider = StateProvider<ScanState>((ref) => ScanState.idle);
 
+// scanned_items_provider.dart
+final scannedItemsProvider = StateNotifierProvider<ScannedItemsNotifier, List<String>>(
+      (ref) => ScannedItemsNotifier(),
+);
+
+class ScannedItemsNotifier extends StateNotifier<List<String>> {
+  ScannedItemsNotifier() : super([]);
+
+  void addItem(String item) {
+    state = [...state, item];
+  }
+
+  void clear() {
+    state = [];
+  }
+
+  int get count => state.length;
+}
+
+
 
 
 
