@@ -38,7 +38,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
   @override
   void initState() {
     super.initState();
-    Utils.hideKeyboard(context);
+//    Utils.hideKeyboard(context);
     Future(() {
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });
@@ -56,24 +56,22 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,S.of(context).moveToFertigation),
-      body:  SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              StepProgressIndicator(currentStepName: cycleStatus),
-              10.verticalSpace,
-              _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
-               10.verticalSpace,
-              _moveToFertigationWidget(context),
-            ],
-          ),
-        ),
-      ),
+      body:  mainWidgetForSeedingProcess(_showMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier))
     ));
+  }
+
+  //  Show Main Widget
+  Widget _showMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        StepProgressIndicator(currentStepName: cycleStatus),
+        10.verticalSpace,
+        _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
+        10.verticalSpace,
+        _moveToFertigationWidget(context),
+      ],
+    );
   }
 
   // Load Main Widget

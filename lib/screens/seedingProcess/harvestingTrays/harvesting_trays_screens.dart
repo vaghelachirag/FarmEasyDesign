@@ -1,7 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/components/widget/custom_harvest_reminder_card.dart';
-import 'package:farmeasy/components/widget/custom_multiple_harvesting_tray_info.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/assignHarvestingTray/assign_harvesting_tray.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/provider/harvesting_trays_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
@@ -37,13 +36,12 @@ class HarvestingTraysScreens extends ConsumerStatefulWidget {
 class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
     with TickerProviderStateMixin {
 
-
   late CycleStage cycleStatus;
 
   @override
   void initState() {
     super.initState();
-   // Utils.hideKeyboard(context);
+  //  Utils.hideKeyboard(context);
     Future(() {
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
       ref.read(isHarvestDueProvider.notifier).state = false;
@@ -61,73 +59,53 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
     final isVisibleAddDetail = ref.watch(isHarvestDueProvider);
     final addDetailStateNotifier = ref.read(isHarvestDueProvider.notifier);
 
-    // Item Count for Scan Item
-    final scannedItems = ref.watch(scannedItemsProvider);
-    final itemCount = scannedItems.length;
-
     getArgument();
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,"Harvesting Trays"),
-      body:  SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              StepProgressIndicator(currentStepName: cycleStatus),
-              10.verticalSpace,
-              isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier,itemCount) : AssignHarvestingTray(cycleStatus: cycleStatus,),
-            //  isVisibleAddDetail == false &&  scanState == ScanState.confirmDetail ? Container() :_manualCheckWidget(addDetailStateNotifier)
-            ],
-          ),
-        ),
-      ),
+      body:  mainWidgetForSeedingProcess(_showMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,isVisibleAddDetail,addDetailStateNotifier)),
     ));
   }
 
-  // Load Main Widget
-  Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier,StateController<bool> addDetailStateNotifier, int itemCount ){
-    return  scanState == ScanState.confirmDetail? _nutritionInfoWidget(addDetailStateNotifier,itemCount) : _scannerInfoCard(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier,itemCount);
-  }
-  Widget _nutritionInfoWidget(StateController<bool> addDetailStateNotifier, int itemCount){
-    return Column(
+  //  Show Main Widget
+  Widget _showMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, bool isVisibleAddDetail, StateController<bool> addDetailStateNotifier){
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        StepProgressIndicator(currentStepName: cycleStatus),
+        10.verticalSpace,
+        isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier) : AssignHarvestingTray(cycleStatus: cycleStatus,),
+        isVisibleAddDetail == false &&  scanState == ScanState.confirmDetail ? Container() :_manualCheckWidget(addDetailStateNotifier)
+      ],
+    );
+  }
+
+  // Load Main Widget
+  Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier,StateController<bool> addDetailStateNotifier ){
+    return  scanState == ScanState.confirmDetail? _nutritionInfoWidget(addDetailStateNotifier) : _scannerInfoCard(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier);
+  }
+  Widget _nutritionInfoWidget(StateController<bool> addDetailStateNotifier){
+    return Container(
       width: double.infinity,
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-      padding: EdgeInsets.all(5.sp),
+      padding: EdgeInsets.all(10.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          CustomTabConfirmDetailMoveToFertigation(),
           10.verticalSpace,
-          itemCount > 1 ? CustomMultipleHarvestingTrayInfo() : _showSingleHarvestingWidget(),
+          trayInfoContainer(),
+          10.verticalSpace,
+          CustomNutrientInfoCardWidget(),
           20.verticalSpace,
           CustomNutrietionTimeLineWidget(),
           20.verticalSpace,
         ],
       ),
-    ),
-        _manualCheckWidget(addDetailStateNotifier)
-      ],
     );
   }
 
-  Widget _showSingleHarvestingWidget(){
-    return Column(
-      children: [
-        CustomTabConfirmDetailMoveToFertigation(),
-        10.verticalSpace,
-        trayInfoContainer(),
-        10.verticalSpace,
-        CustomNutrientInfoCardWidget(),
-      ],
-    );
-  }
-
-  Widget _scannerInfoCard(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, StateController<bool> addDetailStateNotifier, int itemCount){
+  Widget _scannerInfoCard(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, StateController<bool> addDetailStateNotifier){
     return Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
@@ -140,7 +118,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
           scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
           40.verticalSpace,
           //_showActionRequiredSection(scanState),
-          _nextActionButton(context,ref,scanStateNotifier,addDetailStateNotifier,itemCount),
+          _nextActionButton(context,ref,scanStateNotifier,addDetailStateNotifier),
         ],
       ),
     );
@@ -208,18 +186,17 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
   }
 
   // Show Next Action Button
-  Widget _nextActionButton (BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier, StateController<bool> addDetailStateNotifier, int itemCount){
+  Widget _nextActionButton (BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier, StateController<bool> addDetailStateNotifier){
     return Consumer(
-      builder: (context, ref, _) =>  nextActionButton(context,ref,scanStateNotifier,addDetailStateNotifier,itemCount),
+      builder: (context, ref, _) =>  nextActionButton(context,ref,scanStateNotifier,addDetailStateNotifier),
     );
   }
 
 
   // Add Detail button
-  Widget nextActionButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier, StateController<bool> addDetailStateNotifier, int itemCount){
+  Widget nextActionButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier, StateController<bool> addDetailStateNotifier){
     final scanState = ref.watch(scanStateProvider);
-
-    return scanState == ScanState.success?  Align(
+    return scanState == ScanState.scanning?  Align(
       alignment: Alignment.topRight,
       child:
       Row(
@@ -229,14 +206,12 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
               width: 120.h,
               child:  ScanMoreCustomButton(btnName: context.l10n.scanMore, onPressed: (){
                 scanStateNotifier.state =  ScanState.scanning;
-                final newCode = "QR_${DateTime.now().millisecondsSinceEpoch}";
-                ref.read(scannedItemsProvider.notifier).addItem(newCode);
               })
           ),
           10.horizontalSpace,
           SizedBox(
             width: 120.w,
-            child: CustomAddDetailButton( btnName: itemCount > 1 ? "Next ($itemCount)" : "Next", onPressed: () {
+            child: CustomAddDetailButton(btnName: S.of(context).next, onPressed: () {
               scanStateNotifier.state = ScanState.confirmDetail;
             },iconPath: Assets.icons.iconNext.path),
           ),
