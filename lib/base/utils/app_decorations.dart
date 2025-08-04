@@ -90,7 +90,7 @@ class AppDecorations {
   static BoxDecoration  addWeightDecoration(){
     return  BoxDecoration(
       color: AppColors.addWeightTextFieldBg,
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(2),
     );
   }
 

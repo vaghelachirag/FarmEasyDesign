@@ -139,7 +139,7 @@ AppBar getActionbar(BuildContext context, String title) {
     title: Row(
       children: [
         SizedBox(width: 0),
-        Text(title,style: context.textTheme.labelMedium?.copyWith(fontSize: 18.sp,color: AppColors.blackColor),)
+        Text(title,style: context.textTheme.labelSmall?.copyWith(fontSize: 18.sp,color: AppColors.blackColor),)
       ],
     ),
   );
@@ -366,10 +366,10 @@ Widget _loadSeedingInfoWindow(BuildContext context){
      child: Column(
        crossAxisAlignment: CrossAxisAlignment.start,
        children: [
-         labelTextMedium(S.of(context).scanTheLevelQrWhereYouWantToPlaceThe, 13.sp, AppColors.blackColor),
+         Text(S.of(context).scanTheLevelQrWhereYouWantToPlaceThe,style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),),
          SizedBox(height: 8.h), labelTextMedium(context.l10n.youCanScanMultipleSeedLotCodesAtOnce, 11.sp, AppColors.infoTextHingBg),
-         SizedBox(height: 4.h),
-         Align(alignment: Alignment.centerRight, child: labelTextBold(S.of(context).seeHowToDoIt, 12.sp, AppColors.seeHowToDoItTextBg),),],),);
+         SizedBox(height: 2.h),
+         Align(alignment: Alignment.centerRight, child:  Text(S.of(context).seeHowToDoIt,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.seeHowToDoItTextBg),),),],),);
 }
 
 Widget trayInfoContainer(BuildContext context,Color trayInfoBg,Color trayInfoBorder){
@@ -650,15 +650,15 @@ Widget buildTopBar() {
           shape: BoxShape.circle,
           color: Colors.white,
         ),
-        padding: EdgeInsets.all(10.r),
-        child: Icon(Icons.qr_code_scanner, size: 20.r),
+        padding: EdgeInsets.all(5.r),
+        child: SvgPicture.asset(Assets.icons.iconScan.path,width: 20.w,height: 20.h),
       ),
       // Right icons
       Row(
         children: [
-          SvgPicture.asset(Assets.icons.iconFlash.path),
+          SvgPicture.asset(Assets.icons.iconFlash.path,width: 15.w,height: 15.h),
           10.horizontalSpace,
-          SvgPicture.asset(Assets.icons.iconMore.path),
+          SvgPicture.asset(Assets.icons.iconMore.path,width: 24.w,height: 24.h),
         ],
       ),
     ],
@@ -671,11 +671,11 @@ Widget infoWidowForScan(BuildContext context, CycleStage cycleStatus, WidgetRef 
       visible: scanState == ScanState.idle,
       child:   Container(
     width: double.infinity,
-    decoration: boxDecoration(AppColors.white,AppColors.white),
-    padding: EdgeInsets.all(3.r),
+    decoration: boxDecoration(AppColors.infoQrScanWindowBorderBg,AppColors.infoQrScanWindowBorderBg),
+    padding: EdgeInsets.all(2.r),
     child:    Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(8.r),
       decoration: AppDecorations.infoWindowBg(),
       child: infoWindow(context,cycleStatus),
     ),

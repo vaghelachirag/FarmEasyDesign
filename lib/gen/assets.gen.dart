@@ -117,6 +117,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_scan.svg
   String get iconScan => 'assets/icons/icon_scan.svg';
 
+  /// File path: assets/icons/icon_scan_container.svg
+  String get iconScanContainer => 'assets/icons/icon_scan_container.svg';
+
   /// File path: assets/icons/icon_scan_more.svg
   String get iconScanMore => 'assets/icons/icon_scan_more.svg';
 
@@ -189,6 +192,7 @@ class $AssetsIconsGen {
     iconQrProcessed,
     iconRightArrow,
     iconScan,
+    iconScanContainer,
     iconScanMore,
     iconScanNow,
     iconSeedingQr,
