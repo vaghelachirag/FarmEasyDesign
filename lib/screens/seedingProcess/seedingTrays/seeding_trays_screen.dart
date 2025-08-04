@@ -59,22 +59,20 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,S.of(context).seedingTrays),
-      body:   SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              StepProgressIndicator(currentStepName: cycleStatus),
-              10.verticalSpace,
-              _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
-            ],
-          ),
-        ),
-      ),
+      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier))
     ));
+  }
+
+  // Main Widget for Load Seeding page
+  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        StepProgressIndicator(currentStepName: cycleStatus),
+        10.verticalSpace,
+        _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
+      ],
+    );
   }
 
   // Load Main Widget

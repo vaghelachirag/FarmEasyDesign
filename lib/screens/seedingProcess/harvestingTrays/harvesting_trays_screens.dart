@@ -69,23 +69,21 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,"Harvesting Trays"),
-      body:  SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              StepProgressIndicator(currentStepName: cycleStatus),
-              10.verticalSpace,
-              isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier,itemCount) : AssignHarvestingTray(cycleStatus: cycleStatus,),
-            //  isVisibleAddDetail == false &&  scanState == ScanState.confirmDetail ? Container() :_manualCheckWidget(addDetailStateNotifier)
-            ],
-          ),
-        ),
-      ),
+      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier,itemCount,isVisibleAddDetail)),
     ));
+  }
+
+  // Main Widget for Load Seeding page
+  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, StateController<bool> addDetailStateNotifier, int itemCount, bool isVisibleAddDetail){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        StepProgressIndicator(currentStepName: cycleStatus),
+        10.verticalSpace,
+        isVisibleAddDetail == false ? _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,addDetailStateNotifier,itemCount) : AssignHarvestingTray(cycleStatus: cycleStatus,),
+        //  isVisibleAddDetail == false &&  scanState == ScanState.confirmDetail ? Container() :_manualCheckWidget(addDetailStateNotifier)
+      ],
+    );
   }
 
   // Load Main Widget

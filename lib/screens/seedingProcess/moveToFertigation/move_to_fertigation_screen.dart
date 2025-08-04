@@ -38,7 +38,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
   @override
   void initState() {
     super.initState();
-    Utils.hideKeyboard(context);
+ //   Utils.hideKeyboard(context);
     Future(() {
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });
@@ -46,6 +46,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
 
   @override
   Widget build(BuildContext context) {
+
     final showScanner = ref.watch(scanToggleProvider);
     final toggleScanner = ref.read(scanToggleProvider.notifier);
 
@@ -56,25 +57,25 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,S.of(context).moveToFertigation),
-      body:  SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              StepProgressIndicator(currentStepName: cycleStatus),
-              10.verticalSpace,
-              _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
-               10.verticalSpace,
-              _moveToFertigationWidget(context),
-            ],
-          ),
-        ),
-      ),
+      body:   mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier)),
     ));
   }
+
+  // Main Widget for Load Seeding page
+  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        StepProgressIndicator(currentStepName: cycleStatus),
+        10.verticalSpace,
+        _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
+        10.verticalSpace,
+        _moveToFertigationWidget(context),
+      ],
+    );
+  }
+
+
 
   // Load Main Widget
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){

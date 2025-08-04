@@ -313,6 +313,16 @@ Widget customCheckbox(bool isChecked, ValueChanged onCheckedChangeListener, bool
    );
 }
 
+Widget mainWidgetForSeedingContainer(Widget mainWidget){
+   return SizedBox(
+     width: double.infinity,
+     height: double.infinity,
+     child: SingleChildScrollView(
+       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+       child: mainWidget,
+     ),
+   );
+}
 
 // Info window Design
 Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
