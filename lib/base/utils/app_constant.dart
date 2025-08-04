@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppConstant{
