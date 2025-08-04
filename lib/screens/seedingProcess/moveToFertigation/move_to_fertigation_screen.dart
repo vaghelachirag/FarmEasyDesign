@@ -40,7 +40,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     super.initState();
  //   Utils.hideKeyboard(context);
     Future(() {
-      ref.read(scanStateProvider.notifier).state = ScanState.idle;
+      ref.read(scanStateProvider.notifier).state = ScanState.confirmDetail;
     });
   }
 
@@ -125,7 +125,6 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
             width: double.infinity,
             child:
             CustomAddDetailButton(btnName: S.of(context).moveToFertigation, iconPath: Assets.icons.moveToFertigation.path, onPressed: (){
-              context.navigator.pushNamed(ManualCheckScreen.route);
             }),
           ),
           12.verticalSpace,
@@ -155,6 +154,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           label: 'Manual Check',
           onPressed: () {
             // Handle manual check action
+            context.navigator.pushNamed(ManualCheckScreen.route);
           },
         )),
       ],

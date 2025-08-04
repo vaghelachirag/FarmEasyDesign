@@ -42,7 +42,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
     super.initState();
     Future(() {
       Utils.hideKeyboard(context);
-      ref.read(scanStateProvider.notifier).state = ScanState.idle;
+      ref.read(scanStateProvider.notifier).state = ScanState.success;
     });
   }
 
@@ -106,17 +106,15 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
   Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){
     final scanState = ref.watch(scanStateProvider);
     return scanState == ScanState.success?  Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         SizedBox(
-            width: 120.h,
             child:  ScanMoreCustomButton(btnName: context.l10n.scanMore, onPressed: (){
               scanStateNotifier.state =  ScanState.scanning;
             })
         ),
         10.horizontalSpace,
         SizedBox(
-          width: 120.h,
           child: CustomAddDetailButton(btnName: context.l10n.addDetail, onPressed: () {
             context.navigator.pushNamed(
               AddPersonDetailScreen.route,

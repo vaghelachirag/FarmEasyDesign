@@ -12,7 +12,7 @@ enum ScanState {
 
 final currentStepProvider = StateProvider<int>((ref) => 0);
 final scanToggleProvider = StateProvider<bool>((ref) => false);
-final scanStateProvider = StateProvider<ScanState>((ref) => ScanState.idle);
+final scanStateProvider = StateProvider<ScanState>((ref) => ScanState.confirmDetail);
 
 // scanned_items_provider.dart
 final scannedItemsProvider = StateNotifierProvider<ScannedItemsNotifier, List<String>>(

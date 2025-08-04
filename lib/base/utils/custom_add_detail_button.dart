@@ -25,8 +25,8 @@ class CustomAddDetailButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed:onPressed,
-      icon:  SvgPicture.asset(iconPath, color: AppColors.white), // use appropriate icon
-      label: labelTextRegular(btnName, 12.sp, AppColors.white),
+      icon:  SvgPicture.asset(iconPath, color: AppColors.white,width: 20.sp,height: 20.sp,), // use appropriate icon
+      label:  Text(btnName,style: TextStyle(fontSize: 12.sp,color: AppColors.white),),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.buttonBackgroundColor,
         foregroundColor: Colors.white,

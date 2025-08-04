@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../generator/assets.gen.dart';
 import 'custom_add_detail_button.dart';
 
-void showTraySuccessDialog(BuildContext context) {
+void showTraySuccessDialog(BuildContext context,bool isWithImage) {
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
@@ -23,7 +23,7 @@ void showTraySuccessDialog(BuildContext context) {
         body: Center(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(24),
@@ -32,56 +32,68 @@ void showTraySuccessDialog(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Close button
-                Align(
+                isWithImage == true ?
+                Container() :
+                Padding(padding: EdgeInsets.only(top: 10.w,right: 10.w),child:   Align(
                   alignment: Alignment.topRight,
                   child: GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: const Icon(Icons.close, size: 24),
                   ),
-                ),
-                8.verticalSpace,
+                ) ,),
                 // Main Info Card
                 Container(
-                  width: double.infinity,
-                  decoration: AppDecorations.moveToGerminationDialogueDecoration(),
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: EdgeInsets.all(16.w),
+                  child:    Column(
                     children: [
-                      Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-                      8.verticalSpace,
-                      trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
-                      8.verticalSpace,
-                      trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
-                      8.verticalSpace,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          trayTextWidget("Status: ","Seeding",context),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: AppColors.updateTodayBg,
-                              borderRadius: BorderRadius.circular(10),
+                      Container(
+                        width: double.infinity,
+                        decoration: AppDecorations.moveToGerminationDialogueDecoration(),
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            isWithImage == true ?
+                            SvgPicture.asset(
+                              Assets.images.harvestingSucess.path,
+                              height: 120.h,
+                            ): Container(),
+                            Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+                            8.verticalSpace,
+                            trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
+                            8.verticalSpace,
+                            trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
+                            8.verticalSpace,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                trayTextWidget("Status: ","Seeding",context),
+                                Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.updateTodayBg,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text("Update Today",style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),)
+                                )
+                              ],
                             ),
-                            child: labelTextRegular("Update Today", 12.sp, AppColors.blackColor),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
-                    ],
+                      20.verticalSpace,
+                      // Confirm Button
+                      SizedBox(
+                          width: double.infinity,
+                          child:
+                          CustomAddDetailButton(
+                            iconPath: Assets.icons.iconConfirmAndProcessed.path,
+                            btnName: "Confirm & Proceed",
+                            onPressed: () {
+                            },
+                          ))],
                   ),
-                ),
-                20.verticalSpace,
-                // Confirm Button
-                SizedBox(
-              width: double.infinity,
-              child:
-                CustomAddDetailButton(
-                  iconPath: Assets.icons.iconConfirmAndProcessed.path,
-                  btnName: "Confirm & Proceed",
-                  onPressed: () {
-                  },
-                ))
+                )
               ],
             ),
           ),

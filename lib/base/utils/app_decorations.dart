@@ -158,7 +158,7 @@ class AppDecorations {
     return BoxDecoration(
       color: AppColors.primary,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: AppColors.movingToGerminationPopupBorderBg, width: 2),
+      border: Border.all(color: AppColors.movingToGerminationPopupBorderBg, width: 5),
     );
   }
 

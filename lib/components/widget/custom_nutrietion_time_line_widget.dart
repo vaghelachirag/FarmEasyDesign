@@ -67,9 +67,10 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
                 buildCircleIcon(step.path,context),
                 if (!isLast)
                   Container(
+                    margin: EdgeInsets.only(top: 8.sp,bottom: 8.sp),
                     height: 50.w,
-                    width: 2,
-                    color: const Color(0xFFCAC4D0),
+                    width: 4,
+                    color: AppColors.white,
                   ),
               ],
             ),
@@ -110,7 +111,7 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
               Container(
                 width: 2,
                 height: 40,
-                color: Color(0xFFCAC4D0),
+                color: AppColors.white,
               ),
           ],
         ),

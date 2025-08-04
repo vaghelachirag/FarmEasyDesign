@@ -14,27 +14,36 @@ class CustomLifecycleFertigationCurrentStageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isExpanded ?  Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Timeline Icon & Line
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildCircleIcon(Assets.icons.iconNutriationDrop.path,context),
+            buildCircleIcon(Assets.icons.iconNutriationDrop.path, context),
           ],
         ),
         4.horizontalSpace,
         // Row content: Status Chip and Text (in horizontal layout)
         Expanded(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildStatusChip("Fertigation", context),
-              4.horizontalSpace,
-              buildCompletedDate("Completed on 22/05/2025",context)
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  buildStatusChip("Fertigation", context),
+                  4.horizontalSpace,
+                  buildCompletedDate("Completed on 22/05/2025", context),
+                ],
+              ),
             ],
           ),
         )
       ],
-    ) :  currentNutritionTimeLineWidget(context);
+    )
+        :  currentNutritionTimeLineWidget(context);
   }
 }

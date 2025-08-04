@@ -177,7 +177,7 @@ Widget buildCircleIcon(String path, BuildContext context) {
       ),
       child:
       Container(
-        padding: EdgeInsets.all(2.sp),
+        padding: EdgeInsets.all(2.w),
         child:CircleAvatar(
           radius: 14,
           backgroundColor: AppColors.white,
@@ -189,16 +189,19 @@ Widget buildCircleIcon(String path, BuildContext context) {
 
 Widget buildStatusChip(String label, BuildContext context) {
   return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.w),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.w),
       decoration: AppDecorations.nutriationChipDecoration(),
       child:
       Row(
         children: [
-          SvgPicture.asset(Assets.icons.iconSeeds.path,width: 20.w,height: 20.w),
+          5.horizontalSpace,
+          SvgPicture.asset(Assets.icons.iconSeeds.path,width: 18.w,height: 18.w),
           5.horizontalSpace,
           Text(label,style: context.textTheme.labelMedium?.copyWith(
               fontSize: 12.sp,color: AppColors.infoTextHingBg
-          ))
+          ),
+          ),
+          5.horizontalSpace
         ],
       )
   );
@@ -287,8 +290,8 @@ Widget addAndMoreButton(){
           shape: BoxShape.circle,
           color: Colors.white,
         ),
-        padding: EdgeInsets.all(10.r),
-        child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,),
+        padding: EdgeInsets.all(5.r),
+        child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,width: 20.w,height: 20.h,),
       ),
       // Right icons
       Row(
@@ -366,10 +369,15 @@ Widget _loadSeedingInfoWindow(BuildContext context){
      child: Column(
        crossAxisAlignment: CrossAxisAlignment.start,
        children: [
-         Text(S.of(context).scanTheLevelQrWhereYouWantToPlaceThe,style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),),
+         infoWidowText(context,S.of(context).scanTheLevelQrWhereYouWantToPlaceThe),
          SizedBox(height: 8.h), labelTextMedium(context.l10n.youCanScanMultipleSeedLotCodesAtOnce, 11.sp, AppColors.infoTextHingBg),
          SizedBox(height: 2.h),
          Align(alignment: Alignment.centerRight, child:  Text(S.of(context).seeHowToDoIt,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.seeHowToDoItTextBg),),),],),);
+}
+
+// InfoWindow Text
+Widget infoWidowText(BuildContext context,String title){
+   return Text(title,style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor));
 }
 
 Widget trayInfoContainer(BuildContext context,Color trayInfoBg,Color trayInfoBorder){
@@ -444,11 +452,7 @@ Widget _loadMoveToFertigationWindow(BuildContext context,String title){
    return Column(
      crossAxisAlignment: CrossAxisAlignment.start,
      children: [
-       labelTextMedium(
-         title,
-         12.sp,
-         AppColors.blackColor,
-       )
+       infoWidowText(context,title)
      ],
    );
 }

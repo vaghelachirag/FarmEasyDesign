@@ -57,64 +57,58 @@ class AddPersonDetailScreen extends HookConsumerWidget {
     final rememberMe = useState(false);
 
     final searchText = ref.watch(peopleSearchTextProvider);
-
-
     final lotCodes = ref.watch(seedLotListProvider);
 
     return SafeArea(
       child: Scaffold(
         appBar: getActionbar(context,S.of(context).seedingTrays),
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20.h),
-                StepProgressIndicator(currentStepName: cycleStatus),
-                10.verticalSpace,
-                // Info card
-                Container(
-                  decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-                  padding: EdgeInsets.all(20.sp),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        addAndMoreButton(),
-                        20.verticalSpace,
-                        _numberOfFullTrays(numberOfFullTrays, context),
-                        20.verticalSpace,
-                        _numberOfHalfTrays(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _seedLotCode(numberOfHalfTrays, context),
-                        5.verticalSpace,
-                        _seedsName(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _seedWeightTray(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _coreWeightTray(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _customSeeLotInputFiled(ref),
-                        10.verticalSpace,
-                        _addPeopleSuggestionWidget(searchText),
-                        _seedingDate(numberOfHalfTrays, context),
-                        20.verticalSpace,
-                        _customProcessButton()
-                      ],
-                    ),
-                  ) ,
-                ),
-                // Add more widgets if needed (e.g., tray list, start button, etc.)
-              ],
-            ),
-          ),
-        ),
+        body:  mainWidgetForSeedingContainer(_mainWidgetForAddPerson(numberOfFullTrays,numberOfHalfTrays,context,ref,searchText))
       ),
     );
   }
 
+Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEditingController numberOfHalfTrays, BuildContext context, WidgetRef ref, String searchText){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 20.h),
+        StepProgressIndicator(currentStepName: cycleStatus),
+        10.verticalSpace,
+        // Info card
+        Container(
+          decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
+          padding: EdgeInsets.all(20.sp),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                addAndMoreButton(),
+                20.verticalSpace,
+                _numberOfFullTrays(numberOfFullTrays, context),
+                20.verticalSpace,
+                _numberOfHalfTrays(numberOfHalfTrays, context),
+                20.verticalSpace,
+                _seedLotCode(numberOfHalfTrays, context),
+                5.verticalSpace,
+                _seedsName(numberOfHalfTrays, context),
+                20.verticalSpace,
+                _seedWeightTray(numberOfHalfTrays, context),
+                20.verticalSpace,
+                _coreWeightTray(numberOfHalfTrays, context),
+                20.verticalSpace,
+                _customSeeLotInputFiled(ref),
+                10.verticalSpace,
+                _addPeopleSuggestionWidget(searchText),
+                _seedingDate(numberOfHalfTrays, context),
+                20.verticalSpace,
+                _customProcessButton()
+              ],
+            ),
+          ) ,
+        ),
+        // Add more widgets if needed (e.g., tray list, start button, etc.)
+      ],
+    );
+}
 
   Widget _customProcessButton(){
     return  CustomProceedButton(onPressed: (){},title: "Processed",iconPath:   Assets.icons.iconQrProcessed.path);
@@ -140,7 +134,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
 
 // Add People Suggestion Widget
 Widget _addPeopleSuggestionWidget(String searchText){
-  return    SizedBox(
+  return SizedBox(
     height: searchText.isEmpty ? 80 : 200,
     child:   CustomAddPeopleSuggestionTextFiled(),
   );

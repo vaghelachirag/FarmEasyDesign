@@ -63,48 +63,44 @@ class ManualCheckScreen extends HookConsumerWidget {
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,"Manual Check"),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomStepProgressManualCheck(),
-              10.verticalSpace,
-              Container(
-                decoration: boxDecoration(
-                    AppColors.scanQrMainBg, AppColors.scanQrMainBg),
-                padding: EdgeInsets.all(20.sp),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      addAndMoreButton(),
-                      10.verticalSpace,
-                      _numberOfFullTrays(numberOfFullTrays, context),
-                      10.verticalSpace,
-                      _addPeopleSuggestionWidget(searchText),
-                      _seedsName(numberOfHalfTrays, context),
-                      10.verticalSpace,
-                      CustomUploadPhotoGrid(),
-                      10.verticalSpace,
-                      CustomCheckboxWithText(title: S.of(context).markThisAsBadTrays, isChecked: true, onCheckedChangeListener: (value) {
-                        ref.read(badTrayProvider.notifier).state = value ?? false;
-                      }, isBadTray: isBadTray),
-                      if(ref.read(badTrayProvider.notifier).state)
-                      noteRemarkWidget(numberOfHalfTrays,context,selectedIssue,notesController,issues,ref),
-                      50.verticalSpace,
-                      confirmSaveButton(context,ref,isBadTray)
-                    ],
-                  ),
-                ),
-              )
-            ],
+      body:   mainWidgetForSeedingContainer(_mainWidgetManualCheck(numberOfFullTrays,numberOfHalfTrays,searchText,context,ref,isBadTray,selectedIssue,notesController,issues))));
+  }
+
+  Widget _mainWidgetManualCheck(TextEditingController numberOfFullTrays, TextEditingController numberOfHalfTrays, String searchText, BuildContext context, WidgetRef ref, bool isBadTray, String? selectedIssue, TextEditingController notesController, List<String> issues,){
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomStepProgressManualCheck(),
+        10.verticalSpace,
+        Container(
+          decoration: boxDecoration(
+              AppColors.scanQrMainBg, AppColors.scanQrMainBg),
+          padding: EdgeInsets.all(8.sp),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                addAndMoreButton(),
+                10.verticalSpace,
+                _numberOfFullTrays(numberOfFullTrays, context),
+                10.verticalSpace,
+                _addPeopleSuggestionWidget(searchText),
+                _seedsName(numberOfHalfTrays, context),
+                10.verticalSpace,
+                CustomUploadPhotoGrid(),
+                10.verticalSpace,
+                CustomCheckboxWithText(title: S.of(context).markThisAsBadTrays, isChecked: true, onCheckedChangeListener: (value) {
+                  ref.read(badTrayProvider.notifier).state = value ?? false;
+                }, isBadTray: isBadTray),
+                if(ref.read(badTrayProvider.notifier).state)
+                  noteRemarkWidget(numberOfHalfTrays,context,selectedIssue,notesController,issues,ref),
+                50.verticalSpace,
+                confirmSaveButton(context,ref,isBadTray)
+              ],
+            ),
           ),
-        ),
-      ),
-    ));
+        )
+      ],
+    );
   }
 
   // Add Detail button

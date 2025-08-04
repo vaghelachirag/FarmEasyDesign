@@ -39,7 +39,12 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   @override
   Widget build(BuildContext context) {
-    Utils.hideKeyboard(context);
+  //  Utils.hideKeyboard(context);
+
+    Future(() {
+      Utils.hideKeyboard(context);
+      ref.read(scanStateProvider.notifier).state = ScanState.confirmDetail;
+    });
 
     final showScanner = ref.watch(scanToggleProvider);
     final toggleScanner = ref.read(scanToggleProvider.notifier);
@@ -52,7 +57,8 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
     return SafeArea(child:
     Scaffold(
       appBar: getActionbar(context,context.l10n.movingToGermination),
-      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier))
+      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier)),
+      bottomNavigationBar:  Padding(padding: EdgeInsets.all(10.w),child: _confirmAndSaveButton(context,ref,scanStateNotifier)),
     ));
   }
 
@@ -66,7 +72,6 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
         10.verticalSpace,
         _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
         20.verticalSpace,
-        _confirmAndSaveButton(context,ref)
       ],
     );
   }
@@ -74,7 +79,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   // Load Main Widget
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
-    return  Container(
+    return  scanState == ScanState.confirmDetail ? _loadSuccessContainer() : Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -86,6 +91,57 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
           scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
           40.verticalSpace,
           _showActionRequiredSection(scanState),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _loadSuccessContainer(){
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Main Info Card
+          Container(
+            width: double.infinity,
+            decoration: AppDecorations.moveToGerminationDialogueDecoration(),
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  Assets.images.harvestingSucess.path,
+                  height: 120.h,
+                ),
+                10.verticalSpace,
+                Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+                8.verticalSpace,
+                trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
+                8.verticalSpace,
+                trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
+                8.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    trayTextWidget("Status: ","Seeding",context),
+                    Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.updateTodayBg,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text("Update Today",style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),)
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -106,9 +162,9 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   }
 
   // Show Confirm And Save Button
-  Widget _confirmAndSaveButton (BuildContext context, WidgetRef ref){
+  Widget _confirmAndSaveButton (BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){
     return Consumer(
-      builder: (context, ref, _) =>  confirmAndSaveButton(context,ref),
+      builder: (context, ref, _) =>  confirmAndSaveButton(context,ref,scanStateNotifier),
     );
   }
 
@@ -125,7 +181,7 @@ Widget showActionRequiredSection(BuildContext context){
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: EdgeInsets.all(16.w),
+      padding: EdgeInsets.all(10.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -135,7 +191,7 @@ Widget showActionRequiredSection(BuildContext context){
             children: [
               Expanded(
                 child:
-                labelTextRegular( context.l10n.youAreTryingToAddTraysBeyondTheAvailableTray, 12.sp, AppColors.navBarUnselectedColor)
+                Text(context.l10n.youAreTryingToAddTraysBeyondTheAvailableTray,style: context.textTheme.labelSmall?.copyWith(color: AppColors.navBarUnselectedColor,fontSize: 11.sp),)
               ),
               SvgPicture.asset(Assets.icons.iconInfo.path)
             ],
@@ -203,16 +259,17 @@ Widget scanSuccessWidget(BuildContext context){
 
 
 // Add Detail button
-Widget confirmAndSaveButton(BuildContext context, WidgetRef ref){
+Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){
   final scanState = ref.watch(scanStateProvider);
-  return scanState == ScanState.success ? SizedBox(
+  return scanState == ScanState.idle  ? Container() : SizedBox(
     width: double.infinity,
     child: CustomAddDetailButton(
       iconPath: Assets.icons.iconScanNow.path,
       btnName: context.l10n.confirmScanNextLevelQr,
       onPressed: () {
-        showTraySuccessDialog(context);
+      //  scanStateNotifier.state = ScanState.confirmDetail;
+        showTraySuccessDialog(context,false);
       },
     ),
-  ) : Container();
+  ) ;
 }
