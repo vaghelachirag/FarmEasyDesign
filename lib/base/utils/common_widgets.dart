@@ -334,16 +334,7 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
               case CycleStage.seeding:
                 return  _loadSeedingInfoWindow(context);
               case CycleStage.germination:
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    labelTextMedium(
-                      "Scan the level QR where you want to Place the trays",
-                      12.sp,
-                      AppColors.blackColor,
-                    )
-                  ],
-                );
+                return _loadMoveToFertigationWindow(context, "Scan the level QR from where you want to Harvest the trays");
               case CycleStage.moveToFertigation:
                 return  _loadMoveToFertigationWindow(context, "Scan the level QR where you want to Place the trays");
               case CycleStage.harvesting:
