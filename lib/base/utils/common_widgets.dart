@@ -43,6 +43,9 @@ BoxDecoration boxDecoration(Color color, Color border) =>
    );
  }
 
+Widget bottomSizeBox(){
+  return const SizedBox.shrink();
+}
 
 // Label Text Bold
 Text labelTextBold(hint, double fontSize, Color labelTextColor) {
@@ -690,7 +693,7 @@ Widget showActionRequiredDialog(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Action Required',
+                    S.of(context).actionRequired,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -699,8 +702,7 @@ Widget showActionRequiredDialog(BuildContext context) {
                   Icon(Icons.info_outline, color: Colors.grey),
                 ],
               ),
-              const SizedBox(height: 12),
-
+              12.verticalSpace,
               // Subtitle
               Text(
                 'You are trying to add trays beyond the available tray space on the scanned level.',
@@ -751,9 +753,7 @@ Widget showActionRequiredDialog(BuildContext context) {
                   ],
                 ),
               ),
-
-              const SizedBox(height: 20),
-
+              20.verticalSpace,
               // Action buttons (optional)
               Align(
                 alignment: Alignment.centerRight,
@@ -843,7 +843,7 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
             Container(
               child: switch(scanState){
                 ScanState.idle =>  tapScanColumn(context),
-                ScanState.scanning => null,
+                ScanState.scanning => mobileScanner(scanState, scanStateNotifier),
                 ScanState.success => scanSuccessWidget(context),
                 ScanState.confirmDetail => scanSuccessWidget(context),
                 ScanState.moveToFertigation => tapScanColumn(context),

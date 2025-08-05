@@ -147,6 +147,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
       ),
     );
   }
+
   Widget _loadIdealContainer(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
     return Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),

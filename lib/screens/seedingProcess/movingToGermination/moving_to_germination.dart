@@ -40,7 +40,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   Widget build(BuildContext context) {
     Future(() {
       Utils.hideKeyboard(context);
-      ref.read(scanStateProvider.notifier).state = ScanState.confirmDetail;
+      ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });
 
     final showScanner = ref.watch(scanToggleProvider);
@@ -55,9 +55,41 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
     Scaffold(
       appBar: getActionbar(context,context.l10n.movingToGermination),
       body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier)),
-      bottomNavigationBar:  Padding(padding: EdgeInsets.all(10.w),child: _confirmAndSaveButton(context,ref,scanStateNotifier)),
+      bottomNavigationBar:  _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconConfirmSave.path,"Confirm & Save"),
     ));
   }
+
+  Widget _bottomButtonWithIconAndText(ScanState scanState, StateController<ScanState> scanStateNotifier, String path, String buttonTitle){
+    return Padding(padding: EdgeInsets.all(10.w),child: CustomAddDetailButton(
+      iconPath: path,
+      btnName: buttonTitle,
+      onPressed: () {
+        // Handle move trays action
+        if(scanState == ScanState.moveToFertigation){
+          scanStateNotifier.state = ScanState.scanNextQR;
+        }
+        if(scanState == ScanState.scanNextQR){
+          showTraySuccessDialog(context,false,true);
+        }
+      },
+    )
+    );
+  }
+
+  Widget _loadBottomConfirmAndScanButton(ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return Container(
+      child: switch (scanState) {
+        ScanState.idle => bottomSizeBox(),
+        ScanState.scanning => bottomSizeBox(),
+        ScanState.success => bottomSizeBox(),
+        ScanState.confirmDetail => bottomSizeBox(),
+        ScanState.moveToFertigation => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconScanNow.path,"Confirm & Scan next Level QR"),
+        ScanState.scanNextQR => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconConfirmSave.path,"Confirm & Save"),
+        _ => Text('Unknown Status'),
+      },
+    );
+  }
+
 
 
   // Main Widget for Load Seeding page
@@ -76,7 +108,22 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   // Load Main Widget
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
-    return  scanState == ScanState.confirmDetail ? loadAddingTrayContainer(context,true) : Container(
+    return  Container(
+      child: switch (scanState) {
+        ScanState.idle => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+        ScanState.scanning => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+        ScanState.success => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+        ScanState.confirmDetail => loadAddingTrayContainer(context,true),
+        ScanState.moveToFertigation => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+        ScanState.scanNextQR => loadAddingTrayContainer(context,true),
+        _ => Text('Unknown Status'),
+      },
+    );
+  }
+
+
+  Widget _loadIdealContainer(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return  Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -140,7 +187,7 @@ Widget scanSuccessWidget(BuildContext context){
 // Add Detail button
 Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){
   final scanState = ref.watch(scanStateProvider);
-  return scanState == ScanState.idle  ? Container() : SizedBox(
+  return scanState == ScanState.idle  ? const SizedBox.shrink() : SizedBox(
     width: double.infinity,
     child: CustomAddDetailButton(
       iconPath: Assets.icons.iconScanNow.path,
