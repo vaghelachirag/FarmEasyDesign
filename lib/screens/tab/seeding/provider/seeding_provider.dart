@@ -7,7 +7,9 @@ enum ScanState {
   idle,         // Tap to scan
   scanning,     // Camera open
   success,      // Scan completed
-  confirmDetail
+  confirmDetail,
+  moveToFertigation,
+  scanNextQR
 }
 
 final currentStepProvider = StateProvider<int>((ref) => 0);

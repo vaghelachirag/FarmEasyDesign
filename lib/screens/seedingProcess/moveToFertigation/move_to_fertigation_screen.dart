@@ -1,23 +1,24 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
-import 'package:farmeasy/components/widget/custom_nutrient_info_card_widget.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/manual_check_screen.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:farmeasy/base/utils/common_widgets.dart';
+import 'package:farmeasy/base/utils/common_widgets.dart' hide buildTopBar;
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
-import '../../../base/utils/utils.dart';
+import '../../../base/utils/dialougs.dart';
+import '../../../components/widget/custom_nutrient_info_card_widget.dart';
 import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
 import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
+import '../../tab/seeding/seeding_screen_page.dart';
 
 
 class MoveToFertigationScreen extends ConsumerStatefulWidget {
@@ -40,7 +41,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     super.initState();
  //   Utils.hideKeyboard(context);
     Future(() {
-      ref.read(scanStateProvider.notifier).state = ScanState.confirmDetail;
+      ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });
   }
 
@@ -58,7 +59,42 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,S.of(context).moveToFertigation),
       body:   mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier)),
-    ));
+      bottomNavigationBar: _loadBottomConfirmAndScanButton(scanState,scanStateNotifier)));
+  }
+
+  Widget _loadBottomConfirmAndScanButton(ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return Container(
+      child: switch (scanState) {
+        ScanState.idle => bottomSizeBox(),
+        ScanState.scanning => bottomSizeBox(),
+        ScanState.success => bottomSizeBox(),
+        ScanState.confirmDetail => bottomSizeBox(),
+        ScanState.moveToFertigation => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconScanNow.path,"Confirm & Scan next Level QR"),
+        ScanState.scanNextQR => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconConfirmSave.path,"Confirm & Save"),
+        _ => Text('Unknown Status'),
+      },
+    );
+  }
+
+  Widget bottomSizeBox(){
+    return const SizedBox.shrink();
+  }
+
+  Widget _bottomButtonWithIconAndText(ScanState scanState, StateController<ScanState> scanStateNotifier, String path, String buttonTitle){
+    return Padding(padding: EdgeInsets.all(10.w),child: CustomAddDetailButton(
+      iconPath: path,
+      btnName: buttonTitle,
+      onPressed: () {
+        // Handle move trays action
+        if(scanState == ScanState.moveToFertigation){
+          scanStateNotifier.state = ScanState.scanNextQR;
+        }
+        if(scanState == ScanState.scanNextQR){
+          showTraySuccessDialog(context,false);
+        }
+      },
+    )
+    );
   }
 
   // Main Widget for Load Seeding page
@@ -70,16 +106,29 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
         10.verticalSpace,
         _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
         10.verticalSpace,
-        _moveToFertigationWidget(context),
+         _moveToFertigationWidget(context,scanState,scanStateNotifier),
       ],
     );
   }
 
-
-
   // Load Main Widget
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
-    return  scanState == ScanState.confirmDetail? Container(
+   return Container(
+     child: switch (scanState) {
+       ScanState.idle => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+       ScanState.scanning => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+       ScanState.success => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+       ScanState.confirmDetail => _nutritionTimeLineWidget(),
+       ScanState.moveToFertigation => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+       ScanState.scanNextQR => loadAddingTrayContainer(context),
+       _ => Text('Unknown Status'),
+     },
+   );
+  }
+
+
+  Widget _nutritionTimeLineWidget(){
+    return Container(
       width: double.infinity,
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
@@ -96,7 +145,10 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           20.verticalSpace
         ],
       ),
-    ) : Container(
+    );
+  }
+  Widget _loadIdealContainer(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -107,15 +159,15 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           40.verticalSpace,
           scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
           40.verticalSpace,
-          //_showActionRequiredSection(scanState),
+          scanState == ScanState.moveToFertigation  ? showActionRequiredSection(context) : Container(),
           _nextActionButton(context,ref,scanStateNotifier),
         ],
       ),
     );
   }
 
-  Widget _moveToFertigationWidget(BuildContext context){
-    return   Container(
+  Widget _moveToFertigationWidget(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier){
+    return  scanState == ScanState.confirmDetail ? Container(
       padding: EdgeInsets.all(10.w),
       decoration: AppDecorations.manualCheckDecorationBg(),
       child: Column(
@@ -128,13 +180,13 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
             }),
           ),
           12.verticalSpace,
-          _moveTrayWidget()
+          _moveTrayWidget(scanStateNotifier)
         ],
       ),
-    );
+    ) : Container();
   }
 
-  Widget  _moveTrayWidget(){
+  Widget  _moveTrayWidget(StateController<ScanState> scanStateNotifier){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -142,16 +194,17 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
         buttonWithIcon(
           context: context,
           path: Assets.icons.iconManualCheck.path, // Move Trays
-          label: 'Move Trays',
+          label: S.of(context).moveTrays,
           onPressed: () {
             // Handle move trays action
+            scanStateNotifier.state = ScanState.moveToFertigation;
           },
         )),
         const SizedBox(width: 16),
         Expanded(child: buttonWithIcon(
           context: context,
           path: Assets.icons.iconManualCheck.path, // Manual Check
-          label: 'Manual Check',
+          label: context.l10n.manualCheck,
           onPressed: () {
             // Handle manual check action
             context.navigator.pushNamed(ManualCheckScreen.route);
@@ -232,15 +285,19 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
   // Add Detail button
   Widget nextActionButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){
     final scanState = ref.watch(scanStateProvider);
-    return scanState == ScanState.scanning?  Align(
+    return scanState == ScanState.moveToFertigation  ? Container() : Align(
       alignment: Alignment.topRight,
       child: SizedBox(
         width: 100.w,
         child: CustomAddDetailButton(btnName: S.of(context).next, onPressed: () {
-          scanStateNotifier.state = ScanState.confirmDetail;
+          if(scanState == ScanState.moveToFertigation){
+           print("ScanState"+ scanState.name);
+          }else{
+            scanStateNotifier.state = ScanState.confirmDetail;
+          }
         },iconPath: Assets.icons.iconNext.path),
       ),
-    )  : Container();
+    );
   }
 
   // Load Info Window
@@ -284,10 +341,10 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
     return SizedBox(width: double.infinity,height:40.w, child: ElevatedButton.icon(
       onPressed:(){},
       icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path), // use appropriate icon
-      label: labelTextRegular("Manual Check", 12.sp, AppColors.blackColor),
+      label: labelTextRegular(S.of(context).manualCheck, 12.sp, AppColors.blackColor),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.manualCheckButtonBg,
-        foregroundColor: Colors.white,
+        foregroundColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),

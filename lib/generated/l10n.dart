@@ -979,6 +979,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Move Trays`
+  String get moveTrays {
+    return Intl.message(
+      'Move Trays',
+      name: 'moveTrays',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

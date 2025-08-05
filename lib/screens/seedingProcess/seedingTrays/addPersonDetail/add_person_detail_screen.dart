@@ -476,6 +476,8 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
                 ScanState.scanning => null,
                 ScanState.success => scanSuccessWidget(context),
                 ScanState.confirmDetail => null,
+                ScanState.moveToFertigation => null,
+                ScanState.scanNextQR => null,
               },
             ),
           ],

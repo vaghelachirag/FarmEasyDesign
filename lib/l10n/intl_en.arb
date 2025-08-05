@@ -91,5 +91,6 @@
   "lastUpdatedOn": "Last updated on",
   "youNeedToTakeActionOnPendingSeedingTasks": "You need to take action on pending seeding tasks.",
   "day": "Day",
-  "notesremarks": "Notes/Remarks"
+  "notesremarks": "Notes/Remarks",
+  "moveTrays": "Move Trays"
 }

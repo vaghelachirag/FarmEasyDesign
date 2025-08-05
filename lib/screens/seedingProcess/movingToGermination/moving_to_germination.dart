@@ -13,7 +13,6 @@ import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/dialougs.dart';
 import '../../../base/utils/utils.dart';
 import '../../../components/widget/step_progress_widget.dart';
-import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
 
@@ -79,7 +78,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   // Load Main Widget
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
-    return  scanState == ScanState.confirmDetail ? _loadSuccessContainer() : Container(
+    return  scanState == ScanState.confirmDetail ? loadAddingTrayContainer(context) : Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -91,57 +90,6 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
           scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
           40.verticalSpace,
           _showActionRequiredSection(scanState),
-        ],
-      ),
-    );
-  }
-
-
-  Widget _loadSuccessContainer(){
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Main Info Card
-          Container(
-            width: double.infinity,
-            decoration: AppDecorations.moveToGerminationDialogueDecoration(),
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  Assets.images.harvestingSucess.path,
-                  height: 120.h,
-                ),
-                10.verticalSpace,
-                Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-                8.verticalSpace,
-                trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
-                8.verticalSpace,
-                trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
-                8.verticalSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    trayTextWidget("Status: ","Seeding",context),
-                    Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: AppColors.updateTodayBg,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text("Update Today",style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),)
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -173,73 +121,6 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
     cycleStatus = args[cycleStageArgumentName];
   }
 }
-
-Widget showActionRequiredSection(BuildContext context){
-  return  Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: EdgeInsets.all(10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          labelTextMedium(context.l10n.actionRequired, 16.sp, AppColors.blackColor),
-          6.verticalSpace,
-          Row(
-            children: [
-              Expanded(
-                child:
-                Text(context.l10n.youAreTryingToAddTraysBeyondTheAvailableTray,style: context.textTheme.labelSmall?.copyWith(color: AppColors.navBarUnselectedColor,fontSize: 11.sp),)
-              ),
-              SvgPicture.asset(Assets.icons.iconInfo.path)
-            ],
-          ),
-          12.verticalSpace,
-          Container(
-            decoration:  AppDecorations.infoWindowBg(),
-            padding:  EdgeInsets.all(12.sp),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(Assets.icons.iconInfoBlub.path),
-                8.verticalSpace,
-                Expanded(
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                      ),
-                      children: [
-                        TextSpan(text: S.of(context).thisLevelHasOnly),
-                        TextSpan(
-                          text: S.of(context).fiveAvailable,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(text: S.of(context).traySpaceYouCanConfirmThisPositionForFirst),
-                        TextSpan(
-                          text: S.of(context).five,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(text: S.of(context).scannedTraysAndScanANewLevelQrForRemaining),
-                        TextSpan(
-                          text: S.of(context).threetrays,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      )
-  );
-}
-
 // Success Widget
 Widget scanSuccessWidget(BuildContext context){
   return  Column(

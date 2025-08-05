@@ -15,6 +15,7 @@ import '../../screens/seedingProcess/seedingTrays/addPersonDetail/add_person_det
 import '../../screens/tab/seeding/provider/seeding_provider.dart';
 import 'app_constant.dart';
 import 'app_decorations.dart';
+import 'dialougs.dart';
 
 EdgeInsets authScreenPadding() =>
     EdgeInsets.symmetric(vertical: 10.sp, horizontal: 20.sp);
@@ -74,14 +75,18 @@ Widget buttonWithIcon({
   return ElevatedButton(
     onPressed: onPressed,
     style: ElevatedButton.styleFrom(
-      padding:  EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.w),
+      padding:  EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.w),
       backgroundColor: AppColors.manualCheckButtonBg,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
+        side: BorderSide(
+          color: AppColors.primary, // Change to your desired border color
+          width: 2, // Optional: border width
+        )
     ),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
           width: 30.w,
@@ -140,6 +145,56 @@ AppBar getActionbar(BuildContext context, String title) {
       children: [
         SizedBox(width: 0),
         Text(title,style: context.textTheme.labelSmall?.copyWith(fontSize: 18.sp,color: AppColors.blackColor),)
+      ],
+    ),
+  );
+}
+
+Widget  loadAddingTrayContainer(BuildContext context){
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(24),
+    ),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Main Info Card
+        Container(
+          width: double.infinity,
+          decoration: AppDecorations.moveToGerminationDialogueDecoration(),
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SvgPicture.asset(
+                Assets.images.harvestingSucess.path,
+                height: 120.h,
+              ),
+              10.verticalSpace,
+              Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+              8.verticalSpace,
+              trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
+              8.verticalSpace,
+              trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
+              8.verticalSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  trayTextWidget("Status: ","Seeding",context),
+                  Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.updateTodayBg,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text("Update Today",style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),)
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
       ],
     ),
   );
@@ -252,7 +307,7 @@ Container totalRunningCycleWidget(BuildContext context){
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16),
+                    16.verticalSpace,
                     Text(
                       '8',
                       style: TextStyle(
@@ -457,6 +512,73 @@ Widget _loadMoveToFertigationWindow(BuildContext context,String title){
    );
 }
 
+// Show Action Required Section
+Widget showActionRequiredSection(BuildContext context){
+  return  Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: EdgeInsets.all(10.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          labelTextMedium(context.l10n.actionRequired, 16.sp, AppColors.blackColor),
+          6.verticalSpace,
+          Row(
+            children: [
+              Expanded(
+                  child:
+                  Text(context.l10n.youAreTryingToAddTraysBeyondTheAvailableTray,style: context.textTheme.labelSmall?.copyWith(color: AppColors.navBarUnselectedColor,fontSize: 11.sp),)
+              ),
+              SvgPicture.asset(Assets.icons.iconInfo.path)
+            ],
+          ),
+          12.verticalSpace,
+          Container(
+            decoration:  AppDecorations.infoWindowBg(),
+            padding:  EdgeInsets.all(12.sp),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(Assets.icons.iconInfoBlub.path),
+                8.verticalSpace,
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                      ),
+                      children: [
+                        TextSpan(text: S.of(context).thisLevelHasOnly),
+                        TextSpan(
+                          text: S.of(context).fiveAvailable,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: S.of(context).traySpaceYouCanConfirmThisPositionForFirst),
+                        TextSpan(
+                          text: S.of(context).five,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: S.of(context).scannedTraysAndScanANewLevelQrForRemaining),
+                        TextSpan(
+                          text: S.of(context).threetrays,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      )
+  );
+}
+
 Widget showActionRequiredDialog(BuildContext context) {
    return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -590,6 +712,8 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
                 ScanState.scanning => mobileScanner(scanState,scanStateNotifier),
                 ScanState.success => idealScanContainer(context,scanState,scanStateNotifier),
                 ScanState.confirmDetail => idealScanContainer(context,scanState,scanStateNotifier),
+                ScanState.moveToFertigation => idealScanContainer(context,scanState,scanStateNotifier),
+                ScanState.scanNextQR => idealScanContainer(context,scanState,scanStateNotifier),
               },
             ),
             //  idealScanContainer(context)
@@ -634,7 +758,9 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
                 ScanState.idle =>  tapScanColumn(context),
                 ScanState.scanning => null,
                 ScanState.success => scanSuccessWidget(context),
-                ScanState.confirmDetail => scanSuccessWidget(context)
+                ScanState.confirmDetail => scanSuccessWidget(context),
+                ScanState.moveToFertigation => tapScanColumn(context),
+                ScanState.scanNextQR => null,
               },
             ),
           ],
@@ -671,9 +797,7 @@ Widget buildTopBar() {
 
 Widget infoWidowForScan(BuildContext context, CycleStage cycleStatus, WidgetRef ref){
   final scanState = ref.watch(scanStateProvider);
-  return Visibility(
-      visible: scanState == ScanState.idle,
-      child:   Container(
+  return Container(
     width: double.infinity,
     decoration: boxDecoration(AppColors.infoQrScanWindowBorderBg,AppColors.infoQrScanWindowBorderBg),
     padding: EdgeInsets.all(2.r),
@@ -683,7 +807,7 @@ Widget infoWidowForScan(BuildContext context, CycleStage cycleStatus, WidgetRef 
       decoration: AppDecorations.infoWindowBg(),
       child: infoWindow(context,cycleStatus),
     ),
-  ));
+  );
 }
 
 

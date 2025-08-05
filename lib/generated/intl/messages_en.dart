@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mark this as Bad Trays"),
         "moveToFertigation":
             MessageLookupByLibrary.simpleMessage("Move to Fertigation"),
+        "moveTrays": MessageLookupByLibrary.simpleMessage("Move Trays"),
         "movingToGermination":
             MessageLookupByLibrary.simpleMessage("Moving to germination"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
