@@ -773,7 +773,8 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
   return Center(
     child: GestureDetector(
       onTap: ()  {
-        scanStateNotifier.state = ScanState.scanning;
+       // scanStateNotifier.state = ScanState.scanning;
+        scanStateNotifier.state = ScanState.success;
       },
       child: SizedBox(
         height: 240.h,

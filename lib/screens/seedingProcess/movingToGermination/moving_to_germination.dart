@@ -35,7 +35,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   void initState() {
     super.initState();
     Future(() {
-      ref.read(scanStateProvider.notifier).state = ScanState.success;
+      ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });
   }
 
@@ -63,10 +63,16 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
       btnName: buttonTitle,
       onPressed: () {
         // Handle move trays action
+        if(scanState == ScanState.success){
+          scanStateNotifier.state = ScanState.confirmDetail;
+        }
         if(scanState == ScanState.moveToFertigation){
           scanStateNotifier.state = ScanState.scanNextQR;
         }
         if(scanState == ScanState.scanNextQR){
+          showTraySuccessDialog(context,false,true);
+        }
+        if(scanState == ScanState.confirmDetail){
           showTraySuccessDialog(context,false,true);
         }
       },
@@ -78,9 +84,9 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
     return Container(
       child: switch (scanState) {
         ScanState.idle => bottomSizeBox(),
-        ScanState.scanning => bottomSizeBox(),
-        ScanState.success => bottomSizeBox(),
-        ScanState.confirmDetail => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconScanNow.path,"Confirm & Scan next Level QR"),
+        ScanState.scanning =>  bottomSizeBox(),
+        ScanState.success => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconScanNow.path,"Confirm & Scan next Level QR"),
+        ScanState.confirmDetail => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconConfirmSave.path,"Confirm & Save"),
         ScanState.moveToFertigation => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconScanNow.path,"Confirm & Scan next Level QR"),
         ScanState.scanNextQR => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconConfirmSave.path,"Confirm & Save"),
         _ => Text('Unknown Status'),
