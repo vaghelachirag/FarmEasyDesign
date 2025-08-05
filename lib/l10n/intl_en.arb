@@ -92,5 +92,7 @@
   "youNeedToTakeActionOnPendingSeedingTasks": "You need to take action on pending seeding tasks.",
   "day": "Day",
   "notesremarks": "Notes/Remarks",
-  "moveTrays": "Move Trays"
+  "moveTrays": "Move Trays",
+  "updatedToday": "Updated Today",
+  "status": "Status:"
 }

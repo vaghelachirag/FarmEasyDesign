@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../generator/assets.gen.dart';
 import 'custom_add_detail_button.dart';
 
-void showTraySuccessDialog(BuildContext context,bool isWithImage) {
+void showTraySuccessDialog(BuildContext context,bool isWithImage,bool isSelected) {
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
@@ -46,41 +46,8 @@ void showTraySuccessDialog(BuildContext context,bool isWithImage) {
                   padding: EdgeInsets.all(16.w),
                   child:    Column(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        decoration: AppDecorations.moveToGerminationDialogueDecoration(),
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            isWithImage == true ?
-                            SvgPicture.asset(
-                              Assets.images.harvestingSucess.path,
-                              height: 120.h,
-                            ): Container(),
-                            Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-                            8.verticalSpace,
-                            trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
-                            8.verticalSpace,
-                            trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
-                            8.verticalSpace,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                trayTextWidget("Status: ","Seeding",context),
-                                Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.updateTodayBg,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Text("Update Today",style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),)
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      isSelected ? loadAddingTrayContainer(context,false) :
+                      loadAddingTrayWithoutSelection(context,false),
                       20.verticalSpace,
                       // Confirm Button
                       SizedBox(

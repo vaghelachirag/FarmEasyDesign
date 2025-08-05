@@ -989,6 +989,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Updated Today`
+  String get updatedToday {
+    return Intl.message(
+      'Updated Today',
+      name: 'updatedToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status:`
+  String get status {
+    return Intl.message(
+      'Status:',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

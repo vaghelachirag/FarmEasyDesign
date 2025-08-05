@@ -90,7 +90,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
           scanStateNotifier.state = ScanState.scanNextQR;
         }
         if(scanState == ScanState.scanNextQR){
-          showTraySuccessDialog(context,false);
+          showTraySuccessDialog(context,false,true);
         }
       },
     )
@@ -120,7 +120,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
        ScanState.success => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
        ScanState.confirmDetail => _nutritionTimeLineWidget(),
        ScanState.moveToFertigation => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
-       ScanState.scanNextQR => loadAddingTrayContainer(context),
+       ScanState.scanNextQR => loadAddingTrayContainer(context,true),
        _ => Text('Unknown Status'),
      },
    );

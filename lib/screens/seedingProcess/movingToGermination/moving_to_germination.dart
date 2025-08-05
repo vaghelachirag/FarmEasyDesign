@@ -38,8 +38,6 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   @override
   Widget build(BuildContext context) {
-  //  Utils.hideKeyboard(context);
-
     Future(() {
       Utils.hideKeyboard(context);
       ref.read(scanStateProvider.notifier).state = ScanState.confirmDetail;
@@ -78,7 +76,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
   // Load Main Widget
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
-    return  scanState == ScanState.confirmDetail ? loadAddingTrayContainer(context) : Container(
+    return  scanState == ScanState.confirmDetail ? loadAddingTrayContainer(context,true) : Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -149,7 +147,7 @@ Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController
       btnName: context.l10n.confirmScanNextLevelQr,
       onPressed: () {
       //  scanStateNotifier.state = ScanState.confirmDetail;
-        showTraySuccessDialog(context,false);
+        showTraySuccessDialog(context,false,false);
       },
     ),
   ) ;

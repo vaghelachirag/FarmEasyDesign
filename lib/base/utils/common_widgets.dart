@@ -150,55 +150,152 @@ AppBar getActionbar(BuildContext context, String title) {
   );
 }
 
-Widget  loadAddingTrayContainer(BuildContext context){
+Widget  loadAddingTrayContainer(BuildContext context, bool isWithImage){
   return Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(24),
-    ),
+    decoration: AppDecorations.moveToGerminationDialogueDecoration(),
+    padding: EdgeInsets.all(16.w),
     child: Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Main Info Card
-        Container(
-          width: double.infinity,
-          decoration: AppDecorations.moveToGerminationDialogueDecoration(),
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SvgPicture.asset(
-                Assets.images.harvestingSucess.path,
-                height: 120.h,
-              ),
-              10.verticalSpace,
-              Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-              8.verticalSpace,
-              trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
-              8.verticalSpace,
-              trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
-              8.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  trayTextWidget("Status: ","Seeding",context),
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.updateTodayBg,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text("Update Today",style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),)
-                  )
-                ],
-              ),
-            ],
+        // Image
+        isWithImage ?
+        Center(
+          child: SvgPicture.asset(
+            Assets.images.harvestingSucess.path,
+            height: 120.h,
           ),
+        ) : Container(),
+        16.verticalSpace,
+        // Title
+        Text(
+          'Moving 8 Trays :',
+          style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp),
+        ),
+        12.verticalSpace,
+        // Tray Details
+        trayTextWidget(
+          S.of(context).trayDetails,
+          "8 Arugula Tray | 9 Gms",
+          context,
+        ),
+        12.verticalSpace,
+        selectedTrayContainer(context),
+        12.verticalSpace,
+        // Current Status with Updated Today chip
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            trayTextWidget(
+              S.of(context).currentStatus,
+              "Fertigation",
+              context,
+            ),
+            updateTodayButton(context,S.of(context).updatedToday,AppColors.trayInfoCycleBorderBg,AppColors.blackColor)
+          ],
         ),
       ],
     ),
   );
 }
+
+Widget loadAddingTrayWithoutSelection(BuildContext context,bool isWithImage) {
+  return Container(
+    width: double.infinity,
+    decoration: AppDecorations.moveToGerminationDialogueDecoration(),
+    padding: const EdgeInsets.all(8),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        isWithImage == true ?
+        SvgPicture.asset(
+          Assets.images.harvestingSucess.path,
+          height: 120.h,
+        ) : Container(),
+        Text('Adding 8 Trays :',
+            style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+        8.verticalSpace,
+        trayTextWidget("Tray Details:", "8 Arugula Tray | 9 Gms ", context),
+        8.verticalSpace,
+        trayTextWidget(
+            "Tray Position: ", "Zone 3 | Section 4 | Level 3 ", context),
+        8.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            trayTextWidget(S.of(context).status, "Seeding", context),
+            Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.updateTodayBg,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text("Update Today",
+                  style: context.textTheme.labelSmall?.copyWith(
+                      fontSize: 11.sp, color: AppColors.blackColor),)
+            )
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget updateTodayButton(BuildContext context,String title, Color backgroundColor, Color textColor){
+   return   Container(
+     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+     decoration: BoxDecoration(
+       color: backgroundColor ,
+       borderRadius: BorderRadius.circular(10),
+     ),
+     child: Text(
+       title,
+       style: context.textTheme.labelSmall?.copyWith(
+         fontSize: 11.sp,
+         color: textColor,
+       ),
+     ),
+   );
+}
+
+Widget selectedTrayContainer(BuildContext context){
+   return Container(
+     padding:  EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.w),
+     decoration: BoxDecoration(
+       color: const Color(0xFFDDF7D9), // Light green background
+       borderRadius: BorderRadius.circular(8),
+     ),
+     child: Row(
+       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+       children: [
+         // Left side
+         Column(
+           crossAxisAlignment: CrossAxisAlignment.start,
+           children: const [
+             Text(
+               'Tray Position:',
+               style: TextStyle(
+                 fontWeight: FontWeight.bold,
+                 fontSize: 14,
+               ),
+             ),
+             SizedBox(height: 4),
+             Text(
+               'Zone 5 | Section 4 | Level 3',
+               style: TextStyle(
+                 fontSize: 14,
+                 color: Colors.black54,
+               ),
+             ),
+           ],
+         ),
+         updateTodayButton(context,"New Position",AppColors.buttonBorderColor,AppColors.white)
+       ],
+     ),
+   );
+}
+
 
 // Circle Seeding circle Time Line Image
 Widget circularSeedingProcessTimeLine(bool isCompleted,IconData icon){
@@ -724,16 +821,6 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
   );
 }
 
-Widget updateTodayButton(BuildContext context, title,Color color){
-  return  Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Text(title,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: color))
-  );
-}
 
 Widget idealScanContainer(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier){
   return Container(

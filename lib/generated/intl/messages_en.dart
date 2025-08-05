@@ -137,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
         "since25052025":
             MessageLookupByLibrary.simpleMessage("Since 25/05/2025"),
+        "status": MessageLookupByLibrary.simpleMessage("Status:"),
         "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
         "thisLevelHasOnly":
             MessageLookupByLibrary.simpleMessage("This Level has only"),
@@ -154,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Upcoming Seeding in"),
         "updateToday": MessageLookupByLibrary.simpleMessage("Update Today"),
         "updatedOn": MessageLookupByLibrary.simpleMessage("Updated on"),
+        "updatedToday": MessageLookupByLibrary.simpleMessage("Updated Today"),
         "youAreTryingToAddTraysBeyondTheAvailableTray":
             MessageLookupByLibrary.simpleMessage(
                 "You are trying to add trays beyond the available tray space on the scanned level."),
