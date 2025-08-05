@@ -34,14 +34,13 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   @override
   void initState() {
     super.initState();
+    Future(() {
+      ref.read(scanStateProvider.notifier).state = ScanState.success;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    Future(() {
-      Utils.hideKeyboard(context);
-      ref.read(scanStateProvider.notifier).state = ScanState.idle;
-    });
 
     final showScanner = ref.watch(scanToggleProvider);
     final toggleScanner = ref.read(scanToggleProvider.notifier);
@@ -55,8 +54,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
     Scaffold(
       appBar: getActionbar(context,context.l10n.movingToGermination),
       body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier)),
-      bottomNavigationBar:  _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconConfirmSave.path,"Confirm & Save"),
-    ));
+      bottomNavigationBar: _loadBottomConfirmAndScanButton(scanState,scanStateNotifier)));
   }
 
   Widget _bottomButtonWithIconAndText(ScanState scanState, StateController<ScanState> scanStateNotifier, String path, String buttonTitle){
@@ -82,7 +80,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
         ScanState.idle => bottomSizeBox(),
         ScanState.scanning => bottomSizeBox(),
         ScanState.success => bottomSizeBox(),
-        ScanState.confirmDetail => bottomSizeBox(),
+        ScanState.confirmDetail => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconScanNow.path,"Confirm & Scan next Level QR"),
         ScanState.moveToFertigation => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconScanNow.path,"Confirm & Scan next Level QR"),
         ScanState.scanNextQR => _bottomButtonWithIconAndText(scanState,scanStateNotifier, Assets.icons.iconConfirmSave.path,"Confirm & Save"),
         _ => Text('Unknown Status'),
