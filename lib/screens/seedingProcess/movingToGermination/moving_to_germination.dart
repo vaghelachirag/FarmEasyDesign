@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart' hide infoWindow;
 
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/dialougs.dart';
-import '../../../base/utils/utils.dart';
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
@@ -62,18 +60,22 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
       iconPath: path,
       btnName: buttonTitle,
       onPressed: () {
-        // Handle move trays action
-        if(scanState == ScanState.success){
-          scanStateNotifier.state = ScanState.confirmDetail;
-        }
-        if(scanState == ScanState.moveToFertigation){
-          scanStateNotifier.state = ScanState.scanNextQR;
-        }
-        if(scanState == ScanState.scanNextQR){
-          showTraySuccessDialog(context,false,true);
-        }
-        if(scanState == ScanState.confirmDetail){
-          showTraySuccessDialog(context,false,true);
+        switch (scanState) {
+          case ScanState.success:
+            scanStateNotifier.state = ScanState.confirmDetail;
+            break;
+          case ScanState.moveToFertigation:
+            scanStateNotifier.state = ScanState.scanNextQR;
+            break;
+          case ScanState.scanNextQR:
+            showTraySuccessDialog(context, false, true);
+            break;
+          case ScanState.confirmDetail:
+            showTraySuccessDialog(context, false, false);
+            break;
+          default:
+          // Handle unexpected states if needed
+            break;
         }
       },
     )
@@ -155,13 +157,6 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   Widget _loadInfoWidow(){
     return  Consumer(
       builder: (context, ref, _) => infoWidowForScan(context, cycleStatus,ref),
-    );
-  }
-
-  // Show Confirm And Save Button
-  Widget _confirmAndSaveButton (BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){
-    return Consumer(
-      builder: (context, ref, _) =>  confirmAndSaveButton(context,ref,scanStateNotifier),
     );
   }
 

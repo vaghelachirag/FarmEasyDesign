@@ -123,8 +123,8 @@ class CycleStatusItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 80, // adjust as needed
-      height: 40,
+      width: 80.w, // adjust as needed
+      height: 40.h,
       padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,12 +146,12 @@ class CycleStatusItem extends StatelessWidget {
                   fontSize: 14.sp
                 ),
               ),
-              const SizedBox(width: 4),
+              4.horizontalSpace,
               Text(
                 'Cycles',
                 style: context.theme.textTheme.labelSmall,
               ),
-              const SizedBox(width: 4),
+              4.horizontalSpace,
               SvgPicture.asset(
                 Assets.icons.iconInfo.path,
                 width: 12,

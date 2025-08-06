@@ -19,6 +19,14 @@ class AppDecorations {
     );
   }
 
+  // Selected Tray Background
+  static BoxDecoration selectedTrayBackground(){
+    return   BoxDecoration(
+      color: AppColors.selectedSeedBg, // Light green background
+      borderRadius: BorderRadius.circular(8),
+    );
+  }
+
   static BoxDecoration multipleHarvestingInfoDecoration(){
     return BoxDecoration(
       color: AppColors.multipleHarvestingInfoBackgroundBg, // Light green background

@@ -1,7 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,7 +47,7 @@ Widget bottomSizeBox(){
 }
 
 // Label Text Bold
-Text labelTextBold(hint, double fontSize, Color labelTextColor) {
+Text labelTextBold(String hint, double fontSize, Color labelTextColor) {
   return  Text(
     hint,
     style: TextStyle(
@@ -110,7 +109,7 @@ Widget buttonWithIcon({
 }
 
 // Label Text Medium
-Text labelTextMedium(hint, double fontSize, Color labelTextColor) {
+Text labelTextMedium(String hint, double fontSize, Color labelTextColor) {
   return  Text(
     hint,
     style: TextStyle(
@@ -121,7 +120,7 @@ Text labelTextMedium(hint, double fontSize, Color labelTextColor) {
 }
 
 // Label Text Regular
-Text labelTextRegular(hint, double fontSize, Color labelTextColor) {
+Text labelTextRegular(String hint, double fontSize, Color labelTextColor) {
   return  Text(
     hint,
     style: TextStyle(
@@ -186,20 +185,25 @@ Widget  loadAddingTrayContainer(BuildContext context, bool isWithImage){
         selectedTrayContainer(context),
         12.verticalSpace,
         // Current Status with Updated Today chip
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            trayTextWidget(
-              S.of(context).currentStatus,
-              "Fertigation",
-              context,
-            ),
-            updateTodayButton(context,S.of(context).updatedToday,AppColors.trayInfoCycleBorderBg,AppColors.blackColor)
-          ],
-        ),
+        currentStatusWithButton(context)
       ],
     ),
   );
+}
+
+// Current Seeding Status With Update today Button
+Widget currentStatusWithButton(BuildContext context){
+   return   Row(
+     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+     children: [
+       trayTextWidget(
+         S.of(context).currentStatus,
+         "Fertigation",
+         context,
+       ),
+       updateTodayButton(context,S.of(context).updatedToday,AppColors.trayInfoCycleBorderBg,AppColors.blackColor)
+     ],
+   );
 }
 
 Widget loadAddingTrayWithoutSelection(BuildContext context,bool isWithImage) {
@@ -264,36 +268,37 @@ Widget updateTodayButton(BuildContext context,String title, Color backgroundColo
 
 Widget selectedTrayContainer(BuildContext context){
    return Container(
-     padding:  EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.w),
-     decoration: BoxDecoration(
-       color: const Color(0xFFDDF7D9), // Light green background
-       borderRadius: BorderRadius.circular(8),
-     ),
+     padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.w),
+     decoration: AppDecorations.selectedTrayBackground(),
      child: Row(
        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+       crossAxisAlignment: CrossAxisAlignment.start,
        children: [
-         // Left side
-         Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: const [
-             Text(
-               'Tray Position:',
-               style: TextStyle(
-                 fontWeight: FontWeight.bold,
-                 fontSize: 14,
+         Expanded(
+           child: Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Text(
+                 'Tray Position:',
+                 style: context.textTheme.labelMedium?.copyWith(fontSize: 11.sp,color: AppColors.blackColor),
                ),
-             ),
-             SizedBox(height: 4),
-             Text(
-               'Zone 5 | Section 4 | Level 3',
-               style: TextStyle(
-                 fontSize: 14,
-                 color: Colors.black54,
+               SizedBox(height: 4),
+               Text(
+                 'Zone 5 | Section 4 | Level 3',
+                 style:context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),
                ),
-             ),
-           ],
+             ],
+           ),
          ),
-         updateTodayButton(context,"New Position",AppColors.buttonBorderColor,AppColors.white)
+
+         // RIGHT SIDE — Button
+         SizedBox(width: 8), // optional spacing
+         updateTodayButton(
+           context,
+           "New Position",
+           AppColors.buttonBorderColor,
+           AppColors.white,
+         ),
        ],
      ),
    );
@@ -380,7 +385,7 @@ Container totalRunningCycleWidget(BuildContext context){
         boxShadow: [
           BoxShadow(
             blurRadius: 6,
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withAlpha((0.06 * 255).round()),
             offset: const Offset(0, 2),
           ),
         ],
@@ -446,7 +451,10 @@ Widget addAndMoreButton(){
           color: Colors.white,
         ),
         padding: EdgeInsets.all(5.r),
-        child: SvgPicture.asset(Assets.icons.iconAddDetail.path,color: AppColors.darkGray,width: 20.w,height: 20.h,),
+        child: SvgPicture.asset(Assets.icons.iconAddDetail.path,colorFilter: ColorFilter.mode(
+          AppColors.darkGray,
+          BlendMode.srcIn,
+        ),width: 20.w,height: 20.h,),
       ),
       // Right icons
       Row(
@@ -884,7 +892,6 @@ Widget buildTopBar() {
 }
 
 Widget infoWidowForScan(BuildContext context, CycleStage cycleStatus, WidgetRef ref){
-  final scanState = ref.watch(scanStateProvider);
   return Container(
     width: double.infinity,
     decoration: boxDecoration(AppColors.infoQrScanWindowBorderBg,AppColors.infoQrScanWindowBorderBg),

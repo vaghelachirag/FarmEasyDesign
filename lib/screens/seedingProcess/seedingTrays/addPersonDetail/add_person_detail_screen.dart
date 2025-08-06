@@ -558,7 +558,7 @@ Widget listItemContent(Map<String, String> person, WidgetRef ref) {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              labelTextBold(person['name'], 12.sp, AppColors.addPeopleTextBg),
+              labelTextBold(person['name']!, 12.sp, AppColors.addPeopleTextBg),
               labelTextMedium(person['role']!, 10.sp, AppColors.addPeopleTextBg),
             ],
           ),

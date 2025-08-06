@@ -77,6 +77,7 @@ class AppColors {
 
   /// google button
   static const googleButtonBorderColor = Color(0xFFEFF0F6);
+
   // forgot password
 static const forgotPasswordTextColor = Color(0xFF3A7F0D);
 
@@ -173,5 +174,9 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color multipleHarvestingInfoBorderBg = Color(0xFF4A4459);
 
   //static const Color manualCheckButtonBg = Color(0xFFD6F6D1);
+
+  static const Color selectedSeedBg = Color(0xFFDDF7D9);
+
+
 }
 
