@@ -151,6 +151,135 @@ void showHarvestingSuccessDialog(BuildContext context) {
     },
   );
 }
+Widget showNutrientPPMDialog(BuildContext context){
+return Dialog(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(20),
+  ),
+  child: SingleChildScrollView(
+    padding: const EdgeInsets.all(16),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Top Row (Icon, Title, Close Button)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: const [
+                Icon(Icons.question_mark_rounded, size: 20),
+                SizedBox(width: 8),
+                Text(
+                  "Enter Nutrient PPM Values",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: const Icon(Icons.close, size: 20),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+
+        // Field 1
+        _buildLabeledTextField("Potassium Silicate", "e.g. 120"),
+        const SizedBox(height: 4),
+        const Text("25ml/5gal", style: TextStyle(fontSize: 12, color: Colors.black54)),
+        const SizedBox(height: 12),
+
+        // Field 2
+        _buildLabeledTextField("Potassium Silicate", "e.g. 120"),
+        const SizedBox(height: 4),
+        const Text("25ml/5gal", style: TextStyle(fontSize: 12, color: Colors.black54)),
+        const SizedBox(height: 12),
+
+        // Field 3
+        _buildLabeledTextField("Potassium Silicate", "e.g. 120"),
+        const SizedBox(height: 4),
+        const Text("25ml/5gal", style: TextStyle(fontSize: 12, color: Colors.black54)),
+        const SizedBox(height: 12),
+
+        // Field 4
+        _buildLabeledTextField("Potassium Silicate", "e.g. 120"),
+        const SizedBox(height: 4),
+        const Text("25ml/5gal", style: TextStyle(fontSize: 12, color: Colors.black54)),
+        const SizedBox(height: 12),
+
+        // Field 5
+        _buildLabeledTextField("Potassium Silicate", "e.g. 120"),
+        const SizedBox(height: 4),
+        const Text("25ml/5gal", style: TextStyle(fontSize: 12, color: Colors.black54)),
+        const SizedBox(height: 12),
+
+        // Field 6
+        _buildLabeledTextField("Potassium Silicate", "e.g. 120"),
+        const SizedBox(height: 4),
+        const Text("25ml/5gal", style: TextStyle(fontSize: 12, color: Colors.black54)),
+        const SizedBox(height: 20),
+
+        // Save Button
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              // Save action
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF2F6E46), // Dark green
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 14),
+            ),
+            child: const Text(
+              "Save Details",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+}
+
+Widget _buildLabeledTextField(String label, String hint) {
+  return TextField(
+    decoration: InputDecoration(
+      hintText: hint,
+      hintStyle: const TextStyle(color: Colors.grey),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(6),
+      ),
+      prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+      prefixIcon: Padding(
+        padding: const EdgeInsets.only(left: 8, top: 8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: const Color(0xFFD6F6D1), // Light green background
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: Colors.green,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
 
 Widget trayTextWidget(String title,String hint, BuildContext context){
   return Column(
@@ -162,3 +291,102 @@ Widget trayTextWidget(String title,String hint, BuildContext context){
     ],
   );
 }
+
+
+class ShowEnterPpmDialog extends StatelessWidget {
+  final List<TextEditingController> controllers =
+  List.generate(6, (_) => TextEditingController());
+
+  ShowEnterPpmDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          // Limit max height so large data scrolls
+          maxHeight: MediaQuery.of(context).size.height * 0.85,
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Header
+                Row(
+                  children: [
+                    SvgPicture.asset(Assets.icons.iconTemperature.path),
+                    8.verticalSpace,
+                    const Expanded(
+                      child: Text(
+                        "Enter Nutrient PPM Values",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
+                ),
+                8.verticalSpace,
+                // Fields
+                for (int i = 0; i < controllers.length; i++) ...[
+                  _buildNutrientSection(i,controllers,context),
+                  5.verticalSpace,
+                   Text(
+                    "25ml/5gal",
+                    style: context.textTheme.labelMedium?.copyWith(fontSize: 10.sp,color: AppColors.blackColor),
+                  ),
+                  20.verticalSpace,
+                ],
+
+                // Save Button
+                SizedBox(
+                  width: double.infinity,
+                  child: CustomAddDetailButton(btnName: "Save Details", iconPath: "", onPressed: (){
+
+                  })),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget _buildNutrientSection(int index, List<TextEditingController> controllers, BuildContext context) {
+  return TextField(
+    controller: controllers[index],
+    decoration: InputDecoration(
+      label: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: enterTotalPpfDecoration(),
+        child:  Text(
+          "Potassium Silicate",
+          style:  context.textTheme.labelSmall?.copyWith(fontSize: 14.sp,color: AppColors.infoTextHingBg),
+        ),
+      ),
+      hintText: "e.g. 120",
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(6),
+      ),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+    ),
+    keyboardType: TextInputType.number,
+  );
+}
+
+BoxDecoration enterTotalPpfDecoration(){
+  return BoxDecoration(
+    color: AppColors.enterPpfTextAreaLabelBg,
+    borderRadius: BorderRadius.circular(4),
+  );
+}
+

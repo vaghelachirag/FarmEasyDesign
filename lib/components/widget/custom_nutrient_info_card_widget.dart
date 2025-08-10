@@ -11,11 +11,25 @@ class CustomNutrientInfoCardWidget extends StatefulWidget {
   const CustomNutrientInfoCardWidget({super.key});
 
   @override
-  State<CustomNutrientInfoCardWidget> createState() => _CustomNutrientInfoCardWidgetState();
+  State<CustomNutrientInfoCardWidget> createState() =>
+      _CustomNutrientInfoCardWidgetState();
 }
 
-class _CustomNutrientInfoCardWidgetState extends State<CustomNutrientInfoCardWidget> {
+class _CustomNutrientInfoCardWidgetState
+    extends State<CustomNutrientInfoCardWidget> {
   bool isExpanded = false;
+  int selectedHeaderIndex = 0;
+
+  final List<String> headers = ['Date', 'Moisture', 'Temperature', 'Acidity'];
+
+  final List<Map<String, String>> historyData = [
+    {"date": "2/6/25", "moisture": "30", "temp": "30 °C", "acidity": "PH 6.0"},
+    {"date": "1/6/25", "moisture": "30", "temp": "28 °C", "acidity": "PH 6.0"},
+    {"date": "31/5/25", "moisture": "22", "temp": "30 °C", "acidity": "PH 3.0"},
+    {"date": "30/5/25", "moisture": "30", "temp": "30 °C", "acidity": "PH 6.0"},
+    {"date": "29/5/25", "moisture": "30", "temp": "30 °C", "acidity": "PH 6.0"},
+    {"date": "28/5/25", "moisture": "30", "temp": "30 °C", "acidity": "PH 6.0"},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,64 +39,190 @@ class _CustomNutrientInfoCardWidgetState extends State<CustomNutrientInfoCardWid
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Icon Row
+          // Icons Row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildIconInfo(Assets.icons.iconMoisture.path, "Moisture", "30"),
-              _buildIconInfo(Assets.icons.iconTemperature.path, "Temperature", "30 °C"),
-              _buildIconInfo(Assets.icons.iconAcidity.path, "Acidity", "PH 6.0"),
-              _buildIconInfo(Assets.icons.iconNutrients.path, "Nutrients", "High"),
+              _buildIconInfo(
+                  Assets.icons.iconTemperature.path, "Temperature", "30 °C"),
+              _buildIconInfo(
+                  Assets.icons.iconAcidity.path, "Acidity", "PH 6.0"),
+              _buildIconInfo(
+                  Assets.icons.iconNutrients.path, "Nutrients", "High"),
             ],
           ),
           12.verticalSpace,
-          InkWell(
-            onTap: () {
-              setState(() {
-                isExpanded = !isExpanded;
-              });
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                labelTextRegular( isExpanded ? "Hide History" : "View History", 10.sp, AppColors.blackColor),
-                4.verticalSpace,
-                Icon(
-                  isExpanded
-                      ? Icons.keyboard_arrow_up
-                      : Icons.keyboard_arrow_down,
-                  color: Colors.black54,
-                ),
-              ],
+
+          // Expanded history section above toggle
+          if (isExpanded) ...[
+            _buildHistoryHeader(),
+            8.verticalSpace,
+            _buildHistoryRows(),
+            8.verticalSpace,
+          ],
+
+          // Toggle button at bottom
+          Align(
+            alignment: Alignment.centerRight,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  isExpanded = !isExpanded;
+                });
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  labelTextRegular(
+                    isExpanded ? "Hide History" : "View History",
+                    10.sp,
+                    AppColors.blackColor,
+                  ),
+                  4.horizontalSpace,
+                  Icon(
+                    isExpanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
+                    color: Colors.black54,
+                    size: 18.sp,
+                  ),
+                ],
+              ),
             ),
           ),
-
-          if (isExpanded) ...[
-            const SizedBox(height: 12),
-            const Text(
-              "• 24/07/2025 - Moisture 28, PH 6.1\n"
-                  "• 23/07/2025 - Moisture 27, PH 6.3",
-              style: TextStyle(fontSize: 13, color: Colors.black87),
-            ),
-          ]
         ],
       ),
     );
   }
 
+  /// Icon + label + value widget
   Widget _buildIconInfo(String path, String label, String value) {
     return Column(
       children: [
         CircleAvatar(
           backgroundColor: Colors.white,
           radius: 20,
-          child: SvgPicture.asset(path)
+          child: SvgPicture.asset(path),
         ),
         5.verticalSpace,
-        Text(label,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor),),
+        Text(
+          label,
+          style: context.textTheme.labelSmall?.copyWith(
+            fontSize: 10.sp,
+            color: AppColors.blackColor,
+          ),
+        ),
         2.verticalSpace,
-        Text(value,style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),),
+        Text(
+          value,
+          style: context.textTheme.labelLarge?.copyWith(
+            fontSize: 12.sp,
+            color: AppColors.blackColor,
+          ),
+        ),
       ],
+    );
+  }
+
+  /// Segmented yellow header with white selected tab
+  Widget _buildHistoryHeader() {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.selectedMoistureHeaderBg,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Row(
+        children: List.generate(headers.length, (index) {
+          final bool isSelected = index == selectedHeaderIndex;
+          return Expanded(
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                setState(() {
+                  selectedHeaderIndex = index;
+                });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 2.h),
+                decoration: null,
+                child: Text(
+                  headers[index],
+                  style: context.textTheme.titleMedium?.copyWith(fontSize: 10.sp,color: AppColors.blackColor),
+                ),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  /// History rows without extra background
+  Widget _buildHistoryRows() {
+    return Column(
+      children: historyData.map((item) {
+        final bool highlightRow = item["moisture"] == "22"; // example highlight
+        return Container(
+          color: highlightRow
+              ? AppColors.selectedMoistureBg
+              : Colors.transparent,
+          padding: EdgeInsets.symmetric(vertical: 2.h),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Text(
+                    item["date"] ?? "",
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontSize: 11.sp,
+                      color: AppColors.infoTextHingBg,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Text(
+                    item["moisture"] ?? "",
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontSize: 11.sp,
+                      color: AppColors.infoTextHingBg,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Text(
+                    item["temp"] ?? "",
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontSize: 11.sp,
+                      color: AppColors.infoTextHingBg,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Text(
+                    item["acidity"] ?? "",
+                    style: context.textTheme.titleMedium?.copyWith(
+                      fontSize: 11.sp,
+                      color: AppColors.infoTextHingBg,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }

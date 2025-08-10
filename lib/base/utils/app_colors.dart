@@ -177,6 +177,11 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
 
   static const Color selectedSeedBg = Color(0xFFDDF7D9);
 
+  static const Color selectedMoistureBg = Color(0xFFF0F4EC);
+  static const Color selectedMoistureHeaderBg = Color(0xFFFFF8CB);
+  static const Color totalPPMBg = Color(0xFFF0F4EC);
+  static const Color addTotalPPFButtonBg = Color(0xFFD6F6D1);
+  static const Color enterPpfTextAreaLabelBg = Color(0xFFC4E2BF);
 
 }
 

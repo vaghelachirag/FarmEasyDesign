@@ -119,7 +119,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
         ScanState.idle => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
         ScanState.scanning => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
         ScanState.success => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
-        ScanState.confirmDetail => loadAddingTrayContainer(context,true),
+        ScanState.confirmDetail =>   loadAddingTrayWithoutSelection(context,true),
         ScanState.moveToFertigation => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
         ScanState.scanNextQR => loadAddingTrayContainer(context,true),
         _ => Text('Unknown Status'),

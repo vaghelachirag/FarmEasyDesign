@@ -2,6 +2,7 @@ import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
+import 'package:farmeasy/components/widget/common_widget_total_ppm.dart';
 import 'package:farmeasy/components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import 'package:farmeasy/components/widget/custom_tab_cycle.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../base/utils/constants.dart';
 import '../../base/utils/custom_add_detail_button.dart';
+import '../../model/model_cycle.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
 import 'custom_harvest_reminder_card.dart';
 import 'custom_lifecycle_fertigation_current_stage.dart';
@@ -31,8 +33,9 @@ enum SeedingStatus { idle, started, issueMarked }
 class CustomSeedingActionSection extends StatelessWidget {
   final String buttonText;
   final CycleStage currentStage;
+  final ModelCycle modelCycle;
 
-  const CustomSeedingActionSection({super.key, required this.buttonText,required this.currentStage});
+  const CustomSeedingActionSection({super.key, required this.buttonText,required this.currentStage,required this.modelCycle});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class CustomSeedingActionSection extends StatelessWidget {
       CycleStage.germination => loadCycleButtonWidget(context,currentStage,buttonText),
       CycleStage.moveToFertigation => loadCycleButtonWidget(context,currentStage,buttonText),
       CycleStage.harvesting => loadCycleButtonWidget(context,currentStage,buttonText),
-      CycleStage.fertigation => loadFertigationWidget(context)
+      CycleStage.fertigation => loadFertigationWidget(context,modelCycle)
     };
   }
 }
@@ -103,7 +106,7 @@ Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, Stri
   );
 }
 
-Widget loadFertigationWidget(BuildContext context){
+Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
   return Column(
     children: [
       10.verticalSpace,
@@ -112,6 +115,8 @@ Widget loadFertigationWidget(BuildContext context){
       trayInfoContainer(context,AppColors.trayInfoCycleBg,AppColors.trayInfoCycleBorderBg),
       20.verticalSpace,
       CustomNutrientInfoCardWidget(),
+      20.verticalSpace,
+      CommonWidgetTotalPpm(),
       20.verticalSpace,
       CustomLifecycleFertigationCurrentStage(),
       20.verticalSpace,

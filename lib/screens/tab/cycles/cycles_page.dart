@@ -199,7 +199,7 @@ class CycleStatusCard extends ConsumerWidget {
 }
 
 Widget currentStageCycleWidget (ModelCycle cycle){
-  return  CustomSeedingActionSection(buttonText: getActionButtonText(cycle.currentStage),currentStage: cycle.currentStage);
+  return  CustomSeedingActionSection(buttonText: getActionButtonText(cycle.currentStage),currentStage: cycle.currentStage,modelCycle: cycle,);
 }
 
 String getStageText(CycleStage stage) {

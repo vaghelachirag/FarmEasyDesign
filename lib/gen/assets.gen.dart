@@ -117,9 +117,6 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_scan.svg
   String get iconScan => 'assets/icons/icon_scan.svg';
 
-  /// File path: assets/icons/icon_scan_container.svg
-  String get iconScanContainer => 'assets/icons/icon_scan_container.svg';
-
   /// File path: assets/icons/icon_scan_more.svg
   String get iconScanMore => 'assets/icons/icon_scan_more.svg';
 
@@ -137,6 +134,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/icon_temperature.svg
   String get iconTemperature => 'assets/icons/icon_temperature.svg';
+
+  /// File path: assets/icons/icon_total_ppm_tree.svg
+  String get iconTotalPpmTree => 'assets/icons/icon_total_ppm_tree.svg';
 
   /// File path: assets/icons/mesage_icon.svg
   String get mesageIcon => 'assets/icons/mesage_icon.svg';
@@ -192,13 +192,13 @@ class $AssetsIconsGen {
     iconQrProcessed,
     iconRightArrow,
     iconScan,
-    iconScanContainer,
     iconScanMore,
     iconScanNow,
     iconSeedingQr,
     iconSeeds,
     iconStartSeed,
     iconTemperature,
+    iconTotalPpmTree,
     mesageIcon,
     moveToFertigation,
     syncIcon,
@@ -252,6 +252,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/image_mark_as_bad_tray.svg
   String get imageMarkAsBadTray => 'assets/images/image_mark_as_bad_tray.svg';
 
+  /// File path: assets/images/image_total_ppm.svg
+  String get imageTotalPpm => 'assets/images/image_total_ppm.svg';
+
   /// File path: assets/images/left_side_corner_scan.svg
   String get leftSideCornerScan => 'assets/images/left_side_corner_scan.svg';
 
@@ -288,6 +291,7 @@ class $AssetsImagesGen {
     iconRightTopCorner,
     iconSeedingDone,
     imageMarkAsBadTray,
+    imageTotalPpm,
     leftSideCornerScan,
     onlineStore,
     scanSucess,
