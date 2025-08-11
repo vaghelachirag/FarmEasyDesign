@@ -53,7 +53,6 @@ class _CustomNutrientInfoCardWidgetState
             ],
           ),
           12.verticalSpace,
-
           // Expanded history section above toggle
           if (isExpanded) ...[
             _buildHistoryHeader(),

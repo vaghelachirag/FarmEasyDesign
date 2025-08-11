@@ -94,5 +94,6 @@
   "notesremarks": "Notes/Remarks",
   "moveTrays": "Move Trays",
   "updatedToday": "Updated Today",
-  "status": "Status:"
+  "status": "Status:",
+  "ppm": "PPM"
 }

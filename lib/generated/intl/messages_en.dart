@@ -100,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pleaseEnterEmail"),
         "pleaseenterpassword":
             MessageLookupByLibrary.simpleMessage("pleaseEnterPassword"),
+        "ppm": MessageLookupByLibrary.simpleMessage("PPM"),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
         "remembered": MessageLookupByLibrary.simpleMessage("remembered"),

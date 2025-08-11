@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../base/utils/app_constant.dart';
 import '../../base/utils/dashline.dart';
+import '../../generated/l10n.dart';
 
 class CycleStatusCard extends StatelessWidget {
   final int totalCycles;
@@ -97,11 +98,11 @@ class CycleStatusCard extends StatelessWidget {
           const SizedBox(height: 12),
           /// Cycle status
           Row(
-            children: const [
-              Expanded(child: CycleStatusItem(title: 'Seeding', cycleCount: 3)),
-              Expanded(child: CycleStatusItem(title: 'Germination', cycleCount: 2)),
-              Expanded(child: CycleStatusItem(title: 'Fertigation', cycleCount: 4)),
-              Expanded(child: CycleStatusItem(title: 'Harvesting', cycleCount: 3)),
+            children:  [
+              Expanded(child: CycleStatusItem(title: 'Seeding', cycleCount: 3,header: S.of(context).cycles,)),
+              Expanded(child: CycleStatusItem(title: 'Germination', cycleCount: 2,header: S.of(context).cycles,)),
+              Expanded(child: CycleStatusItem(title: 'Fertigation', cycleCount: 4,header: S.of(context).cycles,)),
+              Expanded(child: CycleStatusItem(title: 'Harvesting', cycleCount: 3,header: S.of(context).cycles,)),
             ],
           ),
         ],
@@ -113,11 +114,13 @@ class CycleStatusCard extends StatelessWidget {
 class CycleStatusItem extends StatelessWidget {
   final String title;
   final int cycleCount;
+  final String header;
 
   const CycleStatusItem({
     super.key,
     required this.title,
     required this.cycleCount,
+    required this.header,
   });
 
   @override
@@ -148,7 +151,7 @@ class CycleStatusItem extends StatelessWidget {
               ),
               4.horizontalSpace,
               Text(
-                'Cycles',
+               header,
                 style: context.theme.textTheme.labelSmall,
               ),
               4.horizontalSpace,

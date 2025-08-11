@@ -1009,6 +1009,16 @@ class S {
       args: [],
     );
   }
+
+  /// `PPM`
+  String get ppm {
+    return Intl.message(
+      'PPM',
+      name: 'ppm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
