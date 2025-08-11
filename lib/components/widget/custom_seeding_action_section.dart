@@ -18,6 +18,7 @@ import '../../base/utils/custom_add_detail_button.dart';
 import '../../model/model_cycle.dart';
 import '../../screens/seedingProcess/moveToFertigation/totalPpm/TotalPpmCard.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
+import 'common_harvesting_now_button.dart';
 import 'custom_lifecycle_fertigation_current_stage.dart';
 import 'custom_nutrient_info_card_widget.dart';
 import 'custom_nutrietion_time_line_widget.dart';
@@ -126,12 +127,37 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
 Widget bottomButtonWidget(BuildContext context){
   return Column(
    children: [
-     Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.infoTextHingBg)),
+     Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
      10.verticalSpace,
-     SizedBox(width: double.infinity,child: CustomAddDetailButton(btnName: "Harvest Now", iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
-     }),),
-     20.verticalSpace,
-     _moveTrayWidget(context)
+     SizedBox(width: double.infinity,child:
+     CustomerHarvestingNowButton(
+     btnName: "Harvest Now",
+     iconPath: Assets.icons.confirmHarvest.path,
+     onPressed: (){},
+      backgroundColor: AppColors.selectedProgressBg,
+    buttonHeight: 5.sp,
+      textColor: AppColors.white, iconColor: AppColors.white,
+      )),
+     10.verticalSpace,
+     SizedBox(width: double.infinity,child:
+     CustomerHarvestingNowButton(
+       btnName: "Move Trays",
+       iconPath: Assets.icons.moveToFertigation.path,
+       onPressed: (){},
+       backgroundColor: AppColors.markAsReadButtonBg,
+       buttonHeight: 3.sp,
+       textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
+     )),
+     10.verticalSpace,
+     SizedBox(width: double.infinity,child:
+     CustomerHarvestingNowButton(
+       btnName: "Manual Check",
+       iconPath: Assets.icons.iconManualCheck.path,
+       onPressed: (){},
+       backgroundColor: AppColors.manualCheckButtonBg,
+       buttonHeight: 3.sp,
+       textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
+     )),
    ],
   );
 }

@@ -17,9 +17,8 @@ class TotalPpmCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ppmData = ref.watch(ppmProvider);
-
     return Container(
-      width: 340,
+      width: 340.w,
       padding: const EdgeInsets.all(0),
       decoration: BoxDecoration(
         color: const Color(0xFFF4F8F2),
