@@ -4,13 +4,11 @@ import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:farmeasy/components/widget/common_widget_total_ppm.dart';
 import 'package:farmeasy/components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
-import 'package:farmeasy/components/widget/custom_tab_cycle.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
 import 'package:farmeasy/screens/seedingProcess/moveToFertigation/move_to_fertigation_screen.dart';
 import 'package:farmeasy/screens/seedingProcess/movingToGermination/moving_to_germination.dart';
 import 'package:farmeasy/screens/seedingProcess/seedingTrays/seeding_trays_screen.dart';
-import 'package:farmeasy/screens/tab/seeding/seeding_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,8 +16,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../base/utils/constants.dart';
 import '../../base/utils/custom_add_detail_button.dart';
 import '../../model/model_cycle.dart';
+import '../../screens/seedingProcess/moveToFertigation/totalPpm/TotalPpmCard.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
-import 'custom_harvest_reminder_card.dart';
+import 'common_harvesting_now_button.dart';
 import 'custom_lifecycle_fertigation_current_stage.dart';
 import 'custom_nutrient_info_card_widget.dart';
 import 'custom_nutrietion_time_line_widget.dart';
@@ -116,7 +115,7 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
       20.verticalSpace,
       CustomNutrientInfoCardWidget(),
       20.verticalSpace,
-      CommonWidgetTotalPpm(),
+      modelCycle.isTotalPpm ? CommonWidgetTotalPpm() : TotalPpmCard(),
       20.verticalSpace,
       CustomLifecycleFertigationCurrentStage(),
       20.verticalSpace,
@@ -127,14 +126,39 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
 
 Widget bottomButtonWidget(BuildContext context){
   return Column(
-   children: [
-     Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.infoTextHingBg)),
-     10.verticalSpace,
-     SizedBox(width: double.infinity,child: CustomAddDetailButton(btnName: "Harvest Now", iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
-     }),),
-     20.verticalSpace,
-     _moveTrayWidget(context)
-   ],
+    children: [
+      Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
+      10.verticalSpace,
+      SizedBox(width: double.infinity,child:
+      CustomerHarvestingNowButton(
+        btnName: "Harvest Now",
+        iconPath: Assets.icons.confirmHarvest.path,
+        onPressed: (){},
+        backgroundColor: AppColors.selectedProgressBg,
+        buttonHeight: 5.sp,
+        textColor: AppColors.white, iconColor: AppColors.white,
+      )),
+      10.verticalSpace,
+      SizedBox(width: double.infinity,child:
+      CustomerHarvestingNowButton(
+        btnName: "Move Trays",
+        iconPath: Assets.icons.moveToFertigation.path,
+        onPressed: (){},
+        backgroundColor: AppColors.markAsReadButtonBg,
+        buttonHeight: 3.sp,
+        textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
+      )),
+      10.verticalSpace,
+      SizedBox(width: double.infinity,child:
+      CustomerHarvestingNowButton(
+        btnName: "Manual Check",
+        iconPath: Assets.icons.iconManualCheck.path,
+        onPressed: (){},
+        backgroundColor: AppColors.manualCheckButtonBg,
+        buttonHeight: 3.sp,
+        textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
+      )),
+    ],
   );
 }
 Widget _moveTrayWidget(BuildContext context) {
@@ -189,6 +213,5 @@ void moveToNextScreen(BuildContext context,String routeName, CycleStage stage) {
     arguments: {cycleStageArgumentName: stage},
   );
 }
-
 
 

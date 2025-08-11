@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../base/utils/app_constant.dart';
 import '../../base/utils/dashline.dart';
+import '../../generated/l10n.dart';
 
 class CycleStatusCard extends StatelessWidget {
   final int totalCycles;
@@ -28,84 +29,84 @@ class CycleStatusCard extends StatelessWidget {
     final isMobile = width < 600;
 
     return Container(
-      margin: const EdgeInsets.only(left: 12,right: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(AppConstant.cardCornerRadius),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 6,
-            color: Colors.black.withOpacity(0.06),
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child:
-      Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Left content
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// Header
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TopHeaderHomePage(
-                          title: 'Total Running Cycles',
-                          date: '12/07/2025',
-                          assetPath: Assets.icons.syncIcon.path,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-
-                    /// Total number
-                    Text(
-                      '$totalCycles',
-                      style: TextStyle(
-                        fontSize: isMobile ? 32 : 40,
-                        fontWeight: FontWeight.bold,
+        margin: const EdgeInsets.only(left: 12,right: 12),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(AppConstant.cardCornerRadius),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 6,
+              color: Colors.black.withOpacity(0.06),
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child:
+        Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// Header
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TopHeaderHomePage(
+                            title: 'Total Running Cycles',
+                            date: '12/07/2025',
+                            assetPath: Assets.icons.syncIcon.path,
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                      const SizedBox(height: 16),
 
-              /// Right image
-              SizedBox(
-                width: isMobile ? 80.w : 100.w, // Responsive control
-                child: SvgPicture.asset(
-                  Assets.images.blockChaiIcon.path,
-                  fit: BoxFit.contain,
+                      /// Total number
+                      Text(
+                        '$totalCycles',
+                        style: TextStyle(
+                          fontSize: isMobile ? 32 : 40,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
-          /// Dashed Line
-          DashedLine(
-            height: 1,
-            dashWidth: 6,
-            dashSpacing: 4,
-            color: Colors.grey.shade400,
-          ),
-          const SizedBox(height: 12),
-          /// Cycle status
-          Row(
-            children: const [
-              Expanded(child: CycleStatusItem(title: 'Seeding', cycleCount: 3)),
-              Expanded(child: CycleStatusItem(title: 'Germination', cycleCount: 2)),
-              Expanded(child: CycleStatusItem(title: 'Fertigation', cycleCount: 4)),
-              Expanded(child: CycleStatusItem(title: 'Harvesting', cycleCount: 3)),
-            ],
-          ),
-        ],
-      )
+
+                /// Right image
+                SizedBox(
+                  width: isMobile ? 80.w : 100.w, // Responsive control
+                  child: SvgPicture.asset(
+                    Assets.images.blockChaiIcon.path,
+                    fit: BoxFit.contain,
+                  ),
+                )
+              ],
+            ),
+            /// Dashed Line
+            DashedLine(
+              height: 1,
+              dashWidth: 6,
+              dashSpacing: 4,
+              color: Colors.grey.shade400,
+            ),
+            const SizedBox(height: 12),
+            /// Cycle status
+            Row(
+              children:  [
+                Expanded(child: CycleStatusItem(title: 'Seeding', cycleCount: 3,header: S.of(context).cycles,)),
+                Expanded(child: CycleStatusItem(title: 'Germination', cycleCount: 2,header: S.of(context).cycles,)),
+                Expanded(child: CycleStatusItem(title: 'Fertigation', cycleCount: 4,header: S.of(context).cycles,)),
+                Expanded(child: CycleStatusItem(title: 'Harvesting', cycleCount: 3,header: S.of(context).cycles,)),
+              ],
+            ),
+          ],
+        )
     );
   }
 }
@@ -113,11 +114,13 @@ class CycleStatusCard extends StatelessWidget {
 class CycleStatusItem extends StatelessWidget {
   final String title;
   final int cycleCount;
+  final String header;
 
   const CycleStatusItem({
     super.key,
     required this.title,
     required this.cycleCount,
+    required this.header,
   });
 
   @override
@@ -143,12 +146,12 @@ class CycleStatusItem extends StatelessWidget {
               Text(
                 '$cycleCount',
                 style: context.theme.textTheme.labelLarge?.copyWith(
-                  fontSize: 14.sp
+                    fontSize: 14.sp
                 ),
               ),
               4.horizontalSpace,
               Text(
-                'Cycles',
+                header,
                 style: context.theme.textTheme.labelSmall,
               ),
               4.horizontalSpace,
@@ -164,4 +167,3 @@ class CycleStatusItem extends StatelessWidget {
     );
   }
 }
-

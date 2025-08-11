@@ -1,4 +1,3 @@
-import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
@@ -58,13 +57,13 @@ class CyclesPage extends ConsumerWidget {
 }
 
 Widget cycleListView(List<ModelCycle> cycles){
-return   ListView.builder(
-  shrinkWrap: true,
-  physics: const NeverScrollableScrollPhysics(),
-  itemCount: cycles.length,itemBuilder: (context, index){
-  final cycle = cycles[index];
-  return Padding(padding: EdgeInsets.only(left: 16.w,right: 16.w),child: CycleStatusCard(cycle: cycle),) ;
-},);
+  return   ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: cycles.length,itemBuilder: (context, index){
+    final cycle = cycles[index];
+    return Padding(padding: EdgeInsets.only(left: 16.w,right: 16.w),child: CycleStatusCard(cycle: cycle),) ;
+  },);
 }
 
 Widget totalCycleWidget(BuildContext context){
@@ -98,7 +97,7 @@ class CycleStatusCard extends ConsumerWidget {
                   ),
                 ),
                 SvgPicture.asset(
-                  Assets.icons.iconArrowRight.path// Optional: set size
+                    Assets.icons.iconArrowRight.path// Optional: set size
                 ),
               ],
             ),
@@ -119,9 +118,9 @@ class CycleStatusCard extends ConsumerWidget {
                 labelTextRegular(S.of(context).upcomingSeedingIn, 10.sp, AppColors.upComingSeedsTextBg),
                 5.horizontalSpace,
                 Container(
-                  decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                  child:   labelTextMedium('${cycle.arugulaTotal.toString()}${S.of(context).days}', 10.sp, AppColors.blackColor)
+                    decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                    child:   labelTextMedium('${cycle.arugulaTotal.toString()}${S.of(context).days}', 10.sp, AppColors.blackColor)
                 ),
               ],
             ),

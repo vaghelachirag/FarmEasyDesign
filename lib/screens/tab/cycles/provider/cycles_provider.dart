@@ -27,18 +27,19 @@ enum CycleStage {
 final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
   return [
     ModelCycle(
-      cycleName: "Cycle 9",
-      trayInfo: "38 Arugula Trays",
-      startDate: DateTime(2025, 5, 22),
-      endDate: DateTime(2025, 5, 22),
-      status: "Seeding",
-      assignedUsers: ["A", "B", "C", "D", "E"],
-      arugulaCompleted: 0,
-      arugulaTotal: 14,
-      cabbageCompleted: 0,
-      cabbageTotal: 25,
-      upcomingSeedsDay: 1,
-      seedingStatus: 0, currentStage: CycleStage.seeding,
+        cycleName: "Cycle 9",
+        trayInfo: "38 Arugula Trays",
+        startDate: DateTime(2025, 5, 22),
+        endDate: DateTime(2025, 5, 22),
+        status: "Seeding",
+        assignedUsers: ["A", "B", "C", "D", "E"],
+        arugulaCompleted: 0,
+        arugulaTotal: 14,
+        cabbageCompleted: 0,
+        cabbageTotal: 25,
+        upcomingSeedsDay: 1,
+        seedingStatus: 0, currentStage: CycleStage.seeding,
+        isTotalPpm: false
     ),
     ModelCycle(
         cycleName: "Cycle 8",
@@ -52,7 +53,8 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         cabbageCompleted: 0,
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
-        seedingStatus: 1, currentStage: CycleStage.germination
+        seedingStatus: 1, currentStage: CycleStage.germination,
+        isTotalPpm: false
     ),
     ModelCycle(
         cycleName: "Cycle 8",
@@ -66,7 +68,8 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         cabbageCompleted: 0,
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
-        seedingStatus: 2, currentStage: CycleStage.moveToFertigation
+        seedingStatus: 2, currentStage: CycleStage.moveToFertigation,
+        isTotalPpm: false
     ),
     ModelCycle(
         cycleName: "Cycle 8",
@@ -80,7 +83,8 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         cabbageCompleted: 0,
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
-        seedingStatus: 3, currentStage: CycleStage.harvesting
+        seedingStatus: 3, currentStage: CycleStage.harvesting,
+        isTotalPpm: false
     ),
     ModelCycle(
         cycleName: "Cycle 8",
@@ -94,7 +98,23 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         cabbageCompleted: 0,
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
-        seedingStatus: 4, currentStage: CycleStage.fertigation
+        seedingStatus: 4, currentStage: CycleStage.fertigation,
+        isTotalPpm: false
+    ),
+    ModelCycle(
+        cycleName: "Cycle 8",
+        trayInfo: "• 38 Arugula Trays",
+        startDate: DateTime(2025, 5, 22),
+        endDate: DateTime(2025, 5, 22),
+        status: "Fertigation",
+        assignedUsers: ["A", "B", "C", "D", "E"],
+        arugulaCompleted: 0,
+        arugulaTotal: 14,
+        cabbageCompleted: 0,
+        cabbageTotal: 25,
+        upcomingSeedsDay: 1,
+        seedingStatus: 4, currentStage: CycleStage.fertigation,
+        isTotalPpm: true
     ),
     // Add more cycles as needed
   ];
@@ -125,4 +145,4 @@ final selectedStageProvider = StateProvider<CycleStage>((ref) {
 });
 
 // Stage for expand
-final stageExpandProvider = StateProvider<bool>((ref) => false);
+final stageExpandProvider = StateProvider<bool>((ref) => true);
