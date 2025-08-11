@@ -4,13 +4,11 @@ import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:farmeasy/components/widget/common_widget_total_ppm.dart';
 import 'package:farmeasy/components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
-import 'package:farmeasy/components/widget/custom_tab_cycle.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
 import 'package:farmeasy/screens/seedingProcess/moveToFertigation/move_to_fertigation_screen.dart';
 import 'package:farmeasy/screens/seedingProcess/movingToGermination/moving_to_germination.dart';
 import 'package:farmeasy/screens/seedingProcess/seedingTrays/seeding_trays_screen.dart';
-import 'package:farmeasy/screens/tab/seeding/seeding_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,8 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../base/utils/constants.dart';
 import '../../base/utils/custom_add_detail_button.dart';
 import '../../model/model_cycle.dart';
+import '../../screens/seedingProcess/moveToFertigation/totalPpm/TotalPpmCard.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
-import 'custom_harvest_reminder_card.dart';
 import 'custom_lifecycle_fertigation_current_stage.dart';
 import 'custom_nutrient_info_card_widget.dart';
 import 'custom_nutrietion_time_line_widget.dart';
@@ -116,7 +114,7 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
       20.verticalSpace,
       CustomNutrientInfoCardWidget(),
       20.verticalSpace,
-      CommonWidgetTotalPpm(),
+      modelCycle.isTotalPpm ? CommonWidgetTotalPpm() : TotalPpmCard(),
       20.verticalSpace,
       CustomLifecycleFertigationCurrentStage(),
       20.verticalSpace,

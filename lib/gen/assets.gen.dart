@@ -56,6 +56,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_edit.svg
   String get iconEdit => 'assets/icons/icon_edit.svg';
 
+  /// File path: assets/icons/icon_edit_circle.svg
+  String get iconEditCircle => 'assets/icons/icon_edit_circle.svg';
+
   /// File path: assets/icons/icon_flash.svg
   String get iconFlash => 'assets/icons/icon_flash.svg';
 
@@ -172,6 +175,7 @@ class $AssetsIconsGen {
     iconDrop,
     iconDropdown,
     iconEdit,
+    iconEditCircle,
     iconFlash,
     iconHand,
     iconHummer,

@@ -14,6 +14,7 @@ class ModelCycle {
   final int upcomingSeedsDay;
   final int seedingStatus;
   final CycleStage currentStage;
+  final bool isTotalPpm;
 
   ModelCycle({
     required this.cycleName,
@@ -29,5 +30,7 @@ class ModelCycle {
     required this.upcomingSeedsDay,
     required this.seedingStatus,
     required this.currentStage,
+    required this.isTotalPpm
+
   });
 }
