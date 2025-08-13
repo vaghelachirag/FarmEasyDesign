@@ -24,7 +24,7 @@ class TotalPpmCard extends ConsumerWidget {
     final isExpanded = ref.watch(isExpandedProvider);
     final ppmData = ref.watch(ppmProvider);
     return Container(
-      width: 340.w,
+      width: 360.w,
       padding: const EdgeInsets.all(0),
       decoration: BoxDecoration(
         color: const Color(0xFFF4F8F2),

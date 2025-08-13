@@ -30,7 +30,7 @@ class CustomerHarvestingNowButton extends StatelessWidget {
     return ElevatedButton.icon(
       onPressed:onPressed,
       icon:  SvgPicture.asset(iconPath, color: iconColor,width: 20.sp,height: 20.sp,), // use appropriate icon
-      label:  Text(btnName,style: TextStyle(fontSize: 12.sp,color:textColor),),
+      label:  Text(btnName,style: TextStyle(fontSize: 10.sp,color:textColor),),
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor:backgroundColor,

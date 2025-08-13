@@ -74,6 +74,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_info_blub.svg
   String get iconInfoBlub => 'assets/icons/icon_info_blub.svg';
 
+  /// File path: assets/icons/icon_info_circle.svg
+  String get iconInfoCircle => 'assets/icons/icon_info_circle.svg';
+
   /// File path: assets/icons/icon_manual_check.svg
   String get iconManualCheck => 'assets/icons/icon_manual_check.svg';
 
@@ -141,6 +144,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_total_ppm_tree.svg
   String get iconTotalPpmTree => 'assets/icons/icon_total_ppm_tree.svg';
 
+  /// File path: assets/icons/icon_tree.svg
+  String get iconTree => 'assets/icons/icon_tree.svg';
+
   /// File path: assets/icons/mesage_icon.svg
   String get mesageIcon => 'assets/icons/mesage_icon.svg';
 
@@ -181,6 +187,7 @@ class $AssetsIconsGen {
     iconHummer,
     iconInfo,
     iconInfoBlub,
+    iconInfoCircle,
     iconManualCheck,
     iconMarkIssue,
     iconMoisture,
@@ -203,6 +210,7 @@ class $AssetsIconsGen {
     iconStartSeed,
     iconTemperature,
     iconTotalPpmTree,
+    iconTree,
     mesageIcon,
     moveToFertigation,
     syncIcon,
