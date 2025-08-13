@@ -44,7 +44,6 @@ class DashboardPage extends ConsumerWidget {
               onSearchTap: () {
                 // trigger search
               },
-
             ),
             5.verticalSpace,
             _trayStatusWidget(context) ,
