@@ -131,31 +131,24 @@ class TotalPpmCard extends ConsumerWidget {
               color: Colors.grey.shade400,
             ),
             10.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:  [
-                10.horizontalSpace,
-                Expanded(child: CycleStatusItem(title: 'Potassium Silicate', cycleCount: 120,header:"Ppm",)),
-                Expanded(child: CycleStatusItem(title: 'Micro 6-0-0', cycleCount: 160,header: "Ppm")),
-                Expanded(child: CycleStatusItem(title: 'Bloom 0-6-5', cycleCount: 90,header: "Ppm")),
-                Expanded(child: CycleStatusItem(title: 'Potassium Silicate', cycleCount: 120,header: S.of(context).ppm,)),
-                Expanded(child: CycleStatusItem(title: 'Micro 6-0-0', cycleCount: 160,header: S.of(context).ppm)),
-                Expanded(child: CycleStatusItem(title: 'Bloom 0-6-5', cycleCount: 90,header: S.of(context).ppm)),
+
+            Wrap(
+              spacing: 8.w,
+              runSpacing: 8.h,
+              children: [
+                CycleStatusItem(title: 'Potassium Silicate', cycleCount: 120,header: S.of(context).ppm),
+                CycleStatusItem(title: 'Micro 6-0-0', cycleCount: 160,header: S.of(context).ppm),
+                CycleStatusItem(title: 'Bloom 0-6-5', cycleCount: 90,header: S.of(context).ppm),
               ],
             ),
             10.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:  [
-                10.horizontalSpace,
-                Expanded(child: CycleStatusItem(title: 'CalMag', cycleCount: 120,header: S.of(context).ppm,)),
-                Expanded(child: CycleStatusItem(title: 'SLF-100', cycleCount: 160,header: S.of(context).ppm)),
-                Expanded(child: CycleStatusItem(title: 'ZeroTol 2.0', cycleCount: 90,header: S.of(context).ppm)),
-                Expanded(child: CycleStatusItem(title: 'CalMag', cycleCount: 120,header: "Ppm",)),
-                Expanded(child: CycleStatusItem(title: 'SLF-100', cycleCount: 160,header: "Ppm")),
-                Expanded(child: CycleStatusItem(title: 'ZeroTol 2.0', cycleCount: 90,header: "Ppm")),
+            Wrap(
+              spacing: 8.w,
+              runSpacing: 8.h,
+              children: [
+                CycleStatusItem(title: 'CalMag', cycleCount: 120,header: S.of(context).ppm,),
+                CycleStatusItem(title: 'SLF-100', cycleCount: 160,header: S.of(context).ppm),
+                CycleStatusItem(title: 'ZeroTol 2.0', cycleCount: 90,header: S.of(context).ppm),
               ],
             ),
             10.verticalSpace

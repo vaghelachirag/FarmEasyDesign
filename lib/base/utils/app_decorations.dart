@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../generated/l10n.dart';
 import '../../generator/assets.gen.dart';
 import 'common_widgets.dart';
 
@@ -170,7 +171,7 @@ class AppDecorations {
     );
   }
 
-  static OutlinedButton markAsReadButtonStyle(){
+  static OutlinedButton markAsReadButtonStyle(BuildContext context){
     return OutlinedButton.icon(
         style: OutlinedButton.styleFrom(
           backgroundColor: AppColors.markAsReadButtonBg,
@@ -185,7 +186,7 @@ class AppDecorations {
           Assets.icons.iconMarkIssue.path,
           colorFilter: const ColorFilter.mode(Color(0xFF1C7C45), BlendMode.srcIn),
         ),
-        label: labelTextRegular("Mark Issue", 12.sp, AppColors.totalAssignPersonTextBg)
+        label: labelTextRegular(S.of(context).markIssue, 12.sp, AppColors.totalAssignPersonTextBg)
     );
   }
 }

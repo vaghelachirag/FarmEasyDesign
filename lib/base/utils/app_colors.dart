@@ -152,7 +152,7 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color trayInfoChipBg = Color(0xFFCAC4D0);
   static const Color manualCheckBg = Color(0xFFF5F5F5);
   static const Color manualCheckButtonBg = Color(0xFFFFD7D5);
-
+  static const Color manualCheckButtonBorderBg = Color(0xFFB3261E);
 
   // Checkbox
   static const Color checkboxBorderSideBg = Color(0xFF49454F);
@@ -184,5 +184,7 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color enterPpfTextAreaLabelBg = Color(0xFFC4E2BF);
 
   static const Color timeLeftBoxBg = Color(0xFFFFF8CB);
+
+  static const Color saveAsDraftButtonBg = Color(0xFFD6F6D1);
 }
 

@@ -275,27 +275,11 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
           12.verticalSpace,
           SizedBox(
             width: double.infinity,
-            child:   _manualCheckButton(),
+            child:   manualCheckButton(context),
           )
         ],
       ),
     );
-  }
-
-  Widget _manualCheckButton(){
-    return SizedBox(width: double.infinity,height:40.w, child: ElevatedButton.icon(
-      onPressed:(){},
-      icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path), // use appropriate icon
-      label: labelTextRegular(S.of(context).manualCheck, 12.sp, AppColors.blackColor),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.manualCheckButtonBg,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.r),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
-      ),
-    ),);
   }
 
   Widget _buildDateBadge(String text) {

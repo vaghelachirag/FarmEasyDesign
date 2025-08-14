@@ -18,6 +18,7 @@ import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../base/utils/utils.dart';
 import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_leet_code_chipset.dart';
+import '../../../../components/widget/save_as_draft_button.dart';
 import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
@@ -100,7 +101,14 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
                 _addPeopleSuggestionWidget(searchText),
                 _seedingDate(numberOfHalfTrays, context),
                 20.verticalSpace,
-                _customProcessButton()
+                _customProcessButton(),
+                20.verticalSpace,
+                SizedBox(
+                  width: double.infinity,
+                  height: 30.h,
+                  child:  SaveAsDraftButton(),
+                ),
+                20.verticalSpace,
               ],
             ),
           ) ,

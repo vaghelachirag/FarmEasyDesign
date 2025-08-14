@@ -1019,6 +1019,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Hide History`
+  String get hideHistory {
+    return Intl.message(
+      'Hide History',
+      name: 'hideHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View History`
+  String get viewHistory {
+    return Intl.message(
+      'View History',
+      name: 'viewHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save as Draft`
+  String get saveAsDraft {
+    return Intl.message(
+      'Save as Draft',
+      name: 'saveAsDraft',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark Issue`
+  String get markIssue {
+    return Intl.message(
+      'Mark Issue',
+      name: 'markIssue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan the level QR from where you want to Harvest the trays`
+  String get scanTheLevelQrFromWhereYouWantToHarvest {
+    return Intl.message(
+      'Scan the level QR from where you want to Harvest the trays',
+      name: 'scanTheLevelQrFromWhereYouWantToHarvest',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

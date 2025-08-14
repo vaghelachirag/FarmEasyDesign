@@ -127,7 +127,7 @@ class CycleStatusItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 80.w, // adjust as needed
-      height: 40.h,
+      height: 50.h,
       padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

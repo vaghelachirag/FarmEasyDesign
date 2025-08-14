@@ -47,6 +47,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon_confirm_save.svg
   String get iconConfirmSave => 'assets/icons/icon_confirm_save.svg';
 
+  /// File path: assets/icons/icon_draft.svg
+  String get iconDraft => 'assets/icons/icon_draft.svg';
+
   /// File path: assets/icons/icon_drop.svg
   String get iconDrop => 'assets/icons/icon_drop.svg';
 
@@ -178,6 +181,7 @@ class $AssetsIconsGen {
     iconCalendar,
     iconConfirmAndProcessed,
     iconConfirmSave,
+    iconDraft,
     iconDrop,
     iconDropdown,
     iconEdit,
@@ -244,6 +248,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/data_maintance_icon.svg
   String get dataMaintanceIcon => 'assets/images/data_maintance_icon.svg';
 
+  /// File path: assets/images/delete_traybg.svg
+  String get deleteTrayBg => 'assets/images/delete_traybg.svg';
+
+  /// File path: assets/images/delete_tray.svg
+  String get deleteTrayImage => 'assets/images/delete_tray.svg';
+
   /// File path: assets/images/harvesting_sucess.svg
   String get harvestingSucess => 'assets/images/harvesting_sucess.svg';
 
@@ -297,6 +307,8 @@ class $AssetsImagesGen {
     blockChaiIcon,
     dashboardChart,
     dataMaintanceIcon,
+    deleteTrayBg,
+    deleteTrayImage,
     harvestingSucess,
     iconLeftBottomCorner,
     iconRightBottomCorner,

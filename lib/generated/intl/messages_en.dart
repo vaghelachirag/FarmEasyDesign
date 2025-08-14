@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "harvestedQty": MessageLookupByLibrary.simpleMessage("Harvested Qty:"),
         "harvestingTrays":
             MessageLookupByLibrary.simpleMessage("Harvesting Trays"),
+        "hideHistory": MessageLookupByLibrary.simpleMessage("Hide History"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "issue": MessageLookupByLibrary.simpleMessage("Issue"),
@@ -78,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mark as a Bad Tray !"),
         "markAsBadTray":
             MessageLookupByLibrary.simpleMessage("Mark as Bad Tray"),
+        "markIssue": MessageLookupByLibrary.simpleMessage("Mark Issue"),
         "markThisAsBadTrays":
             MessageLookupByLibrary.simpleMessage("Mark this as Bad Trays"),
         "moveToFertigation":
@@ -106,10 +108,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "remembered": MessageLookupByLibrary.simpleMessage("remembered"),
         "removeALotCode":
             MessageLookupByLibrary.simpleMessage("Remove a Lot Code?"),
+        "saveAsDraft": MessageLookupByLibrary.simpleMessage("Save as Draft"),
         "scanLevelQr": MessageLookupByLibrary.simpleMessage("Scan Level QR"),
         "scanMore": MessageLookupByLibrary.simpleMessage("Scan More"),
         "scanNow": MessageLookupByLibrary.simpleMessage("Scan now"),
         "scanSeedLot": MessageLookupByLibrary.simpleMessage("Scan seed Lot"),
+        "scanTheLevelQrFromWhereYouWantToHarvest":
+            MessageLookupByLibrary.simpleMessage(
+                "Scan the level QR from where you want to Harvest the trays"),
         "scanTheLevelQrWhereYouWantToPlaceThe":
             MessageLookupByLibrary.simpleMessage(
                 "Scan the level QR where you want to Place the trays"),
@@ -157,6 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "updateToday": MessageLookupByLibrary.simpleMessage("Update Today"),
         "updatedOn": MessageLookupByLibrary.simpleMessage("Updated on"),
         "updatedToday": MessageLookupByLibrary.simpleMessage("Updated Today"),
+        "viewHistory": MessageLookupByLibrary.simpleMessage("View History"),
         "youAreTryingToAddTraysBeyondTheAvailableTray":
             MessageLookupByLibrary.simpleMessage(
                 "You are trying to add trays beyond the available tray space on the scanned level."),

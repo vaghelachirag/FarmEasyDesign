@@ -16,6 +16,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../base/utils/constants.dart';
 import '../../base/utils/custom_add_detail_button.dart';
+import '../../generated/l10n.dart';
 import '../../model/model_cycle.dart';
 import '../../screens/seedingProcess/moveToFertigation/totalPpm/TotalPpmCard.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
@@ -154,7 +155,7 @@ Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, Stri
           SizedBox(
             width: 120.w,
             height: 30.w,
-            child: AppDecorations.markAsReadButtonStyle(),
+            child: AppDecorations.markAsReadButtonStyle(context),
           )),
         ],
       )
@@ -293,6 +294,7 @@ class _GerminationWidgetState extends State<GerminationWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        10.verticalSpace,
         GestureDetector(
           onTap: () {
             setState(() {
@@ -310,11 +312,7 @@ class _GerminationWidgetState extends State<GerminationWidget> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  labelTextRegular(
-                    _showDetails ? "Hide History" : "View History",
-                    10.sp,
-                    AppColors.buttonBackgroundColor,
-                  ),
+                  Text( _showDetails ? S.of(context).hideHistory : S.of(context).viewHistory,style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.buttonBackgroundColor),),
                   4.horizontalSpace,
                   Icon(
                     _showDetails

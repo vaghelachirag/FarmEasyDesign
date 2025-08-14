@@ -378,8 +378,7 @@ Widget _manualCheckWidget(BuildContext context, cycleStatus){
         SizedBox(
           width: double.infinity,
           child:
-          CustomAddDetailButton(btnName: "Confirm Harvest", iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
-
+          CustomAddDetailButton(btnName: S.of(context).confirmHarvest, iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
             context.navigator.pushNamed(
               ConfirmHarvestingTrayDetail.route,
               arguments: {cycleStageArgumentName: cycleStatus},

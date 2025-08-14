@@ -95,5 +95,10 @@
   "moveTrays": "Move Trays",
   "updatedToday": "Updated Today",
   "status": "Status:",
-  "ppm": "PPM"
+  "ppm": "PPM",
+  "hideHistory": "Hide History",
+  "viewHistory": "View History",
+  "saveAsDraft": "Save as Draft",
+  "markIssue": "Mark Issue",
+  "scanTheLevelQrFromWhereYouWantToHarvest": "Scan the level QR from where you want to Harvest the trays"
 }

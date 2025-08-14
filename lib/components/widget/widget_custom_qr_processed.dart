@@ -1,3 +1,4 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
@@ -25,7 +26,7 @@ class CustomProceedButton extends StatelessWidget {
           width: 20.sp,
           colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
-        label: labelTextRegular( title, 16.sp, AppColors.white),
+        label: Text("Proceed",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.white),),
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF237A4C), // Green color from image
           shape: RoundedRectangleBorder(

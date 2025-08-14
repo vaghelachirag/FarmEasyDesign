@@ -510,7 +510,7 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
               case CycleStage.seeding:
                 return  _loadSeedingInfoWindow(context);
               case CycleStage.germination:
-                return _loadMoveToFertigationWindow(context, "Scan the level QR from where you want to Harvest the trays");
+                return _loadMoveToFertigationWindow(context, S.of(context).scanTheLevelQrFromWhereYouWantToHarvest);
               case CycleStage.moveToFertigation:
                 return  _loadMoveToFertigationWindow(context, "Scan the level QR where you want to Place the trays");
               case CycleStage.harvesting:
@@ -525,6 +525,23 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
       ,
     ],
   );
+}
+
+Widget manualCheckButton(BuildContext context){
+  return SizedBox(width: double.infinity,height:30.h, child: ElevatedButton.icon(
+    onPressed:(){},
+    icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path), // use appropriate icon
+    label: labelTextRegular(S.of(context).manualCheck, 11.sp, AppColors.blackColor),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.manualCheckButtonBg,
+      foregroundColor: Colors.white,
+      side: BorderSide(color: AppColors.manualCheckButtonBorderBg,width: 1),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.r),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
+    ),
+  ),);
 }
 
 Widget _loadSeedingInfoWindow(BuildContext context){
@@ -739,17 +756,17 @@ Widget showActionRequiredDialog(BuildContext context) {
                             fontSize: 14,
                           ),
                           children: [
-                            TextSpan(text: 'This Level has only '),
+                            TextSpan(text: S.of(context).thisLevelHasOnly),
                             TextSpan(
                               text: '5 available',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(text: ' Tray space. You can Confirm this position for first '),
+                            TextSpan(text: S.of(context).traySpaceYouCanConfirmThisPositionForFirst),
                             TextSpan(
                               text: '5',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(text: ' scanned Trays and scan a new level QR for remaining '),
+                            TextSpan(text: S.of(context).scannedTraysAndScanANewLevelQrForRemaining),
                             TextSpan(
                               text: '3 Trays.',
                               style: TextStyle(fontWeight: FontWeight.bold),

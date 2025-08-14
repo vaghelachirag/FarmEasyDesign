@@ -39,7 +39,7 @@ class _ConfirmHarvestingTrayDetail extends ConsumerState<ConfirmHarvestingTrayDe
   @override
   void initState() {
     super.initState();
-    Utils.hideKeyboard(context);
+  //  Utils.hideKeyboard(context);
   }
 
   @override

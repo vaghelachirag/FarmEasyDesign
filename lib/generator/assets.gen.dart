@@ -312,6 +312,15 @@ class $AssetsImagesGen {
   SvgGenImage get uploadImageBox =>
       const SvgGenImage('assets/images/upload_image_box.svg');
 
+
+  /// File path: assets/images/upload_image_box.svg
+  SvgGenImage get deleteTray =>
+      const SvgGenImage('assets/delete_tray.svg');
+
+  /// File path: assets/images/upload_image_box.svg
+  SvgGenImage get deleteTrayBg =>
+      const SvgGenImage('assets/delete_traybg.svg');
+
   /// List of all assets
   List<dynamic> get values => [
     assignPerson1,
