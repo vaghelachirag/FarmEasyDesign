@@ -64,8 +64,7 @@ class CycleStatusCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
-
+                     16.verticalSpace,
                       /// Total number
                       Text(
                         '$totalCycles',

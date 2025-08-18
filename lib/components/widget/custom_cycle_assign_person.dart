@@ -27,7 +27,7 @@ class CustomCycleAssignPerson extends ConsumerWidget {
       children: [
           Text(
           'Assigned to:',
-          style:  context.textTheme.labelSmall?.copyWith(),
+          style:  context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor,fontWeight: FontWeight.w400),
         ),
         const SizedBox(width: 8),
         SizedBox(

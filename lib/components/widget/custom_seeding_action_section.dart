@@ -130,14 +130,14 @@ Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, Stri
   return  Column(
     children: [
       10.verticalSpace,
-      labelTextRegular('Complete Seeding before • 22:00 Today', 12.sp, AppColors.totalAssignPersonTextBg),
+      Text('Complete Seeding before • 22:00 Today',style: context.textTheme.titleSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),),
       10.verticalSpace,
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             width: 150.w, // half screen with padding
-            height: 30.w,
+            height: 30.h,
             child: ElevatedButton.icon(
               style: AppDecorations.startSeedingButtonStyle(),
               onPressed: () {
@@ -147,9 +147,10 @@ Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, Stri
                 Assets.icons.iconStartSeed.path,
                 colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
-              label: labelTextRegular( buttonText, 12.sp, AppColors.white),
+              label:
+              Text(buttonText,style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.white)
             ),
-          ),
+          )),
           20.horizontalSpace,
           Expanded(child:
           SizedBox(

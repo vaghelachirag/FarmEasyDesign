@@ -1,4 +1,5 @@
 // file: app_decorations.dart
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -186,8 +187,9 @@ class AppDecorations {
           Assets.icons.iconMarkIssue.path,
           colorFilter: const ColorFilter.mode(Color(0xFF1C7C45), BlendMode.srcIn),
         ),
-        label: labelTextRegular(S.of(context).markIssue, 12.sp, AppColors.totalAssignPersonTextBg)
-    );
+        label:
+        Text(S.of(context).markIssue,style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.totalAssignPersonTextBg)
+        ));
   }
 }
 

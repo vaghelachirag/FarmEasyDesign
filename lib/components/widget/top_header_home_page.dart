@@ -1,4 +1,7 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class TopHeaderHomePage extends StatelessWidget {
@@ -32,18 +35,11 @@ class TopHeaderHomePage extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
-                fontSize: width * 0.035,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87,
-              ),
+              style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
             ),
             Text(
               'Last Updated on $date',
-              style: TextStyle(
-                fontSize: width * 0.028,
-                color: Colors.grey[600],
-              ),
+              style: context.textTheme.labelLarge?.copyWith(fontSize: 8.sp,color: AppColors.infoTextHingBg),
             )
           ],
         )

@@ -1,3 +1,4 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
@@ -84,29 +85,26 @@ class CycleStatusCard extends ConsumerWidget {
         child:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            10.verticalSpace,
+            5.verticalSpace,
             Row(
               children: [
-                labelTextBold(cycle.cycleName, 16.sp, AppColors.blackColor),
+                Text(cycle.cycleName,style: context.textTheme.titleSmall?.copyWith(fontSize: 12.sp,color: AppColors.cycleTrayBg),),
                 8.horizontalSpace,
                 Expanded(
-                  child: labelTextRegular(
-                    cycle.trayInfo,
-                    14.sp,
-                    AppColors.cycleTrayBg,
-                  ),
+                  child:
+                  Text(cycle.trayInfo,style: context.textTheme.titleLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),)
                 ),
                 SvgPicture.asset(
                     Assets.icons.iconArrowRight.path// Optional: set size
                 ),
               ],
             ),
-            5.verticalSpace,
+            3.verticalSpace,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                labelTextMedium('Started Date • ${formatDate(cycle.startDate)}', 10.sp, AppColors.cycleDateTextBg),
-                labelTextMedium('Est End Date • ${formatDate(cycle.startDate)}', 10.sp, AppColors.cycleDateTextBg),
+                Text('Started Date • ${formatDate(cycle.startDate)}',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
+                Text('Est End Date • ${formatDate(cycle.startDate)}',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
               ],
             ),
             10.verticalSpace,
@@ -131,39 +129,39 @@ class CycleStatusCard extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(child:
-                labelTextBold('${(0 * 100).toInt()}%', 12.sp, AppColors.daysToCompleteBg)),
-                labelTextBold("14 Days", 14.sp, AppColors.blackColor),
+                Text('${(0 * 100).toInt()}%',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg))),
+               Text("14 Days",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
                 5.horizontalSpace,
-                labelTextRegular("to Complete", 10.sp, AppColors.daysToCompleteBg)
+                Text("to Complete",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.daysToCompleteBg)),
               ],
             ),
             10.verticalSpace,
-            _seedingInfoContainer(cycle)
+            _seedingInfoContainer(cycle,context)
           ],
         ),
       ),
     );
   }
 
-  Widget _seedingInfoContainer(ModelCycle cycle){
+  Widget _seedingInfoContainer(ModelCycle cycle, BuildContext context){
     return Container(
       padding: EdgeInsets.only(left: 5.w,right: 5.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          labelTextRegular(cycle.status, 16.sp, AppColors.seedingTextBg),
+          Text(cycle.status,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp,color: AppColors.seedingTextBg)),
           5.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  labelTextMedium('14F Trays of Arugula', 10.sp, AppColors.seedingTrayBg),
+                  Text('14F Trays of Arugula',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
                   4.horizontalSpace,
                   SvgPicture.asset(Assets.icons.iconInfo.path)
                 ],
               ),
-              labelTextMedium('0/14 Completed', 10.sp, AppColors.seedingTrayBg),
+              Text('0/14 Completed',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
             ],
           ),
           5.verticalSpace,
@@ -172,12 +170,12 @@ class CycleStatusCard extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  labelTextMedium('14F Trays of Arugula', 10.sp, AppColors.seedingTrayBg),
+                  Text('14F Trays of Arugula',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
                   4.verticalSpace,
                   SvgPicture.asset(Assets.icons.iconInfo.path)
                 ],
               ),
-              labelTextMedium('0/14 Completed', 10.sp, AppColors.seedingTrayBg),
+              Text('0/14 Completed',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
             ],
           ),
           5.verticalSpace,

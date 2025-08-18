@@ -1,3 +1,4 @@
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _CustomTabConfirmDetailMoveToFertigationState extends State<CustomTabConfi
                 borderRadius: BorderRadius.circular(8.w),
               ),
               child:
-              labelTextRegular(tabs[index], 12.sp, isSelected ? AppColors.white  : AppColors.blackColor)
+              Text(tabs[index],style: context.textTheme.titleLarge?.copyWith(fontSize: 12.sp,fontWeight: FontWeight.w500,color:  isSelected ? AppColors.white  : AppColors.blackColor),)
             ),
           ),
         );
