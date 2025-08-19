@@ -1,6 +1,7 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/screens/seedingProcess/harvestingTrays/manualCheck/manual_check_screen.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/dialougs.dart';
+import '../../../components/widget/common_trayinfo_card_fertigation_widget.dart';
 import '../../../components/widget/custom_nutrient_info_card_widget.dart';
 import '../../../components/widget/custom_nutrietion_time_line_widget.dart';
 import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
@@ -137,7 +139,14 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
         children: [
           CustomTabConfirmDetailMoveToFertigation(),
           10.verticalSpace,
-          _trayInfoContainer(),
+          CommonTrayInfoCardFertigationWidget(
+            seedingSummary: "Seeding 30 Trays : 11 Full Trays | 19 Half Trays",
+            seedLotCodes: ["#4577", "#4580", "#4599", "#4601"],
+            trayDetails: "30 Arugula Tray | 30 Gms/ Tray",
+            coirWeight: "9 Gms",
+            currentStatus: "Seeding",
+            statusDate: "Since 25/05/2025",
+          ),
           10.verticalSpace,
           CustomNutrientInfoCardWidget(),
           20.verticalSpace,
@@ -217,56 +226,111 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
 
   Widget _trayInfoContainer(){
     return Container(
-        padding: const EdgeInsets.all(16),
-        margin: EdgeInsets.all(10.w),
-        decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
-        child:  Column(
-        mainAxisSize: MainAxisSize.min,
+      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.all(10.w),
+      decoration: AppDecorations.seedingMainBg(
+        AppColors.startSeedsMainBg,
+        AppColors.startSeedsBorderBg,
+      ),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-         // Text("Tray Information",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),),
-          Text(S.of(context).trayInformation,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
+          // Title
+          Text(
+            S.of(context).trayInformation,
+            style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 14.sp),
+          ),
           12.verticalSpace,
-          // Tray Details
-          Text( S.of(context).trayDetails,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-          Text("8 Arugula Tray | 9 Gms",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+
+          // Seeding Summary
+          Text(
+            "Seeding 30 Trays : 11 Full Trays | 19 Half Trays",
+            style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 13.sp),
+          ),
           12.verticalSpace,
-          // Tray Position + Date Badge
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text( S.of(context).trayPosition,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-                    Text("Zone 5 | Section 4 |",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
-                    Text("Level 3",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
-                  ],
+
+          // Seed Lot Code
+          Text(
+            "Seed Lot Code:",
+            style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 13.sp),
+          ),
+          6.verticalSpace,
+          Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: List.generate(
+              8,
+                  (index) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade600,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  "#4577",
+                  style: AppTextStyles.robotoBodyRegular.copyWith(
+                    fontSize: 12.sp,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              8.verticalSpace,
-              _buildDateBadge("Moved on 25/05/2025"),
-            ],
+            ),
           ),
-          8.verticalSpace,
-          // Current Status + Date Badge
+          12.verticalSpace,
+
+          // Tray Details
+          Text(
+            "Tray Details:",
+            style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 13.sp),
+          ),
+          Text(
+            "30 Arugula Tray | 30 Gms/ Tray",
+            style: AppTextStyles.robotoBodyRegular.copyWith(
+              fontSize: 12.sp,
+              color: AppColors.labelTextColor,
+            ),
+          ),
+          12.verticalSpace,
+
+          // Coir Weight
+          Text(
+            "Coir Weight:",
+            style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 13.sp),
+          ),
+          Text(
+            "9 Gms",
+            style: AppTextStyles.robotoBodyRegular.copyWith(
+              fontSize: 12.sp,
+              color: AppColors.labelTextColor,
+            ),
+          ),
+          12.verticalSpace,
+
+          // Current Status
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      S.of(context).currentStatus,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      "Current Status:",
+                      style: AppTextStyles.robotoBodyRegular.copyWith(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    Text(S.of(context).germination),
+                    Text(
+                      "Seeding",
+                      style: AppTextStyles.robotoBodyRegular.copyWith(
+                        fontSize: 12.sp,
+                      ),
+                    ),
                   ],
                 ),
               ),
-              8.verticalSpace,
               _buildDateBadge("Since 25/05/2025"),
             ],
           ),
@@ -362,4 +426,6 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
       Text(text,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor)),
     );
   }
+
+
 }

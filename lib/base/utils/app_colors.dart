@@ -189,5 +189,7 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
 
   static const Color totalGmsTextBg = Color(0xFF891F2A);
   static const Color totalGmsBg = Color(0xFFFBF2F2);
+  static const Color seedLotBg = Color(0xFF668760);
+
 }
 

@@ -4,6 +4,8 @@ import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../common/app_text_styles.dart';
+
 class CommonNextActionButton extends StatelessWidget {
   final String description;
   final String days;
@@ -42,12 +44,11 @@ class CommonNextActionButton extends StatelessWidget {
                   children: [
                     Text(
                       description,
-                      style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
-                    ),
+                     style:AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.infoTextHingBg)),
                     5.verticalSpace,
                     Row(
                       children: [
-                        Text("Time Left ",  style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
+                        Text("Time Left ",  style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
                         5.horizontalSpace,
                         _timeBox(days, "d",context),
                          3.horizontalSpace,
@@ -57,7 +58,7 @@ class CommonNextActionButton extends StatelessWidget {
                       ],
                     ),
                     5.verticalSpace,
-                    Text("Move to Fertigation: $moveDate",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
+                    Text("Move to Fertigation: $moveDate",style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
                     10.verticalSpace
                   ],
                 ),
@@ -78,7 +79,7 @@ class CommonNextActionButton extends StatelessWidget {
       ),
       child: Text(
         "$value$unit",
-        style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
+        style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
       ),
     );
   }

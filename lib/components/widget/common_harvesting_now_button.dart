@@ -1,3 +1,4 @@
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,7 +32,7 @@ class CustomerHarvestingNowButton extends StatelessWidget {
       ElevatedButton.icon(
       onPressed:onPressed,
       icon:  SvgPicture.asset(iconPath, color: iconColor,width: 20.sp,height: 20.sp,), // use appropriate icon
-      label:  Text(btnName,style: TextStyle(fontSize: 10.sp,color:textColor),),
+      label:  Text(btnName,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize:  11.sp,color:textColor)),
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor:backgroundColor,

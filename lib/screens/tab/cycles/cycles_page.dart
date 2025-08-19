@@ -3,6 +3,7 @@ import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:farmeasy/base/utils/dashline.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/components/widget/custom_cycle_assign_person.dart';
 import 'package:farmeasy/components/widget/custom_tab_cycle.dart';
 import 'package:farmeasy/components/widget/searchbar_widget.dart';
@@ -88,11 +89,11 @@ class CycleStatusCard extends ConsumerWidget {
             5.verticalSpace,
             Row(
               children: [
-                Text(cycle.cycleName,style: context.textTheme.titleSmall?.copyWith(fontSize: 12.sp,color: AppColors.cycleTrayBg),),
+                Text(cycle.cycleName,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.cycleTrayBg),),
                 8.horizontalSpace,
                 Expanded(
                   child:
-                  Text(cycle.trayInfo,style: context.textTheme.titleLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),)
+                  Text(cycle.trayInfo,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 15.sp,color: AppColors.blackColor),)
                 ),
                 SvgPicture.asset(
                     Assets.icons.iconArrowRight.path// Optional: set size
@@ -103,8 +104,8 @@ class CycleStatusCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Started Date • ${formatDate(cycle.startDate)}',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
-                Text('Est End Date • ${formatDate(cycle.startDate)}',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
+                Text('Started Date • ${formatDate(cycle.startDate)}',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
+                Text('Est End Date • ${formatDate(cycle.startDate)}',style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
               ],
             ),
             10.verticalSpace,
@@ -113,12 +114,12 @@ class CycleStatusCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                labelTextRegular(S.of(context).upcomingSeedingIn, 10.sp, AppColors.upComingSeedsTextBg),
+                Text(S.of(context).upcomingSeedingIn,style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.upComingSeedsTextBg),),
                 5.horizontalSpace,
                 Container(
                     decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
                     padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                    child:   labelTextMedium('${cycle.arugulaTotal.toString()}${S.of(context).days}', 10.sp, AppColors.blackColor)
+                    child:     Text('${cycle.arugulaTotal.toString()}${S.of(context).days}',style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.blackColor),)
                 ),
               ],
             ),
@@ -130,9 +131,9 @@ class CycleStatusCard extends ConsumerWidget {
               children: [
                 Expanded(child:
                 Text('${(0 * 100).toInt()}%',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg))),
-               Text("14 Days",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
+                Text("14 Days",style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
                 5.horizontalSpace,
-                Text("to Complete",style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.daysToCompleteBg)),
+                Text("to Complete",style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg)),
               ],
             ),
             10.verticalSpace,
@@ -149,39 +150,14 @@ class CycleStatusCard extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(cycle.status,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp,color: AppColors.seedingTextBg)),
+          Text(cycle.status,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 14.sp,color: AppColors.seedingTextBg)),
           5.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text('14F Trays of Arugula',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
-                  4.horizontalSpace,
-                  SvgPicture.asset(Assets.icons.iconInfo.path)
-                ],
-              ),
-              Text('0/14 Completed',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
-            ],
-          ),
+          trayInfo(),
           5.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text('14F Trays of Arugula',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
-                  4.verticalSpace,
-                  SvgPicture.asset(Assets.icons.iconInfo.path)
-                ],
-              ),
-              Text('0/14 Completed',style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.seedingTrayBg)),
-            ],
-          ),
+          trayInfo(),
           5.verticalSpace,
           CustomCycleAssignPerson(
             onAssignTap: () {
-
             },
           ),
           5.verticalSpace,
@@ -212,6 +188,22 @@ String getStageText(CycleStage stage) {
     case CycleStage.fertigation:
       return 'Fertigation';
   }
+}
+
+Widget trayInfo(){
+  return   Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          Text('14F Trays of Arugula',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.seedingTrayBg)),
+          4.horizontalSpace,
+          SvgPicture.asset(Assets.icons.iconInfo.path)
+        ],
+      ),
+      Text('0/14 Completed',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.seedingTrayBg)),
+    ],
+  );
 }
 
 String getActionButtonText(CycleStage stage) {

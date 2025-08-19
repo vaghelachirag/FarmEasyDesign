@@ -2,7 +2,9 @@ import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/components/widget/common_next_action_button.dart';
+import 'package:farmeasy/components/widget/common_trayinfo_card_fertigation_widget.dart';
 import 'package:farmeasy/components/widget/common_widget_total_ppm.dart';
 import 'package:farmeasy/components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
@@ -44,7 +46,7 @@ class CustomSeedingActionSection extends StatelessWidget {
 
     return  switch (currentStage) {
       CycleStage.seeding => loadCycleButtonWidget(context,currentStage,buttonText),
-      CycleStage.germination => GerminationWidget(currentStage: currentStage, buttonText: buttonText,),
+      CycleStage.germination => loadGerminationWidget(context,currentStage,buttonText,),
       CycleStage.moveToFertigation => loadCycleButtonWidget(context,currentStage,buttonText),
       CycleStage.harvesting => loadCycleButtonWidget(context,currentStage,buttonText),
       CycleStage.fertigation => loadFertigationWidget(context,modelCycle)
@@ -57,13 +59,13 @@ Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, Stri
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
          8.verticalSpace,
-         Text("Next Action", style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp,color: AppColors.blackColor),),
+         Text("Next Action", style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 14.sp,color: AppColors.blackColor),),
           5.verticalSpace,
          Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
-              Text("This Trays are currently in Germination.", style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
-              SizedBox(width: 15.w,height: 15.h,child:SvgPicture.asset(Assets.icons.iconInfoBlub.path))
+              Text("This Trays are currently in Germination.", style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
+              SizedBox(width: 15.w,height: 15.h,child:SvgPicture.asset(Assets.icons.iconInfo.path))
            ],
          ),
         8.verticalSpace,
@@ -130,7 +132,7 @@ Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, Stri
   return  Column(
     children: [
       10.verticalSpace,
-      Text('Complete Seeding before • 22:00 Today',style: context.textTheme.titleSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),),
+      Text('Complete Seeding before • 22:00 Today',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),),
       10.verticalSpace,
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -170,7 +172,15 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
       10.verticalSpace,
       CustomTabConfirmDetailMoveToFertigation(),
       20.verticalSpace,
-      trayInfoContainer(context,AppColors.trayInfoCycleBg,AppColors.trayInfoCycleBorderBg),
+      CommonTrayInfoCardFertigationWidget(
+        seedingSummary: "Seeding 30 Trays : 11 Full Trays | 19 Half Trays",
+        seedLotCodes: ["#4577", "#4580", "#4599", "#4601","#4577", "#4580", "#4599", "#4601"],
+        trayDetails: "30 Arugula Tray | 30 Gms/ Tray",
+        coirWeight: "9 Gms",
+        currentStatus: "Seeding",
+        statusDate: "Since 25/05/2025",
+      ),
+     // trayInfoContainer(context,AppColors.trayInfoCycleBg,AppColors.trayInfoCycleBorderBg),
       20.verticalSpace,
       CustomNutrientInfoCardWidget(),
       20.verticalSpace,
