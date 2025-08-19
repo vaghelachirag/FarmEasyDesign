@@ -1069,6 +1069,166 @@ class S {
       args: [],
     );
   }
+
+  /// `Total Running Cycles`
+  String get totalRunningCycles {
+    return Intl.message(
+      'Total Running Cycles',
+      name: 'totalRunningCycles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seeding`
+  String get seeding {
+    return Intl.message(
+      'Seeding',
+      name: 'seeding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fertigation`
+  String get fertigation {
+    return Intl.message(
+      'Fertigation',
+      name: 'fertigation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Harvesting`
+  String get harvesting {
+    return Intl.message(
+      'Harvesting',
+      name: 'harvesting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search or scan for trays`
+  String get searchOrScanForTrays {
+    return Intl.message(
+      'Search or scan for trays',
+      name: 'searchOrScanForTrays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Week`
+  String get week {
+    return Intl.message(
+      'Week',
+      name: 'week',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month`
+  String get month {
+    return Intl.message(
+      'Month',
+      name: 'month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Year`
+  String get year {
+    return Intl.message(
+      'Year',
+      name: 'year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Data will be recorded and used by the system to have a better yield in future.`
+  String get thisDataWillBeRecordedAndUsedByTheSystem {
+    return Intl.message(
+      'This Data will be recorded and used by the system to have a better yield in future.',
+      name: 'thisDataWillBeRecordedAndUsedByTheSystem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total PPM`
+  String get totalPpm {
+    return Intl.message(
+      'Total PPM',
+      name: 'totalPpm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NA`
+  String get na {
+    return Intl.message(
+      'NA',
+      name: 'na',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Nutrient PPM Data Available\nStart by entering the PPM values for each nutrient manually to begin tracking`
+  String get noNutrientPpmDataAvailablenstartByEnteringThePpmValues {
+    return Intl.message(
+      'No Nutrient PPM Data Available\nStart by entering the PPM values for each nutrient manually to begin tracking',
+      name: 'noNutrientPpmDataAvailablenstartByEnteringThePpmValues',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter PPM Manually`
+  String get enterPpmManually {
+    return Intl.message(
+      'Enter PPM Manually',
+      name: 'enterPpmManually',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assigned to:`
+  String get assignedTo {
+    return Intl.message(
+      'Assigned to:',
+      name: 'assignedTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign People`
+  String get assignPeople {
+    return Intl.message(
+      'Assign People',
+      name: 'assignPeople',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select issue`
+  String get selectIssue {
+    return Intl.message(
+      'Select issue',
+      name: 'selectIssue',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

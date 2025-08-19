@@ -14,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../components/common/app_text_styles.dart';
 import '../../../generated/l10n.dart';
 
 
@@ -45,9 +46,8 @@ class DashboardPage extends ConsumerWidget {
                 // trigger search
               },
             ),
+            _trayStatusWidget(context),
             5.verticalSpace,
-            _trayStatusWidget(context) ,
-            16.verticalSpace,
             _actionRequiredSection(context)
           ],
         ),
@@ -82,7 +82,7 @@ Widget _actionRequiredSection(BuildContext context){
 
 Widget _trayStatusWidget(BuildContext context){
   return  Wrap(
-    spacing: 16,
+    spacing: 10,
     runSpacing: 16,
     children:  [
       TrayStatusCard(
@@ -133,7 +133,7 @@ class TotalYieldSection extends StatelessWidget {
     final isNegative = yieldChange < 0;
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 0.h),
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -192,19 +192,14 @@ class TotalYieldSection extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.r),
                             ),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   cropName,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: Colors.black87,
-                                  ),
+                                  style: context.textTheme.titleSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),
                                 ),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  size: 18.sp,
-                                  color: Colors.black54,
-                                )
+                               10.horizontalSpace,
+                               SvgPicture.asset(Assets.icons.iconDropdown.path,color: AppColors.infoTextHingBg)
                               ],
                             ),
                           ),
@@ -216,39 +211,29 @@ class TotalYieldSection extends StatelessWidget {
                       children: [
                         Text(
                           "$yieldInGms",
-                          style: TextStyle(
-                            fontSize: 36.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
+                          style: AppTextStyles.poppinsTitleLarge,
                         ),
-                        SizedBox(width: 6.w),
+                        SizedBox(width: 10.w),
                         Text(
                           S.of(context).gms,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.black54,
-                          ),
+                          style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp),
                         ),
                         SizedBox(width: 12.w),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                           decoration: BoxDecoration(
-                            color: isNegative ? const Color(0xFFFDEAEA) : const Color(0xFFE5F5EF),
+                            color: isNegative ? AppColors.totalGmsBg : AppColors.totalGmsBg,
                             borderRadius: BorderRadius.circular(20.r),
                           ),
                           child: Row(
                             children: [
-                              Icon(
-                                isNegative ? Icons.arrow_drop_down : Icons.arrow_drop_up,
-                                size: 16.sp,
-                                color: isNegative ? Colors.red : Colors.green,
-                              ),
+                              SvgPicture.asset(Assets.icons.iconDropdown.path,color: AppColors.totalGmsTextBg,),
+                              5.horizontalSpace,
                               Text(
                                 "${yieldChange.abs().toStringAsFixed(2)} %",
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: isNegative ? Colors.red : Colors.green,
+                                style: AppTextStyles.robotoBodyRegular.copyWith(
+                                  fontSize: 10.sp,
+                                  color: AppColors.totalGmsTextBg
                                 ),
                               )
                             ],
@@ -313,11 +298,11 @@ class AvailableTraysCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 280,
+      width: 280.w,
       child: Card(
         child: ListTile(
           title:  Text(S.of(context).availableTrays),
-          subtitle:  Text('${S.of(context).lastUpdatedOn}12/07/2025'),
+          subtitle:  Text('${S.of(context).lastUpdatedOn}12/07/2025',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 8.sp),),
           trailing: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: const [
@@ -339,7 +324,7 @@ class ActionRequiredSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 3.h),
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -357,11 +342,21 @@ class ActionRequiredSection extends StatelessWidget {
         children: [
           /// Header Row
           actionRequiredHeader(context),
-          SizedBox(height: 8.h),
+          8.verticalSpace,
           seedRequirementHeader(context,requirements),
-          SizedBox(height: 12.h),
+          12.verticalSpace,
           /// List of Seeding Cards
           ...requirements.map((req) => _buildSeedingCard(req,context)),
+          8.horizontalSpace,
+          /// Start Seeding Button
+          SizedBox(
+            width: double.infinity,
+            height: 30.h,
+            child:StartSeedingButton(
+              onPressed: () {
+              },
+            ),
+          )
         ],
       ),
     );
@@ -369,20 +364,8 @@ class ActionRequiredSection extends StatelessWidget {
 
   Widget _buildSeedingCard(SeedingRequirement req, BuildContext context) {
     return Container(
-        decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
       margin: EdgeInsets.only(bottom: 12.h),
       child:
-      Container(
-        margin: EdgeInsets.all(2.h),
-        padding: EdgeInsets.all(12.w),
-        decoration: AppDecorations.seedingBg(),
-        child:
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color:AppColors.white),
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-        child:
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -392,31 +375,16 @@ class ActionRequiredSection extends StatelessWidget {
               children: [
                 Text(
                   '${req.quantity} ${req.item}',
-                  style: context.textTheme.labelLarge?.copyWith(
-                      fontSize: 16.sp
-                  ),
+                  style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
                 ),
                 Text(
                   'Due on ${req.dueDate}',
-                  style: context.textTheme.labelSmall?.copyWith(
-                      fontSize: 12.sp
-                  ),
+                  style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),
                 ),
               ],
             ),
-            SizedBox(height: 8.h),
-            /// Start Seeding Button
-            SizedBox(
-              width: double.infinity,
-              child:StartSeedingButton(
-                onPressed: () {
-                },
-              ),
-            )
           ],
-        )) ,
-      )
-     ,
+        ) ,
     );
   }
 }
@@ -427,9 +395,9 @@ Widget actionRequiredHeader(BuildContext context){
     children: [
       Text(
         S.of(context).actionRequired,
-        style: context.textTheme.labelLarge,
+        style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 14.sp),
       ),
-      SizedBox(width: 10.w),
+      10.horizontalSpace,
       Tooltip(
         message: S.of(context).youNeedToTakeActionOnPendingSeedingTasks,
         child: Icon(
@@ -449,9 +417,9 @@ Widget seedRequirementHeader(BuildContext context, List<SeedingRequirement> requ
       Expanded(child:
       Text(
         "You have ${requirements.length} new seeding requirements due in next 3 days.",
-        style: context.textTheme.labelSmall,
+        style: AppTextStyles.robotoBodyRegular,
       )),
-      SizedBox(width: 8.w),
+      8.horizontalSpace,
       Tooltip(
         message: S.of(context).youNeedToTakeActionOnPendingSeedingTasks,
         child:  SvgPicture.asset(

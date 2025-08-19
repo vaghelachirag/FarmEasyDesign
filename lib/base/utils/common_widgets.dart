@@ -645,7 +645,7 @@ Widget showActionRequiredSection(BuildContext context){
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: EdgeInsets.all(10.w),
+      padding: EdgeInsets.all(5.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

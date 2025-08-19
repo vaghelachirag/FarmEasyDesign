@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addDetail": MessageLookupByLibrary.simpleMessage("Add Detail"),
         "addDetails": MessageLookupByLibrary.simpleMessage("Add Details"),
         "addPeople": MessageLookupByLibrary.simpleMessage("Add People"),
+        "assignPeople": MessageLookupByLibrary.simpleMessage("Assign People"),
+        "assignedTo": MessageLookupByLibrary.simpleMessage("Assigned to:"),
         "availableTrays":
             MessageLookupByLibrary.simpleMessage("Available Trays"),
         "completeHarvestBefore2200Today": MessageLookupByLibrary.simpleMessage(
@@ -49,9 +51,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "days": MessageLookupByLibrary.simpleMessage("Days"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enterPpmManually":
+            MessageLookupByLibrary.simpleMessage("Enter PPM Manually"),
         "enterpassword": MessageLookupByLibrary.simpleMessage("enterPassword"),
         "enteryouremail":
             MessageLookupByLibrary.simpleMessage("enterYourEmail"),
+        "fertigation": MessageLookupByLibrary.simpleMessage("Fertigation"),
         "five": MessageLookupByLibrary.simpleMessage("5"),
         "fiveAvailable": MessageLookupByLibrary.simpleMessage("5 available"),
         "forgotPassword":
@@ -63,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "handbook": MessageLookupByLibrary.simpleMessage("Handbook"),
         "harvest": MessageLookupByLibrary.simpleMessage("Harvest"),
         "harvestedQty": MessageLookupByLibrary.simpleMessage("Harvested Qty:"),
+        "harvesting": MessageLookupByLibrary.simpleMessage("Harvesting"),
         "harvestingTrays":
             MessageLookupByLibrary.simpleMessage("Harvesting Trays"),
         "hideHistory": MessageLookupByLibrary.simpleMessage("Hide History"),
@@ -82,12 +88,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "markIssue": MessageLookupByLibrary.simpleMessage("Mark Issue"),
         "markThisAsBadTrays":
             MessageLookupByLibrary.simpleMessage("Mark this as Bad Trays"),
+        "month": MessageLookupByLibrary.simpleMessage("Month"),
         "moveToFertigation":
             MessageLookupByLibrary.simpleMessage("Move to Fertigation"),
         "moveTrays": MessageLookupByLibrary.simpleMessage("Move Trays"),
         "movingToGermination":
             MessageLookupByLibrary.simpleMessage("Moving to germination"),
+        "na": MessageLookupByLibrary.simpleMessage("NA"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noNutrientPpmDataAvailablenstartByEnteringThePpmValues":
+            MessageLookupByLibrary.simpleMessage(
+                "No Nutrient PPM Data Available\nStart by entering the PPM values for each nutrient manually to begin tracking"),
         "notesremarks": MessageLookupByLibrary.simpleMessage("Notes/Remarks"),
         "numberOfFullTrays":
             MessageLookupByLibrary.simpleMessage("Number of Full Trays"),
@@ -128,11 +139,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "scantheseedlotcodestostartseedingoftrays":
             MessageLookupByLibrary.simpleMessage(
                 "scanTheSeedLotCodesToStartSeedingOfTrays"),
+        "searchOrScanForTrays":
+            MessageLookupByLibrary.simpleMessage("Search or scan for trays"),
         "seeHowToDoIt":
             MessageLookupByLibrary.simpleMessage("See how to do it ?"),
         "seedLotCode": MessageLookupByLibrary.simpleMessage("Seed Lot Code"),
         "seedWeighttray":
             MessageLookupByLibrary.simpleMessage("Seed Weight/Tray"),
+        "seeding": MessageLookupByLibrary.simpleMessage("Seeding"),
         "seedingDate": MessageLookupByLibrary.simpleMessage("Seeding Date"),
         "seedingTrays": MessageLookupByLibrary.simpleMessage("Seeding Trays"),
         "seedsName": MessageLookupByLibrary.simpleMessage("Seeds Name"),
@@ -141,14 +155,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "seehowtodoit": MessageLookupByLibrary.simpleMessage("seeHowToDoIt"),
         "selectAnIssue":
             MessageLookupByLibrary.simpleMessage("Select an issue"),
+        "selectIssue": MessageLookupByLibrary.simpleMessage("Select issue"),
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
         "since25052025":
             MessageLookupByLibrary.simpleMessage("Since 25/05/2025"),
         "status": MessageLookupByLibrary.simpleMessage("Status:"),
         "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
+        "thisDataWillBeRecordedAndUsedByTheSystem":
+            MessageLookupByLibrary.simpleMessage(
+                "This Data will be recorded and used by the system to have a better yield in future."),
         "thisLevelHasOnly":
             MessageLookupByLibrary.simpleMessage("This Level has only"),
         "threetrays": MessageLookupByLibrary.simpleMessage("3 Trays."),
+        "totalPpm": MessageLookupByLibrary.simpleMessage("Total PPM"),
+        "totalRunningCycles":
+            MessageLookupByLibrary.simpleMessage("Total Running Cycles"),
         "totalYield": MessageLookupByLibrary.simpleMessage("Total Yield"),
         "trayBroken": MessageLookupByLibrary.simpleMessage("Tray Broken"),
         "trayDetails": MessageLookupByLibrary.simpleMessage("Tray Details:"),
@@ -164,6 +185,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "updatedOn": MessageLookupByLibrary.simpleMessage("Updated on"),
         "updatedToday": MessageLookupByLibrary.simpleMessage("Updated Today"),
         "viewHistory": MessageLookupByLibrary.simpleMessage("View History"),
+        "week": MessageLookupByLibrary.simpleMessage("Week"),
+        "year": MessageLookupByLibrary.simpleMessage("Year"),
         "youAreTryingToAddTraysBeyondTheAvailableTray":
             MessageLookupByLibrary.simpleMessage(
                 "You are trying to add trays beyond the available tray space on the scanned level."),

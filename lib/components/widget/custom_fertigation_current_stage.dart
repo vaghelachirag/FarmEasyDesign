@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomFertigationCurrentStage extends StatelessWidget {
-  const CustomFertigationCurrentStage();
+  const CustomFertigationCurrentStage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class CustomFertigationCurrentStage extends StatelessWidget {
                   ),
               ],
             ),
-            const SizedBox(width: 12),
+            12.horizontalSpace,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -89,7 +90,7 @@ class CustomFertigationCurrentStage extends StatelessWidget {
                     color: Color(0xFF49454F),
                   ),
                 ),
-                const SizedBox(height: 12),
+               12.verticalSpace,
               ],
             ),
           ],

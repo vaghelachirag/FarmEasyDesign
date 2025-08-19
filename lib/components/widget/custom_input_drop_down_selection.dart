@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../generated/l10n.dart';
 import 'custom_input_drop_down.dart';
 
 final selectedIssueProvider = StateProvider<String?>((ref) => null);
@@ -14,8 +15,8 @@ class CustomInputDropDownSelection extends ConsumerWidget {
     final selectedIssue = ref.watch(selectedIssueProvider);
 
     return CustomDropdownField(
-      title: "Issue",
-      hintText: "Select issue",
+      title: S.of(context).issue,
+      hintText: S.of(context).selectIssue,
       items: issues,
       selectedValue: selectedIssue,
       onChanged: (value) {

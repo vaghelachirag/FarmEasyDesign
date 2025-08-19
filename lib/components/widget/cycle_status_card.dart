@@ -1,4 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/components/widget/top_header_home_page.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,12 @@ class CycleStatusCard extends StatelessWidget {
   final String title;
   final Map<String, int> stageData;
 
-  const CycleStatusCard({
+   CycleStatusCard({
     super.key,
     required this.totalCycles,
     required this.date,
     required this.stageData,
-    this.title = "Total Running Cycles",
+    this.title = 'Total Running Cycles',
   });
 
   @override
@@ -58,7 +59,7 @@ class CycleStatusCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TopHeaderHomePage(
-                            title: 'Total Running Cycles',
+                            title: S.of(context).totalRunningCycles,
                             date: '12/07/2025',
                             assetPath: Assets.icons.syncIcon.path,
                           ),
@@ -94,14 +95,14 @@ class CycleStatusCard extends StatelessWidget {
               dashSpacing: 4,
               color: Colors.grey.shade400,
             ),
-            const SizedBox(height: 12),
+            12.verticalSpace,
             /// Cycle status
             Row(
               children:  [
-                Expanded(child: CycleStatusItem(title: 'Seeding', cycleCount: 3,header: S.of(context).cycles,)),
-                Expanded(child: CycleStatusItem(title: 'Germination', cycleCount: 2,header: S.of(context).cycles,)),
-                Expanded(child: CycleStatusItem(title: 'Fertigation', cycleCount: 4,header: S.of(context).cycles,)),
-                Expanded(child: CycleStatusItem(title: 'Harvesting', cycleCount: 3,header: S.of(context).cycles,)),
+                Expanded(child: CycleStatusItem(title: S.of(context).seeding, cycleCount: 3,header: S.of(context).cycles,)),
+                Expanded(child: CycleStatusItem(title: S.of(context).germination, cycleCount: 2,header: S.of(context).cycles,)),
+                Expanded(child: CycleStatusItem(title: S.of(context).fertigation, cycleCount: 4,header: S.of(context).cycles,)),
+                Expanded(child: CycleStatusItem(title: S.of(context).harvesting, cycleCount: 3,header: S.of(context).cycles,)),
               ],
             ),
           ],
@@ -135,7 +136,7 @@ class CycleStatusItem extends StatelessWidget {
           // Title row
           Text(
             title,
-            style: context.theme.textTheme.bodySmall,
+            style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp),
             maxLines: 1,
           ),
 
@@ -156,8 +157,8 @@ class CycleStatusItem extends StatelessWidget {
               4.horizontalSpace,
               SvgPicture.asset(
                 Assets.icons.iconInfo.path,
-                width: 12,
-                height: 12,
+                width: 12.w,
+                height: 12.h,
               ),
             ],
           ),

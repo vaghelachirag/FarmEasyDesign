@@ -23,7 +23,7 @@ class SaveAsDraftButton extends StatelessWidget {
             color: AppColors.buttonBackgroundColor, // border color (green)
             width: 1, // border thickness
           ),
-        padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 2.h),
+        padding:  EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
       ),
       onPressed: () {
         // Handle save draft action

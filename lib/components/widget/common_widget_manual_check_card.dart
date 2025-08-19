@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../generated/l10n.dart';
+
 class CommonWidgetManualCheckCard extends StatelessWidget {
   final String title;
   const CommonWidgetManualCheckCard({
@@ -38,7 +40,7 @@ class CommonWidgetManualCheckCard extends StatelessWidget {
                   ),
                   8.verticalSpace,
                   Text(
-                    'This Data will be recorded and used by the system to have a better yield in future.',
+                    S.of(context).thisDataWillBeRecordedAndUsedByTheSystem,
                     style: context.textTheme.labelSmall?.copyWith(
                       fontSize: 10.sp,
                       color: AppColors.infoTextHingBg,

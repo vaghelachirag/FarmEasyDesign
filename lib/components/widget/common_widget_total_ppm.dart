@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../base/utils/custom_add_detail_button.dart';
 import '../../base/utils/dialougs.dart';
+import '../../generated/l10n.dart';
 import 'common_enter_ppm_button.dart';
 
 class CommonWidgetTotalPpm extends StatelessWidget {
@@ -43,7 +44,7 @@ class CommonWidgetTotalPpm extends StatelessWidget {
                       children: [
                         SvgPicture.asset(Assets.icons.iconTotalPpmTree),
                         Text(
-                          "Total PPM",
+                          S.of(context).totalPpm,
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
@@ -54,7 +55,7 @@ class CommonWidgetTotalPpm extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      "NA",
+                      S.of(context).na,
                       style: TextStyle(
                         fontSize: 32.sp,
                         fontWeight: FontWeight.bold,
@@ -88,7 +89,7 @@ class CommonWidgetTotalPpm extends StatelessWidget {
                     SizedBox(width: 8.w),
                     Expanded(
                       child: Text(
-                        "No Nutrient PPM Data Available\nStart by entering the PPM values for each nutrient manually to begin tracking",
+                        S.of(context).noNutrientPpmDataAvailablenstartByEnteringThePpmValues,
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black87,
@@ -98,7 +99,7 @@ class CommonWidgetTotalPpm extends StatelessWidget {
                   ],
                 ),
                 12.verticalSpace,
-                SizedBox(width: double.infinity,child: CommonEnterPpmButton(btnName: "Enter PPM Manually", iconPath: Assets.icons.iconAddDetail, onPressed: (){
+                SizedBox(width: double.infinity,child: CommonEnterPpmButton(btnName: S.of(context).enterPpmManually, iconPath: Assets.icons.iconAddDetail, onPressed: (){
                   showDialog(
                     context: context,
                     builder: (context) => ShowEnterPpmDialog(),

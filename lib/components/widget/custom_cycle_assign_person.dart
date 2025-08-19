@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../generated/l10n.dart';
 import '../../screens/tab/cycles/provider/cycles_provider.dart';
 
 class CustomCycleAssignPerson extends ConsumerWidget {
@@ -26,10 +27,10 @@ class CustomCycleAssignPerson extends ConsumerWidget {
     return Row(
       children: [
           Text(
-          'Assigned to:',
+          S.of(context).assignedTo,
           style:  context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.blackColor,fontWeight: FontWeight.w400),
         ),
-        const SizedBox(width: 8),
+        8.verticalSpace,
         SizedBox(
           width: (maxVisible + (extraCount > 0 ? 1 : 0)) * 28,
           height: 28,
@@ -63,7 +64,7 @@ class CustomCycleAssignPerson extends ConsumerWidget {
         GestureDetector(
           onTap: onAssignTap,
           child: Text(
-            'Assign People',
+            S.of(context).assignPeople,
             style: TextStyle(
               fontSize: 11.sp,
               fontFamily: FontFamily.roboto,

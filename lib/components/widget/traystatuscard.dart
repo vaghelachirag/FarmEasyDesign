@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../generated/l10n.dart';
+
 class TrayStatusCard extends StatelessWidget {
   final int available;
   final int total;
@@ -47,8 +49,8 @@ class TrayStatusCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Leading icon on top
-                TopHeaderHomePage(title: 'Available Trays', date: '12/07/2025',assetPath:  Assets.icons.mesageIcon.path),
-                const SizedBox(height: 8),
+                TopHeaderHomePage(title: S.of(context).availableTrays, date: '12/07/2025',assetPath:  Assets.icons.mesageIcon.path),
+                8.verticalSpace,
                 // Tray count + last updated on same row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

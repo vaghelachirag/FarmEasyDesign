@@ -186,5 +186,8 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color timeLeftBoxBg = Color(0xFFFFF8CB);
 
   static const Color saveAsDraftButtonBg = Color(0xFFD6F6D1);
+
+  static const Color totalGmsTextBg = Color(0xFF891F2A);
+  static const Color totalGmsBg = Color(0xFFFBF2F2);
 }
 

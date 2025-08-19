@@ -1,3 +1,4 @@
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,7 +11,7 @@ class StartSeedingButton extends StatelessWidget {
   final String label;
   final String? iconPath;
 
-   StartSeedingButton({
+   const StartSeedingButton({
     super.key,
     required this.onPressed,
     this.label = 'Start Seeding',
@@ -29,10 +30,7 @@ class StartSeedingButton extends StatelessWidget {
       ),
       label: Text(
         label,
-        style: context.textTheme.labelLarge?.copyWith(
-          color: AppColors.white,
-          fontSize: 12.sp,
-        ),
+        style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.white),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF388E3C),

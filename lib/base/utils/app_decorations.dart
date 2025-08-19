@@ -175,8 +175,8 @@ class AppDecorations {
   static OutlinedButton markAsReadButtonStyle(BuildContext context){
     return OutlinedButton.icon(
         style: OutlinedButton.styleFrom(
-          backgroundColor: AppColors.markAsReadButtonBg,
-          side: BorderSide(color:AppColors.markAsReadButtonBorderBg),
+          backgroundColor: AppColors.manualCheckButtonBg,
+          side: BorderSide(color:AppColors.manualCheckButtonBorderBg),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),

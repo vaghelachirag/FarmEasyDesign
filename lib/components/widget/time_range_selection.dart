@@ -1,7 +1,10 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../generated/l10n.dart';
 
 class TimeRangeSelector extends StatelessWidget {
   final String selected;
@@ -15,7 +18,7 @@ class TimeRangeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> options = ['Day', 'Week', 'Month', 'Year'];
+    final List<String> options = [S.of(context).day, S.of(context).week, S.of(context).month, S.of(context).year];
 
     return Row(
       children: options.map((label) {
@@ -25,15 +28,16 @@ class TimeRangeSelector extends StatelessWidget {
           onTap: () => onSelect(label),
           child: Container(
             margin: EdgeInsets.only(right: 8.w),
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
             decoration: BoxDecoration(
               color: isSelected ? AppColors.dateSelectionBg : AppColors.dateUnSelectionBg,
-              borderRadius: BorderRadius.circular(20.r),
+              borderRadius: BorderRadius.circular(10.r),
             ),
             child: Text(
               label,
-              style: context.theme.textTheme.labelSmall?.copyWith(
-                color: isSelected ? AppColors.white : AppColors.dateUnTextBg
+              style: AppTextStyles.robotoBodyRegular.copyWith(
+                color: isSelected ? AppColors.white : AppColors.dateUnTextBg,
+                fontSize: 10.sp
               )
             ),
           ),

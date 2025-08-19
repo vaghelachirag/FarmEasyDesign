@@ -100,5 +100,21 @@
   "viewHistory": "View History",
   "saveAsDraft": "Save as Draft",
   "markIssue": "Mark Issue",
-  "scanTheLevelQrFromWhereYouWantToHarvest": "Scan the level QR from where you want to Harvest the trays"
+  "scanTheLevelQrFromWhereYouWantToHarvest": "Scan the level QR from where you want to Harvest the trays",
+  "totalRunningCycles": "Total Running Cycles",
+  "seeding": "Seeding",
+  "fertigation": "Fertigation",
+  "harvesting": "Harvesting",
+  "searchOrScanForTrays": "Search or scan for trays",
+  "week": "Week",
+  "month": "Month",
+  "year": "Year",
+  "thisDataWillBeRecordedAndUsedByTheSystem": "This Data will be recorded and used by the system to have a better yield in future.",
+  "totalPpm": "Total PPM",
+  "na": "NA",
+  "noNutrientPpmDataAvailablenstartByEnteringThePpmValues": "No Nutrient PPM Data Available\nStart by entering the PPM values for each nutrient manually to begin tracking",
+  "enterPpmManually": "Enter PPM Manually",
+  "assignedTo": "Assigned to:",
+  "assignPeople": "Assign People",
+  "selectIssue": "Select issue"
 }
