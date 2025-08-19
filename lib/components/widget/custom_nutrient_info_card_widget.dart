@@ -35,7 +35,7 @@ class _CustomNutrientInfoCardWidgetState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding:  EdgeInsets.all(12.sp),
       decoration: AppDecorations.nutritionBoxDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +149,7 @@ class _CustomNutrientInfoCardWidgetState
                 decoration: null,
                 child: Text(
                   headers[index],
-                  style: context.textTheme.titleMedium?.copyWith(fontSize: 10.sp,color: AppColors.blackColor),
+                  style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.blackColor),
                 ),
               ),
             ),
@@ -176,7 +176,7 @@ class _CustomNutrientInfoCardWidgetState
                 child: Center(
                   child: Text(
                     item["date"] ?? "",
-                    style: context.textTheme.titleMedium?.copyWith(
+                    style: AppTextStyles.robotoBodyRegular.copyWith(
                       fontSize: 11.sp,
                       color: AppColors.infoTextHingBg,
                     ),
@@ -188,7 +188,7 @@ class _CustomNutrientInfoCardWidgetState
                 child: Center(
                   child: Text(
                     item["moisture"] ?? "",
-                    style: context.textTheme.titleMedium?.copyWith(
+                    style: AppTextStyles.robotoBodyRegular.copyWith(
                       fontSize: 11.sp,
                       color: AppColors.infoTextHingBg,
                     ),
@@ -200,7 +200,7 @@ class _CustomNutrientInfoCardWidgetState
                 child: Center(
                   child: Text(
                     item["temp"] ?? "",
-                    style: context.textTheme.titleMedium?.copyWith(
+                    style: AppTextStyles.robotoBodyRegular.copyWith(
                       fontSize: 11.sp,
                       color: AppColors.infoTextHingBg,
                     ),
@@ -212,7 +212,7 @@ class _CustomNutrientInfoCardWidgetState
                 child: Center(
                   child: Text(
                     item["acidity"] ?? "",
-                    style: context.textTheme.titleMedium?.copyWith(
+                    style: AppTextStyles.robotoBodyRegular.copyWith(
                       fontSize: 11.sp,
                       color: AppColors.infoTextHingBg,
                     ),

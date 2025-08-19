@@ -147,9 +147,8 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
             currentStatus: "Seeding",
             statusDate: "Since 25/05/2025",
           ),
-          10.verticalSpace,
           CustomNutrientInfoCardWidget(),
-          20.verticalSpace,
+          8.verticalSpace,
           CustomNutrietionTimeLineWidget(),
           20.verticalSpace
         ],

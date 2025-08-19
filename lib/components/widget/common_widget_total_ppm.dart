@@ -1,6 +1,7 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -45,22 +46,14 @@ class CommonWidgetTotalPpm extends StatelessWidget {
                         SvgPicture.asset(Assets.icons.iconTotalPpmTree),
                         Text(
                           S.of(context).totalPpm,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
+                          style: AppTextStyles.robotoBodyRegular.copyWith( fontSize: 12.sp,color: AppColors.blackColor)
                         ),
                       ],
                     ),
-                    SizedBox(height: 4.h),
+                   4.horizontalSpace,
                     Text(
                       S.of(context).na,
-                      style: TextStyle(
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
+                      style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 32.sp,color: AppColors.blackColor),
                     ),
                   ],
                 ),
@@ -90,12 +83,8 @@ class CommonWidgetTotalPpm extends StatelessWidget {
                     Expanded(
                       child: Text(
                         S.of(context).noNutrientPpmDataAvailablenstartByEnteringThePpmValues,
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ),
+                        style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
+                    )),
                   ],
                 ),
                 12.verticalSpace,

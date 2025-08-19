@@ -127,7 +127,6 @@ class CycleStatusItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 80.w, // adjust as needed
-      height: 50.h,
       padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,7 +138,7 @@ class CycleStatusItem extends StatelessWidget {
             style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp),
             maxLines: 1,
           ),
-
+          3.verticalSpace,
           // Cycles row
           Row(
             children: [

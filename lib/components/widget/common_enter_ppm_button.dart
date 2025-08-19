@@ -1,4 +1,5 @@
 
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,7 +25,7 @@ class CommonEnterPpmButton extends StatelessWidget {
     return ElevatedButton.icon(
       onPressed:onPressed,
       icon:  SvgPicture.asset(iconPath, color: AppColors.infoTextHingBg,width: 20.sp,height: 20.sp,), // use appropriate icon
-      label:  Text(btnName,style: TextStyle(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
+      label:  Text(btnName,style:  AppTextStyles.robotoBodyLarge.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg),),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.addTotalPPFButtonBg,
         foregroundColor: Colors.white,

@@ -1,5 +1,6 @@
 // ppm_card.dart
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,14 +49,12 @@ class TotalPpmCard extends ConsumerWidget {
                           children: [
                             Text(
                               "Total PPM",
-                              style: context.textTheme.titleLarge?.copyWith(
-                                fontSize: 12.sp,
-                                color: AppColors.blackColor,
-                              ),
+                              style: AppTextStyles.robotoBodyLarge.copyWith( fontSize: 12.sp,
+                                color: AppColors.blackColor,)
                             ),
                             Text(
                               "Last Updated on ${DateFormat('dd/MM/yyyy').format(ppmData.lastUpdated)}",
-                              style: context.textTheme.labelSmall?.copyWith(
+                              style: AppTextStyles.robotoBodyRegular.copyWith(
                                 fontSize: 8.sp,
                                 color: AppColors.customCycleTabUnSelectedTextColor,
                               ),
@@ -71,10 +70,9 @@ class TotalPpmCard extends ConsumerWidget {
                         10.horizontalSpace,
                         Text(
                           ppmData.ppmValue.toString(),
-                          style: context.textTheme.labelLarge?.copyWith(
-                              fontSize: 32.sp,
+                          style: AppTextStyles.robotoBodyLarge.copyWith(
+                              fontSize: 30.sp,
                               color: AppColors.blackColor,
-                              fontWeight: FontWeight.bold
                           ),
                         ),
                         15.horizontalSpace,
@@ -131,7 +129,6 @@ class TotalPpmCard extends ConsumerWidget {
               color: Colors.grey.shade400,
             ),
             10.verticalSpace,
-
             Wrap(
               spacing: 8.w,
               runSpacing: 8.h,

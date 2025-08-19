@@ -28,8 +28,8 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      margin: EdgeInsets.all(10.w),
+      padding:  EdgeInsets.all(8.sp),
+      margin: EdgeInsets.all(2.w),
       decoration: AppDecorations.seedingMainBg(
         AppColors.startSeedsMainBg,
         AppColors.startSeedsBorderBg,
@@ -43,15 +43,13 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
             S.of(context).trayInformation,
             style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 14.sp),
           ),
-          12.verticalSpace,
-
+          8.verticalSpace,
           // Seeding Summary
           Text(
             seedingSummary,
             style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 13.sp),
           ),
-          12.verticalSpace,
-
+          8.verticalSpace,
           // Seed Lot Code
           Text(
             "Seed Lot Code:",
@@ -64,8 +62,8 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
             children: seedLotCodes
                 .map(
                   (code) => Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 6),
+                padding:  EdgeInsets.symmetric(
+                    horizontal: 5.w, vertical: 3.h),
                 decoration: BoxDecoration(
                   color: AppColors.seedLotBg,
                   borderRadius: BorderRadius.circular(20),
@@ -73,7 +71,7 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
                 child: Text(
                   code,
                   style: AppTextStyles.robotoBodyRegular.copyWith(
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     color: Colors.white,
                   ),
                 ),
@@ -81,8 +79,7 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
             )
                 .toList(),
           ),
-          12.verticalSpace,
-
+          8.verticalSpace,
           // Tray Details
           Text(
             "Tray Details:",
@@ -95,8 +92,7 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
               color: AppColors.labelTextColor,
             ),
           ),
-          12.verticalSpace,
-
+          8.verticalSpace,
           // Coir Weight
           Text(
             "Coir Weight:",
@@ -109,8 +105,7 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
               color: AppColors.labelTextColor,
             ),
           ),
-          12.verticalSpace,
-
+          8.verticalSpace,
           // Current Status + Date Badge
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +148,7 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
       child: Text(
         text,
         style: AppTextStyles.robotoBodyRegular.copyWith(
-          fontSize: 11.sp,
+          fontSize: 10.sp,
           color: AppColors.blackColor,
         ),
       ),
