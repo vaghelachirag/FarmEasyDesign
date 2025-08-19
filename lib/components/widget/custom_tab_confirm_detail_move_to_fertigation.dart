@@ -1,6 +1,4 @@
-import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
