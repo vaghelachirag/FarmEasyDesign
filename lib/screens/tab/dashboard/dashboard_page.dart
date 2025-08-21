@@ -48,7 +48,8 @@ class DashboardPage extends ConsumerWidget {
             ),
             _trayStatusWidget(context),
             5.verticalSpace,
-            _actionRequiredSection(context)
+            _actionRequiredSection(context),
+            10.verticalSpace,
           ],
         ),
       ),

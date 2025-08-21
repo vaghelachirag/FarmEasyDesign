@@ -53,6 +53,7 @@ dependencies:
   intl: ^0.20.0 # auto generate language file
   fluttertoast: ^8.2.12
   mobile_scanner: ^7.0.1
+  timeline_tile_plus: ^0.0.3
 
 
 dev_dependencies:

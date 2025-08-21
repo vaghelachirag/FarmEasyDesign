@@ -1,4 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/components/common/custom_unit_dropdown.dart';
 import 'package:farmeasy/components/widget/custom_add_people_suggestion_text_filed.dart';
 import 'package:flutter/cupertino.dart';
@@ -501,7 +502,7 @@ Widget tapScanColumn(BuildContext context){
     children: [
       Text(
         S.of(context).tapToScan,
-        style: context.textTheme.labelMedium?.copyWith(
+        style: AppTextStyles.robotoBodyLarge.copyWith(
           color: AppColors.white,
         ),
       ),
@@ -530,7 +531,6 @@ Widget scanSuccessWidget(BuildContext context){
         const CircularProgressIndicator(),
         fit: BoxFit.contain,
       ),
-
       // Bottom Buttons
     ],
   );

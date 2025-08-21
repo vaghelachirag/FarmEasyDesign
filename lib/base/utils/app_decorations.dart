@@ -10,13 +10,13 @@ import '../../generator/assets.gen.dart';
 import 'common_widgets.dart';
 
 class AppDecorations {
-  static BoxDecoration seedingMainBg(Color startSeedsMainBg, Color startSeedsBorderBg) {
+  static BoxDecoration seedingMainBg(Color startSeedsMainBg, Color startSeedsBorderBg, {double? borderWidth}) {
     return  BoxDecoration(
       color: startSeedsMainBg,
       borderRadius: BorderRadius.circular(12.r),
       border: Border.all(
         color:  startSeedsBorderBg, // very light green border
-        width: 1,
+        width: borderWidth ?? 1,
       ),
     );
   }

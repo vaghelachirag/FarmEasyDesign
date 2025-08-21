@@ -1,5 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -347,23 +348,23 @@ Widget buildCircleIcon(String path, BuildContext context) {
   );
 }
 
-Widget buildStatusChip(String label, BuildContext context) {
-  return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.w),
-      decoration: AppDecorations.nutriationChipDecoration(),
-      child:
-      Row(
-        children: [
-          5.horizontalSpace,
-          SvgPicture.asset(Assets.icons.iconSeeds.path,width: 18.w,height: 18.w),
-          5.horizontalSpace,
-          Text(label,style: context.textTheme.labelMedium?.copyWith(
-              fontSize: 12.sp,color: AppColors.infoTextHingBg
-          ),
-          ),
-          5.horizontalSpace
-        ],
-      )
+
+Widget buildStatusChip(String label, BuildContext context, {String? date}) {
+  return Row(
+    children: [
+      SvgPicture.asset(Assets.icons.iconSeeds.path, width: 14.sp, height: 14.sp),
+      5.horizontalSpace,
+      Text(
+        label,
+        style: AppTextStyles.robotoBodyLarge.copyWith(
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      if (date != null) ...[
+        10.horizontalSpace,
+        Expanded(child: Text(date, style: AppTextStyles.robotoBodyRegular.copyWith())),
+      ],
+    ],
   );
 }
 
@@ -550,14 +551,14 @@ Widget _loadSeedingInfoWindow(BuildContext context){
        crossAxisAlignment: CrossAxisAlignment.start,
        children: [
          infoWidowText(context,S.of(context).scanTheLevelQrWhereYouWantToPlaceThe),
-         SizedBox(height: 8.h), labelTextMedium(context.l10n.youCanScanMultipleSeedLotCodesAtOnce, 11.sp, AppColors.infoTextHingBg),
+         SizedBox(height: 8.h), Text(context.l10n.youCanScanMultipleSeedLotCodesAtOnce,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 11.sp,color: AppColors.infoTextHingBg)),
          SizedBox(height: 2.h),
-         Align(alignment: Alignment.centerRight, child:  Text(S.of(context).seeHowToDoIt,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.seeHowToDoItTextBg),),),],),);
+         Align(alignment: Alignment.centerRight, child:  Text(S.of(context).seeHowToDoIt,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.seeHowToDoItTextBg),),),],),);
 }
 
 // InfoWindow Text
 Widget infoWidowText(BuildContext context,String title){
-   return Text(title,style: context.textTheme.labelSmall?.copyWith(fontSize: 11.sp,color: AppColors.blackColor));
+   return Text(title,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 11.sp,color: AppColors.blackColor));
 }
 
 Widget trayInfoContainer(BuildContext context,Color trayInfoBg,Color trayInfoBorder){

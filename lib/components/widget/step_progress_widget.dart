@@ -1,4 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -122,18 +123,18 @@ class StepProgressIndicator extends StatelessWidget {
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
         ),
-        SizedBox(height: 8.h),
+        8.verticalSpace,
         Text(
           stepTitle,
-          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+          style: AppTextStyles.robotoBodyRegular.copyWith(
             fontSize: 10.sp,
             color: Colors.grey,
           ),
         ),
-        SizedBox(height: 2.h),
+        2.verticalSpace,
         Text(
           stepLabel,
-          style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp),
+          style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp),
           textAlign: TextAlign.center,
         ),
       ],

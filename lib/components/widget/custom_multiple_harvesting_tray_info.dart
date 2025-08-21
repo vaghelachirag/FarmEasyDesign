@@ -1,6 +1,7 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +21,7 @@ class CustomMultipleHarvestingTrayInfo extends StatelessWidget {
         children: [
           // Header
           Text("Products",
-              style: context.textTheme.labelMedium?.copyWith(color: Colors.black,fontSize: 14.sp)),
+              style: AppTextStyles.robotoBodyLarge.copyWith(color: Colors.black,fontSize: 14.sp)),
          8.verticalSpace,
           // Crop Details
           Row(
@@ -31,11 +32,16 @@ class CustomMultipleHarvestingTrayInfo extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: "Crop Details\n",
-                      style: context.textTheme.labelLarge?.copyWith(color: Colors.black,fontSize: 12.sp),
+                      style: AppTextStyles.robotoBodyLarge.copyWith(color: Colors.black,fontSize: 12.sp),
                     ),
                     TextSpan(
-                      text: "Arugula 50 gms",
-                      style: context.textTheme.labelLarge?.copyWith(color: Colors.black,fontSize: 12.sp)),
+                      text: "Arugula ",
+                      style: AppTextStyles.robotoBodyLarge.copyWith(color: Colors.black,fontSize: 12.sp)
+                    ),
+                    TextSpan(
+                        text: "50 gms",
+                        style: AppTextStyles.robotoBodyRegular.copyWith(color: Colors.black,fontSize: 12.sp)
+                    ),
                   ],
                 ),
               ),
@@ -45,45 +51,42 @@ class CustomMultipleHarvestingTrayInfo extends StatelessWidget {
                 decoration: AppDecorations.infoWindowBg(),
                 child: Text(
                   "Seeded on 25/05/2025",
-                  style: context.textTheme.titleSmall?.copyWith(fontSize: 12.sp,color: AppColors.infoTextHingBg),
+                  style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.infoTextHingBg),
                 ),
               ),
             ],
           ),
-
-          SizedBox(height: 16.h),
-
+          16.verticalSpace,
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text("Total Trays",
-                  style: context.textTheme.titleSmall?.copyWith(color: AppColors.disableIconColor,fontSize: 12.sp)),
+                  style: AppTextStyles.robotoBodyRegular.copyWith(color: AppColors.disableIconColor,fontSize: 11.sp)),
               8.horizontalSpace,
               Text("16F/18F | 8H/10H",
-                  style: context.textTheme.titleSmall?.copyWith(color: AppColors.blackColor,fontSize: 12.sp))
+                  style: AppTextStyles.robotoBodyRegular.copyWith(color: AppColors.blackColor,fontSize: 12.sp))
             ],
           ),
-          SizedBox(height: 8.h),
+          8.verticalSpace,
           // Progress bar
           customProgressBar(AppColors.white,AppColors.infoQrScanWindowBg,0.75),
-          SizedBox(height: 4.h),
+          4.verticalSpace,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("74%",
-                  style: TextStyle(
-                      fontSize: 12.sp, color: const Color(0xFF4A4459))),
+                  style: AppTextStyles.robotoBodyRegular.copyWith(color:const Color(0xFF4A4459),fontSize: 12.sp)),
               Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
                       text: '40 gms',
-                      style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
+                      style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.blackColor),
                     ),
                     TextSpan(
                       text: ' Total Yield',
-                      style:  context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.disableIconColor),
+                      style:  AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.blackColor),
                     ),
                   ],
                 ),

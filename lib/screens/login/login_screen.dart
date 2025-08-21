@@ -1,5 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/components/widget/custom_checkbox.dart';
 import 'package:farmeasy/screens/login/provider/login_provider.dart';
 import 'package:farmeasy/screens/tab/homeTab/home_tab.dart';
@@ -90,8 +91,9 @@ class LoginScreen extends HookConsumerWidget {
               children: [
                 Text(
                   S.of(context).login,
-                  style: context.textTheme.titleLarge?.copyWith(
+                  style: AppTextStyles.robotoBodyLarge.copyWith(
                     fontWeight: FontWeight.bold,
+                    fontSize: 14.sp
                   ),
                 ),
                 20.verticalSpace,

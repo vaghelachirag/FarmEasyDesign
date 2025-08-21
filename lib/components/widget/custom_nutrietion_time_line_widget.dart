@@ -78,7 +78,7 @@ class CustomNutrietionTimeLineWidget extends StatelessWidget {
             // Row content: Status Chip and Text (in horizontal layout)
             Expanded(
               child: Row(
-               mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   buildStatusChip(step.label, context),
                   4.horizontalSpace,
