@@ -17,11 +17,8 @@ import '../../generated/l10n.dart';
 import '../../generator/assets.gen.dart';
 
 class LoginScreen extends HookConsumerWidget {
-  static const route = "/LoginScreen";
 
   const LoginScreen({super.key});
-
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

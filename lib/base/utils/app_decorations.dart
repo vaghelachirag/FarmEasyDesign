@@ -188,7 +188,7 @@ class AppDecorations {
           colorFilter: const ColorFilter.mode(Color(0xFF1C7C45), BlendMode.srcIn),
         ),
         label:
-        Text(S.of(context).markIssue,style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.totalAssignPersonTextBg)
+        Text(S.of(context).markIssue,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.totalAssignPersonTextBg)
         ));
   }
 }

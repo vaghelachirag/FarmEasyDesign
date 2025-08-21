@@ -32,10 +32,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "assignedTo": MessageLookupByLibrary.simpleMessage("Assigned to:"),
         "availableTrays":
             MessageLookupByLibrary.simpleMessage("Available Trays"),
+        "badTrays": MessageLookupByLibrary.simpleMessage("Bad Trays"),
+        "coirWeight": MessageLookupByLibrary.simpleMessage("Coir Weight:"),
         "completeHarvestBefore2200Today": MessageLookupByLibrary.simpleMessage(
             "Complete Harvest before • 22:00 Today"),
+        "completeSeedingBefore2200Today": MessageLookupByLibrary.simpleMessage(
+            "Complete Seeding before • 22:00 Today"),
         "confirmHarvest":
             MessageLookupByLibrary.simpleMessage("Confirm Harvest"),
+        "confirmProceed":
+            MessageLookupByLibrary.simpleMessage("Confirm & Proceed"),
         "confirmScanNextLevelQr": MessageLookupByLibrary.simpleMessage(
             "Confirm & Scan next Level QR"),
         "continueWithGoogle":
@@ -51,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "day": MessageLookupByLibrary.simpleMessage("Day"),
         "days": MessageLookupByLibrary.simpleMessage("Days"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enterNutrientPpmValues":
+            MessageLookupByLibrary.simpleMessage("Enter Nutrient PPM Values"),
         "enterPpmManually":
             MessageLookupByLibrary.simpleMessage("Enter PPM Manually"),
         "enterpassword": MessageLookupByLibrary.simpleMessage("enterPassword"),
@@ -113,13 +121,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pleaseEnterEmail"),
         "pleaseenterpassword":
             MessageLookupByLibrary.simpleMessage("pleaseEnterPassword"),
+        "potassiumSilicate":
+            MessageLookupByLibrary.simpleMessage("Potassium Silicate"),
         "ppm": MessageLookupByLibrary.simpleMessage("PPM"),
         "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
+        "processed": MessageLookupByLibrary.simpleMessage("Processed"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
         "remembered": MessageLookupByLibrary.simpleMessage("remembered"),
         "removeALotCode":
             MessageLookupByLibrary.simpleMessage("Remove a Lot Code?"),
         "saveAsDraft": MessageLookupByLibrary.simpleMessage("Save as Draft"),
+        "saveDetails": MessageLookupByLibrary.simpleMessage("Save Details"),
         "scanLevelQr": MessageLookupByLibrary.simpleMessage("Scan Level QR"),
         "scanMore": MessageLookupByLibrary.simpleMessage("Scan More"),
         "scanNow": MessageLookupByLibrary.simpleMessage("Scan now"),
@@ -167,6 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thisLevelHasOnly":
             MessageLookupByLibrary.simpleMessage("This Level has only"),
         "threetrays": MessageLookupByLibrary.simpleMessage("3 Trays."),
+        "toComplete": MessageLookupByLibrary.simpleMessage("to Complete"),
         "totalPpm": MessageLookupByLibrary.simpleMessage("Total PPM"),
         "totalRunningCycles":
             MessageLookupByLibrary.simpleMessage("Total Running Cycles"),
@@ -179,6 +192,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "traySpaceYouCanConfirmThisPositionForFirst":
             MessageLookupByLibrary.simpleMessage(
                 "Tray space. You can Confirm this position for first"),
+        "traySuccessDialog":
+            MessageLookupByLibrary.simpleMessage("Tray Success Dialog"),
         "upcomingSeedingIn":
             MessageLookupByLibrary.simpleMessage("Upcoming Seeding in"),
         "updateToday": MessageLookupByLibrary.simpleMessage("Update Today"),

@@ -2,18 +2,20 @@ import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../gen/assets.gen.dart';
+import '../../generated/l10n.dart';
 import 'custom_add_detail_button.dart';
 
 void showTraySuccessDialog(BuildContext context,bool isWithImage,bool isSelected) {
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
-    barrierLabel: "Tray Success Dialog",
+    barrierLabel: S.of(context).traySuccessDialog,
     barrierColor: Colors.black54, // semi-transparent background
     transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: (context, anim1, anim2) {
@@ -54,7 +56,7 @@ void showTraySuccessDialog(BuildContext context,bool isWithImage,bool isSelected
                           child:
                           CustomAddDetailButton(
                             iconPath: Assets.icons.iconConfirmAndProcessed,
-                            btnName: "Confirm & Proceed",
+                            btnName: S.of(context).confirmProceed,
                             onPressed: () {
                             },
                           ))],
@@ -73,7 +75,7 @@ void showHarvestingSuccessDialog(BuildContext context) {
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
-    barrierLabel: "Tray Success Dialog",
+    barrierLabel: S.of(context).traySuccessDialog,
     barrierColor: Colors.black54, // semi-transparent background
     transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: (context, anim1, anim2) {
@@ -81,10 +83,10 @@ void showHarvestingSuccessDialog(BuildContext context) {
         backgroundColor: Colors.transparent, // transparent full-screen background
         body: Center(
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 24),
-            padding: const EdgeInsets.all(16),
+            margin:  EdgeInsets.symmetric(horizontal: 24.w),
+            padding:  EdgeInsets.all(16.sp),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               borderRadius: BorderRadius.circular(24),
             ),
             child: Column(
@@ -98,7 +100,7 @@ void showHarvestingSuccessDialog(BuildContext context) {
                     child: const Icon(Icons.close, size: 24),
                   ),
                 ),
-                const SizedBox(height: 8),
+                8.verticalSpace,
                 // Main Info Card
                 Container(
                   width: double.infinity,
@@ -110,21 +112,21 @@ void showHarvestingSuccessDialog(BuildContext context) {
                       SvgPicture.asset(Assets.images.harvestingSucess),
                       Text('Adding 8 Trays :',style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
                       8.verticalSpace,
-                      trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
+                      trayTextWidget(S.of(context).trayDetails,"8 Arugula Tray | 9 Gms ",context),
                       8.verticalSpace,
-                      trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
+                      trayTextWidget(S.of(context).trayPosition,"Zone 3 | Section 4 | Level 3 ",context),
                       8.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          trayTextWidget("Status: ","Seeding",context),
+                          trayTextWidget(S.of(context).status,S.of(context).seeding,context),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                             decoration: BoxDecoration(
                               color: AppColors.updateTodayBg,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: labelTextRegular("Update Today", 12.sp, AppColors.blackColor),
+                            child: labelTextRegular(S.of(context).updateToday, 12.sp, AppColors.blackColor),
                           )
                         ],
                       ),
@@ -138,7 +140,7 @@ void showHarvestingSuccessDialog(BuildContext context) {
                     child:
                     CustomAddDetailButton(
                       iconPath: Assets.icons.iconConfirmAndProcessed,
-                      btnName: "Confirm & Proceed",
+                      btnName: S.of(context).confirmProceed,
                       onPressed: () {
                       },
                     ))
@@ -155,8 +157,8 @@ Widget trayTextWidget(String title,String hint, BuildContext context){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(title,style: context.textTheme.labelLarge?.copyWith(fontSize: 14.sp)),
-      Text(hint,style: context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
+      Text(title,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 14.sp)),
+      Text(hint,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.labelTextColor)),
       5.verticalSpace,
     ],
   );
@@ -194,10 +196,10 @@ class ShowEnterPpmDialog extends StatelessWidget {
                     children: [
                       SvgPicture.asset(Assets.icons.iconTotalPpmTree),
                       10.horizontalSpace,
-                      const Expanded(
+                       Expanded(
                         child: Text(
-                          "Enter Nutrient PPM Values",
-                          style: TextStyle(
+                          S.of(context).enterNutrientPpmValues,
+                          style: AppTextStyles.robotoBodyLarge.copyWith(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -209,7 +211,7 @@ class ShowEnterPpmDialog extends StatelessWidget {
                   // Save Button
                   SizedBox(
                       width: double.infinity,
-                      child: CustomAddDetailButton(btnName: "Save Details", iconPath: "", onPressed: (){
+                      child: CustomAddDetailButton(btnName: S.of(context).saveDetails, iconPath: "", onPressed: (){
                       })),
                   20.verticalSpace
                 ],
@@ -258,7 +260,7 @@ Widget _buildNutrientSection(int index, List<TextEditingController> controllers,
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         decoration: enterTotalPpfDecoration(),
         child:  Text(
-          "Potassium Silicate",
+          S.of(context).potassiumSilicate,
           style:  context.textTheme.labelSmall?.copyWith(fontSize: 14.sp,color: AppColors.infoTextHingBg),
         ),
       ),

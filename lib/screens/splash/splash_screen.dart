@@ -1,5 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +31,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await Future.delayed(const Duration(seconds: 2));
     if (await splashService.isLoggedIn()) {
     } else {
-      context.navigator.pushReplacementNamed(LoginScreen.route);
+      context.navigator.pushReplacementNamed(loginScreen);
     }
   }
 

@@ -1,10 +1,8 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/screens/seedingProcess/seedingTrays/addPersonDetail/add_person_detail_screen.dart';
-import 'package:farmeasy/screens/splash/provider/splash_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,11 +17,9 @@ import '../../../base/utils/utils.dart';
 import '../../../components/widget/step_progress_widget.dart';
 import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
-import '../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
 
 class SeedingTraysScreen extends ConsumerStatefulWidget {
-  static const route = "/SeedingTraysScreen";
 
   const SeedingTraysScreen({super.key});
 
@@ -42,7 +38,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
     super.initState();
     Future(() {
       Utils.hideKeyboard(context);
-      ref.read(scanStateProvider.notifier).state = ScanState.success;
+      ref.read(scanStateProvider.notifier).state = ScanState.idle;
     });
   }
 
@@ -117,7 +113,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
         SizedBox(
           child: CustomAddDetailButton(btnName: context.l10n.addDetail, onPressed: () {
             context.navigator.pushNamed(
-              AddPersonDetailScreen.route,
+              addPersonDetailScreen,
               arguments: {cycleStageArgumentName: cycleStatus},
             );
           },iconPath: Assets.icons.iconAddDetail.path),

@@ -24,7 +24,6 @@ import '../../tab/seeding/seeding_screen_page.dart';
 
 
 class MoveToFertigationScreen extends ConsumerStatefulWidget {
-  static const route = "/MoveToFertigationScreen";
 
   const MoveToFertigationScreen({super.key});
 

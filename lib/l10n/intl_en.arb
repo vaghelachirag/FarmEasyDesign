@@ -116,5 +116,15 @@
   "enterPpmManually": "Enter PPM Manually",
   "assignedTo": "Assigned to:",
   "assignPeople": "Assign People",
-  "selectIssue": "Select issue"
+  "selectIssue": "Select issue",
+  "saveDetails": "Save Details",
+  "potassiumSilicate": "Potassium Silicate",
+  "confirmProceed": "Confirm & Proceed",
+  "traySuccessDialog": "Tray Success Dialog",
+  "enterNutrientPpmValues": "Enter Nutrient PPM Values",
+  "toComplete": "to Complete",
+  "completeSeedingBefore2200Today": "Complete Seeding before • 22:00 Today",
+  "coirWeight": "Coir Weight:",
+  "processed": "Processed",
+  "badTrays": "Bad Trays"
 }

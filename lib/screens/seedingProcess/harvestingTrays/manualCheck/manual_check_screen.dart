@@ -109,7 +109,7 @@ class ManualCheckScreen extends HookConsumerWidget {
       width: double.infinity,
       child: CustomAddDetailButton(btnName: S.of(context).proceed, onPressed: () {
         context.navigator.pushNamed(
-          ConfirmationManualCheckScreen.route,
+          confirmationManualCheckScreen,
           arguments: {isBadTray: isBadTrayChecked},
         );
       },iconPath: Assets.icons.iconConfirmAndProcessed.path),

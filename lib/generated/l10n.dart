@@ -1229,6 +1229,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Save Details`
+  String get saveDetails {
+    return Intl.message(
+      'Save Details',
+      name: 'saveDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Potassium Silicate`
+  String get potassiumSilicate {
+    return Intl.message(
+      'Potassium Silicate',
+      name: 'potassiumSilicate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm & Proceed`
+  String get confirmProceed {
+    return Intl.message(
+      'Confirm & Proceed',
+      name: 'confirmProceed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tray Success Dialog`
+  String get traySuccessDialog {
+    return Intl.message(
+      'Tray Success Dialog',
+      name: 'traySuccessDialog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Nutrient PPM Values`
+  String get enterNutrientPpmValues {
+    return Intl.message(
+      'Enter Nutrient PPM Values',
+      name: 'enterNutrientPpmValues',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `to Complete`
+  String get toComplete {
+    return Intl.message(
+      'to Complete',
+      name: 'toComplete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Complete Seeding before • 22:00 Today`
+  String get completeSeedingBefore2200Today {
+    return Intl.message(
+      'Complete Seeding before • 22:00 Today',
+      name: 'completeSeedingBefore2200Today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coir Weight:`
+  String get coirWeight {
+    return Intl.message(
+      'Coir Weight:',
+      name: 'coirWeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Processed`
+  String get processed {
+    return Intl.message(
+      'Processed',
+      name: 'processed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bad Trays`
+  String get badTrays {
+    return Intl.message(
+      'Bad Trays',
+      name: 'badTrays',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

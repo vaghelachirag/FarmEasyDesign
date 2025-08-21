@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:farmeasy/base/utils/app_constant.dart';
+import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/screens/login/login_screen.dart';
+import 'package:farmeasy/screens/seedingProcess/seedingTrays/confirmSeeding/confirm_seeding_tray.dart';
 import 'package:farmeasy/screens/splash/splash_screen.dart';
 import 'package:farmeasy/screens/seedingProcess/seedingTrays/addPersonDetail/add_person_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,32 +22,34 @@ import '../../screens/tab/seeding/seeding_screen_page.dart';
 class AppRoute {
   static Route? onGeneratedRoute(RouteSettings settings) {
     switch (settings.name) {
-      case SplashScreen.route:
+      case splashScreen:
         return navigatePushToScreen(SplashScreen(), settings);
-      case LoginScreen.route:
+      case loginScreen:
         return navigatePushToScreen(LoginScreen(), settings);
-      case DashboardPage.route:
+      case dashBoardPage:
         return navigatePushToScreen(DashboardPage(), settings);
-      case HomeTab.route:
+      case homeTab:
         return navigatePushToScreen(HomeTab(), settings);
-      case AddPersonDetailScreen.route:
+      case addPersonDetailScreen:
         return navigatePushToScreen(AddPersonDetailScreen(), settings);
-      case SeedingTraysScreen.route:
+      case seedingTraysScreen:
         return navigatePushToScreen(SeedingTraysScreen(), settings);
-      case SeedingScreenPage.route:
+      case seedingScreenPage:
         return navigatePushToScreen(SeedingScreenPage(), settings);
-      case MovingToGerminationScreen.route:
+      case movingToGerminationScreen:
         return navigatePushToScreen(MovingToGerminationScreen(), settings);
-      case MoveToFertigationScreen.route:
+      case moveToFertigationScreen:
         return navigatePushToScreen(MoveToFertigationScreen(), settings);
-      case HarvestingTraysScreens.route:
+      case harvestingTraysScreens:
         return navigatePushToScreen(HarvestingTraysScreens(), settings);
-      case ConfirmHarvestingTrayDetail.route:
+      case confirmHarvestingTrayDetail:
         return navigatePushToScreen(ConfirmHarvestingTrayDetail(), settings);
-      case ManualCheckScreen.route:
+      case manualCheckScreen:
         return navigatePushToScreen(ManualCheckScreen(), settings);
-      case ConfirmationManualCheckScreen.route:
+      case confirmationManualCheckScreen:
         return navigatePushToScreen(ConfirmationManualCheckScreen(), settings);
+      case confirmSeedingTray:
+        return navigatePushToScreen(ConfirmSeedingTray(), settings);
       default:
         return null;
     }

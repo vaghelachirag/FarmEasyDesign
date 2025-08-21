@@ -26,8 +26,6 @@ import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
 
 class HarvestingTraysScreens extends ConsumerStatefulWidget {
-  static const route = "/HarvestingTraysScreens";
-
   const HarvestingTraysScreens({super.key});
 
   @override

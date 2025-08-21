@@ -1,6 +1,8 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
+import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,7 +35,7 @@ class CommonWidgetManualCheckCard extends StatelessWidget {
                   10.verticalSpace,
                   Text(
                     title,
-                    style: context.textTheme.labelLarge?.copyWith(
+                    style: AppTextStyles.robotoBodyLarge.copyWith(
                       fontSize: 14.sp,
                       color: AppColors.blackColor,
                     ),
@@ -41,7 +43,7 @@ class CommonWidgetManualCheckCard extends StatelessWidget {
                   8.verticalSpace,
                   Text(
                     S.of(context).thisDataWillBeRecordedAndUsedByTheSystem,
-                    style: context.textTheme.labelSmall?.copyWith(
+                    style: AppTextStyles.robotoBodyRegular.copyWith(
                       fontSize: 10.sp,
                       color: AppColors.infoTextHingBg,
                     ),
@@ -55,10 +57,10 @@ class CommonWidgetManualCheckCard extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               SvgPicture.asset(
-                'assets/images/delete_traybg.svg',
+               Assets.images.deleteTrayBg.path,
               ),
               SvgPicture.asset(
-                'assets/images/delete_tray.svg',
+                Assets.images.deleteTray.path,
                 width: 120.w,
                 height: 120.h,
               ),

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../base/utils/app_colors.dart';
 import '../../base/utils/app_decorations.dart';
+import '../../base/utils/common_widgets.dart';
 import '../../generated/l10n.dart';
 import '../common/app_text_styles.dart';
 
@@ -52,37 +53,15 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
           8.verticalSpace,
           // Seed Lot Code
           Text(
-            "Seed Lot Code:",
+            S.of(context).seedLotCode,
             style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 13.sp),
           ),
           6.verticalSpace,
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: seedLotCodes
-                .map(
-                  (code) => Container(
-                padding:  EdgeInsets.symmetric(
-                    horizontal: 5.w, vertical: 3.h),
-                decoration: BoxDecoration(
-                  color: AppColors.seedLotBg,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  code,
-                  style: AppTextStyles.robotoBodyRegular.copyWith(
-                    fontSize: 10.sp,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            )
-                .toList(),
-          ),
+          seedLotCodeList(seedLotCodes),
           8.verticalSpace,
           // Tray Details
           Text(
-            "Tray Details:",
+            S.of(context).trayDetails,
             style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 13.sp),
           ),
           Text(
@@ -95,7 +74,7 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
           8.verticalSpace,
           // Coir Weight
           Text(
-            "Coir Weight:",
+            S.of(context).coirWeight,
             style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp),
           ),
           Text(
@@ -115,7 +94,7 @@ class CommonTrayInfoCardFertigationWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Current Status:",
+                      S.of(context).currentStatus,
                       style: AppTextStyles.robotoBodyRegular.copyWith(
                         fontSize: 13.sp,
                         fontWeight: FontWeight.bold,

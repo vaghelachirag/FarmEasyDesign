@@ -133,7 +133,7 @@ class CycleStatusCard extends ConsumerWidget {
                 Text('${(0 * 100).toInt()}%',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg))),
                 Text("14 Days",style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
                 5.horizontalSpace,
-                Text("to Complete",style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg)),
+                Text(S.of(context).toComplete,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg)),
               ],
             ),
             10.verticalSpace,
@@ -209,7 +209,7 @@ Widget trayInfo(){
 String getActionButtonText(CycleStage stage) {
   switch (stage) {
     case CycleStage.seeding:
-      return 'Start Seeding';
+      return 'Continue Seeding';
     case CycleStage.germination:
       return 'Start Moment';
     case CycleStage.moveToFertigation:

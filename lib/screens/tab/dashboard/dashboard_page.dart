@@ -22,8 +22,6 @@ import '../../../generated/l10n.dart';
 class DashboardPage extends ConsumerWidget {
   const DashboardPage({super.key});
 
-  static const route = "/DashboardPage";
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;

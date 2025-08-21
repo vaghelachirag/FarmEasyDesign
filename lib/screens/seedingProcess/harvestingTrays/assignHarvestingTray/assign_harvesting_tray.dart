@@ -380,27 +380,26 @@ Widget _manualCheckWidget(BuildContext context, cycleStatus){
           child:
           CustomAddDetailButton(btnName: S.of(context).confirmHarvest, iconPath: Assets.icons.confirmHarvest.path, onPressed: (){
             context.navigator.pushNamed(
-              ConfirmHarvestingTrayDetail.route,
+              confirmHarvestingTrayDetail,
               arguments: {cycleStageArgumentName: cycleStatus},
             );
-
           }),
         ),
-        const SizedBox(height: 12),
+        12.verticalSpace,
         // Manual Check Button (Outlined),
         SizedBox(
           width: double.infinity,
-          child:   _badTrayButton(),
+          child:   _badTrayButton(context),
         )
       ],
   );
 }
 
-Widget _badTrayButton(){
+Widget _badTrayButton(BuildContext context){
   return SizedBox(width: double.infinity,height:40.w, child: ElevatedButton.icon(
     onPressed:(){},
     icon:  SvgPicture.asset(Assets.icons.iconManualCheck.path,color: AppColors.white), // use appropriate icon
-    label: labelTextRegular("Bad Trays", 12.sp, AppColors.white),
+    label: labelTextRegular(S.of(context).badTrays, 12.sp, AppColors.white),
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.errorBorderColor,
       foregroundColor: Colors.white,

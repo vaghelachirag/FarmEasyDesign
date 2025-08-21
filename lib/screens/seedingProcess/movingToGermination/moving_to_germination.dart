@@ -16,7 +16,6 @@ import '../../tab/seeding/provider/seeding_provider.dart';
 
 
 class MovingToGerminationScreen extends ConsumerStatefulWidget {
-  static const route = "/MovingToGerminationScreen";
 
   const MovingToGerminationScreen({super.key});
 

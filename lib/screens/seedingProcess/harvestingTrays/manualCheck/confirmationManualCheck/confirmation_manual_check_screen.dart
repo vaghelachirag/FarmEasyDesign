@@ -16,7 +16,6 @@ import '../../../../../components/widget/custom_step_progress_manual_check.dart'
 import '../../../../../generated/l10n.dart';
 
 class ConfirmationManualCheckScreen extends HookConsumerWidget {
-  static const route = "/ConfirmationManualCheckScreen";
 
   late bool isBadTrayCheck;
    ConfirmationManualCheckScreen({super.key});

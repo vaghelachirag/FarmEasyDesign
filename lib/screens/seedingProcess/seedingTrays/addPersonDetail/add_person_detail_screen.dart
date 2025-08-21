@@ -15,6 +15,7 @@ import '../../../../base/utils/app_decorations.dart';
 import '../../../../base/utils/common_widgets.dart';
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
+import '../../../../base/utils/dialougs.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
 import '../../../../base/utils/utils.dart';
 import '../../../../components/widget/custom_input_field.dart';
@@ -32,7 +33,6 @@ import 'provider/add_person_detail_screen.dart';
 class AddPersonDetailScreen extends HookConsumerWidget {
   AddPersonDetailScreen({super.key});
 
-  static const route = "/AddPersonDetailScreen";
   late CycleStage cycleStatus;
 
   @override
@@ -97,12 +97,12 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
                 20.verticalSpace,
                 _coreWeightTray(numberOfHalfTrays, context),
                 20.verticalSpace,
-                _customSeeLotInputFiled(ref),
+                _customSeeLotInputFiled(ref,context),
                 10.verticalSpace,
                 _addPeopleSuggestionWidget(searchText),
                 _seedingDate(numberOfHalfTrays, context),
                 20.verticalSpace,
-                _customProcessButton(),
+                _customProcessButton(context),
                 20.verticalSpace,
                 SizedBox(
                   width: double.infinity,
@@ -119,18 +119,22 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
     );
 }
 
-  Widget _customProcessButton(){
-    return  CustomProceedButton(onPressed: (){},title: "Processed",iconPath:   Assets.icons.iconQrProcessed.path);
+  Widget _customProcessButton(BuildContext context){
+    return  CustomProceedButton(onPressed: (){
+      context.navigator.pushNamed(
+        confirmSeedingTray,
+        arguments: {cycleStageArgumentName: cycleStatus},
+      );
+    },title: S.of(context).processed,iconPath:   Assets.icons.iconQrProcessed.path);
   }
 
-  Widget _customSeeLotInputFiled(WidgetRef ref){
+  Widget _customSeeLotInputFiled(WidgetRef ref, BuildContext context){
     return CustomSeedLotInputField(
-      title: "Seed Lot Code",
+      title: S.of(context).seedLotCode,
       onScanPressed: () {
-        // Open QR scanner or add manually
+
       },
       onRemovePressed: () {
-        // Logic to remove a lot code
         ref.read(seedLotListProvider.notifier).state = [];
       },
     );

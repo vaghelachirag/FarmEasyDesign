@@ -10,6 +10,7 @@ import 'base/utils/app_colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'base/utils/constants.dart';
 import 'base/utils/global_context.dart';
 import 'base/utils/theme.dart';
 import 'generated/l10n.dart';
@@ -61,7 +62,7 @@ class MyApp extends ConsumerWidget {
         darkTheme: darkThemeData(),
         debugShowCheckedModeBanner: false,
         routes: {
-          LoginScreen.route: (context) => LoginScreen(),
+          loginScreen: (context) => LoginScreen(),
         },
         navigatorKey: NavigationService.navigatorKey,
         localizationsDelegates: const [

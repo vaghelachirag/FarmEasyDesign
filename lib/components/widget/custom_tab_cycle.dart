@@ -3,6 +3,8 @@ import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabCycle extends StatefulWidget {
+  const CustomTabCycle({super.key});
+
   @override
   _CustomTabCycleState createState() => _CustomTabCycleState();
 }

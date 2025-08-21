@@ -124,10 +124,10 @@ Text labelTextMedium(String hint, double fontSize, Color labelTextColor) {
 Text labelTextRegular(String hint, double fontSize, Color labelTextColor) {
   return  Text(
     hint,
-    style: TextStyle(
-        color: labelTextColor,
-        fontSize: ScreenUtil().setSp(fontSize),
-        fontFamily: AppConstant.labelFrontRegular),
+    style: AppTextStyles.robotoBodyRegular.copyWith(
+      color: labelTextColor,
+      fontSize: ScreenUtil().setSp(fontSize),
+    )
   );
 }
 
@@ -146,7 +146,6 @@ AppBar getActionbar(BuildContext context, String title) {
     ),
     title: Row(
       children: [
-        SizedBox(width: 0),
         Text(title,style: context.textTheme.labelSmall?.copyWith(fontSize: 18.sp,color: AppColors.blackColor),)
       ],
     ),
@@ -734,9 +733,7 @@ Widget showActionRequiredDialog(BuildContext context) {
                 'You are trying to add trays beyond the available tray space on the scanned level.',
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
-
-              const SizedBox(height: 16),
-
+              16.horizontalSpace,
               // Info box
               Container(
                 decoration: BoxDecoration(
@@ -909,6 +906,32 @@ Widget buildTopBar() {
   );
 }
 
+// Seed Lot Code List
+Widget seedLotCodeList(List<String> seedLotCodes){
+ return  Wrap(
+   spacing: 6,
+   runSpacing: 6,
+   children: seedLotCodes
+       .map(
+         (code) => Container(
+       padding:  EdgeInsets.symmetric(
+           horizontal: 5.w, vertical: 3.h),
+       decoration: BoxDecoration(
+         color: AppColors.seedLotBg,
+         borderRadius: BorderRadius.circular(20),
+       ),
+       child: Text(
+         code,
+         style: AppTextStyles.robotoBodyRegular.copyWith(
+           fontSize: 10.sp,
+           color: AppColors.white,
+         ),
+       ),
+     ),
+   ).toList(),
+ );
+}
+
 Widget infoWidowForScan(BuildContext context, CycleStage cycleStatus, WidgetRef ref){
   return Container(
     width: double.infinity,
@@ -935,8 +958,8 @@ Widget commonInfoWidgetWithText(BuildContext context, String title, String hint)
 
 Widget customProgressBar(Color background, Color active,double progress){
    return   SizedBox(
-     width: 300, // Adjust width as needed
-     height: 4,  // Thin progress bar
+     width: 300.w, // Adjust width as needed
+     height: 4.h,  // Thin progress bar
      child: ClipRRect(
        borderRadius: BorderRadius.circular(4), // Rounded corners
        child: LinearProgressIndicator(

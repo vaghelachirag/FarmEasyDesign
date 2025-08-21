@@ -112,19 +112,19 @@ Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, Stri
 void navigateToStage(BuildContext context, CycleStage stage) {
   switch (stage) {
     case CycleStage.seeding:
-      moveToNextScreen(context,SeedingTraysScreen.route,stage);
+      moveToNextScreen(context,seedingTraysScreen,stage);
       break;
     case CycleStage.germination:
-      moveToNextScreen(context,MovingToGerminationScreen.route,stage);
+      moveToNextScreen(context,movingToGerminationScreen,stage);
       break;
     case CycleStage.moveToFertigation:
-      moveToNextScreen(context,MoveToFertigationScreen.route,stage);
+      moveToNextScreen(context,moveToFertigationScreen,stage);
       break;
     case CycleStage.harvesting:
-      moveToNextScreen(context,HarvestingTraysScreens.route,stage);
+      moveToNextScreen(context,harvestingTraysScreens,stage);
       break;
     case CycleStage.fertigation:
-      moveToNextScreen(context,MoveToFertigationScreen.route,stage);
+      moveToNextScreen(context,moveToFertigationScreen,stage);
   }
 }
 
@@ -132,7 +132,7 @@ Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, Stri
   return  Column(
     children: [
       10.verticalSpace,
-      Text('Complete Seeding before • 22:00 Today',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),),
+      Text(S.of(context).completeSeedingBefore2200Today,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),),
       10.verticalSpace,
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
