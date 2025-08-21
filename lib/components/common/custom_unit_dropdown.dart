@@ -2,6 +2,7 @@
 
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,11 +32,11 @@ class CustomUnitDropdown extends StatelessWidget {
           padding: const EdgeInsets.only(left: 3),
           child: SvgPicture.asset(Assets.icons.iconDropdown.path),
         ),
-        style: context.textTheme.labelMedium?.copyWith(color: Colors.white),
+        style: AppTextStyles.robotoBodyRegular.copyWith(color: Colors.white),
         items: weightUnits.map((unit) {
           return DropdownMenuItem<String>(
             value: unit,
-            child: labelTextRegular(unit, 14.sp, AppColors.white),
+            child: labelTextRegular(unit, 12.sp, AppColors.white),
           );
         }).toList(),
         onChanged: (value) {
@@ -49,12 +50,9 @@ class CustomUnitDropdown extends StatelessWidget {
               children: [
                 Text(
                   unit,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppTextStyles.robotoBodyRegular,
                 ),
-                const SizedBox(width: 8),
+                8.horizontalSpace
               ],
             );
           }).toList();

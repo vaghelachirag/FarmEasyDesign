@@ -1,4 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/seedingProcess/seedingTrays/addPersonDetail/add_person_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class CustomAddDetailButton extends StatelessWidget {
     return ElevatedButton.icon(
       onPressed:onPressed,
       icon:  SvgPicture.asset(iconPath, color: AppColors.white,width: 20.sp,height: 20.sp,), // use appropriate icon
-      label:  Text(btnName,style: TextStyle(fontSize: 12.sp,color: AppColors.white),),
+      label:  Text(btnName,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.white),),
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.buttonBackgroundColor,
         foregroundColor: Colors.white,

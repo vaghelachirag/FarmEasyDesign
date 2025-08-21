@@ -1,6 +1,7 @@
 // file: app_decorations.dart
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -132,9 +133,8 @@ class AppDecorations {
       floatingLabelBehavior:FloatingLabelBehavior.always,
       labelText: title,
       alignLabelWithHint: true,
-      labelStyle:  TextStyle(
-        color: AppColors.inputLabelColor,
-      ),
+      labelStyle:  AppTextStyles.robotoBodyRegular.copyWith(color: AppColors.labelTextColor),
+      hintStyle: AppTextStyles.robotoBodyRegular.copyWith(color: AppColors.blackColor),
       enabledBorder: outlineInputBorder(5.r, AppColors.borderColor,1),
       focusedBorder: outlineInputBorder(5.r, AppColors.borderColor,1),
       errorBorder: outlineInputBorder(5.r, AppColors.borderColor,1),

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../components/common/app_text_styles.dart';
+
 class ScanMoreCustomButton extends StatelessWidget {
   final String btnName;
   final VoidCallback onPressed;
@@ -22,13 +24,13 @@ class ScanMoreCustomButton extends StatelessWidget {
       onPressed: onPressed ,
       icon: SvgPicture.asset(Assets.icons.iconScanMore.path),
       label:
-      Text(btnName,style:  context.textTheme.labelSmall?.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
+      Text(btnName,style:  AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: AppColors.tapToScanBg),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 12.sp),
+        padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 12.sp),
       ),
     );
   }

@@ -224,7 +224,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
-              width: 120.h,
+              width: 140.w,
               child:  ScanMoreCustomButton(btnName: context.l10n.scanMore, onPressed: (){
                 scanStateNotifier.state =  ScanState.scanning;
                 final newCode = "QR_${DateTime.now().millisecondsSinceEpoch}";
@@ -233,7 +233,7 @@ class _HarvestingTraysScreens extends ConsumerState<HarvestingTraysScreens>
           ),
           10.horizontalSpace,
           SizedBox(
-            width: 120.w,
+            width: 140.w,
             child: CustomAddDetailButton( btnName: itemCount > 1 ? "Next ($itemCount)" : "Next", onPressed: () {
               scanStateNotifier.state = ScanState.confirmDetail;
             },iconPath: Assets.icons.iconNext.path),

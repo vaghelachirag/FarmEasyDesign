@@ -73,7 +73,7 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20.h),
+        20.verticalSpace,
         StepProgressIndicator(currentStepName: cycleStatus),
         10.verticalSpace,
         // Info card
@@ -301,7 +301,7 @@ Widget suffixCoreWeight(BuildContext context){
 
 Widget addAndMinusButtonWidget(){
   return  Container(
-    height: 35,
+    height: 35.h,
     decoration: BoxDecoration(
       color: AppColors.addWeightTextFieldBg,
       borderRadius: BorderRadius.circular(4),
@@ -317,7 +317,7 @@ Widget addAndMinusButtonWidget(){
 
 Widget gmsWeightWidget(String selectedUnit, BuildContext context){
   return Container(
-    height: 35,
+    height: 35.h,
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
     decoration: AppDecorations.addWeightDecoration(),
     child: CustomUnitDropdown(
