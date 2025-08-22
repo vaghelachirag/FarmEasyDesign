@@ -14,6 +14,7 @@ import 'base/utils/constants.dart';
 import 'base/utils/global_context.dart';
 import 'base/utils/theme.dart';
 import 'generated/l10n.dart';
+import 'network/app_config.dart';
 import 'screens/splash/splash_screen.dart';
 
 void closeKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
@@ -22,6 +23,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await PreferenceService.instance.init();
+
+
+  AppConfig(flavor: Flavor.development);
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

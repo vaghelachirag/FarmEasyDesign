@@ -1,6 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/tab/bottombarNavigator/provider/bottomBar_provider.dart';
@@ -13,17 +12,11 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/scan_more_custom_button.dart';
 import '../../../base/utils/utils.dart';
-import '../../../components/widget/step_progress_widget.dart';
 import '../../../generated/l10n.dart';
-import '../../../base/utils/common_widgets.dart';
 
 
 class SeedingScreenPage extends ConsumerWidget {
   const SeedingScreenPage({super.key});
-
-  static const route = "/SeedingScreenPage";
-
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

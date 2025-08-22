@@ -354,7 +354,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
         width: 100.w,
         child: CustomAddDetailButton(btnName: S.of(context).next, onPressed: () {
           if(scanState == ScanState.moveToFertigation){
-           print("ScanState"+ scanState.name);
+           print("ScanState${scanState.name}");
           }else{
             scanStateNotifier.state = ScanState.confirmDetail;
           }

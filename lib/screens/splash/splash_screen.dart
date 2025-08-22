@@ -27,11 +27,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   }
 
   Future<void> handleSplash() async {
-    final splashService = ref.read(splashProvider);
+    final splash = ref.read(splashProvider);
+    final loggedIn = await splash.isLoggedIn();
+
+    // Small delay so splash shows
     await Future.delayed(const Duration(seconds: 2));
-    if (await splashService.isLoggedIn()) {
+
+    if (loggedIn) {
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, homeTab);
+      }
     } else {
-      context.navigator.pushReplacementNamed(loginScreen);
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, loginScreen);
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/tab/bottombarNavigator/provider/bottomBar_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/cycles_page.dart';
@@ -16,9 +17,6 @@ import '../../../base/utils/utils.dart';
 
 class HomeTab extends ConsumerWidget {
   const HomeTab({super.key});
-
-
-  static const route = "/HomeTab";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,6 +37,16 @@ class HomeTab extends ConsumerWidget {
       body: screens[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
+          selectedItemColor: AppColors.customCycleTabSelectedColor, // optional
+          unselectedItemColor: AppColors.customCycleTabSelectedColor, // optional
+          selectedLabelStyle: AppTextStyles.robotoBodyLarge.copyWith(
+            fontSize: 12.sp,
+            color: AppColors.customCycleTabSelectedColor
+          ),
+          unselectedLabelStyle: AppTextStyles.robotoBodyRegular.copyWith(
+              fontSize: 12.sp,
+              color: AppColors.customCycleTabSelectedColor
+          ),
           onTap: (index) => ref.read(bottomNavIndexProvider.notifier).state = index,
           items: [
             BottomNavigationBarItem(
@@ -74,7 +82,7 @@ Widget bottomBarIcon(String path, {required bool isSelected}) {
       color: isSelected ? AppColors.bottomBarSelectionColor : Colors.transparent,
       borderRadius: BorderRadius.circular(20.r),
     ),
-    padding: EdgeInsets.all(8.w),
+    padding: EdgeInsets.all(0.w),
     child: SvgPicture.asset(
      path,
       colorFilter: ColorFilter.mode(

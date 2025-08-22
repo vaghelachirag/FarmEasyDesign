@@ -1,22 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../base/services/preferences/preferences.dart';
 
-final splashProvider = Provider<SplashService>((ref) => SplashService(ref));
+final splashProvider = Provider<SplashService>((ref) {
+  return SplashService(ref, PreferenceService.instance,);
+});
 
 class SplashService {
   final Ref ref;
-  SplashService(this.ref);
+  final PreferenceService preferences;
+
+  SplashService(this.ref, this.preferences);
 
   Future<bool> isLoggedIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('isLogin') == "true";
+    return await preferences.isLogin;
   }
 
-  Future<void> checkPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('first_run') ?? true) {
-      await prefs.clear();
-      await prefs.setBool('first_run', false);
-    }
-  }
 }

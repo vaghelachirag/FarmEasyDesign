@@ -54,7 +54,7 @@ dependencies:
   fluttertoast: ^8.2.12
   mobile_scanner: ^7.0.1
   timeline_tile_plus: ^0.0.3
-
+  dio: ^5.9.0
 
 dev_dependencies:
 

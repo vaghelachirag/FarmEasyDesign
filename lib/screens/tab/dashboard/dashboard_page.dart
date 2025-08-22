@@ -1,6 +1,7 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
+import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/base/utils/dashline.dart';
 import 'package:farmeasy/components/widget/custom_start_seeding_btn.dart';
 import 'package:farmeasy/components/widget/cycle_status_card.dart';
@@ -161,7 +162,7 @@ class TotalYieldSection extends StatelessWidget {
                           Assets.icons.syncIcon.path,
                           width: 18.sp,
                         ),
-                        SizedBox(width: 6.w),
+                        6.verticalSpace,
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -353,6 +354,7 @@ class ActionRequiredSection extends StatelessWidget {
             height: 30.h,
             child:StartSeedingButton(
               onPressed: () {
+
               },
             ),
           )
