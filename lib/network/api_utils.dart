@@ -12,6 +12,10 @@ class ApiPath {
   static const String addSeedLotUrl = '/seed/lots';
   static const String getSeedLotUrl = '/seed/lots';
 
+
+  // Facility
+  static const String getFacilityUrl = '/facility';
+
   // Cycles
   static const String getCycle = '/cycles';
 
