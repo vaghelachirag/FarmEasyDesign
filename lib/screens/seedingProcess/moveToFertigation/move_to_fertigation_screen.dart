@@ -36,7 +36,6 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen>
 
   late CycleStage cycleStatus;
 
-
   @override
   void initState() {
     super.initState();

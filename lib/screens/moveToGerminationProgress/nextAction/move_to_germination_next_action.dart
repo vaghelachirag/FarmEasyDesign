@@ -144,7 +144,7 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
           iconPath: Assets.icons.fertigationMove,
           onPressed: (){
             context.navigator.pushNamed(
-              movingToGerminationScreen,
+              moveToFertigationScreen,
               arguments: {cycleStageArgumentName: modelCycle.currentStage},
             );
           },
@@ -153,16 +153,32 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
           textColor: AppColors.white, iconColor: AppColors.white,
         )),
         10.verticalSpace,
-        SizedBox(width: double.infinity,child:
-        CustomerHarvestingNowButton(
-          btnName: "Mark Issue",
-          iconPath: Assets.icons.iconManualCheck,
-          onPressed: (){},
-          backgroundColor: AppColors.markAsReadButtonBg,
-          buttonHeight: 5.sp,
-          textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
-        )),
-        10.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 30.h,child:
+            CustomerHarvestingNowButton(
+              btnName: "Move Trays",
+              iconPath: Assets.icons.moveToFertigation,
+              onPressed: (){},
+              backgroundColor: AppColors.markAsReadButtonBg,
+              buttonHeight: 3.sp,
+              textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
+            )),
+            10.verticalSpace,
+            SizedBox(height: 30.h,child:
+            CustomerHarvestingNowButton(
+              btnName: "Manual Check",
+              iconPath: Assets.icons.iconManualCheck,
+              onPressed: (){},
+              backgroundColor: AppColors.manualCheckButtonBg,
+              buttonHeight: 3.sp,
+              textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
+            )),
+          ],
+        ),
+        20.verticalSpace,
       ],
     ));
   }
