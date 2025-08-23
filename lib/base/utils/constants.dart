@@ -20,3 +20,5 @@ const String harvestingTraysScreens = "/HarvestingTraysScreens";
 const String manualCheckScreen = "/ManualCheckScreen";
 const String dashBoardPage = "/DashboardPage";
 const String seedingScreenPage = "/SeedingScreenPage";
+const String movingToGerminationDetail = "/MovingToGerminationDetail";
+const String moveToGerminationNextAction = "/MoveToGerminationNextAction";

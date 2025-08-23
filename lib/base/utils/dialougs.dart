@@ -2,6 +2,7 @@ import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
+import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/components/common/app_text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,9 @@ void showTraySuccessDialog(BuildContext context,bool isWithImage,bool isSelected
                             iconPath: Assets.icons.iconConfirmAndProcessed,
                             btnName: S.of(context).confirmProceed,
                             onPressed: () {
+                              context.navigator.pushNamed(
+                                homeTab
+                              );
                             },
                           ))],
                   ),

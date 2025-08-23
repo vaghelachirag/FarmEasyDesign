@@ -41,16 +41,16 @@ class CustomSeedingActionSection extends StatelessWidget {
 
     return  switch (currentStage) {
       CycleStage.seeding => loadCycleButtonWidget(context,currentStage,buttonText),
-      CycleStage.germination => loadGerminationWidget(context,currentStage,buttonText,),
+      CycleStage.germination => loadGerminationWidget(context,currentStage,buttonText,modelCycle),
       CycleStage.moveToFertigation => loadCycleButtonWidget(context,currentStage,buttonText),
       CycleStage.harvesting => loadCycleButtonWidget(context,currentStage,buttonText),
       CycleStage.fertigation => FertigationWidget(currentStage: currentStage,buttonText: buttonText,modelCycle: modelCycle),
-      CycleStage.moveToGermination => loadMoveToGerminationWidget(context)
+      CycleStage.moveToGermination => loadMoveToGerminationWidget(context,modelCycle)
     };
   }
 }
 
-Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, String buttonText){
+Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, String buttonText, ModelCycle modelCycle){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -72,7 +72,6 @@ Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, Stri
         minutes: "36",
         moveDate: "21 Jul, 08:00 AM",
         ),
-        // 🔹 Your new block starts here
         10.verticalSpace,
         Center(child:
         Text(S.of(context).completeSeedingBefore2200Today,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),)),
@@ -84,7 +83,12 @@ Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, Stri
             CustomerHarvestingNowButton(
               btnName: "Move to Fertigation",
               iconPath: Assets.icons.iconTemperature.path,
-              onPressed: (){},
+              onPressed: (){
+                context.navigator.pushNamed(
+                  moveToGerminationNextAction,
+                  arguments: {cycleStageArgumentName: modelCycle},
+                );
+              },
               backgroundColor: AppColors.primary,
               buttonHeight: 1.sp,
               textColor: AppColors.white, iconColor: AppColors.white,
@@ -114,7 +118,7 @@ void navigateToStage(BuildContext context, CycleStage stage) {
       moveToNextScreen(context,movingToGerminationScreen,stage);
       break;
     case CycleStage.moveToFertigation:
-      moveToNextScreen(context,moveToFertigationScreen,stage);
+      moveToNextScreen(context,moveToGerminationNextAction,stage);
       break;
     case CycleStage.harvesting:
       moveToNextScreen(context,harvestingTraysScreens,stage);
@@ -191,8 +195,8 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
 }
 
 
-Widget loadMoveToGerminationWidget(BuildContext context){
-  return bottomMoveToGerminationWidget(context);
+Widget loadMoveToGerminationWidget(BuildContext context, ModelCycle modelCycle){
+  return bottomMoveToGerminationWidget(context,modelCycle);
 }
 
 Widget bottomButtonWidget(BuildContext context){
@@ -280,7 +284,7 @@ Widget bottomButtonFertigationWidget(BuildContext context){
   );
 }
 
-Widget bottomMoveToGerminationWidget(BuildContext context){
+Widget bottomMoveToGerminationWidget(BuildContext context, ModelCycle modelCycle){
   return Column(
     children: [
       Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
@@ -292,7 +296,12 @@ Widget bottomMoveToGerminationWidget(BuildContext context){
             child: CustomerHarvestingNowButton(
               btnName: "Move to Germination",
               iconPath: Assets.icons.iconMoveToGermination.path,
-              onPressed: () {},
+              onPressed: () {
+                context.navigator.pushNamed(
+                  movingToGerminationDetail,
+                  arguments: {cycleStageArgumentName: modelCycle},
+                );
+              },
               backgroundColor: AppColors.buttonBorderColor,
               buttonHeight: 1.sp,
               textColor: AppColors.white,
@@ -373,11 +382,13 @@ void moveToNextScreen(BuildContext context,String routeName, CycleStage stage) {
 class GerminationWidget extends StatefulWidget {
   final CycleStage currentStage;
   final String buttonText;
+  final ModelCycle modelCycle;
 
   const GerminationWidget({
     super.key,
     required this.currentStage,
     required this.buttonText,
+    required this.modelCycle,
   });
 
   @override
@@ -478,7 +489,12 @@ class _GerminationWidgetState extends State<GerminationWidget> {
                 child: CustomerHarvestingNowButton(
                   btnName: "Move to Fertigation",
                   iconPath: Assets.icons.iconTemperature.path,
-                  onPressed: () {},
+                  onPressed: () {
+                    context.navigator.pushNamed(
+                      moveToGerminationNextAction,
+                      arguments: {cycleStageArgumentName: widget.modelCycle},
+                    );
+                  },
                   backgroundColor: AppColors.primary,
                   buttonHeight: 1.sp,
                   textColor: AppColors.white,

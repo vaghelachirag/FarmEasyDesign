@@ -1,19 +1,19 @@
 import 'dart:io';
-
-import 'package:farmeasy/base/utils/app_constant.dart';
 import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/screens/login/login_screen.dart';
+import 'package:farmeasy/screens/moveToGerminationProgress/detail/move_to_germination_detail.dart';
+import 'package:farmeasy/screens/moveToGerminationProgress/nextAction/move_to_germination_next_action.dart';
 import 'package:farmeasy/screens/seedingProcess/seedingTrays/confirmSeeding/confirm_seeding_tray.dart';
 import 'package:farmeasy/screens/splash/splash_screen.dart';
 import 'package:farmeasy/screens/seedingProcess/seedingTrays/addPersonDetail/add_person_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../screens/moveToGerminationProgress/movingToGermination/moving_to_germination.dart';
 import '../../screens/seedingProcess/harvestingTrays/confirmHarvestingTrayDetail/confirm_harvesting_tray_detail.dart';
 import '../../screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
 import '../../screens/seedingProcess/harvestingTrays/manualCheck/confirmationManualCheck/confirmation_manual_check_screen.dart';
 import '../../screens/seedingProcess/harvestingTrays/manualCheck/manual_check_screen.dart';
 import '../../screens/seedingProcess/moveToFertigation/move_to_fertigation_screen.dart';
-import '../../screens/seedingProcess/movingToGermination/moving_to_germination.dart';
 import '../../screens/seedingProcess/seedingTrays/seeding_trays_screen.dart';
 import '../../screens/tab/dashboard/dashboard_page.dart';
 import '../../screens/tab/homeTab/home_tab.dart';
@@ -50,6 +50,10 @@ class AppRoute {
         return navigatePushToScreen(ConfirmationManualCheckScreen(), settings);
       case confirmSeedingTray:
         return navigatePushToScreen(ConfirmSeedingTray(), settings);
+      case movingToGerminationDetail:
+        return navigatePushToScreen(MoveToGerminationDetail(), settings);
+      case moveToGerminationNextAction:
+        return navigatePushToScreen(MoveToGerminationNextAction(), settings);
       default:
         return null;
     }
