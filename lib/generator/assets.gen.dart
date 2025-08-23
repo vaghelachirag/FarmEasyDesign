@@ -88,6 +88,15 @@ class $AssetsIconsGen {
   SvgGenImage get iconManualCheck =>
       const SvgGenImage('assets/icons/icon_manual_check.svg');
 
+  /// File path: assets/icons/icon_manual_check.svg
+  SvgGenImage get iconModeTray =>
+      const SvgGenImage('assets/icons/icon_moveTray.svg');
+
+
+  /// File path: assets/icons/icon_manual_check.svg
+  SvgGenImage get iconMoveToGermination =>
+      const SvgGenImage('assets/icons/icon_move_to_germination.svg');
+
   /// File path: assets/icons/icon_mark_issue.svg
   SvgGenImage get iconMarkIssue =>
       const SvgGenImage('assets/icons/icon_mark_issue.svg');

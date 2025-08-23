@@ -8,16 +8,11 @@ import 'package:farmeasy/components/widget/common_trayinfo_card_fertigation_widg
 import 'package:farmeasy/components/widget/common_widget_total_ppm.dart';
 import 'package:farmeasy/components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
-import 'package:farmeasy/screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
-import 'package:farmeasy/screens/seedingProcess/moveToFertigation/move_to_fertigation_screen.dart';
-import 'package:farmeasy/screens/seedingProcess/movingToGermination/moving_to_germination.dart';
-import 'package:farmeasy/screens/seedingProcess/seedingTrays/seeding_trays_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../base/utils/constants.dart';
-import '../../base/utils/custom_add_detail_button.dart';
 import '../../generated/l10n.dart';
 import '../../model/model_cycle.dart';
 import '../../screens/seedingProcess/moveToFertigation/totalPpm/TotalPpmCard.dart';
@@ -49,7 +44,8 @@ class CustomSeedingActionSection extends StatelessWidget {
       CycleStage.germination => loadGerminationWidget(context,currentStage,buttonText,),
       CycleStage.moveToFertigation => loadCycleButtonWidget(context,currentStage,buttonText),
       CycleStage.harvesting => loadCycleButtonWidget(context,currentStage,buttonText),
-      CycleStage.fertigation => loadFertigationWidget(context,modelCycle)
+      CycleStage.fertigation => FertigationWidget(currentStage: currentStage,buttonText: buttonText,modelCycle: modelCycle),
+      CycleStage.moveToGermination => loadMoveToGerminationWidget(context)
     };
   }
 }
@@ -79,7 +75,7 @@ Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, Stri
         // 🔹 Your new block starts here
         10.verticalSpace,
         Center(child:
-        Text('Complete Seeding before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),)),
+        Text(S.of(context).completeSeedingBefore2200Today,style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg),)),
         10.verticalSpace,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,6 +121,8 @@ void navigateToStage(BuildContext context, CycleStage stage) {
       break;
     case CycleStage.fertigation:
       moveToNextScreen(context,moveToFertigationScreen,stage);
+    case CycleStage.moveToGermination:
+      moveToNextScreen(context,movingToGerminationScreen,stage);
   }
 }
 
@@ -192,6 +190,11 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
   );
 }
 
+
+Widget loadMoveToGerminationWidget(BuildContext context){
+  return bottomMoveToGerminationWidget(context);
+}
+
 Widget bottomButtonWidget(BuildContext context){
   return Column(
     children: [
@@ -229,6 +232,91 @@ Widget bottomButtonWidget(BuildContext context){
     ],
   );
 }
+
+Widget bottomButtonFertigationWidget(BuildContext context){
+  return Column(
+    children: [
+      Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
+      10.verticalSpace,
+      SizedBox(width: double.infinity,child:
+      CustomerHarvestingNowButton(
+        btnName: "Harvest Now",
+        iconPath: Assets.icons.confirmHarvest.path,
+        onPressed: (){},
+        backgroundColor: AppColors.selectedProgressBg,
+        buttonHeight: 5.sp,
+        textColor: AppColors.white, iconColor: AppColors.white,
+      )),
+      10.verticalSpace,
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: CustomerHarvestingNowButton(
+              btnName: "Move to Tray",
+              iconPath: Assets.icons.iconModeTray.path,
+              onPressed: () {},
+              backgroundColor: AppColors.primary,
+              buttonHeight: 1.sp,
+              textColor: AppColors.infoTextHingBg,
+              iconColor: AppColors.infoTextHingBg,
+            ),
+          ),
+          5.horizontalSpace,
+          Expanded(
+            child: CustomerHarvestingNowButton(
+              btnName: "Manual Check",
+              iconPath: Assets.icons.iconManualCheck.path,
+              onPressed: () {},
+              backgroundColor: AppColors.manualCheckButtonBg,
+              buttonHeight: 1.sp,
+              textColor: AppColors.infoTextHingBg,
+              iconColor: AppColors.infoTextHingBg,
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget bottomMoveToGerminationWidget(BuildContext context){
+  return Column(
+    children: [
+      Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
+      10.verticalSpace,
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: CustomerHarvestingNowButton(
+              btnName: "Move to Germination",
+              iconPath: Assets.icons.iconMoveToGermination.path,
+              onPressed: () {},
+              backgroundColor: AppColors.buttonBorderColor,
+              buttonHeight: 1.sp,
+              textColor: AppColors.white,
+              iconColor: AppColors.white,
+            ),
+          ),
+          5.horizontalSpace,
+          Expanded(
+            child: CustomerHarvestingNowButton(
+              btnName: "Manual Check",
+              iconPath: Assets.icons.iconManualCheck.path,
+              onPressed: () {},
+              backgroundColor: AppColors.manualCheckButtonBg,
+              buttonHeight: 1.sp,
+              textColor: AppColors.infoTextHingBg,
+              iconColor: AppColors.infoTextHingBg,
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
 Widget _moveTrayWidget(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -416,6 +504,76 @@ class _GerminationWidgetState extends State<GerminationWidget> {
     );
   }
 }
+
+class FertigationWidget extends StatefulWidget{
+  final CycleStage currentStage;
+  final String buttonText;
+  final ModelCycle modelCycle;
+
+  const FertigationWidget({
+    super.key,
+    required this.currentStage,
+    required this.buttonText,
+    required this.modelCycle,
+  });
+
+  @override
+  State<FertigationWidget> createState() => _FertigationWidgetState();
+}
+
+class _FertigationWidgetState extends State<FertigationWidget> {
+  bool _showDetails = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        10.verticalSpace,
+        if (!_showDetails) ...[
+          8.verticalSpace,
+          bottomButtonFertigationWidget(context)
+        ],
+        10.verticalSpace,
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _showDetails = !_showDetails;
+            });
+          },
+          child:  Align(
+            alignment: Alignment.centerRight,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _showDetails = !_showDetails;
+                });
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text( _showDetails ? S.of(context).hideHistory : "View Details",style: context.textTheme.labelLarge?.copyWith(fontSize: 12.sp,color: AppColors.buttonBackgroundColor),),
+                  4.horizontalSpace,
+                  Icon(
+                    _showDetails
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
+                    color:  AppColors.buttonBackgroundColor,
+                    size: 18.sp,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        if (_showDetails) ...[
+          loadFertigationWidget(context,widget.modelCycle)
+        ],
+      ],
+    );
+  }
+}
+
 
 
 

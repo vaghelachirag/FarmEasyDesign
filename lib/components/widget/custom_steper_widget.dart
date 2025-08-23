@@ -23,6 +23,7 @@ class StepperWidget extends ConsumerWidget {
       CycleStage.germination: Assets.icons.iconSeeds.path,
       CycleStage.moveToFertigation: Assets.icons.iconDrop.path,
       CycleStage.harvesting: Assets.icons.iconHummer.path,
+      CycleStage.moveToGermination: Assets.icons.iconHummer.path,
     };
 
     return Row(

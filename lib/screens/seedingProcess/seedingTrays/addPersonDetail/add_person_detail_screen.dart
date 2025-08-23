@@ -37,7 +37,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Utils.hideKeyboard(context);
+    //Utils.hideKeyboard(context);
     getArgument(context);
 
 

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:farmeasy/model/login/getLoginResponseModel.dart';
 import 'package:farmeasy/network/api_manager.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,8 +31,10 @@ class AuthRepository {
         final responseData = response.data;
         if (responseData != null) {
 
+          final loginModel = GetLoginResponseModel.fromJson(response.data);
+
           final prefs = PreferenceService.instance;
-          await prefs.setAccessToken(response.data["access_token"]);
+          await prefs.setAccessToken(loginModel.data.accessToken);
           await prefs.setIsLogin(true);
           await prefs.setUserEmail(email);
 

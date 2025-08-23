@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class Utils {
   /// Hides the keyboard if it is open
   static void hideKeyboard(BuildContext context) {
-    FocusScope.of(context).unfocus();
+ //   FocusScope.of(context).unfocus();
   }
 
   /// Shows a snackBar with the given message

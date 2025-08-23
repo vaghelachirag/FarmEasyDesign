@@ -516,9 +516,9 @@ Widget infoWindow(BuildContext context, CycleStage cycleStatus) {
               case CycleStage.harvesting:
                 return _loadMoveToFertigationWindow(context, "Scan the level QR from where you want to Harvest the trays");
               case CycleStage.fertigation:
-                // TODO: Handle this case.
                 return _loadMoveToFertigationWindow(context, "Scan the level QR from where you want to Harvest the trays");
-            }
+              case CycleStage.moveToGermination:
+                return _loadMoveToFertigationWindow(context, S.of(context).scanTheLevelQrFromWhereYouWantToHarvest);           }
           },
         ),
       )
@@ -797,7 +797,7 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
     child: GestureDetector(
       onTap: ()  {
        // scanStateNotifier.state = ScanState.scanning;
-        scanStateNotifier.state = ScanState.success;
+        scanStateNotifier.state = ScanState.scanning;
       },
       child: SizedBox(
         height: 240.h,

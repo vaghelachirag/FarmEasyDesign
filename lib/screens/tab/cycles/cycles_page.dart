@@ -80,6 +80,7 @@ class CycleStatusCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     String formatDate(DateTime date) => DateFormat('dd/MM/yyyy').format(date);
     final progress = calculateProgress(cycle);
+    final progressPercentage = calculateProgressPercentage(cycle);
     return  Card(
       child: Container(
         padding: EdgeInsets.only(left: 10.sp,right: 10.sp),
@@ -130,7 +131,7 @@ class CycleStatusCard extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(child:
-                Text('${(0 * 100).toInt()}%',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg))),
+                Text("${(progressPercentage * 100).toInt()}%",style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg))),
                 Text("14 Days",style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
                 5.horizontalSpace,
                 Text(S.of(context).toComplete,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg)),
@@ -179,6 +180,8 @@ String getStageText(CycleStage stage) {
   switch (stage) {
     case CycleStage.seeding:
       return 'Seeding';
+    case CycleStage.moveToGermination:
+      return 'Seeding';
     case CycleStage.germination:
       return 'Moving to germination';
     case CycleStage.moveToFertigation:
@@ -218,12 +221,25 @@ String getActionButtonText(CycleStage stage) {
       return 'Start Harvesting';
     case CycleStage.fertigation:
       return 'Fertigation';
+    case CycleStage.moveToGermination:
+      return 'Move to Germination';
   }
 }
 
 double calculateProgress(ModelCycle cycle) {
   int total = cycle.arugulaTotal + cycle.cabbageTotal;
   int completed = cycle.arugulaCompleted + cycle.cabbageCompleted;
-  if (total == 0) return 0;
-  return completed / total;
+  if(cycle.currentStage == CycleStage.seeding){
+    return 0;
+  }else if(cycle.currentStage == CycleStage.moveToGermination){
+    return 0.1;
+  }else{
+    return 0;
+  }
+}
+double calculateProgressPercentage(ModelCycle cycle) {
+  int currentStep = cycle.seedingStatus;   // example: step you reached
+  int totalSteps = 8;    // total process steps
+  double progress = currentStep / totalSteps;
+ return  progress ;
 }

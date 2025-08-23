@@ -18,6 +18,7 @@ final taskListProvider = StateProvider<List<ModelCycleSeeding>>((ref) => [
 enum CycleStage {
   seeding,
   germination,
+  moveToGermination,
   moveToFertigation,
   harvesting,
   fertigation,
@@ -39,6 +40,21 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
         cabbageTotal: 25,
         upcomingSeedsDay: 1,
         seedingStatus: 0, currentStage: CycleStage.seeding,
+        isTotalPpm: false
+    ),
+    ModelCycle(
+        cycleName: "Cycle 10",
+        trayInfo: "38 Arugula Trays",
+        startDate: DateTime(2025, 5, 22),
+        endDate: DateTime(2025, 5, 22),
+        status: "Seeding",
+        assignedUsers: ["A", "B", "C", "D", "E"],
+        arugulaCompleted: 0,
+        arugulaTotal: 14,
+        cabbageCompleted: 0,
+        cabbageTotal: 25,
+        upcomingSeedsDay: 1,
+        seedingStatus: 1, currentStage: CycleStage.moveToGermination,
         isTotalPpm: false
     ),
     ModelCycle(

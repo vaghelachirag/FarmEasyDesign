@@ -63,7 +63,7 @@ class MyApp extends ConsumerWidget {
         title: 'Farmeasy',
         themeMode: themeNotifier.themeMode,
         theme: lightTheme(),
-        darkTheme: darkThemeData(),
+        darkTheme: lightTheme(),
         debugShowCheckedModeBanner: false,
         routes: {
           loginScreen: (context) => LoginScreen(),
