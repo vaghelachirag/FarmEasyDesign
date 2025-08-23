@@ -191,5 +191,7 @@ static const forgotPasswordTextColor = Color(0xFF3A7F0D);
   static const Color totalGmsBg = Color(0xFFFBF2F2);
   static const Color seedLotBg = Color(0xFF668760);
 
+  static const Color fertigationTrayInfoBg = Color(0xFFF0F4EC);
+  static const Color fertigationTrayInfoBorderBg = Color(0xFFF2E58C);
 }
 

@@ -187,7 +187,7 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
       20.verticalSpace,
       modelCycle.isTotalPpm ? CommonWidgetTotalPpm() : TotalPpmCard(),
       20.verticalSpace,
-      CustomLifecycleFertigationCurrentStage(),
+      CustomLifecycleFertigationCurrentStage(withDecoration: true,),
       20.verticalSpace,
       bottomButtonWidget(context)
     ],
@@ -287,7 +287,6 @@ Widget bottomButtonFertigationWidget(BuildContext context){
 Widget bottomMoveToGerminationWidget(BuildContext context, ModelCycle modelCycle){
   return Column(
     children: [
-      Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
       10.verticalSpace,
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

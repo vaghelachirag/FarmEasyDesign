@@ -176,7 +176,7 @@ class _MoveToGerminationDetail extends ConsumerState<MoveToGerminationDetail> wi
             statusDate: "Since 25/05/2025",
           ),
           20.verticalSpace,
-          CustomLifecycleFertigationCurrentStage(),
+          CustomLifecycleFertigationCurrentStage(withDecoration: true,),
         ],
       ),
     );

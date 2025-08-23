@@ -21,6 +21,7 @@ import '../../../components/widget/custom_cycle_step_progress_bar.dart';
 import '../../../components/widget/custom_lifecycle_fertigation_current_stage.dart';
 import '../../../components/widget/custom_steper_widget.dart';
 import '../../../components/widget/custom_tab_confirm_detail_move_to_fertigation.dart';
+import '../../../components/widget/step_progress_widget.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../generated/l10n.dart';
 import '../../tab/cycles/cycles_page.dart';
@@ -49,7 +50,6 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
   @override
   Widget build(BuildContext context) {
 
-
     getArgument();
 
     final progress = calculateProgress(modelCycle);
@@ -63,19 +63,15 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
     final scanState = ref.watch(scanStateProvider);
     final scanStateNotifier = ref.read(scanStateProvider.notifier);
 
-
     return SafeArea(child:
     Scaffold(
-        appBar: getActionbar(context,""),
+        appBar: getActionbar(context,"Move to Fertigation"),
         body:   SingleChildScrollView(child: Card(
-          child: Container(
-            padding: EdgeInsets.only(left: 20.sp,right: 20.sp),
-            child:  Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier,formatDate)
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier,formatDate)
+            ],
           ),
         ))));
   }
@@ -85,57 +81,8 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        StepProgressIndicator(currentStepName: modelCycle.currentStage),
         5.verticalSpace,
-        Row(
-          children: [
-            Text(modelCycle.cycleName,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 12.sp,color: AppColors.cycleTrayBg),),
-            8.horizontalSpace,
-            Expanded(
-                child:
-                Text(modelCycle.trayInfo,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 15.sp,color: AppColors.blackColor),)
-            ),
-            SvgPicture.asset(
-                Assets.icons.iconArrowRight// Optional: set size
-            ),
-          ],
-        ),
-        3.verticalSpace,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Started Date • ${formatDate(modelCycle.startDate)}',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
-            Text('Est End Date • ${formatDate(modelCycle.startDate)}',style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.cycleDateTextBg),),
-          ],
-        ),
-        10.verticalSpace,
-        StepperWidget(cycle: modelCycle),
-        10.verticalSpace,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(S.of(context).upcomingSeedingIn,style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.upComingSeedsTextBg),),
-            5.horizontalSpace,
-            Container(
-                decoration: AppDecorations.seedingMainBg(AppColors.startSeedsMainBg,AppColors.startSeedsBorderBg),
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-                child:     Text('${modelCycle.arugulaTotal.toString()}${S.of(context).days}',style:  AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.blackColor),)
-            ),
-          ],
-        ),
-        10.verticalSpace,
-        CustomCycleStepProgressBar(cycle: modelCycle),
-        5.verticalSpace,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child:
-            Text("10%",style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg))),
-            Text("14 Days",style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp,color: AppColors.blackColor)),
-            5.horizontalSpace,
-            Text(S.of(context).toComplete,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.daysToCompleteBg)),
-          ],
-        ),
-        10.verticalSpace,
         _seedingInfoContainer(modelCycle,context),
         10.verticalSpace,
         bottomButtonFertigationWidget(context)
@@ -145,35 +92,42 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
 
   Widget _seedingInfoContainer(ModelCycle cycle, BuildContext context){
     return Container(
+      decoration:  BoxDecoration(
+        color: AppColors.enterPpfTextAreaLabelBg,
+        borderRadius: BorderRadius.circular(12.r)),
+      margin: EdgeInsets.only(left: 5.w,right: 5.w),
       padding: EdgeInsets.only(left: 5.w,right: 5.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(cycle.status,style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 14.sp,color: AppColors.seedingTextBg)),
-          5.verticalSpace,
-          trayInfo(),
-          5.verticalSpace,
-          trayInfo(),
-          5.verticalSpace,
-          CustomCycleAssignPerson(
-            onAssignTap: () {
-            },
-          ),
-          5.verticalSpace,
-          DashedLine(),
           10.verticalSpace,
           CustomTabConfirmDetailMoveToFertigation(),
-          20.verticalSpace,
-          CommonTrayInfoCardFertigationWidget(
-            seedingSummary: "Seeding 30 Trays : 11 Full Trays | 19 Half Trays",
-            seedLotCodes: ["#4577", "#4580", "#4599", "#4601","#4577", "#4580", "#4599", "#4601"],
-            trayDetails: "30 Arugula Tray | 30 Gms/ Tray",
-            coirWeight: "9 Gms",
-            currentStatus: "Seeding",
-            statusDate: "Since 25/05/2025",
+          10.verticalSpace,
+          Container(
+            padding: EdgeInsets.all(10.sp),
+            decoration: AppDecorations.fertigationTrayInfoBg(),
+            child:  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                10.verticalSpace,
+                Text('Tray Information',style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 14.sp)),
+                8.verticalSpace,
+                trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
+                8.verticalSpace,
+                trayTextWidget("Tray Position: ","Zone 3 | Section 4 | Level 3 ",context),
+                8.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    trayTextWidget(S.of(context).currentStatus,S.of(context).harvest,context),
+                    updateTodayWidget(context, "Since 25/05/2025")
+                  ],
+                ),
+              ],
+            ),
           ),
           20.verticalSpace,
-          CustomLifecycleFertigationCurrentStage(),
+          CustomLifecycleFertigationCurrentStage(withDecoration: false,),
         ],
       ),
     );
@@ -181,14 +135,13 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
 
 
   Widget bottomButtonFertigationWidget(BuildContext context){
-    return Column(
+    return Padding(padding: EdgeInsetsGeometry.only(left: 5.w,right: 5.w),child: Column(
       children: [
-        Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
         10.verticalSpace,
         SizedBox(width: double.infinity,child:
         CustomerHarvestingNowButton(
           btnName: "Move to Fertigation",
-          iconPath: Assets.icons.iconGerminationTree,
+          iconPath: Assets.icons.fertigationMove,
           onPressed: (){
             context.navigator.pushNamed(
               movingToGerminationScreen,
@@ -211,7 +164,7 @@ class _MoveToGerminationNextAction extends ConsumerState<MoveToGerminationNextAc
         )),
         10.verticalSpace,
       ],
-    );
+    ));
   }
 
   void getArgument() {

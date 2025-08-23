@@ -206,6 +206,17 @@ Widget currentStatusWithButton(BuildContext context){
    );
 }
 
+Widget updateTodayWidget(BuildContext context,String title){
+   return Container(
+           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+           decoration: BoxDecoration(
+             color: AppColors.trayInfoPopupBg,
+             borderRadius: BorderRadius.circular(24),
+           ),
+           child: Text(title,style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.blackColor))
+   );
+}
+
 Widget loadAddingTrayWithoutSelection(BuildContext context,bool isWithImage) {
   return Container(
     width: double.infinity,

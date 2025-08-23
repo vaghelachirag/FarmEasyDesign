@@ -12,26 +12,27 @@ import 'custom_fertigation_current_stage.dart';
 import 'custom_lifecycle_fertigation_current_stage_header.dart';
 
 class CustomLifecycleFertigationCurrentStage extends ConsumerWidget {
-  const CustomLifecycleFertigationCurrentStage({super.key});
+  final bool withDecoration;
+   const CustomLifecycleFertigationCurrentStage({super.key,required this.withDecoration});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isExpanded = ref.watch(stageExpandProvider);
 
     return Container(
-      decoration: AppDecorations.seedingMainBg(
+      decoration: withDecoration == true ? AppDecorations.seedingMainBg(
         AppColors.trayInfoPopupBg,
         AppColors.selectedMoistureHeaderBg,
         borderWidth: 5.sp,
-      ),
+      ) : null,
       padding: EdgeInsets.all(10.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Current Stage',
-            style: AppTextStyles.robotoBodyRegular.copyWith(
-              fontSize: 14.sp,
+            style: AppTextStyles.robotoBodyLarge.copyWith(
+              fontSize: 12.sp,
               color: AppColors.infoTextHingBg,
             ),
           ),

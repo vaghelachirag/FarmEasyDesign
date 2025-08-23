@@ -30,6 +30,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/confirm_harvest.svg
   String get iconGerminationTree => 'assets/icons/icon_germination_tree.svg';
 
+
+  /// File path: assets/icons/confirm_harvest.svg
+  String get fertigationMove => 'assets/icons/fertigation_move.svg';
+
   /// File path: assets/icons/flash.svg
   String get flash => 'assets/icons/flash.svg';
 

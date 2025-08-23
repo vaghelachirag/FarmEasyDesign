@@ -65,6 +65,19 @@ class AppDecorations {
   }
 
   // You can add more common decorations here
+  static BoxDecoration fertigationTrayInfoBg() {
+    return  BoxDecoration(
+      color: AppColors.fertigationTrayInfoBg,
+      borderRadius: BorderRadius.circular(12.r),
+      border: Border.all(
+        color: AppColors.fertigationTrayInfoBorderBg, // very light green border
+        width: 1,
+      ),
+    );
+  }
+
+
+  // You can add more common decorations here
   static BoxDecoration seedingBg() {
     return  BoxDecoration(
       color: AppColors.white,
