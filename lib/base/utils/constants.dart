@@ -22,3 +22,4 @@ const String dashBoardPage = "/DashboardPage";
 const String seedingScreenPage = "/SeedingScreenPage";
 const String movingToGerminationDetail = "/MovingToGerminationDetail";
 const String moveToGerminationNextAction = "/MoveToGerminationNextAction";
+const String moveTrayScreen = "/MoveTraysScreen";

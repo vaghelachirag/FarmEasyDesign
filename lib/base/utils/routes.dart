@@ -9,6 +9,7 @@ import 'package:farmeasy/screens/seedingProcess/seedingTrays/addPersonDetail/add
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../screens/moveToGerminationProgress/movingToGermination/moving_to_germination.dart';
+import '../../screens/process/movingTray/movingTraysScreen.dart';
 import '../../screens/seedingProcess/harvestingTrays/confirmHarvestingTrayDetail/confirm_harvesting_tray_detail.dart';
 import '../../screens/seedingProcess/harvestingTrays/harvesting_trays_screens.dart';
 import '../../screens/seedingProcess/harvestingTrays/manualCheck/confirmationManualCheck/confirmation_manual_check_screen.dart';
@@ -54,6 +55,8 @@ class AppRoute {
         return navigatePushToScreen(MoveToGerminationDetail(), settings);
       case moveToGerminationNextAction:
         return navigatePushToScreen(MoveToGerminationNextAction(), settings);
+      case moveTrayScreen:
+        return navigatePushToScreen(MoveTraysScreen(), settings);
       default:
         return null;
     }

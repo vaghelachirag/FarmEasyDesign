@@ -119,8 +119,6 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
   ;
 }
 
-
-
 Widget tapScanColumn(BuildContext context){
   return  Column(
     mainAxisAlignment: MainAxisAlignment.center,

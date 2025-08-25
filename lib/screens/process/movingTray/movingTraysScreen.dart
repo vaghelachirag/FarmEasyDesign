@@ -1,33 +1,29 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/screens/process/stepProcess/scanFlowHeaderMovingTray.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart' hide infoWindow;
-
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/dialougs.dart';
-import '../../../components/widget/step_progress_widget.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
+import '../stepProcess/stepConfigMovingTray.dart';
 
 
-class MoveToFertigationScreen extends ConsumerStatefulWidget {
-
-  const MoveToFertigationScreen({super.key});
-
+class MoveTraysScreen extends ConsumerStatefulWidget {
+  const MoveTraysScreen({super.key});
 
   @override
-  ConsumerState<MoveToFertigationScreen> createState() => _MoveToFertigationScreen();
+  ConsumerState<MoveTraysScreen> createState() => _MoveTraysScreen();
 }
 
-class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen> with TickerProviderStateMixin {
-
+class _MoveTraysScreen extends ConsumerState<MoveTraysScreen> with TickerProviderStateMixin {
   late CycleStage cycleStatus;
-
   @override
   void initState() {
     super.initState();
@@ -54,30 +50,44 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen> wi
         bottomNavigationBar: _loadBottomConfirmAndScanButton(scanState,scanStateNotifier)));
   }
 
-  Widget _bottomButtonWithIconAndText(ScanState scanState, StateController<ScanState> scanStateNotifier, String path, String buttonTitle){
-    return Padding(padding: EdgeInsets.all(10.w),child: CustomAddDetailButton(
-      iconPath: path,
-      btnName: buttonTitle,
-      onPressed: () {
-        switch (scanState) {
-          case ScanState.success:
-            scanStateNotifier.state = ScanState.confirmDetail;
-            break;
-          case ScanState.moveToFertigation:
-            scanStateNotifier.state = ScanState.scanNextQR;
-            break;
-          case ScanState.scanNextQR:
-            showTraySuccessDialog(context, false, true);
-            break;
-          case ScanState.confirmDetail:
-            showTraySuccessDialog(context, false, true);
-            break;
-          default:
-          // Handle unexpected states if needed
-            break;
-        }
-      },
-    )
+  Widget _bottomButtonWithIconAndText(ScanState scanState, StateController<ScanState> scanStateNotifier, String path, String buttonTitle,) {
+    return Padding(
+      padding: EdgeInsets.all(10.w),
+      child: CustomAddDetailButton(
+        iconPath: path,
+        btnName: buttonTitle,
+        onPressed: () {
+          switch (scanState) {
+            case ScanState.success:
+            // Move to confirm details
+              scanStateNotifier.state = ScanState.confirmDetail;
+              ref.read(stepControllerProvider.notifier).completeAndNext();
+              break;
+
+            case ScanState.moveToFertigation:
+              scanStateNotifier.state = ScanState.scanNextQR;
+              break;
+
+            case ScanState.scanNextQR:
+              showTraySuccessDialog(context, false, true);
+
+              // Optionally, mark next step complete too:
+              ref.read(stepControllerProvider.notifier).completeAndNext();
+              break;
+
+            case ScanState.confirmDetail:
+              showTraySuccessDialog(context, false, true);
+
+              // If you want to finalize stepper here too:
+              ref.read(stepControllerProvider.notifier).completeAndNext();
+              break;
+
+            default:
+            // Handle unexpected states if needed
+              break;
+          }
+        },
+      ),
     );
   }
 
@@ -100,7 +110,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen> wi
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        StepProgressIndicator(currentStepName: cycleStatus),
+        ScanFlowHeaderMovingTray(),
         10.verticalSpace,
         _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
         20.verticalSpace,
@@ -122,7 +132,6 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen> wi
       },
     );
   }
-
 
   Widget _loadIdealContainer(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
     return  Container(
@@ -177,7 +186,6 @@ Widget scanSuccessWidget(BuildContext context){
     ],
   );
 }
-
 
 // Add Detail button
 Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController<ScanState> scanStateNotifier){

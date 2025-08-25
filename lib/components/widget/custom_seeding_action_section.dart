@@ -189,7 +189,7 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
       20.verticalSpace,
       CustomLifecycleFertigationCurrentStage(withDecoration: true,),
       20.verticalSpace,
-      bottomButtonWidget(context)
+    //  bottomButtonWidget(context)
     ],
   );
 }
@@ -199,59 +199,28 @@ Widget loadMoveToGerminationWidget(BuildContext context, ModelCycle modelCycle){
   return bottomMoveToGerminationWidget(context,modelCycle);
 }
 
-Widget bottomButtonWidget(BuildContext context){
+Widget bottomButtonFertigationWidget(BuildContext context, CycleStage currentStage){
   return Column(
     children: [
-      Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
+      Text( 'Complete Harvest before • 22:00 Today',style: AppTextStyles.robotoBodyRegular.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
       10.verticalSpace,
-      SizedBox(width: double.infinity,child:
+      SizedBox(width: double.infinity,height: 30.sp,child:
       CustomerHarvestingNowButton(
         btnName: "Harvest Now",
         iconPath: Assets.icons.confirmHarvest.path,
-        onPressed: (){},
+        onPressed: (){
+          context.navigator.pushNamed(
+            harvestingTraysScreens,
+            arguments: {cycleStageArgumentName: CycleStage.harvesting
+            },
+          );
+        },
         backgroundColor: AppColors.selectedProgressBg,
         buttonHeight: 5.sp,
         textColor: AppColors.white, iconColor: AppColors.white,
       )),
       10.verticalSpace,
-      SizedBox(width: double.infinity,child:
-      CustomerHarvestingNowButton(
-        btnName: "Move Trays",
-        iconPath: Assets.icons.moveToFertigation.path,
-        onPressed: (){},
-        backgroundColor: AppColors.markAsReadButtonBg,
-        buttonHeight: 3.sp,
-        textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
-      )),
-      10.verticalSpace,
-      SizedBox(width: double.infinity,child:
-      CustomerHarvestingNowButton(
-        btnName: "Manual Check",
-        iconPath: Assets.icons.iconManualCheck.path,
-        onPressed: (){},
-        backgroundColor: AppColors.manualCheckButtonBg,
-        buttonHeight: 3.sp,
-        textColor: AppColors.infoTextHingBg, iconColor: AppColors.infoTextHingBg,
-      )),
-    ],
-  );
-}
-
-Widget bottomButtonFertigationWidget(BuildContext context){
-  return Column(
-    children: [
-      Text( 'Complete Harvest before • 22:00 Today',style: context.textTheme.labelSmall?.copyWith(fontSize: 10.sp,color: AppColors.infoTextHingBg)),
-      10.verticalSpace,
-      SizedBox(width: double.infinity,child:
-      CustomerHarvestingNowButton(
-        btnName: "Harvest Now",
-        iconPath: Assets.icons.confirmHarvest.path,
-        onPressed: (){},
-        backgroundColor: AppColors.selectedProgressBg,
-        buttonHeight: 5.sp,
-        textColor: AppColors.white, iconColor: AppColors.white,
-      )),
-      10.verticalSpace,
+      SizedBox(height: 20.sp,child:
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -259,7 +228,12 @@ Widget bottomButtonFertigationWidget(BuildContext context){
             child: CustomerHarvestingNowButton(
               btnName: "Move to Tray",
               iconPath: Assets.icons.iconModeTray.path,
-              onPressed: () {},
+              onPressed: () {
+                context.navigator.pushNamed(
+                  moveTrayScreen,
+                  arguments: {cycleStageArgumentName: currentStage},
+                );
+              },
               backgroundColor: AppColors.primary,
               buttonHeight: 1.sp,
               textColor: AppColors.infoTextHingBg,
@@ -271,7 +245,11 @@ Widget bottomButtonFertigationWidget(BuildContext context){
             child: CustomerHarvestingNowButton(
               btnName: "Manual Check",
               iconPath: Assets.icons.iconManualCheck.path,
-              onPressed: () {},
+              onPressed: () {
+                context.navigator.pushNamed(
+                  manualCheckScreen,
+                );
+              },
               backgroundColor: AppColors.manualCheckButtonBg,
               buttonHeight: 1.sp,
               textColor: AppColors.infoTextHingBg,
@@ -279,7 +257,7 @@ Widget bottomButtonFertigationWidget(BuildContext context){
             ),
           ),
         ],
-      ),
+      )),
     ],
   );
 }
@@ -547,7 +525,7 @@ class _FertigationWidgetState extends State<FertigationWidget> {
         10.verticalSpace,
         if (!_showDetails) ...[
           8.verticalSpace,
-          bottomButtonFertigationWidget(context)
+          bottomButtonFertigationWidget(context,widget.currentStage)
         ],
         10.verticalSpace,
         GestureDetector(

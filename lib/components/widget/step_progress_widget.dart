@@ -42,6 +42,8 @@ class StepProgressIndicator extends StatelessWidget {
       1 =>  loadGerminationWidget(),
       2 =>  loadFertigationWidget(context,currentStep),
       3 =>  loadFertigationWidget(context,currentStep),
+      3 =>  loadFertigationWidget(context,currentStep),
+      4 =>  loadFertigationWidget(context,currentStep),
       _ => Text("Unknown"),
     };
   }
