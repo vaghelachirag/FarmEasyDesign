@@ -21,7 +21,7 @@ import '../../../../components/widget/custom_step_progress_manual_check.dart';
 import '../../../../components/widget/custom_upload_photo_grid.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
-import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
+import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen_provider.dart';
 
 
 

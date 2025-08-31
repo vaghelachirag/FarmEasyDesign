@@ -30,6 +30,8 @@ class StepController extends StateNotifier<StepState> {
   ));
 
   void goTo(int index) {
+    if (index < 0 || index >= state.statuses.length) return;
+    
     final list = List<StepStatus>.from(state.statuses);
     for (int i = 0; i < list.length; i++) {
       if (i < index && list[i] != StepStatus.completed) list[i] = StepStatus.completed;
@@ -40,27 +42,76 @@ class StepController extends StateNotifier<StepState> {
   }
 
   void setStatus(int index, StepStatus status) {
+    if (index < 0 || index >= state.statuses.length) return;
+    
     final list = List<StepStatus>.from(state.statuses)..[index] = status;
     state = state.copyWith(statuses: list);
   }
 
   void completeAndNext() {
     final i = state.currentIndex;
+    if (i >= state.statuses.length) return;
+    
     final list = List<StepStatus>.from(state.statuses);
     list[i] = StepStatus.completed;
     final next = (i + 1 < list.length) ? i + 1 : i;
     if (next != i) list[next] = StepStatus.current;
-    state = StepState(currentIndex: next, statuses: list);
+    state = state.copyWith(currentIndex: next, statuses: list);
+  }
+
+  void reset() {
+    final list = List<StepStatus>.filled(state.statuses.length, StepStatus.upcoming)..[0] = StepStatus.current;
+    state = StepState(currentIndex: 0, statuses: list);
+  }
+
+  // Helper method to handle step progression based on scan state
+  void handleScanStateChange(String scanState, int totalSteps) {
+    switch (scanState) {
+      case 'success':
+        // First scan completed, move to step 2 (confirm details)
+        if (state.currentIndex == 0) {
+          completeAndNext();
+        }
+        break;
+      case 'confirmDetail':
+        // Details confirmed, move to step 3 (scan level QR)
+        if (state.currentIndex == 1) {
+          completeAndNext();
+        }
+        break;
+      case 'scanNextQR':
+        // Level QR scanned, complete the process
+        if (state.currentIndex == 2) {
+          completeAndNext();
+        }
+        break;
+    }
+  }
+
+  // Method to handle initial scan success (when user first scans a QR)
+  void handleInitialScanSuccess() {
+    if (state.currentIndex == 0) {
+      // First scan (Tray QR) completed
+      completeAndNext();
+    }
+  }
+
+  // Method to handle second scan success (when user scans Level QR)
+  void handleSecondScanSuccess() {
+    if (state.currentIndex == 2) {
+      // Second scan (Level QR) completed
+      completeAndNext();
+    }
   }
 }
 
-final stepControllerProvider =
-StateNotifierProvider<StepController, StepState>((ref) {
-  return StepController(length: 3);
+// Provider factory that creates a step controller with the correct length
+final stepControllerProvider = StateNotifierProvider.family<StepController, StepState, int>((ref, length) {
+  return StepController(length: length);
 });
 
-final progressProvider = Provider<double>((ref) {
-  final s = ref.watch(stepControllerProvider);
+final progressProvider = Provider.family<double, int>((ref, length) {
+  final s = ref.watch(stepControllerProvider(length));
   final done = s.statuses.where((e) => e == StepStatus.completed).length;
   return done / s.statuses.length;
 });

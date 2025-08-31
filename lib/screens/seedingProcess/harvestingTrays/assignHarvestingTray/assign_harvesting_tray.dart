@@ -20,7 +20,7 @@ import '../../../../components/widget/custom_input_field.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
-import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
+import '../../seedingTrays/addPersonDetail/provider/add_person_detail_screen_provider.dart';
 
 
 class AssignHarvestingTray extends ConsumerStatefulWidget {

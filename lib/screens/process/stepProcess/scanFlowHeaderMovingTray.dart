@@ -19,7 +19,14 @@ class ScanFlowHeaderMovingTray extends ConsumerWidget {
       StepConfigMovingTray(caption: 'Step 3', label: 'Scan Level QR',  icon: Icons.qr_code_2_rounded),
     ];
 
-    return  Container(
+    // Initialize step controller if needed
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final controller = ref.read(stepControllerProvider(steps.length).notifier);
+      // Reset to initial state when widget is built
+      controller.reset();
+    });
+
+    return Container(
       decoration: boxDecoration(AppColors.white, AppColors.basePrimaryColor),
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       child: ProcessStepperMovingTray(steps: steps),

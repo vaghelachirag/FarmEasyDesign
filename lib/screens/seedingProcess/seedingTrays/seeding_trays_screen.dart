@@ -18,6 +18,7 @@ import '../../../components/widget/step_progress_widget.dart';
 import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
+import 'addPersonDetail/provider/add_person_detail_screen_provider.dart';
 
 class SeedingTraysScreen extends ConsumerStatefulWidget {
 
@@ -39,6 +40,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
     Future(() {
       Utils.hideKeyboard(context);
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
+      final fetchSeedsAsync = ref.watch(fetchSeedsProvider);
     });
   }
 
@@ -51,28 +53,29 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
     final scanState = ref.watch(scanStateProvider);
     final scanStateNotifier = ref.read(scanStateProvider.notifier);
 
+
     getArgument();
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,S.of(context).seedingTrays),
-      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier))
+      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier,ref))
     ));
   }
 
   // Main Widget for Load Seeding page
-  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         StepProgressIndicator(currentStepName: cycleStatus),
         10.verticalSpace,
-        _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
+        _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,ref),
       ],
     );
   }
 
   // Load Main Widget
-  Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+  Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
     return  Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
@@ -82,7 +85,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
           20.verticalSpace,
           _loadInfoWidow(),
           40.verticalSpace,
-          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
+          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus,ref),
           40.verticalSpace,
           20.verticalSpace,
           _confirmAndSaveButton(context,ref,scanStateNotifier)

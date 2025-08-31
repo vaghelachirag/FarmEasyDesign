@@ -50,7 +50,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen> wi
     return SafeArea(child:
     Scaffold(
         appBar: getActionbar(context,context.l10n.moveToFertigation),
-        body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier)),
+        body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier,ref)),
         bottomNavigationBar: _loadBottomConfirmAndScanButton(scanState,scanStateNotifier)));
   }
 
@@ -96,20 +96,20 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen> wi
   }
 
   // Main Widget for Load Seeding page
-  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         StepProgressIndicator(currentStepName: cycleStatus),
         10.verticalSpace,
-        _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier),
+        _loadMainWidget(showScanner,toggleScanner,scanState,scanStateNotifier,ref),
         20.verticalSpace,
       ],
     );
   }
 
   // Load Main Widget
-  Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+  Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
     return  Container(
       child: switch (scanState) {
         ScanState.idle => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
@@ -134,7 +134,7 @@ class _MoveToFertigationScreen extends ConsumerState<MoveToFertigationScreen> wi
           20.verticalSpace,
           _loadInfoWidow(),
           40.verticalSpace,
-          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
+          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus,ref),
           40.verticalSpace,
           _showActionRequiredSection(scanState),
         ],

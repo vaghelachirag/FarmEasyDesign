@@ -24,7 +24,7 @@ class ProcessStepperMovingTray extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(stepControllerProvider);
+    final state = ref.watch(stepControllerProvider(steps.length));
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

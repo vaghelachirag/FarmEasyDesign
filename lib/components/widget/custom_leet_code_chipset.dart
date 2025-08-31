@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../generator/assets.gen.dart';
-import '../../screens/seedingProcess/seedingTrays/addPersonDetail/provider/add_person_detail_screen.dart';
+import '../../screens/seedingProcess/seedingTrays/addPersonDetail/provider/add_person_detail_screen_provider.dart';
 
 class CustomSeedLotInputField extends HookConsumerWidget {
   final String title;
@@ -25,7 +25,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lotCodes = ref.watch(seedLotListProvider);
-    const int maxVisible = 1;
+    const int maxVisible = 4;
     final visibleChips = lotCodes.take(maxVisible).toList();
     final hiddenCount = lotCodes.length - maxVisible;
 
@@ -53,7 +53,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
                   children: [
                     ...visibleChips.map(
                           (lot) => Chip(
-                        label: labelTextRegular(lot, 10.sp, AppColors.white),
+                        label: labelTextRegular(lot.id.substring(0, lot.id.length > 4 ? 4 : lot.id.length), 10.sp, AppColors.white),
                         backgroundColor: const Color(0xFF5D7E57), // green shade
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -62,7 +62,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
                         visualDensity: VisualDensity.compact,
                       ),
                     ),
-                    if (hiddenCount > 0)
+                    if (hiddenCount > 1)
                       ActionChip(
                         label: labelTextRegular("+$hiddenCount more", 10.sp, AppColors.white),
                         onPressed: () {
@@ -73,7 +73,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
                               child: ListView(
                                 children: lotCodes
                                     .map((lot) => Chip(
-                                  label: Text(lot),
+                                  label: Text(lot.id),
                                   onDeleted: () {
                                     ref.read(seedLotListProvider.notifier).update((state) =>
                                     List.from(state)..remove(lot));

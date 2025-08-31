@@ -50,7 +50,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
     return SafeArea(child:
     Scaffold(
       appBar: getActionbar(context,context.l10n.movingToGermination),
-      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier)),
+      body:  mainWidgetForSeedingContainer(mainSeedingWidget(showScanner,toggleScanner,scanState,scanStateNotifier,ref)),
       bottomNavigationBar: _loadBottomConfirmAndScanButton(scanState,scanStateNotifier)));
   }
 
@@ -98,7 +98,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
 
 
   // Main Widget for Load Seeding page
-  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+  Widget mainSeedingWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -115,11 +115,11 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
     return  Container(
       child: switch (scanState) {
-        ScanState.idle => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
-        ScanState.scanning => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
-        ScanState.success => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+        ScanState.idle => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier,ref),
+        ScanState.scanning => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier,ref),
+        ScanState.success => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier,ref),
         ScanState.confirmDetail =>   loadAddingTrayWithoutSelection(context,true),
-        ScanState.moveToFertigation => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier),
+        ScanState.moveToFertigation => _loadIdealContainer(showScanner,toggleScanner,scanState,scanStateNotifier,ref),
         ScanState.scanNextQR => loadAddingTrayContainer(context,true),
         _ => Text('Unknown Status'),
       },
@@ -127,7 +127,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
   }
 
 
-  Widget _loadIdealContainer(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
+  Widget _loadIdealContainer(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
     return  Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
@@ -137,7 +137,7 @@ class _MovingToGerminationScreen extends ConsumerState<MovingToGerminationScreen
           20.verticalSpace,
           _loadInfoWidow(),
           40.verticalSpace,
-          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
+          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus,ref),
           40.verticalSpace,
           _showActionRequiredSection(scanState),
         ],

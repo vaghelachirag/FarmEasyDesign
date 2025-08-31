@@ -28,17 +28,21 @@ import '../../../../generator/assets.gen.dart';
 import '../../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
 import '../../../tab/cycles/provider/cycles_provider.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
-import 'provider/add_person_detail_screen.dart';
+import 'provider/add_person_detail_screen_provider.dart';
 
 class AddPersonDetailScreen extends HookConsumerWidget {
   AddPersonDetailScreen({super.key});
 
   late CycleStage cycleStatus;
 
+
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //Utils.hideKeyboard(context);
     getArgument(context);
+
+    final scannedSeeds = ref.watch(scannedSeedLotsProvider);
 
 
     final screenWidth = MediaQuery.of(context).size.width;
@@ -60,6 +64,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
 
     final searchText = ref.watch(peopleSearchTextProvider);
     final lotCodes = ref.watch(seedLotListProvider);
+
 
     return SafeArea(
       child: Scaffold(
@@ -128,6 +133,7 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
     },title: S.of(context).processed,iconPath:   Assets.icons.iconQrProcessed.path);
   }
 
+
   Widget _customSeeLotInputFiled(WidgetRef ref, BuildContext context){
     return CustomSeedLotInputField(
       title: S.of(context).seedLotCode,
@@ -139,6 +145,8 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
       },
     );
   }
+
+
   void getArgument(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     cycleStatus = args[cycleStageArgumentName];
@@ -443,7 +451,8 @@ Widget infoWindow(BuildContext context) {
   );
 }
 
-Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNotifier){
+Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
+  final scannedSeeds = ref.watch(scannedSeedLotsProvider);
   return
     Center(
       child:  Container(
@@ -455,8 +464,18 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
                 detectionSpeed: DetectionSpeed.normal,
                 facing: CameraFacing.back,
               ),
-              onDetect: (BarcodeCapture barcode) {
-                scanStateNotifier.state = ScanState.success;
+              onDetect: (barcodeCapture) {
+                final seeds = ref.read(seedLotListProvider);
+                for (final barcode in barcodeCapture.barcodes) {
+                  final rawValue = barcode.rawValue;
+                  if (rawValue != null) {
+                    final seed = findSeedById(seeds, rawValue);
+                    if (seed != null && !scannedSeeds.contains(seed)) {
+                      ref.read(scannedSeedLotsProvider.notifier).update((state) => [...state, seed]);
+                      scanStateNotifier.state = ScanState.success;
+                    }
+                  }
+                }
               },
             ),
           )
@@ -464,6 +483,7 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
     )
   ;
 }
+
 
 Widget idealScanContainer(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier){
   return Container(

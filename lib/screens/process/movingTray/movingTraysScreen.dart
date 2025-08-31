@@ -1,3 +1,4 @@
+
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/screens/process/stepProcess/scanFlowHeaderMovingTray.dart';
@@ -7,12 +8,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart' hide infoWindow;
+import '../../../base/utils/app_decorations.dart';
 import '../../../base/utils/constants.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
 import '../../../base/utils/dialougs.dart';
 import '../../../generator/assets.gen.dart';
+import '../../seedingProcess/harvestingTrays/assignHarvestingTray/assign_harvesting_tray.dart';
 import '../../tab/seeding/provider/seeding_provider.dart';
 import '../stepProcess/stepConfigMovingTray.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 
 class MoveTraysScreen extends ConsumerStatefulWidget {
@@ -57,11 +61,15 @@ class _MoveTraysScreen extends ConsumerState<MoveTraysScreen> with TickerProvide
         iconPath: path,
         btnName: buttonTitle,
         onPressed: () {
+          // Define steps length for the provider
+          const stepsLength = 3;
+          final stepController = ref.read(stepControllerProvider(stepsLength).notifier);
+          
           switch (scanState) {
             case ScanState.success:
             // Move to confirm details
               scanStateNotifier.state = ScanState.confirmDetail;
-              ref.read(stepControllerProvider.notifier).completeAndNext();
+              stepController.handleScanStateChange('success', stepsLength);
               break;
 
             case ScanState.moveToFertigation:
@@ -70,16 +78,12 @@ class _MoveTraysScreen extends ConsumerState<MoveTraysScreen> with TickerProvide
 
             case ScanState.scanNextQR:
               showTraySuccessDialog(context, false, true);
-
-              // Optionally, mark next step complete too:
-              ref.read(stepControllerProvider.notifier).completeAndNext();
+              stepController.handleScanStateChange('scanNextQR', stepsLength);
               break;
 
             case ScanState.confirmDetail:
               showTraySuccessDialog(context, false, true);
-
-              // If you want to finalize stepper here too:
-              ref.read(stepControllerProvider.notifier).completeAndNext();
+              stepController.handleScanStateChange('confirmDetail', stepsLength);
               break;
 
             default:
@@ -134,7 +138,7 @@ class _MoveTraysScreen extends ConsumerState<MoveTraysScreen> with TickerProvide
   }
 
   Widget _loadIdealContainer(bool showScanner, StateController<bool> toggleScanner, ScanState scanState, StateController<ScanState> scanStateNotifier){
-    return  Container(
+    return Container(
       decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -143,7 +147,47 @@ class _MoveTraysScreen extends ConsumerState<MoveTraysScreen> with TickerProvide
           20.verticalSpace,
           _loadInfoWidow(),
           40.verticalSpace,
-          scanQrExpand(context,showScanner,toggleScanner,scanState,scanStateNotifier,cycleStatus),
+          // Use custom scan container for moving tray
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                scanStateNotifier.state = ScanState.scanning;
+              },
+              child: SizedBox(
+                height: 240.h,
+                width: 240.w,
+                child: Stack(
+                  children: [
+                    // Corner Decorations (outside padding)
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: SvgPicture.asset(Assets.images.leftSideCornerScan.path),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: SvgPicture.asset(Assets.images.iconRightTopCorner.path),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: SvgPicture.asset(Assets.images.iconLeftBottomCorner.path),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: SvgPicture.asset(Assets.images.iconRightBottomCorner.path),
+                    ),
+                    // Main Content with padding
+                    Container(
+                      child: customScanContainerForMovingTray(context, scanState, scanStateNotifier, ref),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           40.verticalSpace,
           _showActionRequiredSection(scanState),
         ],
@@ -201,4 +245,75 @@ Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController
       },
     ),
   ) ;
+}
+
+// Custom mobile scanner for moving tray that handles step progression
+Widget customMobileScannerForMovingTray(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref) {
+  return Center(
+    child: Container(
+      margin: EdgeInsets.all(15),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: MobileScanner(
+          controller: MobileScannerController(
+            detectionSpeed: DetectionSpeed.normal,
+            facing: CameraFacing.back,
+          ),
+          onDetect: (BarcodeCapture barcode) {
+            scanStateNotifier.state = ScanState.success;
+            
+            // Automatically progress to next step when scan is successful
+            const stepsLength = 3;
+            final stepController = ref.read(stepControllerProvider(stepsLength).notifier);
+            
+            // Check current step and progress accordingly
+            final currentState = ref.read(stepControllerProvider(stepsLength));
+            if (currentState.currentIndex == 0) {
+              // First scan (Tray QR) completed
+              stepController.handleInitialScanSuccess();
+            } else if (currentState.currentIndex == 2) {
+              // Second scan (Level QR) completed
+              stepController.handleSecondScanSuccess();
+            }
+          },
+        ),
+      ),
+    ),
+  );
+}
+
+// Custom scan container that uses the custom mobile scanner
+Widget customScanContainerForMovingTray(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref) {
+  return Container(
+    margin: EdgeInsets.all(15),
+    decoration: AppDecorations.scanQrcodeBg(),
+    child: Padding(
+      padding: EdgeInsets.all(20.r),
+      child: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Background Icon
+            Opacity(
+              opacity: 0.1,
+              child: Icon(
+                Icons.qr_code,
+                size: 160.r,
+              ),
+            ),
+            Container(
+              child: switch(scanState){
+                ScanState.idle => tapScanColumn(context),
+                ScanState.scanning => customMobileScannerForMovingTray(context, scanState, scanStateNotifier, ref),
+                ScanState.success => scanSuccessWidget(context),
+                ScanState.confirmDetail => scanSuccessWidget(context),
+                ScanState.moveToFertigation => tapScanColumn(context),
+                ScanState.scanNextQR => null,
+              },
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
