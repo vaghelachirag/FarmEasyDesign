@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:farmeasy/model/login/getLoginResponseModel.dart';
 import 'package:farmeasy/model/seeds/getSeedListRespnse/get_seed_list_response.dart';
@@ -8,6 +10,7 @@ import 'package:farmeasy/network/api_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../base/services/preferences/preferences.dart';
+import '../model/seeds/addSeedRequestJson/add_seed_request_json.dart';
 import 'api_utils.dart';
 import 'dioProvider.dart';
 
@@ -98,8 +101,6 @@ class AuthRepository {
         final responseData = response.data;
 
         if (responseData != null && responseData['data'] != null) {
-          print("ResponseData$responseData");
-
           final List<dynamic> list = responseData['data'];
           return list
               .map((json) => GetSeedLotData.fromJson(json))
@@ -117,6 +118,25 @@ class AuthRepository {
   }
 
 
+
+  Future<bool> addSeeds(AddSeedRequest request) async {
+    try {
+      final response = await ApiManager.callPost(
+        apiUrl: ApiPath.addSeedsUrl,
+        body: jsonEncode(request.toJson()),
+        // isAuthApi should be false so Authorization header is merged in
+        isAuthApi: false,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      }
+      return false;
+    } on DioException catch (error) {
+      debugPrint("addSeeds error: ${error.message}");
+      return false;
+    }
+  }
   void logout() {
     ref.read(authTokenProvider.notifier).state = null;
   }

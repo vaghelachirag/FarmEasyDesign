@@ -1,7 +1,10 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../base/services/preferences/preferences.dart';
+import '../base/utils/constants.dart';
+import '../base/utils/global_context.dart';
 import 'api_utils.dart';
 import 'app_config.dart';
 
@@ -345,24 +348,31 @@ class ApiManager {
   }
 
   static Future<void> _handleSessionExpired({required String message}) async {
-    /* PreferenceService preferenceService = PreferenceService.instance;
-    // errorToastMessage(message: message);
-    if (await preferenceService.isLogin == "true") {
-      await preferenceService.setIsLogin("false");
-      if (NavigationService.currentContext.mounted) {
-        ApiManager.cancelAllRequests();
-        Provider.of<ProfileProvider>(
-          NavigationService.currentContext,
-          listen: false,
-        )..handleLogoutUser();
-        clearLogoutDataGlobal(NavigationService.currentContext);
-        await preferenceService.clearPreferences();
-        await NavigationService.currentContext.navigator.pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => OnboardingScreen()),
-          ModalRoute.withName(OnboardingScreen.route),
+    try {
+      final preferenceService = PreferenceService.instance;
+      // Mark as logged out and clear stored credentials
+      await preferenceService.setIsLogin(false);
+      await preferenceService.clearPreferences();
+
+      // Cancel any inflight network requests
+      ApiManager.cancelAllRequests();
+
+      // Notify user if possible
+      try {
+        final context = NavigationService.currentContext;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message)),
         );
-      }
-    }*/
+      } catch (_) {}
+
+      // Navigate to login, clearing back stack
+      try {
+        final nav = NavigationService.currentState;
+        nav.pushNamedAndRemoveUntil(loginScreen, (route) => false);
+      } catch (_) {}
+    } catch (e) {
+      log('Session expired handling error: $e');
+    }
   }
 
   static Future<Map<String, String>> _getMergedHeaders(

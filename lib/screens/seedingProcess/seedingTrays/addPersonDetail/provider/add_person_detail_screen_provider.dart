@@ -49,7 +49,6 @@ final fetchSeedsProvider = FutureProvider.autoDispose<List<GetSeedListResponse>>
 */
 
 
-
 final fetchSeedsLotProvider = FutureProvider.autoDispose<List<GetSeedLotData>>((ref) async {
   final prefs = PreferenceService.instance;
   final token = await prefs.accessToken;

@@ -12,12 +12,16 @@ import '../../../../base/utils/common_widgets.dart';
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/dialougs.dart';
+import '../../../../base/utils/utils.dart';
 import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../../tab/cycles/provider/cycles_provider.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
 import '../../harvestingTrays/provider/harvesting_trays_provider.dart';
+import '../../../../model/seeds/addSeedRequestJson/add_seed_request_json.dart';
+import '../../../../network/authRepositoryProvider.dart';
+import '../addPersonDetail/provider/add_person_detail_screen_provider.dart';
 
 
 class ConfirmSeedingTray extends ConsumerStatefulWidget {
@@ -117,10 +121,29 @@ class _ConfirmSeedingTray extends ConsumerState<ConfirmSeedingTray>
                   CustomAddDetailButton(
                     iconPath: Assets.icons.iconConfirmAndProcessed.path,
                     btnName: S.of(context).confirmProceed,
-                    onPressed: () {
-                      context.navigator.pushNamed(
-                        homeTab
+                    onPressed: () async {
+                      final scannedLots = ref.read(scannedSeedLotsProvider);
+                      if (scannedLots.isEmpty) {
+                        Utils.showSnackBar(context, 'Scan at least one seed lot');
+                        return;
+                      }
+                      // TODO: Wire these inputs from previous screen or state
+                      final request = AddSeedRequest(
+                        seedLots: scannedLots.map((e) => AddSeedLotRequestData(seedLotId: e.id, quantityKg: int.tryParse(e.currentQuantityKg) ?? 0)).toList(),
+                        seedGramsPerTray: 0,
+                        coirGramsPerTray: 0,
+                        numFullTrays: 0,
+                        numHalfTrays: 0,
                       );
+
+                      final repo = ref.read(authRepositoryProvider);
+                      final ok = await repo.addSeeds(request);
+                      if (ok) {
+                        Utils.showSnackBar(context, 'Seeds added successfully');
+                        context.navigator.pushNamed(homeTab);
+                      } else {
+                        Utils.showSnackBar(context, 'Failed to add seeds', color: Colors.red);
+                      }
                     },
                   ))
             ],
