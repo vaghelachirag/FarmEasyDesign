@@ -40,7 +40,7 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
     Future(() {
       Utils.hideKeyboard(context);
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
-      final fetchSeedsAsync = ref.watch(fetchSeedsProvider);
+      final fetchSeedsAsync = ref.watch(fetchSeedsLotProvider);
     });
   }
 

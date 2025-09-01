@@ -1,3 +1,5 @@
+import 'package:farmeasy/model/seeds/getSeedLotListResponse/get_seed_lot_response.dart';
+import 'package:farmeasy/model/seeds/get_seeds_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../../base/services/preferences/preferences.dart';
 import '../../../../../model/seeds/getSeedListRespnse/get_seed_list_response.dart';
@@ -29,12 +31,13 @@ final filteredPeopleProvider = Provider<List<Map<String, String>>>((ref) {
 final selectedPeopleProvider = StateProvider<List<Map<String, String>>>((ref) => []);
 
 
-final seedLotListProvider = StateProvider<List<GetSeedListResponse>>((ref) => []);
+final seedLotListProvider = StateProvider<List<GetSeedLotData>>((ref) => []);
 
 
-final scannedSeedLotsProvider = StateProvider<List<GetSeedListResponse>>((ref) => []);
+final scannedSeedLotsProvider = StateProvider<List<GetSeedLotData>>((ref) => []);
 
 
+/*
 final fetchSeedsProvider = FutureProvider.autoDispose<List<GetSeedListResponse>>((ref) async {
   final prefs = PreferenceService.instance;
   final token = await prefs.accessToken;
@@ -43,9 +46,20 @@ final fetchSeedsProvider = FutureProvider.autoDispose<List<GetSeedListResponse>>
   ref.read(seedLotListProvider.notifier).state = seeds;
   return seeds;
 });
+*/
 
 
-GetSeedListResponse? findSeedById(List<GetSeedListResponse> seeds, String seedLotId) {
+
+final fetchSeedsLotProvider = FutureProvider.autoDispose<List<GetSeedLotData>>((ref) async {
+  final prefs = PreferenceService.instance;
+  final token = await prefs.accessToken;
+  final repo = ref.read(authRepositoryProvider);
+  final seeds = await repo.fetchSeedsLot(token);
+  ref.read(seedLotListProvider.notifier).state = seeds;
+  return seeds;
+});
+
+GetSeedLotData? findSeedById(List<GetSeedLotData> seeds, String seedLotId) {
   try {
     return seeds.firstWhere((seed) => seed.id == seedLotId);
   } catch (e) {

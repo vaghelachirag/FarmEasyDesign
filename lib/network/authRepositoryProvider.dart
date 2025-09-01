@@ -2,6 +2,8 @@
 import 'package:dio/dio.dart';
 import 'package:farmeasy/model/login/getLoginResponseModel.dart';
 import 'package:farmeasy/model/seeds/getSeedListRespnse/get_seed_list_response.dart';
+import 'package:farmeasy/model/seeds/getSeedLotListResponse/get_seed_lot_response.dart';
+import 'package:farmeasy/model/seeds/get_seeds_model.dart';
 import 'package:farmeasy/network/api_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -83,6 +85,37 @@ class AuthRepository {
       return []; // return empty list instead of false
     }
   }
+
+  // Fetch Seeds Lot
+  Future<List<GetSeedLotData>> fetchSeedsLot(String? token) async {
+    try {
+      final response = await ApiManager.callGet(path: ApiPath.getSeedLotUrl,
+        header: {
+          "Authorization": "Bearer $token",
+        },);
+
+      if (response.statusCode == 200) {
+        final responseData = response.data;
+
+        if (responseData != null && responseData['data'] != null) {
+          print("ResponseData$responseData");
+
+          final List<dynamic> list = responseData['data'];
+          return list
+              .map((json) => GetSeedLotData.fromJson(json))
+              .toList();
+        }
+        else{
+          return [];
+        }
+      }
+      return []; // empty list if no data
+    } on DioException catch (error) {
+      debugPrint("fetchSeeds error: ${error.message}");
+      return []; // return empty list instead of false
+    }
+  }
+
 
   void logout() {
     ref.read(authTokenProvider.notifier).state = null;

@@ -53,7 +53,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
                   children: [
                     ...visibleChips.map(
                           (lot) => Chip(
-                        label: labelTextRegular(lot.id.substring(0, lot.id.length > 4 ? 4 : lot.id.length), 10.sp, AppColors.white),
+                        label: labelTextRegular(lot.lotCode.substring(0, lot.lotCode.length > 4 ? 4 : lot.lotCode.length), 10.sp, AppColors.white),
                         backgroundColor: const Color(0xFF5D7E57), // green shade
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
