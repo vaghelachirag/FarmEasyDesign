@@ -56,7 +56,6 @@ class MyApp extends ConsumerWidget {
     }
 
     ScreenUtil.init(context);
-
     return GestureDetector(
       onTap: closeKeyboard,
       child: MaterialApp(
@@ -77,7 +76,7 @@ class MyApp extends ConsumerWidget {
         ],
         supportedLocales: S.delegate.supportedLocales,
         onGenerateRoute: AppRoute.onGeneratedRoute,
-        initialRoute: SplashScreen.route,
+        initialRoute: moveTrayScreen,
       ),
     );
   }

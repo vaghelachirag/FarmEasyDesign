@@ -1,6 +1,7 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/components/common/app_text_styles.dart';
+import 'package:farmeasy/screens/process/movingTray/provider/moving_tray_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -855,7 +856,6 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
     ),
   );
 }
-
 
 Widget idealScanContainer(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
   return Container(

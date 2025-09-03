@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:farmeasy/screens/process/stepProcess/stepConfigMovingTray.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../../base/utils/app_colors.dart';
 
 class ProcessStepperMovingTray extends ConsumerWidget {
   final List<StepConfigMovingTray> steps;
@@ -27,7 +27,7 @@ class ProcessStepperMovingTray extends ConsumerWidget {
     final state = ref.watch(stepControllerProvider(steps.length));
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: List.generate(steps.length * 2 - 1, (i) {
         if (i.isOdd) {
@@ -36,9 +36,12 @@ class ProcessStepperMovingTray extends ConsumerWidget {
           final leftDone = state.statuses[leftIndex] == StepStatus.completed;
           return Expanded(
             child: Container(
-              margin: const EdgeInsets.only(top: 16),
-              height: 1,
-              color: leftDone ? primary : neutral.withOpacity(0.5),
+              margin: EdgeInsets.only(top: 20.h),
+              height: 2.h,
+              decoration: BoxDecoration(
+                color: leftDone ? primary : neutral.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(1.r),
+              ),
             ),
           );
         } else {
@@ -85,20 +88,20 @@ class _StepItem extends StatelessWidget {
     final isCurrent = status == StepStatus.current;
     final isError = status == StepStatus.error;
 
-    final circleSize = 36.0;
+    final circleSize = 40.0;
     final borderColor = isCompleted || isCurrent ? success : neutral;
     final fillColor = isCompleted
         ? success
         : isCurrent
-        ? Colors.white
+        ? success
         : Colors.transparent;
     final iconColor = isCompleted ? Colors.white : borderColor;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-     const SizedBox(height: 6),
+        const SizedBox(height: 6),
         // circle with icon
         Container(
           width: circleSize,
@@ -111,22 +114,27 @@ class _StepItem extends StatelessWidget {
           child: Center(
             child: Icon(
               isCompleted ? Icons.check_rounded : icon,
-              size: 18,
+              size: 20.sp,
               color: iconColor,
             ),
           ),
         ),
+        SizedBox(height: 8.h),
         Text(
           caption,
-          style: Theme.of(context).textTheme.labelSmall?.copyWith(
-            color: Colors.black54,
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: AppColors.hintTextColor,
+            fontWeight: FontWeight.w400,
           ),
         ),
-        4.verticalSpace,
+        SizedBox(height: 4.h),
         Text(
           label,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          style: TextStyle(
+            fontSize: 14.sp,
+            color: AppColors.textColor,
             fontWeight: FontWeight.w600,
           ),
           maxLines: 2,

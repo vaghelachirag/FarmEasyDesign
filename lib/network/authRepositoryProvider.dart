@@ -117,14 +117,12 @@ class AuthRepository {
     }
   }
 
-
-
+  // API for addSeeds
   Future<bool> addSeeds(AddSeedRequest request) async {
     try {
       final response = await ApiManager.callPost(
         apiUrl: ApiPath.addSeedsUrl,
         body: jsonEncode(request.toJson()),
-        // isAuthApi should be false so Authorization header is merged in
         isAuthApi: false,
       );
 
@@ -137,6 +135,8 @@ class AuthRepository {
       return false;
     }
   }
+
+
   void logout() {
     ref.read(authTokenProvider.notifier).state = null;
   }

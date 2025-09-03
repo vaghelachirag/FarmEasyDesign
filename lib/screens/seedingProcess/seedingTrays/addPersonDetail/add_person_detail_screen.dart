@@ -56,11 +56,20 @@ class AddPersonDetailScreen extends HookConsumerWidget {
     final scanStateNotifier = ref.read(scanStateProvider.notifier);
 
     final formKey = useMemoized(() => GlobalKey<FormState>());
+    
+    // Controllers for all text fields
     final numberOfFullTrays = useTextEditingController();
     final numberOfHalfTrays = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final isPassHide = useState(true);
-    final rememberMe = useState(false);
+    final seedLotCode = useTextEditingController();
+    final seedsName = useTextEditingController();
+    final seedWeightTray = useTextEditingController();
+    final coreWeightTray = useTextEditingController();
+    final seedingDate = useTextEditingController();
+
+    // Remove unused controllers
+    // final passwordController = useTextEditingController();
+    // final isPassHide = useState(true);
+    // final rememberMe = useState(false);
 
     final searchText = ref.watch(peopleSearchTextProvider);
     final lotCodes = ref.watch(seedLotListProvider);
@@ -69,12 +78,34 @@ class AddPersonDetailScreen extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         appBar: getActionbar(context,S.of(context).seedingTrays),
-        body:  mainWidgetForSeedingContainer(_mainWidgetForAddPerson(numberOfFullTrays,numberOfHalfTrays,context,ref,searchText))
+        body:  mainWidgetForSeedingContainer(_mainWidgetForAddPerson(
+          numberOfFullTrays,
+          numberOfHalfTrays,
+          seedLotCode,
+          seedsName,
+          seedWeightTray,
+          coreWeightTray,
+          seedingDate,
+          context,
+          ref,
+          searchText
+        ))
       ),
     );
   }
 
-Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEditingController numberOfHalfTrays, BuildContext context, WidgetRef ref, String searchText){
+Widget _mainWidgetForAddPerson(
+  TextEditingController numberOfFullTrays, 
+  TextEditingController numberOfHalfTrays,
+  TextEditingController seedLotCode,
+  TextEditingController seedsName,
+  TextEditingController seedWeightTray,
+  TextEditingController coreWeightTray,
+  TextEditingController seedingDate,
+  BuildContext context, 
+  WidgetRef ref, 
+  String searchText
+){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -84,7 +115,7 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
         // Info card
         Container(
           decoration: boxDecoration(AppColors.scanQrMainBg,AppColors.scanQrMainBg),
-          padding: EdgeInsets.all(20.sp),
+          padding: EdgeInsets.all(16.sp),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -94,20 +125,29 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
                 20.verticalSpace,
                 _numberOfHalfTrays(numberOfHalfTrays, context),
                 20.verticalSpace,
-                _seedLotCode(numberOfHalfTrays, context),
+                _seedLotCode(seedLotCode, context),
                 5.verticalSpace,
-                _seedsName(numberOfHalfTrays, context),
+                _seedsName(seedsName, context),
                 20.verticalSpace,
-                _seedWeightTray(numberOfHalfTrays, context),
+                _seedWeightTray(seedWeightTray, context),
                 20.verticalSpace,
-                _coreWeightTray(numberOfHalfTrays, context),
+                _coreWeightTray(coreWeightTray, context),
                 20.verticalSpace,
                 _customSeeLotInputFiled(ref,context),
                 10.verticalSpace,
                 _addPeopleSuggestionWidget(searchText),
-                _seedingDate(numberOfHalfTrays, context),
+                _seedingDate(seedingDate, context),
                 20.verticalSpace,
-                _customProcessButton(context),
+                _customProcessButton(
+                  context,
+                  seedLotCode,
+                  numberOfFullTrays,
+                  numberOfHalfTrays,
+                  seedsName,
+                  seedWeightTray,
+                  coreWeightTray,
+                  seedingDate,
+                ),
                 20.verticalSpace,
                 SizedBox(
                   width: double.infinity,
@@ -124,13 +164,50 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
     );
 }
 
-  Widget _customProcessButton(BuildContext context){
-    return  CustomProceedButton(onPressed: (){
-      context.navigator.pushNamed(
-        confirmSeedingTray,
-        arguments: {cycleStageArgumentName: cycleStatus},
-      );
-    },title: S.of(context).processed,iconPath:   Assets.icons.iconQrProcessed.path);
+  Widget _customProcessButton(
+    BuildContext context,
+    TextEditingController seedLotCode,
+    TextEditingController numberOfFullTrays,
+    TextEditingController numberOfHalfTrays,
+    TextEditingController seedsName,
+    TextEditingController seedWeightTray,
+    TextEditingController coreWeightTray,
+    TextEditingController seedingDate,
+  ){
+    return CustomProceedButton(
+      onPressed: (){
+        // Get the seed lot code from the controller
+        final seedLotCodeValue = seedLotCode.text.trim();
+        
+        // Validate that seed lot code is not empty
+        if (seedLotCodeValue.isEmpty) {
+          // Show error or validation message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Please Enter Seed Lot Code"),
+              backgroundColor: Colors.red,
+            ),
+          );
+          return;
+        }
+        
+        context.navigator.pushNamed(
+          confirmSeedingTray,
+          arguments: {
+            cycleStageArgumentName: cycleStatus,
+            'seedLotCode': seedLotCodeValue,
+            'numberOfFullTrays': numberOfFullTrays.text.trim(),
+            'numberOfHalfTrays': numberOfHalfTrays.text.trim(),
+            'seedsName': seedsName.text.trim(),
+            'seedWeightTray': seedWeightTray.text.trim(),
+            'coreWeightTray': coreWeightTray.text.trim(),
+            'seedingDate': seedingDate.text.trim(),
+          },
+        );
+      },
+      title: S.of(context).processed,
+      iconPath: Assets.icons.iconQrProcessed.path
+    );
   }
 
 
@@ -201,65 +278,62 @@ Widget _numberOfHalfTrays(TextEditingController emailController, BuildContext co
   );
 }
 
-Widget _seedsName(TextEditingController emailController, BuildContext context,) {
+Widget _seedsName(TextEditingController controller, BuildContext context,) {
   return CustomTextField(
-    controller: emailController,
+    controller: controller,
     title: S.of(context).seedsName,
     hintText: "",
-    inputType: TextInputType.number,
+    inputType: TextInputType.text, // Changed from number to text
     textInputAction: TextInputAction.next,
     validator: (val) {
       if (val!.isEmpty) {
         return context.l10n.pleaseenteremail;
       }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
       return null;
     },
   );
 }
 
-Widget _seedLotCode(TextEditingController emailController, BuildContext context,) {
+Widget _seedLotCode(TextEditingController controller, BuildContext context,) {
   return CustomTextField(
-    controller: emailController,
+    controller: controller,
     title: S.of(context).seedLotCode,
     hintText: "",
     suffix: suffixScanNow(context),
-    inputType: TextInputType.number,
+    inputType: TextInputType.text, // Changed from number to text
     textInputAction: TextInputAction.next,
     validator: (val) {
       if (val!.isEmpty) {
         return context.l10n.pleaseenteremail;
       }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
       return null;
     },
   );
 }
 
-Widget _seedingDate(TextEditingController emailController, BuildContext context,) {
+Widget _seedingDate(TextEditingController controller, BuildContext context,) {
   return CustomTextField(
-    controller: emailController,
+    controller: controller,
     title: S.of(context).seedingDate,
     hintText: "",
     suffix: suffixDateIcon(context),
-    inputType: TextInputType.number,
+    inputType: TextInputType.datetime, // Changed from number to datetime
     textInputAction: TextInputAction.next,
     validator: (val) {
       if (val!.isEmpty) {
         return context.l10n.pleaseenteremail;
       }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
       return null;
     },
   );
 }
 
 Widget _seedWeightTray(
-    TextEditingController emailController,
+    TextEditingController controller,
     BuildContext context,
     ) {
   return CustomTextField(
-    controller: emailController,
+    controller: controller,
     title: S.of(context).seedweighttray,
     hintText: "",
     suffix: suffixCoreWeight(context),
@@ -269,15 +343,14 @@ Widget _seedWeightTray(
       if (val!.isEmpty) {
         return context.l10n.pleaseenteremail;
       }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
       return null;
     },
   );
 }
 
-Widget _coreWeightTray(TextEditingController emailController, BuildContext context,) {
+Widget _coreWeightTray(TextEditingController controller, BuildContext context,) {
   return CustomTextField(
-    controller: emailController,
+    controller: controller,
     title: S.of(context).coreWeight,
     hintText: "",
     suffix: suffixCoreWeight(context),
@@ -287,7 +360,6 @@ Widget _coreWeightTray(TextEditingController emailController, BuildContext conte
       if (val!.isEmpty) {
         return context.l10n.pleaseenteremail;
       }
-      // else if (!val.isValidEmail) return context.l10n.pleaseentercorrectemail;
       return null;
     },
   );
@@ -480,8 +552,7 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
             ),
           )
       ),
-    )
-  ;
+    );
 }
 
 
