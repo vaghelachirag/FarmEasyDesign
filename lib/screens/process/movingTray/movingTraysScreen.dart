@@ -131,7 +131,12 @@ Widget scanQrExpandMoveTray(BuildContext context, bool showScanner, StateControl
     child: GestureDetector(
       onTap: ()  {
         // scanStateNotifier.state = ScanState.scanning;
-        scanStateNotifier.state = MoveTrayScanState.scanning;
+        if(scanState == MoveTrayScanState.idle){
+          scanStateNotifier.state = MoveTrayScanState.scanning;
+        }
+        if(scanState == MoveTrayScanState.scanMore){
+          scanStateNotifier.state = MoveTrayScanState.actionRequired;
+        }
       },
       child: SizedBox(
         height: 240.h,
@@ -206,7 +211,7 @@ Widget idealScanContainerMoveTray(BuildContext context, MoveTrayScanState scanSt
                 MoveTrayScanState.addDetail => loadAddDetailWidget(context,scanStateNotifier),
                 MoveTrayScanState.confirmAndScan =>   tapScanColumn(context),
                 MoveTrayScanState.scanMore => tapScanColumn(context),
-                MoveTrayScanState.actionRequired => scanSuccessWidget(context),
+                MoveTrayScanState.actionRequired =>  mobileScannerMoveTray(scanState, scanStateNotifier,ref),
               },
             ),
           ],
@@ -230,7 +235,12 @@ Widget mobileScannerMoveTray(MoveTrayScanState scanState, StateController<MoveTr
                 facing: CameraFacing.back,
               ),
               onDetect: (barcodeCapture) {
-                scanStateNotifier.state = MoveTrayScanState.scanLevelQR;
+                if(scanState == MoveTrayScanState.scanning){
+                  scanStateNotifier.state = MoveTrayScanState.scanLevelQR;
+                }
+                else{
+                  scanStateNotifier.state = MoveTrayScanState.confirmAndScan;
+                }
               },
             ),
           )
@@ -252,11 +262,13 @@ Widget confirmAndSaveButton(
       SizedBox(
         width: 140.w,
         child: CustomAddDetailButton( btnName: "Next", onPressed: () {
-          if (scanStateNotifier.state == MoveTrayScanState.scanLevelQR) {
-            scanStateNotifier.state = MoveTrayScanState.addDetail;
-          }else{
+          if (scanStateNotifier.state == MoveTrayScanState.confirmAndScan) {
             scanStateNotifier.state = MoveTrayScanState.actionRequired;
           }
+          if (scanStateNotifier.state == MoveTrayScanState.scanLevelQR) {
+            scanStateNotifier.state = MoveTrayScanState.scanMore;
+          }
+
         },iconPath: Assets.icons.iconNext.path),
       ),
     ],
@@ -277,23 +289,21 @@ Widget loadAddDetailWidget(BuildContext context, StateController<MoveTrayScanSta
           children: [
             // Edit button
             Container(
-              width: 40.w,
-              height: 40.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
+                color: Colors.white,
               ),
-              child: Icon(
-                Icons.edit,
-                color: Colors.grey[600],
-                size: 20.sp,
-              ),
+              padding: EdgeInsets.all(5.r),
+              child: SvgPicture.asset(Assets.icons.iconAddDetail.path,colorFilter: ColorFilter.mode(
+                AppColors.darkGray,
+                BlendMode.srcIn,
+              ),width: 20.w,height: 20.h,),
             ),
-            // More options
-            Icon(
-              Icons.more_vert,
-              color: AppColors.white,
-              size: 24.sp,
+            // Right icons
+            Row(
+              children: [
+                SvgPicture.asset(Assets.icons.iconMore.path),
+              ],
             ),
           ],
         ),
@@ -326,7 +336,6 @@ Widget loadAddDetailWidget(BuildContext context, StateController<MoveTrayScanSta
         // Assigned People
         _buildAssignedPeopleField(),
         20.verticalSpace,
-
         _buildDateField(),
         20.verticalSpace,
         _buildReasonField(),
@@ -519,7 +528,7 @@ Widget _buildReasonField() {
 Widget _customProcessButton(BuildContext context, StateController<MoveTrayScanState> scanStateNotifier){
   return CustomProceedButton(
       onPressed: (){
-        scanStateNotifier.state = MoveTrayScanState.scanMore;
+        scanStateNotifier.state = MoveTrayScanState.actionRequired;
       },
       title: S.of(context).processed,
       iconPath: Assets.icons.iconQrProcessed.path

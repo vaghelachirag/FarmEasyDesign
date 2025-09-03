@@ -76,7 +76,7 @@ class MyApp extends ConsumerWidget {
         ],
         supportedLocales: S.delegate.supportedLocales,
         onGenerateRoute: AppRoute.onGeneratedRoute,
-        initialRoute: moveTrayScreen,
+        initialRoute: SplashScreen.route,
       ),
     );
   }
