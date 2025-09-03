@@ -5,6 +5,8 @@ enum MoveTrayScanState {
   scanning,     // Camera open
   scanLevelQR,      // Scan completed
   addDetail,
+  scanMore,
+  actionRequired,
   confirmAndScan
 }
 

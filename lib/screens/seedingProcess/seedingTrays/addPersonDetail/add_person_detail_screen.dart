@@ -181,7 +181,6 @@ Widget _mainWidgetForAddPerson(
         
         // Validate that seed lot code is not empty
         if (seedLotCodeValue.isEmpty) {
-          // Show error or validation message
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Please Enter Seed Lot Code"),

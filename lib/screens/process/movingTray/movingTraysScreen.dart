@@ -1,4 +1,4 @@
-import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/screens/process/movingTray/provider/moving_tray_provider.dart';
 import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
@@ -9,12 +9,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart' hide infoWindow;
 import '../../../base/utils/app_decorations.dart';
 import '../../../base/utils/custom_add_detail_button.dart';
-import '../../../base/utils/dialougs.dart';
+import '../../../components/widget/widget_custom_qr_processed.dart';
+import '../../../generated/l10n.dart';
 import '../../../generator/assets.gen.dart';
 import '../../seedingProcess/harvestingTrays/assignHarvestingTray/assign_harvesting_tray.dart';
 import '../../seedingProcess/seedingTrays/addPersonDetail/provider/add_person_detail_screen_provider.dart';
-import '../../tab/seeding/provider/seeding_provider.dart';
-import '../stepProcess/stepConfigMovingTray.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../../components/widget/step_progress_widget.dart';
 
@@ -69,7 +68,9 @@ class _MoveTraysScreen extends ConsumerState<MoveTraysScreen> with TickerProvide
   }
 
   Widget _loadMainWidget(bool showScanner, StateController<bool> toggleScanner, MoveTrayScanState scanState, StateController<MoveTrayScanState> scanStateNotifier, WidgetRef ref){
-    return Container(
+    return (scanState == MoveTrayScanState.confirmAndScan ||
+        scanState == MoveTrayScanState.addDetail)
+        ? loadAddDetailWidget(context,scanStateNotifier) :  Container(
       decoration: boxDecoration(AppColors.scanQrMainBg, AppColors.scanQrMainBg),
       padding: EdgeInsets.all(10.sp),
       child: Column(
@@ -85,6 +86,7 @@ class _MoveTraysScreen extends ConsumerState<MoveTraysScreen> with TickerProvide
         ],
       ),
     );
+
   }
 
   Widget _loadInfoWidow(){
@@ -163,11 +165,11 @@ Widget scanQrExpandMoveTray(BuildContext context, bool showScanner, StateControl
               child: switch(scanState){
                 MoveTrayScanState.idle => idealScanContainerMoveTray(context,scanState,scanStateNotifier,ref),
                 MoveTrayScanState.scanning => mobileScannerMoveTray(scanState,scanStateNotifier,ref),
-                MoveTrayScanState.scanLevelQR =>Text("Test"),
-                // TODO: Handle this case.
-                MoveTrayScanState.addDetail => Text("Test"),
-                // TODO: Handle this case.
-                MoveTrayScanState.confirmAndScan => Text("Test"),
+                MoveTrayScanState.scanLevelQR => scanSuccessWidget(context),
+                MoveTrayScanState.addDetail => idealScanContainerMoveTray(context,scanState,scanStateNotifier,ref),
+                MoveTrayScanState.confirmAndScan => idealScanContainerMoveTray(context,scanState,scanStateNotifier,ref),
+                MoveTrayScanState.scanMore => idealScanContainerMoveTray(context,scanState,scanStateNotifier,ref),
+                MoveTrayScanState.actionRequired => idealScanContainerMoveTray(context,scanState,scanStateNotifier,ref),
               },
             ),
             //  idealScanContainer(context)
@@ -199,14 +201,12 @@ Widget idealScanContainerMoveTray(BuildContext context, MoveTrayScanState scanSt
             Container(
               child: switch(scanState){
                 MoveTrayScanState.idle => tapScanColumn(context),
-                // TODO: Handle this case.
-                MoveTrayScanState.scanning => scanSuccessWidget(context),
-                // TODO: Handle this case.
-                MoveTrayScanState.scanLevelQR => tapScanColumn(context),
-                // TODO: Handle this case.
-                MoveTrayScanState.addDetail => Text("Add Detail"),
-                // TODO: Handle this case.
-                MoveTrayScanState.confirmAndScan =>  Text("Add Detail"),
+                MoveTrayScanState.scanning => mobileScannerMoveTray(scanState, scanStateNotifier,ref),
+                MoveTrayScanState.scanLevelQR => scanSuccessWidget(context),
+                MoveTrayScanState.addDetail => loadAddDetailWidget(context,scanStateNotifier),
+                MoveTrayScanState.confirmAndScan =>   tapScanColumn(context),
+                MoveTrayScanState.scanMore => tapScanColumn(context),
+                MoveTrayScanState.actionRequired => scanSuccessWidget(context),
               },
             ),
           ],
@@ -230,11 +230,7 @@ Widget mobileScannerMoveTray(MoveTrayScanState scanState, StateController<MoveTr
                 facing: CameraFacing.back,
               ),
               onDetect: (barcodeCapture) {
-                if(scanState == MoveTrayScanState.scanLevelQR){
-                  scanStateNotifier.state = MoveTrayScanState.addDetail;
-                }else{
-                  scanStateNotifier.state = MoveTrayScanState.confirmAndScan;
-                }
+                scanStateNotifier.state = MoveTrayScanState.scanLevelQR;
               },
             ),
           )
@@ -242,47 +238,290 @@ Widget mobileScannerMoveTray(MoveTrayScanState scanState, StateController<MoveTr
     )
   ;
 }
-
-
 // Add Detail button
-Widget confirmAndSaveButton(BuildContext context, WidgetRef ref, StateController<MoveTrayScanState> scanStateNotifier){
-  final scanState = ref.watch(scanStateProvider);
-  if (scanState == ScanState.idle) return const SizedBox.shrink();
+Widget confirmAndSaveButton(
+    BuildContext context,
+    WidgetRef ref,
+    StateController<MoveTrayScanState> scanStateNotifier) {
+  final scanState = ref.watch(moveTrayScanStateProvider);
 
-  String buttonLabel;
-  VoidCallback onPressed;
+  return (scanState == MoveTrayScanState.scanLevelQR)
+      ? Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      SizedBox(
+        width: 140.w,
+        child: CustomAddDetailButton( btnName: "Next", onPressed: () {
+          if (scanStateNotifier.state == MoveTrayScanState.scanLevelQR) {
+            scanStateNotifier.state = MoveTrayScanState.addDetail;
+          }else{
+            scanStateNotifier.state = MoveTrayScanState.actionRequired;
+          }
+        },iconPath: Assets.icons.iconNext.path),
+      ),
+    ],
+  )
+      : Container();
+}
 
-  if (scanState == ScanState.success) {
-    // After first scan success -> go to Add Details (Step 2)
-    buttonLabel = context.l10n.next;
-    onPressed = () {
-      scanStateNotifier.state = MoveTrayScanState.addDetail;
-    };
-  } else if (scanState == ScanState.confirmDetail) {
-    // After confirming details -> move to step 3 to scan next level
-    buttonLabel = context.l10n.next;
-    onPressed = () {
-      const stepsLength = 3;
-      final controller = ref.read(stepControllerProvider(stepsLength).notifier);
-      controller.completeAndNext();
-    //  scanStateNotifier.state = ScanState.moveToFertigation;
-    };
-  } else if (scanState == ScanState.scanNextQR) {
-    // Second scan success -> Confirm & Save
-    buttonLabel = context.l10n.confirmScanNextLevelQr;
-    onPressed = () {
-      showTraySuccessDialog(context,false,false);
-    };
-  } else {
-    return const SizedBox.shrink();
-  }
+Widget loadAddDetailWidget(BuildContext context, StateController<MoveTrayScanState> scanStateNotifier){
+  return Container(
+    decoration: boxDecoration(AppColors.scanQrMainBg, AppColors.scanQrMainBg),
+    padding: EdgeInsets.all(16.sp),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header with edit and more options
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Edit button
+            Container(
+              width: 40.w,
+              height: 40.h,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.edit,
+                color: Colors.grey[600],
+                size: 20.sp,
+              ),
+            ),
+            // More options
+            Icon(
+              Icons.more_vert,
+              color: AppColors.white,
+              size: 24.sp,
+            ),
+          ],
+        ),
+        20.verticalSpace,
+        
+        // Number of Full Trays
+        _buildInputField(
+          title: "Number of Full Trays",
+          controller: TextEditingController(),
+          inputType: TextInputType.number,
+        ),
+        20.verticalSpace,
+        
+        // Number of Half Trays
+        _buildInputField(
+          title: "Number of Half Trays",
+          controller: TextEditingController(),
+          inputType: TextInputType.number,
+        ),
+        20.verticalSpace,
+        
+        // Seed Name
+        _buildInputField(
+          title: "Seed Name",
+          controller: TextEditingController(text: "Alugura"),
+          inputType: TextInputType.text,
+        ),
+        20.verticalSpace,
+        
+        // Assigned People
+        _buildAssignedPeopleField(),
+        20.verticalSpace,
 
-  return SizedBox(
-    width: double.infinity,
-    child: CustomAddDetailButton(
-      iconPath: Assets.icons.iconScanNow.path,
-      btnName: buttonLabel,
-      onPressed: onPressed,
+        _buildDateField(),
+        20.verticalSpace,
+        _buildReasonField(),
+        40.verticalSpace,
+        _customProcessButton(context,scanStateNotifier)
+      ],
     ),
-  ) ;
+  );
+}
+
+Widget _buildInputField({
+  required String title,
+  required TextEditingController controller,
+  required TextInputType inputType,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        title,
+        style: TextStyle(
+          color: Colors.green[300],
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      8.verticalSpace,
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400]!),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: TextField(
+          controller: controller,
+          keyboardType: inputType,
+          style: TextStyle(
+            color: Colors.grey[300],
+            fontSize: 14.sp,
+          ),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            border: InputBorder.none,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildAssignedPeopleField() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Assigned People",
+        style: TextStyle(
+          color: Colors.green[300],
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      8.verticalSpace,
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400]!),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: Row(
+          children: [
+            // Profile picture
+            CircleAvatar(
+              radius: 16.sp,
+              backgroundImage: AssetImage('assets/images/assign_person_1.png'),
+            ),
+            8.horizontalSpace,
+            // Name
+            Text(
+              "Navin A",
+              style: TextStyle(
+                color: Colors.grey[300],
+                fontSize: 14.sp,
+              ),
+            ),
+            Spacer(),
+            // Remove button
+            Container(
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.green[300],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.close,
+                color: Colors.grey[800],
+                size: 16.sp,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildDateField() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Seeding Date",
+        style: TextStyle(
+          color: Colors.green[300],
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      8.verticalSpace,
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400]!),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                child: Text(
+                  "25/05/2025",
+                  style: TextStyle(
+                    color: Colors.grey[300],
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ),
+            ),
+            // Calendar icon
+            Container(
+              padding: EdgeInsets.all(12),
+              child: Icon(
+                Icons.calendar_today,
+                color: Colors.green[300],
+                size: 20.sp,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildReasonField() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Reason for Movement",
+        style: TextStyle(
+          color: Colors.green[300],
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      8.verticalSpace,
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400]!),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: TextField(
+          controller: TextEditingController(text: "The nutrients were not enough"),
+          maxLines: 3,
+          style: TextStyle(
+            color: Colors.grey[300],
+            fontSize: 14.sp,
+          ),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            border: InputBorder.none,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+
+Widget _customProcessButton(BuildContext context, StateController<MoveTrayScanState> scanStateNotifier){
+  return CustomProceedButton(
+      onPressed: (){
+        scanStateNotifier.state = MoveTrayScanState.scanMore;
+      },
+      title: S.of(context).processed,
+      iconPath: Assets.icons.iconQrProcessed.path
+  );
 }
