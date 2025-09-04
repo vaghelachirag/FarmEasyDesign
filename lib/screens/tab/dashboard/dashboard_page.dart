@@ -1,7 +1,5 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
-import 'package:farmeasy/base/utils/app_decorations.dart';
-import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/base/utils/dashline.dart';
 import 'package:farmeasy/components/widget/custom_start_seeding_btn.dart';
 import 'package:farmeasy/components/widget/cycle_status_card.dart';

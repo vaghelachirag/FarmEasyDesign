@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../base/services/preferences/preferences.dart';
 import '../model/seeds/addSeedRequestJson/add_seed_request_json.dart';
 import '../model/seeds/getSeedListRespnse/get_seed_list_response.dart';
+import '../model/seeds/getSeedLotInfoResponse/getSeedLotInfoResponse.dart';
 import '../model/seeds/getSeedLotListResponse/get_seed_lot_response.dart';
 import 'api_utils.dart';
 import 'dioProvider.dart';
@@ -140,6 +141,35 @@ class AuthRepository {
       return false;
     }
   }
+
+
+  // Fetch Single Seed Lot by ID
+  Future<GetSeedLotInfoResponse?> fetchSeedLotById(String lotId, String? token) async {
+    final apiProvider = ref.read(apiManagerProvider);
+    try {
+      final response = await apiProvider.callGet(
+        path: "https://farmeasy-m6p9.onrender.com/${ApiPath.getSeedLotUrl}/$lotId",
+        header: {
+          "Authorization": "Bearer $token",
+        },
+      );
+
+      print("Path"+"${ApiPath.getSeedLotUrl}/$lotId");
+
+      if (response.statusCode == 200) {
+        final responseData = response.data;
+
+        if (responseData != null && responseData['data'] != null) {
+          return GetSeedLotInfoResponse.fromJson(responseData['data']);
+        }
+      }
+      return null; // return null if no data
+    } on DioException catch (error) {
+      debugPrint("fetchSeedLotById error: ${error.message}");
+      return null; // return null instead of crashing
+    }
+  }
+
 
   void logout() {
     ref.read(authTokenProvider.notifier).state = null;

@@ -22,7 +22,6 @@ class HomeTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Utils.hideKeyboard(context);
 
-    final screenWidth = MediaQuery.of(context).size.width;
     final selectedIndex = ref.watch(bottomNavIndexProvider);
     final currentIndex = ref.watch(bottomNavIndexProvider);
 

@@ -45,26 +45,15 @@ class CycleListNotifier extends BaseNotifier<CycleListState> {
             .then((response) async {
               if (response.statusCode == 200) {
                 ResGetCycle model = ResGetCycle.fromJson(response.data);
-
                 state = state.copyWith(
                   cycleList: model.data,
                   resTraining: model,
-                  // statusDropdownList: dropdowns,
-                  // dropdownValue:
-                  //     !isSwipeRefresh ? dropdowns.last : state.dropdownValue,
                 );
               }
             })
             .onError((DioException error, stackTrace) {
               try {
-                // if (error.response != null &&
-                //     NavigationService.currentContext.mounted) {
-                //   CommonResponseModel responseModel =
-                //       CommonResponseModel.fromJson(error.response!.data);
-                //   showApiErrorDialog(responseModel.message ?? '');
-                // } else {
                   showApiErrorDialog(error.message ?? '');
-                // }
               } catch (ex) {
                 showApiErrorDialog(
                   NavigationService.currentContext.l10n.somethingWentWrong,
