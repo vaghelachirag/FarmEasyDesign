@@ -15,9 +15,7 @@ import '../../../../base/utils/app_decorations.dart';
 import '../../../../base/utils/common_widgets.dart';
 import '../../../../base/utils/constants.dart';
 import '../../../../base/utils/custom_add_detail_button.dart';
-import '../../../../base/utils/dialougs.dart';
 import '../../../../base/utils/scan_more_custom_button.dart';
-import '../../../../base/utils/utils.dart';
 import '../../../../components/widget/custom_input_field.dart';
 import '../../../../components/widget/custom_leet_code_chipset.dart';
 import '../../../../components/widget/save_as_draft_button.dart';
@@ -25,6 +23,7 @@ import '../../../../components/widget/step_progress_widget.dart';
 import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
+import '../../../../model/seeds/getSeedLotListResponse/get_seed_lot_response.dart';
 import '../../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
 import '../../../tab/cycles/provider/cycles_provider.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
@@ -66,10 +65,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
     final coreWeightTray = useTextEditingController();
     final seedingDate = useTextEditingController();
 
-    // Remove unused controllers
-    // final passwordController = useTextEditingController();
-    // final isPassHide = useState(true);
-    // final rememberMe = useState(false);
+
 
     final searchText = ref.watch(peopleSearchTextProvider);
     final lotCodes = ref.watch(seedLotListProvider);
@@ -94,18 +90,7 @@ class AddPersonDetailScreen extends HookConsumerWidget {
     );
   }
 
-Widget _mainWidgetForAddPerson(
-  TextEditingController numberOfFullTrays, 
-  TextEditingController numberOfHalfTrays,
-  TextEditingController seedLotCode,
-  TextEditingController seedsName,
-  TextEditingController seedWeightTray,
-  TextEditingController coreWeightTray,
-  TextEditingController seedingDate,
-  BuildContext context, 
-  WidgetRef ref, 
-  String searchText
-){
+Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEditingController numberOfHalfTrays, TextEditingController seedLotCode, TextEditingController seedsName, TextEditingController seedWeightTray, TextEditingController coreWeightTray, TextEditingController seedingDate, BuildContext context, WidgetRef ref, String searchText){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -125,7 +110,7 @@ Widget _mainWidgetForAddPerson(
                 20.verticalSpace,
                 _numberOfHalfTrays(numberOfHalfTrays, context),
                 20.verticalSpace,
-                _seedLotCode(seedLotCode, context),
+                _customSeeLotInputFiled(ref,context),
                 5.verticalSpace,
                 _seedsName(seedsName, context),
                 20.verticalSpace,
@@ -133,9 +118,8 @@ Widget _mainWidgetForAddPerson(
                 20.verticalSpace,
                 _coreWeightTray(coreWeightTray, context),
                 20.verticalSpace,
-                _customSeeLotInputFiled(ref,context),
-                10.verticalSpace,
                 _addPeopleSuggestionWidget(searchText),
+                10.verticalSpace,
                 _seedingDate(seedingDate, context),
                 20.verticalSpace,
                 _customProcessButton(
@@ -164,37 +148,14 @@ Widget _mainWidgetForAddPerson(
     );
 }
 
-  Widget _customProcessButton(
-    BuildContext context,
-    TextEditingController seedLotCode,
-    TextEditingController numberOfFullTrays,
-    TextEditingController numberOfHalfTrays,
-    TextEditingController seedsName,
-    TextEditingController seedWeightTray,
-    TextEditingController coreWeightTray,
-    TextEditingController seedingDate,
-  ){
+  Widget _customProcessButton(BuildContext context, TextEditingController seedLotCode, TextEditingController numberOfFullTrays, TextEditingController numberOfHalfTrays, TextEditingController seedsName, TextEditingController seedWeightTray, TextEditingController coreWeightTray, TextEditingController seedingDate,){
     return CustomProceedButton(
       onPressed: (){
-        // Get the seed lot code from the controller
-        final seedLotCodeValue = seedLotCode.text.trim();
-        
-        // Validate that seed lot code is not empty
-        if (seedLotCodeValue.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Please Enter Seed Lot Code"),
-              backgroundColor: Colors.red,
-            ),
-          );
-          return;
-        }
-        
+
         context.navigator.pushNamed(
           confirmSeedingTray,
           arguments: {
             cycleStageArgumentName: cycleStatus,
-            'seedLotCode': seedLotCodeValue,
             'numberOfFullTrays': numberOfFullTrays.text.trim(),
             'numberOfHalfTrays': numberOfHalfTrays.text.trim(),
             'seedsName': seedsName.text.trim(),
@@ -536,6 +497,7 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
                 facing: CameraFacing.back,
               ),
               onDetect: (barcodeCapture) {
+
                 final seeds = ref.read(seedLotListProvider);
                 for (final barcode in barcodeCapture.barcodes) {
                   final rawValue = barcode.rawValue;

@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType inputType;
   final TextInputAction textInputAction;
   final bool obscureText;
+  final bool readOnly;
   final Widget? suffix;
   final FormFieldValidator<String>? validator;
 
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     required this.inputType,
     required this.textInputAction,
     this.obscureText = false,
+    this.readOnly = false,
     this.suffix,
     this.validator,
   });
@@ -37,6 +39,7 @@ class CustomTextField extends StatelessWidget {
             autofocus: true,
             textInputAction: textInputAction,
             obscureText: obscureText,
+            readOnly: readOnly,
             validator: validator,
             decoration: AppDecorations.mainInputTextDecoration(hintText,title,suffix))
       ],

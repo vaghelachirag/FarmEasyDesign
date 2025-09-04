@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../base/utils/app_colors.dart';
 import '../../../../base/utils/app_decorations.dart';
@@ -14,6 +15,7 @@ import '../../../../base/utils/custom_add_detail_button.dart';
 import '../../../../base/utils/dialougs.dart';
 import '../../../../base/utils/utils.dart';
 import '../../../../components/widget/step_progress_widget.dart';
+import '../../../../components/widget/custom_input_field.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../../tab/cycles/provider/cycles_provider.dart';
@@ -24,41 +26,30 @@ import '../../../../network/authRepositoryProvider.dart';
 import '../addPersonDetail/provider/add_person_detail_screen_provider.dart';
 
 
-class ConfirmSeedingTray extends ConsumerStatefulWidget {
+class ConfirmSeedingTray extends HookConsumerWidget {
   late CycleStage cycleStatus;
+  late String seedLotCode;
+  late String numberOfFullTrays;
+  late String numberOfHalfTrays;
+  late String seedsName;
+  late String seedWeightTray;
+  late String coreWeightTray;
+  late String seedingDate;
+  late int totalTray;
 
   ConfirmSeedingTray({super.key});
 
-
   @override
-  ConsumerState<ConfirmSeedingTray> createState() => _ConfirmSeedingTray();
-}
-
-class _ConfirmSeedingTray extends ConsumerState<ConfirmSeedingTray>
-    with TickerProviderStateMixin {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Get arguments first
+    getArgument(context);
 
 
-  @override
-  void initState() {
-    super.initState();
-    //  Utils.hideKeyboard(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    final showScanner = ref.watch(scanToggleProvider);
-    final toggleScanner = ref.read(scanToggleProvider.notifier);
-
-    final scanState = ref.watch(scanStateProvider);
-    final scanStateNotifier = ref.read(scanStateProvider.notifier);
-
-    final isVisibleAddDetail = ref.watch(isHarvestDueProvider);
-    final addDetailStateNotifier = ref.read(isHarvestDueProvider.notifier);
-
-    getArgument();
-
-    final List<String> seedLotCodes = ["#4577", "#4580", "#4599", "#4601","#4601","#4601","#4601","#4601"];
+    // Build seed lot chips from scanned seed lots
+    final scannedSeedLots = ref.watch(scannedSeedLotsProvider);
+    final List<String> seedLotCodes = scannedSeedLots
+        .map((e) => e.lotCode.startsWith('#') ? e.lotCode : '#${e.lotCode}')
+        .toList();
 
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,S.of(context).harvestingTrays),
@@ -70,8 +61,9 @@ class _ConfirmSeedingTray extends ConsumerState<ConfirmSeedingTray>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              StepProgressIndicator(currentStepName: widget.cycleStatus,),
+              StepProgressIndicator(currentStepName: cycleStatus,),
               10.verticalSpace,
+              // Display the passed data in text fields
               Container(
                 width: double.infinity,
                 decoration: AppDecorations.moveToGerminationDialogueDecoration(),
@@ -80,11 +72,12 @@ class _ConfirmSeedingTray extends ConsumerState<ConfirmSeedingTray>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SvgPicture.asset(Assets.images.harvestingSucess.path),
+                    20.verticalSpace,
                     Row(
                       children: [
-                        Text('Seeding 30 Trays :',style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp)),
+                        Text('Seeding $totalTray Trays :',style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp)),
                         4.horizontalSpace,
-                        Text('11 Full Trays | 19 Half Trays',style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp)),
+                        Text('$numberOfFullTrays  Full Trays | $numberOfHalfTrays Half Trays',style: AppTextStyles.robotoBodyLarge.copyWith(fontSize: 12.sp)),
                       ],
                     ),
                     8.verticalSpace,
@@ -94,7 +87,7 @@ class _ConfirmSeedingTray extends ConsumerState<ConfirmSeedingTray>
                     8.verticalSpace,
                     trayTextWidget("Tray Details:","8 Arugula Tray | 9 Gms ",context),
                     8.verticalSpace,
-                    trayTextWidget("Coir Weight :","9 Gms ",context),
+                    trayTextWidget("Coir Weight :",numberOfFullTrays,context),
                     8.verticalSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,7 +120,6 @@ class _ConfirmSeedingTray extends ConsumerState<ConfirmSeedingTray>
                         Utils.showSnackBar(context, 'Scan at least one seed lot');
                         return;
                       }
-                      // TODO: Wire these inputs from previous screen or state
                       final request = AddSeedRequest(
                         seedLots: scannedLots.map((e) => AddSeedLotRequestData(seedLotId: e.id, quantityKg: int.tryParse(e.currentQuantityKg) ?? 0)).toList(),
                         seedGramsPerTray: 0,
@@ -152,8 +144,18 @@ class _ConfirmSeedingTray extends ConsumerState<ConfirmSeedingTray>
       ),
     ));
   }
-  void getArgument() {
+
+  void getArgument(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    widget.cycleStatus = args[cycleStageArgumentName];
+    cycleStatus = args[cycleStageArgumentName];
+    seedLotCode = args['seedLotCode'] ?? '';
+    numberOfFullTrays = args['numberOfFullTrays'] ?? '';
+    numberOfHalfTrays = args['numberOfHalfTrays'] ?? '';
+    seedsName = args['seedsName'] ?? '';
+    seedWeightTray = args['seedWeightTray'] ?? '';
+    coreWeightTray = args['coreWeightTray'] ?? '';
+    seedingDate = args['seedingDate'] ?? '';
+
+    totalTray = int.tryParse(args['numberOfFullTrays']?.toString() ?? '0')! +  int.tryParse(args['numberOfHalfTrays']?.toString() ?? '0')!;
   }
 }

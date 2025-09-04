@@ -31,11 +31,36 @@ final filteredPeopleProvider = Provider<List<Map<String, String>>>((ref) {
 final selectedPeopleProvider = StateProvider<List<Map<String, String>>>((ref) => []);
 
 
-final seedLotListProvider = StateProvider<List<GetSeedLotData>>((ref) => []);
+//final seedLotListProvider = StateProvider<List<GetSeedLotData>>((ref) => []);
 
 
 
 final scannedSeedLotsProvider = StateProvider<List<GetSeedLotData>>((ref) => []);
+
+final seedLotListProvider = StateProvider<List<GetSeedLotData>>((ref) => [
+  GetSeedLotData(
+    id: "12345",
+    seedId: "SEED-001",
+    lotCode: "LOT1-2025-09",
+    receivedDate: DateTime.now(),
+    initialQuantityKg: "500",
+    currentQuantityKg: "320",
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+  ),
+  GetSeedLotData(
+    id: "67890",
+    seedId: "SEED-002",
+    lotCode: "LOT2-2025-10",
+    receivedDate: DateTime.now(),
+    initialQuantityKg: "300",
+    currentQuantityKg: "250",
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+  ),
+]);
+
+
 
 
 final fetchSeedsLotProvider = FutureProvider.autoDispose<List<GetSeedLotData>>((ref) async {
@@ -43,7 +68,7 @@ final fetchSeedsLotProvider = FutureProvider.autoDispose<List<GetSeedLotData>>((
   final token = await prefs.accessToken;
   final repo = ref.read(authRepositoryProvider);
   final seeds = await repo.fetchSeedsLot(token);
-  ref.read(seedLotListProvider.notifier).state = seeds;
+ // ref.read(seedLotListProvider.notifier).state = seeds;
   return seeds;
 });
 

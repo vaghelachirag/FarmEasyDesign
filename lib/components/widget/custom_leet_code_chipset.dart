@@ -32,11 +32,6 @@ class CustomSeedLotInputField extends HookConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-        4.verticalSpace,
         Container(
           decoration:
           BoxDecoration(
@@ -102,10 +97,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
             onTap: onRemovePressed,
             child: Text(
               "Remove a Lot code?",
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.grey.shade700,
-                decoration: TextDecoration.underline,
-              ),
+              style: context.textTheme.labelSmall,
             ),
           ) ,
         ),
