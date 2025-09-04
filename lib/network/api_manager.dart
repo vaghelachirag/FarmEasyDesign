@@ -1,34 +1,45 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
+import 'package:farmeasy/base/services/preferences/preferences.dart';
+import 'package:farmeasy/base/utils/global_context.dart';
+import 'package:farmeasy/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../base/services/preferences/preferences.dart';
-import '../base/utils/constants.dart';
-import '../base/utils/global_context.dart';
 import 'api_utils.dart';
 import 'app_config.dart';
 
-class ApiManager {
-  static bool isRefreshingToken = false;
-  static final Dio _dio = Dio(
+final _baseDioProvider = Provider<Dio>((ref) {
+  return Dio(
     BaseOptions(
-      baseUrl: AppConfig.instance.baseUrl,
-      validateStatus: (status) {
-        return status! < 500;
-      },
+      baseUrl: "https://farmeasy-m6p9.onrender.com",
+      receiveTimeout: Duration(seconds: 90),
+      connectTimeout: Duration(seconds: 60),
+      validateStatus: (status) => (status ?? 500) < 500,
     ),
   );
-  static final Dio _dioTruDrive = Dio(
-    BaseOptions(
-      baseUrl: AppConfig.instance.truDriveBaseUrl,
-      validateStatus: (status) {
-        return status! < 500;
-      },
-    ),
-  );
-  static final List<CancelToken> _activeTokens = [];
+});
 
-  static Future<Response> callPatch({
+final apiManagerProvider = Provider<ApiManager>((ref) {
+  return ApiManager._(
+    ref: ref,
+    dio: ref.watch(_baseDioProvider),
+    preferences: PreferenceService.instance,
+  );
+});
+
+class ApiManager {
+  ApiManager._({required this.ref, required Dio dio, required this.preferences})
+      : _dio = dio;
+
+  final Ref ref;
+  final PreferenceService preferences;
+  static bool isRefreshingToken = false;
+  final Dio _dio;
+  final List<CancelToken> _activeTokens = [];
+
+  Future<Response> callPatch({
     required String apiUrl,
     dynamic body,
     Map<String, String>? header,
@@ -71,7 +82,7 @@ class ApiManager {
     }
   }
 
-  static Future<Response> callPost({
+  Future<Response> callPost({
     required String apiUrl,
     dynamic body,
     Map<String, String>? header,
@@ -84,17 +95,9 @@ class ApiManager {
     _activeTokens.add(token);
     try {
       final mergedHeaders = await _getMergedHeaders(header, isAuthApi);
-      _logRequest(
-        'POST',
-        (isTruDrive == true
-                ? _dioTruDrive.options.baseUrl
-                : _dio.options.baseUrl) +
-            apiUrl,
-        body,
-        mergedHeaders,
-      );
+      _logRequest('POST', _dio.options.baseUrl + apiUrl, body, mergedHeaders);
 
-      final response = await (isTruDrive == true ? _dioTruDrive : _dio).post(
+      final response = await _dio.post(
         apiUrl,
         data: body,
         options: Options(headers: mergedHeaders),
@@ -135,7 +138,7 @@ class ApiManager {
     }
   }
 
-  static Future<Response> callPut({
+  Future<Response> callPut({
     required String apiUrl,
     dynamic body,
     Map<String, String>? header,
@@ -171,7 +174,7 @@ class ApiManager {
     }
   }
 
-  static Future<Response> callGet({
+  Future<Response> callGet({
     required String path,
     Map<String, String>? header,
     Map<String, dynamic>? params,
@@ -183,17 +186,9 @@ class ApiManager {
 
     try {
       final mergedHeaders = await _getMergedHeaders(header, false);
-      _logRequest(
-        'GET',
-        (isTruDrive == true
-                ? _dioTruDrive.options.baseUrl
-                : _dio.options.baseUrl) +
-            path,
-        params,
-        mergedHeaders,
-      );
+      _logRequest('GET', _dio.options.baseUrl + path, params, mergedHeaders);
 
-      final response = await (isTruDrive == true ? _dioTruDrive : _dio).get(
+      final response = await _dio.get(
         path,
         options: Options(headers: mergedHeaders),
         queryParameters: params,
@@ -227,7 +222,7 @@ class ApiManager {
     }
   }
 
-  static Future<Response> callDelete({
+  Future<Response> callDelete({
     required String path,
     Map<String, String>? header,
     Map<String, dynamic>? params,
@@ -235,17 +230,9 @@ class ApiManager {
   }) async {
     try {
       final mergedHeaders = await _getMergedHeaders(header, false);
-      _logRequest(
-        'DELETE',
-        (isTruDrive == true
-                ? _dioTruDrive.options.baseUrl
-                : _dio.options.baseUrl) +
-            path,
-        null,
-        mergedHeaders,
-      );
+      _logRequest('DELETE', _dio.options.baseUrl + path, null, mergedHeaders);
 
-      final response = await (isTruDrive == true ? _dioTruDrive : _dio).delete(
+      final response = await _dio.delete(
         path,
         options: Options(headers: mergedHeaders),
         queryParameters: params,
@@ -272,7 +259,7 @@ class ApiManager {
     }
   }
 
-  static Future<Response> callMultipart({
+  Future<Response> callMultipart({
     required String apiUrl,
     Map<String, String>? header,
     Map<String, dynamic>? params,
@@ -286,10 +273,7 @@ class ApiManager {
       FormData formData = FormData();
       _logRequest(
         'MULTIPART',
-        (isTruDrive == true
-                ? _dioTruDrive.options.baseUrl
-                : _dio.options.baseUrl) +
-            apiUrl,
+        _dio.options.baseUrl + apiUrl,
         body,
         mergedHeaders,
       );
@@ -311,7 +295,7 @@ class ApiManager {
         );
       }
 
-      final response = await (isTruDrive == true ? _dioTruDrive : _dio).post(
+      final response = await _dio.post(
         apiUrl,
         data: formData,
         queryParameters: params,
@@ -338,7 +322,7 @@ class ApiManager {
     }
   }
 
-  static void cancelAllRequests({String reason = "Cancelled by logout"}) {
+  void cancelAllRequests({String reason = "Cancelled by logout"}) {
     for (final token in _activeTokens) {
       if (!token.isCancelled) {
         token.cancel(reason);
@@ -347,62 +331,52 @@ class ApiManager {
     _activeTokens.clear();
   }
 
-  static Future<void> _handleSessionExpired({required String message}) async {
-    try {
-      final preferenceService = PreferenceService.instance;
-      // Mark as logged out and clear stored credentials
+  Future<void> _handleSessionExpired({required String message}) async {
+    PreferenceService preferenceService = PreferenceService.instance;
+    if (await preferenceService.isLogin == true) {
       await preferenceService.setIsLogin(false);
-      await preferenceService.clearPreferences();
-
-      // Cancel any inflight network requests
-      ApiManager.cancelAllRequests();
-
-      // Notify user if possible
-      try {
-        final context = NavigationService.currentContext;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(message)),
+      if (NavigationService.currentContext.mounted) {
+        cancelAllRequests();
+        // Provider.of<ProfileProvider>(
+        //   NavigationService.currentContext,
+        //   listen: false,
+        // )..handleLogoutUser();
+        // clearLogoutDataGlobal(NavigationService.currentContext);
+        await preferenceService.clearPreferences();
+        await NavigationService.currentContext.navigator.pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (r) => false,
         );
-      } catch (_) {}
-
-      // Navigate to login, clearing back stack
-      try {
-        final nav = NavigationService.currentState;
-        nav.pushNamedAndRemoveUntil(loginScreen, (route) => false);
-      } catch (_) {}
-    } catch (e) {
-      log('Session expired handling error: $e');
+      }
     }
   }
 
-  static Future<Map<String, String>> _getMergedHeaders(
-    Map<String, String>? header,
-    bool isAuthApi,
-  ) async {
+  Future<Map<String, String>> _getMergedHeaders(
+      Map<String, String>? header,
+      bool isAuthApi,
+      ) async {
     var commonHeaders = {};
     if (isAuthApi) {
       commonHeaders = {ApiKeys.contentType: ApiUtils.applicationJson};
     } else {
       PreferenceService preference = PreferenceService.instance;
-      if (await preference.isLogin == "true") {
+      if (await preference.isLogin == true) {
         String? token = await preference.accessToken;
-        String? appVersion = await preference.appVersion;
         commonHeaders = {
           ApiKeys.contentType: ApiUtils.applicationJson,
           ApiKeys.authorization: 'Bearer $token',
-          ApiKeys.appVersion: appVersion,
         };
       }
     }
     return {...commonHeaders, ...header ?? {}};
   }
 
-  static void _logRequest(
-    String method,
-    String url,
-    dynamic body,
-    Map<String, dynamic> headers,
-  ) {
+  void _logRequest(
+      String method,
+      String url,
+      dynamic body,
+      Map<String, dynamic> headers,
+      ) {
     log("$method URL :: $url");
     log("body :: $body");
     log("header :: $headers");
@@ -418,4 +392,95 @@ class ApiManager {
     // }
   }
 
+/*
+    // Create a separate dio instance for refresh token to avoid infinite loops
+  static final Dio _dioRefresh = Dio(BaseOptions(
+    baseUrl: 'https://${ApiPath.baseUrl}',
+    validateStatus: (status) {
+      return status! < 500;
+    },
+  ));
+
+  static void initialize() {
+    // Add interceptor to handle token refresh
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (DioException error, ErrorInterceptorHandler handler) async {
+          if (error.response?.statusCode == 401 && !isRefreshingToken) {
+            // If the token is expired, try to refresh it
+            final success = await _handleRefreshToken();
+            if (success) {
+              // Retry the failed request with new token
+              return handler.resolve(await _retryRequest(error.requestOptions));
+            } else {
+              // If refresh fails, proceed with error
+              return handler.next(error);
+            }
+          }
+          return handler.next(error);
+        },
+      ),
+    );
+  }
+
+  // Retry the failed request with new token
+  static Future<Response<dynamic>> _retryRequest(RequestOptions requestOptions) async {
+    PreferenceService preference = PreferenceService.instance;
+    final newToken = await preference.accessToken;
+
+    final options = Options(
+      method: requestOptions.method,
+      headers: {
+        ...requestOptions.headers,
+        ApiKeys.authorization: "${ApiUtils.bearer}$newToken",
+      },
+    );
+
+    return _dio.request<dynamic>(
+      requestOptions.path,
+      data: requestOptions.data,
+      queryParameters: requestOptions.queryParameters,
+      options: options,
+    );
+  }
+
+  // Handle refresh token
+  static Future<bool> _handleRefreshToken() async {
+    isRefreshingToken = true;
+    try {
+      PreferenceService preferenceService = PreferenceService.instance;
+      final refreshToken = await preferenceService.refreshToken;
+
+      final response = await _dioRefresh.post(
+        "ApiPath.refreshTokenURL",
+        data: {"refreshToken": refreshToken},
+        options: Options(
+          headers: {ApiKeys.contentType: ApiUtils.applicationJson},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        // Assuming your refresh token response has this structure
+        // Modify according to your actual response structure
+        final newAccessToken = response.data['data']['accessToken'];
+        await preferenceService.setAccessToken(newAccessToken);
+        isRefreshingToken = false;
+        return true;
+      } else {
+        isRefreshingToken = false;
+        await _handleSessionExpired(
+          message: NavigationService.currentContext.l10n.yourSessionHasExpiredPleaseLogInAgain,
+        );
+        return false;
+      }
+    } catch (e) {
+      isRefreshingToken = false;
+      log('Refresh token error: $e');
+      await _handleSessionExpired(
+        message: NavigationService.currentContext.l10n.yourSessionHasExpiredPleaseLogInAgain,
+      );
+      return false;
+    }
+  }
+  */
 }

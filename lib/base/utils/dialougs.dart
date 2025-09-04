@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
 import 'package:farmeasy/base/utils/app_decorations.dart';
 import 'package:farmeasy/base/utils/common_widgets.dart';
 import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/components/common/app_text_styles.dart';
+import 'package:farmeasy/components/widget/custom_elevated_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +63,7 @@ void showTraySuccessDialog(BuildContext context,bool isWithImage,bool isSelected
                             btnName: S.of(context).confirmProceed,
                             onPressed: () {
                               context.navigator.pushNamed(
-                                homeTab
+                                  homeTab
                               );
                             },
                           ))],
@@ -200,7 +203,7 @@ class ShowEnterPpmDialog extends StatelessWidget {
                     children: [
                       SvgPicture.asset(Assets.icons.iconTotalPpmTree),
                       10.horizontalSpace,
-                       Expanded(
+                      Expanded(
                         child: Text(
                           S.of(context).enterNutrientPpmValues,
                           style: AppTextStyles.robotoBodyLarge.copyWith(
@@ -287,4 +290,233 @@ BoxDecoration enterTotalPpfDecoration(){
     color: AppColors.enterPpfTextAreaLabelBg,
     borderRadius: BorderRadius.circular(4),
   );
+}
+
+void showConfirmDialog({
+  required BuildContext context,
+  required String title,
+  String? content,
+  required String confirmButtonText,
+  required String cancelButtonText,
+  required final VoidCallback? onConfirmTap,
+  required final VoidCallback? onCancelTap,
+  bool barrierDismissible = true,
+  bool? isCenterTitle = true,
+  bool? isCenterContent = false,
+  String? svgIcon,
+  Color? iconBgColor,
+  Color? iconColor,
+  Color? confirmBtnColor,
+  Widget? contentChild,
+}) {
+  showDialog(
+    context: context,
+    barrierDismissible: barrierDismissible,
+    builder: (BuildContext context) {
+      return PopScope(
+        canPop: barrierDismissible,
+        child: AlertDialog(
+          title: Column(
+            crossAxisAlignment:
+            isCenterTitle == false
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.center,
+            children: [
+              if (svgIcon != null) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: iconBgColor ?? AppColors.primary,
+                      radius: 30.sp,
+                      child: SvgPicture.asset(
+                        svgIcon,
+                        height: 24.sp,
+                        colorFilter: ColorFilter.mode(
+                          iconColor ?? AppColors.primary,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                10.verticalSpace,
+              ],
+              Text(
+                title,
+                style: context.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          contentPadding: EdgeInsets.fromLTRB(20, 5, 20, 15),
+          content:
+          contentChild ??
+              (content != null && content.isNotEmpty
+                  ? Text(
+                content,
+                textAlign:
+                isCenterContent == true ? TextAlign.center : null,
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: AppColors.secondaryTextColor,
+                ),
+              )
+                  : null),
+          actions: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                5.verticalSpace,
+                CustomElevatedButton(
+                  btnName: confirmButtonText,
+                  onPressed: onConfirmTap,
+                ),
+                5.verticalSpace,
+                TextButton(
+                  onPressed: onCancelTap,
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: BorderSide(color: AppColors.tetriaryTextColor),
+                    ), // Shrink touch target size
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      cancelButtonText,
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+void showInfoDialog({
+  required BuildContext context,
+  String? title,
+  required String content,
+  required String okayButtonText,
+  Color? buttonColor,
+  required final VoidCallback? onOkayTap,
+}) {
+  if (Platform.isAndroid) {
+    // Show Android AlertDialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title:
+          title != null
+              ? Text(
+            title,
+            style: context.textTheme.labelMedium?.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          )
+              : null,
+          content:
+          content.isNotEmpty
+              ? Padding(
+            padding: EdgeInsets.only(top: title == null ? 8.0 : 0),
+            child: Text(
+              content,
+              textAlign: title == null ? TextAlign.center : null,
+              style: context.textTheme.labelMedium?.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          )
+              : null,
+          actions: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Divider(),
+                TextButton(
+                  onPressed: onOkayTap,
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(5), // Remove padding
+                    minimumSize: const Size(
+                      0,
+                      0,
+                    ), // Remove minimum size constraints
+                    tapTargetSize:
+                    MaterialTapTargetSize
+                        .shrinkWrap, // Shrink touch target size
+                  ),
+                  child: Text(
+                    okayButtonText,
+                    style: context.textTheme.bodySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: buttonColor ?? AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  } else if (Platform.isIOS) {
+    // Show iOS CupertinoAlertDialog
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title:
+          title != null
+              ? Text(
+            title,
+            style: context.textTheme.labelMedium?.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          )
+              : null,
+          content:
+          content.isNotEmpty
+              ? Text(
+            content,
+            style: context.textTheme.labelMedium?.copyWith(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          )
+              : null,
+          actions: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Divider(),
+                CupertinoDialogAction(
+                  onPressed: onOkayTap,
+                  child: Text(
+                    okayButtonText,
+                    style: context.textTheme.bodySmall?.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

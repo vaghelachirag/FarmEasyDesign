@@ -1,16 +1,13 @@
-
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:farmeasy/model/login/getLoginResponseModel.dart';
-import 'package:farmeasy/model/seeds/getSeedListRespnse/get_seed_list_response.dart';
-import 'package:farmeasy/model/seeds/getSeedLotListResponse/get_seed_lot_response.dart';
-import 'package:farmeasy/model/seeds/get_seeds_model.dart';
 import 'package:farmeasy/network/api_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../base/services/preferences/preferences.dart';
 import '../model/seeds/addSeedRequestJson/add_seed_request_json.dart';
+import '../model/seeds/getSeedListRespnse/get_seed_list_response.dart';
+import '../model/seeds/getSeedLotListResponse/get_seed_lot_response.dart';
 import 'api_utils.dart';
 import 'dioProvider.dart';
 
@@ -24,10 +21,11 @@ class AuthRepository {
   final Ref ref;
   AuthRepository(this.ref);
 
-  //  Login Api
+
   Future<bool> login(String email, String password) async {
     try {
-      final response = await ApiManager.callPost(
+      final apiProvider = ref.read(apiManagerProvider);
+      final response = await apiProvider.callPost(
         apiUrl: ApiPath.loginUrl,
         body: {"email": email, "password": password},
         isAuthApi: true,
@@ -53,24 +51,28 @@ class AuthRepository {
         return false; // login success
       } else {
         return false; // login success
-      //  debugPrint("Login error: ${error.message}");
       }
       return false;
     } catch (e) {
       print("Eror$e");
-     // debugPrint("Unexpected login error: $e");
+      // debugPrint("Unexpected login error: $e");
       return false;
     }
   }
 
+
   // Fetch Seeds
   Future<List<GetSeedListResponse>> fetchSeeds(String? token) async {
     try {
-      final response = await ApiManager.callGet(path: ApiPath.getSeedsUrl,
-        header:
-      {
-        "Authorization": "Bearer $token",   // 👈 pass token here
-      },);
+      final apiProvider = ref.read(apiManagerProvider);
+
+      final response = await apiProvider.callPost(
+        apiUrl: ApiPath.getSeedsUrl,
+        header:  {
+         "Authorization": "Bearer $token",
+        },
+        isAuthApi: true,
+      );
 
       if (response.statusCode == 200) {
         final responseData = response.data;
@@ -91,11 +93,13 @@ class AuthRepository {
 
   // Fetch Seeds Lot
   Future<List<GetSeedLotData>> fetchSeedsLot(String? token) async {
+    final apiProvider = ref.read(apiManagerProvider);
     try {
-      final response = await ApiManager.callGet(path: ApiPath.getSeedLotUrl,
+      final response = await apiProvider.callGet(path: ApiPath.getSeedLotUrl,
         header: {
           "Authorization": "Bearer $token",
-        },);
+        },
+      );
 
       if (response.statusCode == 200) {
         final responseData = response.data;
@@ -119,8 +123,9 @@ class AuthRepository {
 
   // API for addSeeds
   Future<bool> addSeeds(AddSeedRequest request) async {
+    final apiProvider = ref.read(apiManagerProvider);
     try {
-      final response = await ApiManager.callPost(
+      final response = await apiProvider.callPost(
         apiUrl: ApiPath.addSeedsUrl,
         body: jsonEncode(request.toJson()),
         isAuthApi: false,
@@ -135,7 +140,6 @@ class AuthRepository {
       return false;
     }
   }
-
 
   void logout() {
     ref.read(authTokenProvider.notifier).state = null;

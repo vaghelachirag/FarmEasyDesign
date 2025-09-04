@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String btnName;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? backgroundColor;
   final Color? textColor;
   final double borderRadius;
@@ -54,7 +54,7 @@ class CustomElevatedButton extends StatelessWidget {
           child: Text(
             btnName,
             style: context.textTheme.bodySmall?.copyWith(
-              color: Colors.white
+                color: Colors.white
             ),
           ),
         ),

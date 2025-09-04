@@ -104,6 +104,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Moving to germination"),
         "na": MessageLookupByLibrary.simpleMessage("NA"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "noInternetConnected":
+            MessageLookupByLibrary.simpleMessage("No Internet connected"),
         "noNutrientPpmDataAvailablenstartByEnteringThePpmValues":
             MessageLookupByLibrary.simpleMessage(
                 "No Nutrient PPM Data Available\nStart by entering the PPM values for each nutrient manually to begin tracking"),
@@ -171,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "signin": MessageLookupByLibrary.simpleMessage("signIn"),
         "since25052025":
             MessageLookupByLibrary.simpleMessage("Since 25/05/2025"),
+        "somethingWentWrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong!"),
         "status": MessageLookupByLibrary.simpleMessage("Status:"),
         "tapToScan": MessageLookupByLibrary.simpleMessage("Tap to Scan"),
         "thisDataWillBeRecordedAndUsedByTheSystem":

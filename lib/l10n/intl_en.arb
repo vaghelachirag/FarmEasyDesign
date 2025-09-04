@@ -126,5 +126,7 @@
   "completeSeedingBefore2200Today": "Complete Seeding before • 22:00 Today",
   "coirWeight": "Coir Weight:",
   "processed": "Processed",
-  "badTrays": "Bad Trays"
+  "badTrays": "Bad Trays",
+  "somethingWentWrong": "Something went wrong!",
+  "noInternetConnected": "No Internet connected"
 }

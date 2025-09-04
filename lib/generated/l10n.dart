@@ -1329,6 +1329,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Something went wrong!`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Something went wrong!',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Internet connected`
+  String get noInternetConnected {
+    return Intl.message(
+      'No Internet connected',
+      name: 'noInternetConnected',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
