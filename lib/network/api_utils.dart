@@ -11,8 +11,8 @@ class ApiPath {
   static const String getSeedsBrandUrl = '/seed/brands';
   static const String addSeedLotUrl = '/seed/lots';
   static const String getSeedLotUrl = '/seed/lots';
-  static const String addSeedsUrl = '/add-seeds';
-
+  //static const String addSeedsUrl = '/add-seeds';
+  static const String addSeedsUrl = '/seed/lots';
 
   // Facility
   static const String getFacilityUrl = '/facility';
