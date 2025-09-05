@@ -24,7 +24,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lotCodes = ref.watch(seedLotListProvider);
+    final lotCodes = ref.watch(scannedSeedLotsProvider);
     const int maxVisible = 4;
     final visibleChips = lotCodes.take(maxVisible).toList();
     final hiddenCount = lotCodes.length - maxVisible;
@@ -48,7 +48,7 @@ class CustomSeedLotInputField extends HookConsumerWidget {
                   children: [
                     ...visibleChips.map(
                           (lot) => Chip(
-                        label: labelTextRegular(lot.lotCode.substring(0, lot.lotCode.length > 4 ? 4 : lot.lotCode.length), 10.sp, AppColors.white),
+                        label: labelTextRegular(lot.lotCode.substring(0, lot.lotCode.length > 5 ? 5 : lot.lotCode.length), 10.sp, AppColors.white),
                         backgroundColor: const Color(0xFF5D7E57), // green shade
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),

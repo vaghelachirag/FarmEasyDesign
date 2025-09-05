@@ -500,7 +500,20 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
                 for (final barcode in barcodeCapture.barcodes) {
                   final rawValue = barcode.rawValue;
                   if (rawValue != null) {
-                    try {
+
+                    final seeds = ref.read(seedLotListProvider);
+                    for (final barcode in barcodeCapture.barcodes) {
+                      final rawValue = barcode.rawValue;
+                      if (rawValue != null) {
+                        final seed = findSeedById(seeds, rawValue);
+                        if (seed != null && !scannedSeeds.contains(seed)) {
+                          ref.read(scannedSeedLotsProvider.notifier).update((state) => [...state, seed]);
+                          scanStateNotifier.state = ScanState.success;
+                        }
+                      }
+                    }
+
+                   /* try {
                       // Call API to fetch seed lot info by ID
                       final seedLotInfo = await ref.read(fetchSeedLotByIdProvider(rawValue).future);
                       
@@ -525,7 +538,7 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
                       // Handle API call errors
                       Utils.showToast('Error scanning seed lot: ${e.toString()}');
                     }
-                  }
+*/                  }
                 }
               },
             ),

@@ -41,6 +41,8 @@ class _SeedingTraysScreen extends ConsumerState<SeedingTraysScreen>
       Utils.hideKeyboard(context);
       ref.read(scanStateProvider.notifier).state = ScanState.idle;
       final fetchSeedsAsync = ref.watch(fetchSeedsLotProvider);
+      final lotCodesId = ref.watch(fetchSeedLotByIdProvider("588cda70-2843-487a-bc30-f91c4f30a3e8").future);
+
     });
   }
 

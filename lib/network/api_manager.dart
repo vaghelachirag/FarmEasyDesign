@@ -188,6 +188,8 @@ class ApiManager {
       final mergedHeaders = await _getMergedHeaders(header, false);
       _logRequest('GET', _dio.options.baseUrl + path, params, mergedHeaders);
 
+      print("Url${_dio.options.baseUrl}$path");
+
       final response = await _dio.get(
         path,
         options: Options(headers: mergedHeaders),

@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/model/login/getLoginResponseModel.dart';
 import 'package:farmeasy/network/api_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../base/services/preferences/preferences.dart';
+import '../base/utils/global_context.dart';
 import '../model/seeds/addSeedRequestJson/add_seed_request_json.dart';
 import '../model/seeds/getSeedListRespnse/get_seed_list_response.dart';
 import '../model/seeds/getSeedLotInfoResponse/getSeedLotInfoResponse.dart';
@@ -53,10 +55,8 @@ class AuthRepository {
       } else {
         return false; // login success
       }
-      return false;
     } catch (e) {
       print("Eror$e");
-      // debugPrint("Unexpected login error: $e");
       return false;
     }
   }
@@ -123,11 +123,11 @@ class AuthRepository {
   }
 
   // API for addSeeds
-  Future<bool> addSeeds(AddSeedRequest request) async {
+  Future<bool> addSeeds(AddSeedRequestJson request) async {
     final apiProvider = ref.read(apiManagerProvider);
     try {
       final response = await apiProvider.callPost(
-        apiUrl: ApiPath.addSeedsUrl,
+        apiUrl: ApiPath.createCycleUrl,
         body: jsonEncode(request.toJson()),
         isAuthApi: false,
       );
@@ -142,34 +142,60 @@ class AuthRepository {
     }
   }
 
-
   // Fetch Single Seed Lot by ID
+// in lib/network/authRepositoryProvider.dart
   Future<GetSeedLotInfoResponse?> fetchSeedLotById(String lotId, String? token) async {
     final apiProvider = ref.read(apiManagerProvider);
     try {
       final response = await apiProvider.callGet(
-        path: "https://farmeasy-m6p9.onrender.com/${ApiPath.getSeedLotUrl}/$lotId",
+        path: ApiPath.addSeedsUrl,
+        header: {
+          if (token != null && token.isNotEmpty) "Authorization": "Bearer $token",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data != null && data['data'] != null) {
+          return GetSeedLotInfoResponse.fromJson(data['data']);
+        }
+      }
+      return null;
+    } on DioException catch (e) {
+      debugPrint("fetchSeedLotById error: ${e.message}");
+      return null;
+    }
+  }
+
+  // Fetch Seeds Lot
+  Future<List<GetSeedLotInfoResponse>> fetchSeedsLotInfo(String? token, String? seedLotId) async {
+    final apiProvider = ref.read(apiManagerProvider);
+    try {
+      final response = await apiProvider.callGet(path: ApiPath.getSeedLotUrl,
         header: {
           "Authorization": "Bearer $token",
         },
       );
 
-      print("Path"+"${ApiPath.getSeedLotUrl}/$lotId");
-
       if (response.statusCode == 200) {
         final responseData = response.data;
 
         if (responseData != null && responseData['data'] != null) {
-          return GetSeedLotInfoResponse.fromJson(responseData['data']);
+          final List<dynamic> list = responseData['data'];
+          return list
+              .map((json) => GetSeedLotInfoResponse.fromJson(json))
+              .toList();
+        }
+        else{
+          return [];
         }
       }
-      return null; // return null if no data
+      return []; // empty list if no data
     } on DioException catch (error) {
-      debugPrint("fetchSeedLotById error: ${error.message}");
-      return null; // return null instead of crashing
+      debugPrint("fetchSeeds error: ${error.message}");
+      return []; // return empty list instead of false
     }
   }
-
 
   void logout() {
     ref.read(authTokenProvider.notifier).state = null;

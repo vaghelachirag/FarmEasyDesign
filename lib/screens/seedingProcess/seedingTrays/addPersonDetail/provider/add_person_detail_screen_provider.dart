@@ -30,8 +30,7 @@ final filteredPeopleProvider = Provider<List<Map<String, String>>>((ref) {
 final selectedPeopleProvider = StateProvider<List<Map<String, String>>>((ref) => []);
 
 
-//final seedLotListProvider = StateProvider<List<GetSeedLotData>>((ref) => []);
-
+//final seedLotListProvider = StateProvider<List<GetSeedLotData>>((ref) => [])
 
 
 final scannedSeedLotsProvider = StateProvider<List<GetSeedLotData>>((ref) => []);

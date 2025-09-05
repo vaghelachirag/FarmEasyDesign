@@ -1,5 +1,6 @@
 import 'package:farmeasy/base/extensions/buildcontext_ext.dart';
 import 'package:farmeasy/base/utils/app_colors.dart';
+import 'package:farmeasy/base/utils/constants.dart';
 import 'package:farmeasy/base/utils/dashline.dart';
 import 'package:farmeasy/components/widget/custom_start_seeding_btn.dart';
 import 'package:farmeasy/components/widget/cycle_status_card.dart';
@@ -8,6 +9,7 @@ import 'package:farmeasy/components/widget/time_range_selection.dart';
 import 'package:farmeasy/components/widget/traystatuscard.dart';
 import 'package:farmeasy/generator/assets.gen.dart';
 import 'package:farmeasy/screens/tab/bottombarNavigator/provider/bottomBar_provider.dart';
+import 'package:farmeasy/screens/tab/cycles/provider/cycles_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,6 +31,16 @@ class DashboardPage extends ConsumerWidget {
 
     return SafeArea(child:
     Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.navigator.pushNamed(
+            seedingTraysScreen,
+            arguments: {cycleStageArgumentName: CycleStage.seeding},
+          );
+        },
+        backgroundColor: AppColors.customCycleTabSelectedColor,
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(0.0),
         child: Column(

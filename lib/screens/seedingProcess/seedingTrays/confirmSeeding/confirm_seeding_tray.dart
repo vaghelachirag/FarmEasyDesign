@@ -51,6 +51,10 @@ class ConfirmSeedingTray extends HookConsumerWidget {
         .map((e) => e.lotCode.startsWith('#') ? e.lotCode : '#${e.lotCode}')
         .toList();
 
+    final List<String> seedLotList = scannedSeedLots
+        .map((e) => e.id)
+        .toList();
+
     return SafeArea(child: Scaffold(
       appBar: getActionbar(context,S.of(context).harvestingTrays),
       body:  SizedBox(
@@ -120,16 +124,19 @@ class ConfirmSeedingTray extends HookConsumerWidget {
                         Utils.showSnackBar(context, 'Scan at least one seed lot');
                         return;
                       }
-                      final request = AddSeedRequest(
-                        seedLots: scannedLots.map((e) => AddSeedLotRequestData(seedLotId: e.id, quantityKg: int.tryParse(e.currentQuantityKg) ?? 0)).toList(),
-                        seedGramsPerTray: 0,
-                        coirGramsPerTray: 0,
-                        numFullTrays: 0,
-                        numHalfTrays: 0,
-                      );
+
+                      final jsonData = {
+                        "seedLots": seedLotList,
+                        "seedGramsPerTray": int.tryParse(seedWeightTray.toString()) ?? 0,
+                        "coirGramsPerTray": int.tryParse(coreWeightTray.toString()) ?? 0,
+                        "numFullTrays": int.tryParse(numberOfFullTrays.toString()) ?? 0,
+                        "numHalfTrays": int.tryParse(numberOfHalfTrays.toString()) ?? 0
+                      };
+
+                      final addSeedRequestJson = AddSeedRequestJson.fromJson(jsonData);
 
                       final repo = ref.read(authRepositoryProvider);
-                      final ok = await repo.addSeeds(request);
+                      final ok = await repo.addSeeds(addSeedRequestJson);
                       if (ok) {
                         Utils.showSnackBar(context, 'Seeds added successfully');
                         context.navigator.pushNamed(homeTab);
