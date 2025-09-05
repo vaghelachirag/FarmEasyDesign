@@ -168,32 +168,26 @@ class AuthRepository {
   }
 
   // Fetch Seeds Lot
-  Future<List<GetSeedLotInfoResponse>> fetchSeedsLotInfo(String? token, String? seedLotId) async {
+  Future<GetSeedLotInfoResponse?> fetchSeedsLotInfo(String? token, String? seedLotId) async {
     final apiProvider = ref.read(apiManagerProvider);
     try {
-      final response = await apiProvider.callGet(path: ApiPath.getSeedLotUrl,
+      final response = await apiProvider.callGet(
+        path: ApiPath.addSeedsUrl,
         header: {
-          "Authorization": "Bearer $token",
+          if (token != null && token.isNotEmpty) "Authorization": "Bearer $token",
         },
       );
 
       if (response.statusCode == 200) {
-        final responseData = response.data;
-
-        if (responseData != null && responseData['data'] != null) {
-          final List<dynamic> list = responseData['data'];
-          return list
-              .map((json) => GetSeedLotInfoResponse.fromJson(json))
-              .toList();
-        }
-        else{
-          return [];
+        final data = response.data;
+        if (data != null && data['data'] != null) {
+          return GetSeedLotInfoResponse.fromJson(data['data']);
         }
       }
-      return []; // empty list if no data
-    } on DioException catch (error) {
-      debugPrint("fetchSeeds error: ${error.message}");
-      return []; // return empty list instead of false
+      return null;
+    } on DioException catch (e) {
+      debugPrint("fetchSeedLotById error: ${e.message}");
+      return null;
     }
   }
 

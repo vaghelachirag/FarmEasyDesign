@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../base/utils/app_colors.dart';
 import '../../../../base/utils/app_decorations.dart';
@@ -66,6 +67,13 @@ class AddPersonDetailScreen extends HookConsumerWidget {
     final coreWeightTray = useTextEditingController();
     final seedingDate = useTextEditingController();
 
+    // Set current date when the screen loads
+    useEffect(() {
+      final now = DateTime.now();
+      final formattedDate = DateFormat('yyyy-MM-dd').format(now);
+      seedingDate.text = formattedDate;
+      return null;
+    }, []);
 
 
     final searchText = ref.watch(peopleSearchTextProvider);
@@ -131,6 +139,7 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
                   seedWeightTray,
                   coreWeightTray,
                   seedingDate,
+                  ref
                 ),
                 20.verticalSpace,
                 SizedBox(
@@ -148,9 +157,74 @@ Widget _mainWidgetForAddPerson(TextEditingController numberOfFullTrays, TextEdit
     );
 }
 
-  Widget _customProcessButton(BuildContext context, TextEditingController seedLotCode, TextEditingController numberOfFullTrays, TextEditingController numberOfHalfTrays, TextEditingController seedsName, TextEditingController seedWeightTray, TextEditingController coreWeightTray, TextEditingController seedingDate,){
+  Widget _customProcessButton(BuildContext context, TextEditingController seedLotCode, TextEditingController numberOfFullTrays, TextEditingController numberOfHalfTrays, TextEditingController seedsName, TextEditingController seedWeightTray, TextEditingController coreWeightTray, TextEditingController seedingDate, WidgetRef ref,){
     return CustomProceedButton(
       onPressed: (){
+        if (numberOfFullTrays.text.trim().isEmpty) {
+          Utils.showToast('Please enter number of full trays');
+          return;
+        }
+        if (numberOfHalfTrays.text.trim().isEmpty) {
+          Utils.showToast('Please enter number of half trays');
+          return;
+        }
+        
+        if (seedsName.text.trim().isEmpty) {
+          Utils.showToast('Please enter seeds name');
+          return;
+        }
+        
+        if (seedWeightTray.text.trim().isEmpty) {
+          Utils.showToast('Please enter seed weight per tray');
+          return;
+        }
+        
+        if (coreWeightTray.text.trim().isEmpty) {
+          Utils.showToast('Please enter core weight');
+          return;
+        }
+        
+        if (seedingDate.text.trim().isEmpty) {
+          Utils.showToast('Please enter seeding date');
+          return;
+        }
+
+        // Validate numeric fields
+        if (int.tryParse(numberOfFullTrays.text.trim()) == null) {
+          Utils.showSnackBar(context,'Number of full trays must be a valid number');
+          return;
+        }
+        
+        if (int.tryParse(numberOfHalfTrays.text.trim()) == null) {
+          Utils.showSnackBar(context,'Number of half trays must be a valid number');
+          return;
+        }
+        
+        if (double.tryParse(seedWeightTray.text.trim()) == null) {
+          Utils.showSnackBar(context,'Seed weight must be a valid number');
+          return;
+        }
+        
+        if (double.tryParse(coreWeightTray.text.trim()) == null) {
+          Utils.showSnackBar(context,'Core weight must be a valid number');
+          return;
+        }
+
+        // Validate date format
+        try {
+          DateFormat('yyyy-MM-dd').parse(seedingDate.text.trim());
+        } catch (e) {
+          Utils.showSnackBar(context,'Please enter a valid date in yyyy-MM-dd format');
+          return;
+        }
+
+        // Check if at least one seed lot is scanned
+        final scannedSeeds = ref.read(scannedSeedLotsProvider);
+
+        if (scannedSeeds.isEmpty) {
+          Utils.showSnackBar(context,'Please scan at least one seed lot code');
+          return;
+        }
 
         context.navigator.pushNamed(
           confirmSeedingTray,
