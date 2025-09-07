@@ -25,6 +25,7 @@ import '../../../../components/widget/widget_custom_qr_processed.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../generator/assets.gen.dart';
 import '../../../../model/seeds/getSeedLotListResponse/get_seed_lot_response.dart';
+import '../../../seedInfo/seed_lot_provider.dart';
 import '../../../tab/bottombarNavigator/provider/bottomBar_provider.dart';
 import '../../../tab/cycles/provider/cycles_provider.dart';
 import '../../../tab/seeding/provider/seeding_provider.dart';
@@ -78,7 +79,6 @@ class AddPersonDetailScreen extends HookConsumerWidget {
 
     final searchText = ref.watch(peopleSearchTextProvider);
     final lotCodes = ref.watch(seedLotListProvider);
-
 
     return SafeArea(
       child: Scaffold(
@@ -557,7 +557,7 @@ Widget infoWindow(BuildContext context) {
   );
 }
 
-Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
+Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref, CycleStage cycleStatus){
   final scannedSeeds = ref.watch(scannedSeedLotsProvider);
   return
     Center(
@@ -571,48 +571,41 @@ Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNo
                 facing: CameraFacing.back,
               ),
               onDetect: (barcodeCapture) async {
+                final cycleStage = ref.watch(cycleStageProvider);
                 for (final barcode in barcodeCapture.barcodes) {
                   final rawValue = barcode.rawValue;
                   if (rawValue != null) {
-
-                    final seeds = ref.read(seedLotListProvider);
-                    for (final barcode in barcodeCapture.barcodes) {
-                      final rawValue = barcode.rawValue;
-                      if (rawValue != null) {
+                    switch (cycleStage) {
+                      case CycleStage.seeding:
+                        // Handle seeding stage scanning
+                        final seeds = ref.read(seedLotListProvider);
                         final seed = findSeedById(seeds, rawValue);
                         if (seed != null && !scannedSeeds.contains(seed)) {
                           ref.read(scannedSeedLotsProvider.notifier).update((state) => [...state, seed]);
                           scanStateNotifier.state = ScanState.success;
                         }
-                      }
-                    }
-
-                   /* try {
-                      // Call API to fetch seed lot info by ID
-                      final seedLotInfo = await ref.read(fetchSeedLotByIdProvider(rawValue).future);
-                      
-                      if (seedLotInfo != null) {
-                        final seedLotData = convertSeedLotInfoToData(seedLotInfo);
+                        break;
                         
-                        if (seedLotData != null) {
-                          // Check if this seed lot is already scanned
-                          if (!scannedSeeds.any((seed) => seed.id == seedLotData.id)) {
-                            ref.read(scannedSeedLotsProvider.notifier).update((state) => [...state, seedLotData]);
-                            scanStateNotifier.state = ScanState.success;
-                            Utils.showToast('Seed lot ${seedLotData.lotCode} scanned successfully');
-                          } else {
-                            Utils.showToast('Seed lot ${seedLotData.lotCode} already scanned');
-                          }
-                        }
-                      } else {
-                        // Handle case where seed lot is not found
-                        Utils.showToast('Seed lot with ID $rawValue not found');
-                      }
-                    } catch (e) {
-                      // Handle API call errors
-                      Utils.showToast('Error scanning seed lot: ${e.toString()}');
+                      case CycleStage.germination:
+                        scanStateNotifier.state = ScanState.success;
+                        break;
+                        
+                      case CycleStage.moveToGermination:
+                        scanStateNotifier.state = ScanState.success;
+                        break;
+                        
+                      case CycleStage.moveToFertigation:
+                        scanStateNotifier.state = ScanState.success;
+                        break;
+                        
+                      case CycleStage.harvesting:
+                        scanStateNotifier.state = ScanState.success;
+                        break;
+                      case CycleStage.fertigation:
+                        scanStateNotifier.state = ScanState.success;
+                        break;
                     }
-*/                  }
+                  }
                 }
               },
             ),

@@ -97,28 +97,6 @@ Widget addDetailButton(BuildContext context, StateController<ScanState> scanStat
     ],);
 }
 
-Widget mobileScanner(ScanState scanState, StateController<ScanState> scanStateNotifier){
-  return
-   Center(
-     child:  Container(
-         margin: EdgeInsets.all(15),
-         child:  ClipRRect(
-           borderRadius: BorderRadius.circular(20),
-           child: MobileScanner(
-             controller: MobileScannerController(
-               detectionSpeed: DetectionSpeed.normal,
-               facing: CameraFacing.back,
-             ),
-             onDetect: (BarcodeCapture barcode) {
-               scanStateNotifier.state = ScanState.success;
-             },
-           ),
-         )
-     ),
-   )
-  ;
-}
-
 Widget tapScanColumn(BuildContext context){
   return  Column(
     mainAxisAlignment: MainAxisAlignment.center,

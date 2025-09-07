@@ -39,6 +39,10 @@ class CustomTextField extends StatelessWidget {
             autofocus: true,
             textInputAction: textInputAction,
             obscureText: obscureText,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontSize: 16,
+              color: Colors.black,
+            ),
             readOnly: readOnly,
             validator: validator,
             decoration: AppDecorations.mainInputTextDecoration(hintText,title,suffix))

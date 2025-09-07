@@ -58,7 +58,7 @@ class CyclesPage extends HookConsumerWidget {
           Expanded(
             child: cycleListState.isApiCall ? LoadingList() : SingleChildScrollView(
               child: Column(
-                children: [totalCycleWidget(context), cycleListView(cycles, cycleListState, notifier)],
+                children: [totalCycleWidget(context), cycleListView(cycles, cycleListState, notifier,ref)],
               ),
             ),
           ),
@@ -68,7 +68,7 @@ class CyclesPage extends HookConsumerWidget {
   }
 }
 
-Widget cycleListView(List<ModelCycle> cycles, CycleListState cycleListState, CycleListNotifier notifier) {
+Widget cycleListView(List<ModelCycle> cycles, CycleListState cycleListState, CycleListNotifier notifier, WidgetRef ref) {
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
@@ -216,14 +216,14 @@ class CycleStatusCard extends ConsumerWidget {
               ],
             ),
             10.verticalSpace,
-            _seedingInfoContainer(cycle, context),
+            _seedingInfoContainer(cycle, context,ref),
           ],
         ),
       ),
     );
   }
 
-  Widget _seedingInfoContainer(ModelCycle cycle, BuildContext context) {
+  Widget _seedingInfoContainer(ModelCycle cycle, BuildContext context, WidgetRef ref) {
     return Container(
       padding: EdgeInsets.only(left: 5.w, right: 5.w),
       child: Column(
@@ -245,7 +245,7 @@ class CycleStatusCard extends ConsumerWidget {
           5.verticalSpace,
           DashedLine(),
           5.verticalSpace,
-          currentStageCycleWidget(cycle),
+          currentStageCycleWidget(cycle,ref),
           20.verticalSpace,
         ],
       ),
@@ -253,11 +253,11 @@ class CycleStatusCard extends ConsumerWidget {
   }
 }
 
-Widget currentStageCycleWidget(ModelCycle cycle) {
+Widget currentStageCycleWidget(ModelCycle cycle, WidgetRef ref) {
   return CustomSeedingActionSection(
     buttonText: getActionButtonText(cycle.currentStage),
     currentStage: cycle.currentStage,
-    modelCycle: cycle,
+    modelCycle: cycle, ref: ref,
   );
 }
 

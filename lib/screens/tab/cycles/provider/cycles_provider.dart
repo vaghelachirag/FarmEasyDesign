@@ -25,6 +25,12 @@ enum CycleStage {
 }
 
 
+// Provider for CycleStage
+final cycleStageProvider = StateProvider<CycleStage>((ref) {
+  return CycleStage.seeding;
+});
+
+
 final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
   return [
     ModelCycle(
@@ -135,7 +141,6 @@ final cyclesProvider = StateProvider<List<ModelCycle>>((ref) {
     // Add more cycles as needed
   ];
 });
-
 
 
 final assignedUsersProvider = StateProvider<List<ModelAssignUser>>((ref) {

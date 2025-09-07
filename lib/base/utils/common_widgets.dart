@@ -808,7 +808,6 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
   return Center(
     child: GestureDetector(
       onTap: ()  {
-       // scanStateNotifier.state = ScanState.scanning;
         scanStateNotifier.state = ScanState.scanning;
       },
       child: SizedBox(
@@ -841,12 +840,12 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
             // Main Content with padding
             Container(
               child: switch(scanState){
-                ScanState.idle =>  idealScanContainer(context,scanState,scanStateNotifier,ref),
-                ScanState.scanning => mobileScanner(scanState,scanStateNotifier,ref),
-                ScanState.success => idealScanContainer(context,scanState,scanStateNotifier,ref),
-                ScanState.confirmDetail => idealScanContainer(context,scanState,scanStateNotifier,ref),
-                ScanState.moveToFertigation => idealScanContainer(context,scanState,scanStateNotifier,ref),
-                ScanState.scanNextQR => idealScanContainer(context,scanState,scanStateNotifier,ref),
+                ScanState.idle =>  idealScanContainer(context,scanState,scanStateNotifier,ref,cycleStatus),
+                ScanState.scanning => mobileScanner(scanState,scanStateNotifier,ref,cycleStatus),
+                ScanState.success => idealScanContainer(context,scanState,scanStateNotifier,ref,cycleStatus),
+                ScanState.confirmDetail => idealScanContainer(context,scanState,scanStateNotifier,ref,cycleStatus),
+                ScanState.moveToFertigation => idealScanContainer(context,scanState,scanStateNotifier,ref,cycleStatus),
+                ScanState.scanNextQR => idealScanContainer(context,scanState,scanStateNotifier,ref,cycleStatus),
               },
             ),
             //  idealScanContainer(context)
@@ -857,7 +856,7 @@ Widget scanQrExpand(BuildContext context, bool showScanner, StateController<bool
   );
 }
 
-Widget idealScanContainer(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref){
+Widget idealScanContainer(BuildContext context, ScanState scanState, StateController<ScanState> scanStateNotifier, WidgetRef ref, CycleStage cycleStatus){
   return Container(
     margin: EdgeInsets.all(15),
     decoration: AppDecorations.scanQrcodeBg(),
@@ -878,7 +877,7 @@ Widget idealScanContainer(BuildContext context, ScanState scanState, StateContro
             Container(
               child: switch(scanState){
                 ScanState.idle =>  tapScanColumn(context),
-                ScanState.scanning => mobileScanner(scanState, scanStateNotifier,ref),
+                ScanState.scanning => mobileScanner(scanState, scanStateNotifier,ref,cycleStatus),
                 ScanState.success => scanSuccessWidget(context),
                 ScanState.confirmDetail => scanSuccessWidget(context),
                 ScanState.moveToFertigation => tapScanColumn(context),

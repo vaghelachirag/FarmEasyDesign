@@ -143,7 +143,6 @@ class AuthRepository {
   }
 
   // Fetch Single Seed Lot by ID
-// in lib/network/authRepositoryProvider.dart
   Future<GetSeedLotInfoResponse?> fetchSeedLotById(String lotId, String? token) async {
     final apiProvider = ref.read(apiManagerProvider);
     try {

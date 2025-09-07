@@ -32,25 +32,26 @@ class CustomSeedingActionSection extends StatelessWidget {
   final String buttonText;
   final CycleStage currentStage;
   final ModelCycle modelCycle;
+  final WidgetRef ref ;
 
-  const CustomSeedingActionSection({super.key, required this.buttonText,required this.currentStage,required this.modelCycle});
+  const CustomSeedingActionSection({super.key, required this.buttonText,required this.currentStage,required this.modelCycle,required this.ref});
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
     return  switch (currentStage) {
-      CycleStage.seeding => loadCycleButtonWidget(context,currentStage,buttonText),
-      CycleStage.germination => loadGerminationWidget(context,currentStage,buttonText,modelCycle),
-      CycleStage.moveToFertigation => loadCycleButtonWidget(context,currentStage,buttonText),
-      CycleStage.harvesting => loadCycleButtonWidget(context,currentStage,buttonText),
+      CycleStage.seeding => loadCycleButtonWidget(context,currentStage,buttonText,modelCycle,ref),
+      CycleStage.germination => loadGerminationWidget(context,currentStage,buttonText,modelCycle,ref),
+      CycleStage.moveToFertigation => loadCycleButtonWidget(context,currentStage,buttonText,modelCycle,ref),
+      CycleStage.harvesting => loadCycleButtonWidget(context,currentStage,buttonText,modelCycle,ref),
       CycleStage.fertigation => FertigationWidget(currentStage: currentStage,buttonText: buttonText,modelCycle: modelCycle),
-      CycleStage.moveToGermination => loadMoveToGerminationWidget(context,modelCycle)
+      CycleStage.moveToGermination => loadMoveToGerminationWidget(context,modelCycle,ref)
     };
   }
 }
 
-Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, String buttonText, ModelCycle modelCycle){
+Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, String buttonText, ModelCycle modelCycle, WidgetRef ref){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -105,32 +106,37 @@ Widget loadGerminationWidget(BuildContext context, CycleStage currentStage, Stri
         ))
           ],
         ),
-        // 🔹 Your block ends here
       ]
   );
 }
-void navigateToStage(BuildContext context, CycleStage stage) {
+void navigateToStage(BuildContext context, CycleStage stage, ModelCycle modelCycle, ref) {
   switch (stage) {
     case CycleStage.seeding:
-      moveToNextScreen(context,seedingTraysScreen,stage);
+      ref.read(cycleStageProvider.notifier).state = CycleStage.seeding;
+      moveToNextScreen(context,seedingTraysScreen,stage,modelCycle);
       break;
     case CycleStage.germination:
-      moveToNextScreen(context,movingToGerminationScreen,stage);
+      ref.read(cycleStageProvider.notifier).state = CycleStage.germination;
+      moveToNextScreen(context,movingToGerminationScreen,stage,modelCycle);
       break;
     case CycleStage.moveToFertigation:
-      moveToNextScreen(context,moveToGerminationNextAction,stage);
+      ref.read(cycleStageProvider.notifier).state = CycleStage.moveToFertigation;
+      moveToNextScreen(context,moveToGerminationNextAction,stage,modelCycle);
       break;
     case CycleStage.harvesting:
-      moveToNextScreen(context,harvestingTraysScreens,stage);
+      ref.read(cycleStageProvider.notifier).state = CycleStage.harvesting;
+      moveToNextScreen(context,harvestingTraysScreens,stage,modelCycle);
       break;
     case CycleStage.fertigation:
-      moveToNextScreen(context,moveToFertigationScreen,stage);
+      ref.read(cycleStageProvider.notifier).state = CycleStage.fertigation;
+      moveToNextScreen(context,moveToFertigationScreen,stage,modelCycle);
     case CycleStage.moveToGermination:
-      moveToNextScreen(context,movingToGerminationScreen,stage);
+      ref.read(cycleStageProvider.notifier).state = CycleStage.moveToGermination;
+      moveToNextScreen(context,movingToGerminationScreen,stage,modelCycle);
   }
 }
 
-Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, String buttonText){
+Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, String buttonText, ModelCycle modelCycle, ref){
   return  Column(
     children: [
       10.verticalSpace,
@@ -140,12 +146,12 @@ Widget loadCycleButtonWidget(BuildContext context, CycleStage currentStage, Stri
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            width: 150.w, // half screen with padding
+            width: 150.w,
             height: 30.h,
             child: ElevatedButton.icon(
               style: AppDecorations.startSeedingButtonStyle(),
               onPressed: () {
-                navigateToStage(context,currentStage);
+                navigateToStage(context,currentStage,modelCycle,ref);
               },
               icon: SvgPicture.asset(
                 Assets.icons.iconStartSeed.path,
@@ -195,7 +201,7 @@ Widget loadFertigationWidget(BuildContext context, ModelCycle modelCycle){
 }
 
 
-Widget loadMoveToGerminationWidget(BuildContext context, ModelCycle modelCycle){
+Widget loadMoveToGerminationWidget(BuildContext context, ModelCycle modelCycle, ref){
   return bottomMoveToGerminationWidget(context,modelCycle);
 }
 
@@ -349,11 +355,18 @@ Widget currentNutritionTimeLineWidget(BuildContext context){
   );
 }
 
-void moveToNextScreen(BuildContext context,String routeName, CycleStage stage) {
-  context.navigator.pushNamed(
-    routeName,
-    arguments: {cycleStageArgumentName: stage},
-  );
+void moveToNextScreen(BuildContext context,String routeName, CycleStage stage, ModelCycle modelCycle) {
+  if(stage == CycleStage.moveToFertigation){
+    context.navigator.pushNamed(
+      routeName,
+      arguments: {cycleStageArgumentName: modelCycle},
+    );
+  }else {
+    context.navigator.pushNamed(
+      routeName,
+      arguments: {cycleStageArgumentName: stage},
+    );
+  }
 }
 
 class GerminationWidget extends StatefulWidget {

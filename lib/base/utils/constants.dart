@@ -23,3 +23,4 @@ const String seedingScreenPage = "/SeedingScreenPage";
 const String movingToGerminationDetail = "/MovingToGerminationDetail";
 const String moveToGerminationNextAction = "/MoveToGerminationNextAction";
 const String moveTrayScreen = "/MoveTraysScreen";
+const String seedLotScreen = "/SeedLotScreen";
